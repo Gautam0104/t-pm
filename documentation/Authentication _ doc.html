@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/guide/installation.html -->
+<html lang="en-US" dir="ltr" class="dark" id="theme">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Google Tag Manager -->
+    <script async="" src="./Installation _ doc_files/gtm.js.download"></script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5J3LMKC');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Authentication | Thunderbees</title>
+    <meta name="description" content="Production Ready, Carefully Crafted, Extensive Vuetify Admin Template">
+    <meta name="generator" content="VitePress v1.3.1">
+    <link rel="preload stylesheet"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/style.qV3dcLt7.css"
+        as="style">
+
+    <script type="module" src="./Installation _ doc_files/app.DkM2pYB_.js.download"></script>
+    <link rel="preload"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/inter-roman-latin.Di8DUHzh.woff2"
+        as="font" type="font/woff2" crossorigin="">
+    <link rel="modulepreload"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/chunks/framework.COb58QXy.js">
+    <link rel="modulepreload"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/chunks/theme.Ce9B1eHe.js">
+    <link rel="modulepreload"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/index.md.yTezCVUi.lean.js">
+    <link rel="icon" href="./doc_files/logo.png">
+    <meta name="theme-color" content="#EB3D63">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./Installation _ doc_files/css2">
+    <link rel="stylesheet" href="./Installation _ doc_files/css2(1)">
+    <script
+        id="check-dark-mode">(() => { const e = localStorage.getItem("vitepress-theme-appearance") || "auto", a = window.matchMedia("(prefers-color-scheme: dark)").matches; (!e || e === "auto" ? a : e === "dark") && document.documentElement.classList.add("dark") })();</script>
+    <script
+        id="check-mac-os">document.documentElement.classList.toggle("mac", /Mac|iPhone|iPod|iPad/i.test(navigator.platform));</script>
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_index.md.ps4gmFFW.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/faq_index.md.BgONB6ux.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/articles_index.md.CL620oKT.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/code-examples_fetching-nav-items-from-api.md.DYDnH0MI.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/contribution_index.md.BVm3IMcw.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_video-tutorials.md.B3DVvjtX.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_installation.md.noxsysTf.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_vscode-setup.md.D_WBrNnc.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_folder-structure.md.sM0x-SBN.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_getting-started_colors-and-themes.md.Cnpzq8TD.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_getting-started_theme-configuration.md.C5uhCarC.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_how-to-create-a-new-page.md.DYk_ag9i.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_styles.md.Ow1ewaxN.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_navigation-menu.md.CGIwS6g8.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_getting-started_plugins.md.C5mdUkkD.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_getting-started_data-fetching.md.DmRHMg1u.js">
+    <link rel="prefetch"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/assets/guide_authentication.md.rh304ixc.js">
+    <link rel="stylesheet" href="doc_files/test.css">
+    <link rel="stylesheet" href="doc_files/themeSwitcher.css">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5J3LMKC" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="app">
+        <div class="Layout" data-v-2c31d08e=""><!--[--><!--]--><!--[--><span tabindex="-1" data-v-b79a9377=""></span><a
+                href="Installation _ doc.html" class="VPSkipLink visually-hidden" data-v-b79a9377=""> Skip to content
+            </a><!--]--><!---->
+            <div onclick="sideMenutoggle()" data-v-f53da93e="" data-v-2c31d08e=""
+                class="VPBackdrop backdrop backdrophide" id="backdrop" id="backdrop">
+            </div>
+            <header class="VPNav" data-v-2c31d08e="" data-v-2a5f9854="">
+                <div class="VPNavBar has-sidebar top" data-v-2a5f9854="" data-v-ea10065c="">
+                    <div class="wrapper" data-v-ea10065c="">
+                        <div class="container" data-v-ea10065c="">
+                            <div class="title" data-v-ea10065c="">
+                                <div class="VPNavBarTitle has-sidebar" data-v-ea10065c="" data-v-cf56d5da=""><a
+                                        class="title" href="https://thunderbees.com.br/eztask"
+                                        data-v-cf56d5da=""><!--[--><!--]--><!--[--><img class="VPImage logo"
+                                            src="./doc_files/logo.png" alt="" data-v-0e489b48=""><!--]--><span
+                                            data-v-cf56d5da="">Thunderbees</span><!--[--><!--]--></a></div>
+                            </div>
+                            <div class="content" data-v-ea10065c="">
+                                <div class="content-body" data-v-ea10065c=""><!--[--><!--]-->
+                                    <div class="VPNavBarSearch search" data-v-ea10065c=""><!--[--><!---->
+                                        <div id="local-search"><button type="button" class="DocSearch DocSearch-Button"
+                                                aria-label="Search"><span class="DocSearch-Button-Container"><span
+                                                        class="vp-icon DocSearch-Search-Icon"></span><span
+                                                        class="DocSearch-Button-Placeholder">Search</span></span><span
+                                                    class="DocSearch-Button-Keys"><kbd
+                                                        class="DocSearch-Button-Key"></kbd><kbd
+                                                        class="DocSearch-Button-Key">K</kbd></span></button></div>
+                                        <!--]-->
+                                    </div>
+                                    <nav aria-labelledby="main-nav-aria-label" class="VPNavBarMenu menu"
+                                        data-v-ea10065c="" data-v-96c787e6=""><span id="main-nav-aria-label"
+                                            class="visually-hidden" data-v-96c787e6=""> Main Navigation
+                                        </span><!--[--><!--[--><a class="VPLink link VPNavBarMenuLink active" href=""
+                                            tabindex="0" data-v-96c787e6="" data-v-ae9b85a5=""><!--[--><span
+                                                data-v-ae9b85a5="">Guide</span><!--]--></a><!--]--><!--]--><!--[-->
+                                        <div class="toggle">
+                                            <input type="checkbox" id="btn">
+                                            <label for="btn" onclick="switchThemetoggle()">
+                                                <span class="track">
+                                                    <span class="txt"></span>
+                                                </span>
+                                                <span class="thumb">|||</span>
+                                            </label>
+                                        </div>
+                                        <div class="VPFlyout VPNavBarMenuGroup" data-v-96c787e6="" data-v-77cf94f3="">
+
+
+                                            <div class="menu" data-v-77cf94f3="">
+                                                <div class="VPMenu" data-v-77cf94f3="" data-v-0b06d54e="">
+                                                    <div class="items" data-v-0b06d54e=""><!--[--><!--[-->
+                                                        <div class="VPMenuLink" data-v-0b06d54e="" data-v-d5fb1880="">
+                                                        </div><!--]--><!--[-->
+                                                        <div class="VPMenuLink" data-v-0b06d54e="" data-v-d5fb1880="">
+                                                        </div>
+                                                        <!--]--><!--]-->
+                                                    </div><!--[--><!--]-->
+                                                </div>
+                                            </div>
+                                        </div><!--]--><!--[-->
+                                        <div class="VPFlyout VPNavBarMenuGroup" data-v-96c787e6="" data-v-77cf94f3="">
+
+                                            <div class="menu" data-v-77cf94f3="">
+                                                <div class="VPMenu" data-v-77cf94f3="" data-v-0b06d54e="">
+                                                    <div class="items" data-v-0b06d54e=""><!--[--><!--[-->
+                                                        <div class="VPMenuLink" data-v-0b06d54e="" data-v-d5fb1880=""><a
+                                                                class="VPLink link vp-external-link-icon" href=""
+                                                                target="_blank" rel="noreferrer"
+                                                                data-v-d5fb1880=""><!--[-->Vue<!--]--></a></div>
+                                                        <!--]--><!--[-->
+                                                        <div class="VPMenuLink" data-v-0b06d54e="" data-v-d5fb1880=""><a
+                                                                class="VPLink link vp-external-link-icon" href=""
+                                                                target="_blank" rel="noreferrer"
+                                                                data-v-d5fb1880=""><!--[-->Laravel<!--]--></a></div>
+                                                        <!--]--><!--[-->
+                                                        <div class="VPMenuLink" data-v-0b06d54e="" data-v-d5fb1880=""><a
+                                                                class="VPLink link vp-external-link-icon" href=""
+                                                                target="_blank" rel="noreferrer"
+                                                                data-v-d5fb1880=""><!--[-->Nuxt<!--]--></a></div>
+                                                        <!--]--><!--]-->
+                                                    </div><!--[--><!--]-->
+                                                </div>
+                                            </div>
+                                        </div><!--]--><!--[--><!--]--><!--]-->
+                                    </nav><!---->
+                                    <div class="VPNavBarAppearance appearance" data-v-ea10065c="" data-v-c44248a2="">
+
+                                    </div>
+                                    <!---->
+                                    <div class="VPFlyout VPNavBarExtra extra" data-v-ea10065c="" data-v-a614bd68=""
+                                        data-v-77cf94f3=""><button type="button" class="button" aria-haspopup="true"
+                                            aria-expanded="false" aria-label="extra navigation" data-v-77cf94f3=""><span
+                                                class="vpi-more-horizontal icon" data-v-77cf94f3=""></span></button>
+                                        <div class="menu" data-v-77cf94f3="">
+                                            <div class="VPMenu" data-v-77cf94f3="" data-v-0b06d54e="">
+                                                <!----><!--[--><!--[--><!---->
+                                                <div class="group" data-v-a614bd68="">
+                                                    <div class="item appearance" data-v-a614bd68="">
+                                                        <p class="label" data-v-a614bd68="">Appearance</p>
+                                                        <div class="appearance-action" data-v-a614bd68=""><button
+                                                                class="VPSwitch VPSwitchAppearance" type="button"
+                                                                role="switch" title="Switch to light theme"
+                                                                aria-checked="false" data-v-a614bd68=""
+                                                                data-v-de588eec="" data-v-77375079=""><span
+                                                                    class="check" data-v-77375079=""><span class="icon"
+                                                                        data-v-77375079=""><!--[--><span
+                                                                            class="vpi-sun sun"
+                                                                            data-v-de588eec=""></span><span
+                                                                            class="vpi-moon moon"
+                                                                            data-v-de588eec=""></span><!--]--></span></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!--]--><!--]-->
+                                            </div>
+                                        </div>
+                                    </div><!--[--><!--]--><button type="button" onclick="vpMenuSwitch()"
+                                        onclick="vpMenuSwitch()" class="VPNavBarHamburger hamburger"
+                                        aria-label="mobile navigation" aria-expanded="false" aria-controls="VPNavScreen"
+                                        data-v-ea10065c="" data-v-6a6bf4b1=""><span class="container"
+                                            data-v-6a6bf4b1=""><span class="top" data-v-6a6bf4b1=""></span><span
+                                                class="middle" data-v-6a6bf4b1=""></span><span class="bottom"
+                                                data-v-6a6bf4b1=""></span></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider" data-v-ea10065c="">
+                        <div class="divider-line" data-v-ea10065c=""></div>
+                    </div>
+                    <div data-v-d8dd54e8="" data-v-2a5f9854="" class="VPNavScreen VPNavScreenhide" id="VPNavScreen">
+                        <div data-v-d8dd54e8="" class="container">
+                            <nav data-v-d8dd54e8="" class="VPNavScreenMenu menu"><a data-v-b5bcfc1e=""
+                                    class="VPLink link VPNavScreenMenuLink" href="">Guide</a>
+                            </nav><!---->
+                            <div data-v-b99902d2="" data-v-d8dd54e8="" class="VPNavScreenAppearance appearance">
+                                <p data-v-b99902d2="" class="text">Appearance</p><button onclick="switchThemetoggle()"
+                                    data-v-77375079="" data-v-de588eec="" data-v-b99902d2=""
+                                    class="VPSwitch VPSwitchAppearance" type="button" role="switch"
+                                    title="Switch to light theme" aria-checked="true"><span data-v-77375079=""
+                                        class="check"><span data-v-77375079="" class="icon"><span data-v-de588eec=""
+                                                class="vpi-sun sun"></span><span data-v-de588eec=""
+                                                class="vpi-moon moon"></span></span></span></button>
+                            </div><!---->
+                        </div>
+                    </div>
+                </div><!---->
+            </header>
+            <div data-v-4aa410e9="" data-v-2c31d08e="" class="VPLocalNav has-sidebar">
+                <div data-v-4aa410e9="" class="container"><button data-v-4aa410e9="" class="menu" aria-expanded="false"
+                        onclick="sideMenutoggle()" aria-controls="VPSidebarNav"><span data-v-4aa410e9=""
+                            class="vpi-align-left menu-icon"></span><span data-v-4aa410e9=""
+                            class="menu-text">Menu</span></button>
+                    <div data-v-fa495079="" data-v-4aa410e9="" class="VPLocalNavOutlineDropdown" style="--vp-vh: 0px;">
+                        <button data-v-fa495079="" class=""><span data-v-fa495079="" class="menu-text">On this
+                                page</span><span data-v-fa495079=""
+                                class="vpi-chevron-right icon"></span></button><!---->
+                    </div>
+                </div>
+            </div>
+            <aside data-v-ba3e7866="" data-v-2c31d08e="" class="VPSidebar" id="sidemenu">
+                <div data-v-ba3e7866="" class="curtain"></div>
+                <nav data-v-ba3e7866="" class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label"
+                    tabindex="-1"><span data-v-ba3e7866="" class="visually-hidden" id="sidebar-aria-label"> Sidebar
+                        Navigation </span>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0"><!---->
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Welcome _ doc.html">
+                                            <p data-v-77984d35="" class="text">Welcome</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="video _ doc.html">
+                                            <p data-v-77984d35="" class="text">Video Tutorials</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7=""
+                            class="VPSidebarItem level-0 collapsible has-active">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">Getting Started</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link is-active has-active">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Installation _ doc.html">
+                                            <p data-v-77984d35="" class="text">Installation</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Vscode _ doc.html">
+                                            <p data-v-77984d35="" class="text">VS Code Setup</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Folder_structure _ doc.html">
+                                            <p data-v-77984d35="" class="text">Folder Structure</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Colors_and_Themes _ doc.html">
+                                            <p data-v-77984d35="" class="text">Colors And Themes</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Theme_Configuration _ doc.html">
+                                            <p data-v-77984d35="" class="text">Theme Configuration</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="How_To_Create_A_New_Page _ doc.html">
+                                            <p data-v-77984d35="" class="text">How To Create A New Page</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Styles _ doc.html">
+                                            <p data-v-77984d35="" class="text">Styles</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Navigation_Menu _ doc.html">
+                                            <p data-v-77984d35="" class="text">Navigation Menu</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="plugins _ doc.html">
+                                            <p data-v-77984d35="" class="text">Plugins</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Data_Fetching _ doc.html">
+                                            <p data-v-77984d35="" class="text">Data Fetching</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Authentication _ doc.html">
+                                            <p data-v-77984d35="" class="text">Authentication</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Access_Control _ doc.html">
+                                            <p data-v-77984d35="" class="text">Access Control</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Splash_Screen _ doc.html">
+                                            <p data-v-77984d35="" class="text">Splash Screen</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" html href="RTL _ doc.html">
+                                            <p data-v-77984d35="" class="text">RTL</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Icons _ doc.html">
+                                            <p data-v-77984d35="" class="text">Icons</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0 collapsible">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">@core</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Introduction _ doc.html">
+                                            <p data-v-77984d35="" class="text">Introduction</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <section data-v-77984d35="" class="VPSidebarItem level-1 collapsible">
+                                    <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                        <div data-v-77984d35="" class="indicator"></div>
+                                        <h3 data-v-77984d35="" class="text">Components</h3>
+                                        <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                            tabindex="0"><span data-v-77984d35=""
+                                                class="vpi-chevron-right caret-icon"></span></div>
+                                    </div>
+                                    <div data-v-77984d35="" class="items">
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Stepper _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Stepper</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Tip_Tap_Editor _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Tip tap Editor</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Custom_Input _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Custom Input</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Navbar_I18n _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Navbar I18n</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="App_Card_Code _ doc.html">
+                                                    <p data-v-77984d35="" class="text">App Card Code</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="App_Card_Actions _ doc.html">
+                                                    <p data-v-77984d35="" class="text">App Card Actions</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Theme_Switcher _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Theme Switcher</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Navbar_Notifications _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Navbar Notifications</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                        <div data-v-77984d35="" class="VPSidebarItem level-2 is-link">
+                                            <div data-v-77984d35="" class="item">
+                                                <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                                    class="VPLink link link" href="Navbar_Shortcuts _ doc.html">
+                                                    <p data-v-77984d35="" class="text">Navbar Shortcuts</p>
+                                                </a><!---->
+                                            </div><!---->
+                                        </div>
+                                    </div>
+                                </section>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Composables _ doc.html">
+                                            <p data-v-77984d35="" class="text">Composables</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0 collapsible">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">@layouts</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Layout_Introduction _ doc.html">
+                                            <p data-v-77984d35="" class="text">Introduction</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Layout_Plugin _ doc.html">
+                                            <p data-v-77984d35="" class="text">Layouts Plugin</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Layout_Types _ doc.html">
+                                            <p data-v-77984d35="" class="text">Layout Types</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0 collapsible">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">Laravel Integration</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Folder_Structure _ doc.html">
+                                            <p data-v-77984d35="" class="text">Folder Structure</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Installation _ doc.html">
+                                            <p data-v-77984d35="" class="text">Installation</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Database_Connection _ doc.html">
+                                            <p data-v-77984d35="" class="text">Database Connection</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Passport_Intergration _ doc.html">
+                                            <p data-v-77984d35="" class="text">Passport Integration</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Passport_Authentication _ doc.html">
+                                            <p data-v-77984d35="" class="text">Passport Authentication</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Sanctum_Integration _ doc.html">
+                                            <p data-v-77984d35="" class="text">Sanctum Integration</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Sanctum_Authentication _ doc.html">
+                                            <p data-v-77984d35="" class="text">Sanctum Authentication</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Frontend_Api_Call _ doc.html">
+                                            <p data-v-77984d35="" class="text">Frontend Api Call</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Laravel_Sail_Docker _ doc.html">
+                                            <p data-v-77984d35="" class="text">Laravel Sail Docker</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Laravel_Laravel_Develoyment _ doc.html">
+                                            <p data-v-77984d35="" class="text">Laravel Deployment</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0 collapsible">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">Components</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Dialog _ doc.html">
+                                            <p data-v-77984d35="" class="text">Dialog</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Tour _ doc.html">
+                                            <p data-v-77984d35="" class="text">Tour</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0 collapsible">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">Plugins</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Perfect_Scrollbar _ doc.html">
+                                            <p data-v-77984d35="" class="text">Perfect Scrollbar</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Vite_Svg_Loader _ doc.html">
+                                            <p data-v-77984d35="" class="text">Vite Svg Loader</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-v-61bac8c7="" class="group">
+                        <section data-v-77984d35="" data-v-61bac8c7="" class="VPSidebarItem level-0 collapsible">
+                            <div data-v-77984d35="" class="item" role="button" tabindex="0">
+                                <div data-v-77984d35="" class="indicator"></div>
+                                <h2 data-v-77984d35="" class="text">Support</h2>
+                                <div data-v-77984d35="" class="caret" role="button" aria-label="toggle section"
+                                    tabindex="0"><span data-v-77984d35="" class="vpi-chevron-right caret-icon"></span>
+                                </div>
+                            </div>
+                            <div data-v-77984d35="" class="items">
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Getting_Support _ doc.html">
+                                            <p data-v-77984d35="" class="text">Getting Support</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                                <div data-v-77984d35="" class="VPSidebarItem level-1 is-link">
+                                    <div data-v-77984d35="" class="item">
+                                        <div data-v-77984d35="" class="indicator"></div><a data-v-77984d35=""
+                                            class="VPLink link link" href="Github_Access _ doc.html">
+                                            <p data-v-77984d35="" class="text">Github Access</p>
+                                        </a><!---->
+                                    </div><!---->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </nav>
+            </aside>
+            <div class="VPContent has-sidebar" id="VPContent" data-v-2c31d08e="" data-v-7ce073b2="">
+                <div data-v-f617e204="" data-v-7ce073b2="" class="VPDoc has-sidebar has-aside">
+                    <div data-v-f617e204="" class="container">
+                        <div data-v-f617e204="" class="aside">
+                            <div data-v-f617e204="" class="aside-curtain"></div>
+                            <div data-v-f617e204="" class="aside-container">
+                                <div data-v-f617e204="" class="aside-content">
+                                    <div data-v-c3319c9a="" data-v-f617e204="" class="VPDocAside">
+                                        <nav data-v-48a2f3a8="" data-v-c3319c9a=""
+                                            aria-labelledby="doc-outline-aria-label"
+                                            class="VPDocAsideOutline has-outline">
+                                            <div data-v-48a2f3a8="" class="content">
+                                                <div data-v-48a2f3a8="" class="outline-marker"
+                                                    style="top: 33px; opacity: 0;"></div>
+                                                <div data-v-48a2f3a8="" aria-level="2" class="outline-title"
+                                                    id="doc-outline-aria-label" role="heading">On this page</div>
+                                                <ul data-v-a9b38641="" data-v-48a2f3a8="" class="VPDocOutlineItem root">
+                                                    <li data-v-a9b38641=""><a data-v-a9b38641="" class="outline-link"
+                                                            href="" title="Prerequisite">Prerequisite</a><!----></li>
+                                                    <li data-v-a9b38641=""><a data-v-a9b38641="" class="outline-link"
+                                                            href="" title="Getting started">Getting started</a><!---->
+                                                    </li>
+                                                    <li data-v-a9b38641=""><a data-v-a9b38641="" class="outline-link"
+                                                            href="" title="Generating build for production">Generating
+                                                            build for
+                                                            production</a><!----></li>
+                                                </ul>
+                                            </div>
+                                        </nav>
+                                        <div data-v-c3319c9a="" class="spacer"></div><!---->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-v-f617e204="" class="content">
+                            <div data-v-f617e204="" class="content-container">
+                                <main data-v-f617e204="" class="main">
+                                    <div data-v-f617e204=""
+                                        class="vp-doc _vuexy-vuejs-admin-template_documentation_guide_authentication"
+                                        style="position: relative;">
+                                        <div>
+                                            <h1 id="authentication" tabindex="-1">Authentication<a class="header-anchor"
+                                                    href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/guide/authentication.html#authentication"
+                                                    aria-label="Permalink to &quot;Authentication&quot;">​</a></h1>
+                                            <p>Our template uses <a href="https://en.wikipedia.org/wiki/JSON_Web_Token"
+                                                    target="_blank" rel="noreferrer">JWT token</a> for authentication.
+                                            </p>
+                                            <h2 id="login" tabindex="-1">Login <a class="header-anchor"
+                                                    href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/guide/authentication.html#login"
+                                                    aria-label="Permalink to &quot;Login&quot;">​</a></h2>
+                                            <p>Once the form is validated and successful API call is made to your API
+                                                endpoint, we update user
+                                                ability for access control and store the authentication related data in
+                                                <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/cookies"
+                                                    target="_blank" rel="noreferrer">Cookies</a>.
+                                            </p>
+                                            <p>For authentication, our admin template store below data in cookies for
+                                                persisting your session
+                                                during reloads:</p>
+                                            <ul>
+                                                <li>access token</li>
+                                                <li>user data (username, full name, etc.)</li>
+                                                <li>user abilities</li>
+                                            </ul>
+                                            <p>You can find login related self explanatory code in
+                                                <code>src/pages/login.vue</code> file's
+                                                <code>login</code> method.
+                                            </p>
+                                            <h2 id="logout" tabindex="-1">Logout <a class="header-anchor"
+                                                    href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/guide/authentication.html#logout"
+                                                    aria-label="Permalink to &quot;Logout&quot;">​</a></h2>
+                                            <p>In logout we remove the stored data and reset the user abilities to
+                                                initial abilities.</p>
+                                            <p>You can find logout related self explanatory code in
+                                                <code>src/layouts/components/UserProfile.vue</code> file's
+                                                <code>logout</code> method.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </main>
+                                <footer data-v-0e0099f1="" data-v-f617e204="" class="VPDocFooter"><!---->
+                                    <nav data-v-0e0099f1="" class="prev-next" aria-labelledby="doc-footer-aria-label">
+                                        <span data-v-0e0099f1="" class="visually-hidden"
+                                            id="doc-footer-aria-label">Pager</span>
+                                        <div data-v-0e0099f1="" class="pager"><a data-v-0e0099f1=""
+                                                class="VPLink link pager-link prev" href=""><span data-v-0e0099f1=""
+                                                    class="desc">Previous page</span><span data-v-0e0099f1=""
+                                                    class="title">Video Tutorials</span></a></div>
+                                        <div data-v-0e0099f1="" class="pager"><a data-v-0e0099f1=""
+                                                class="VPLink link pager-link next" href="Vscode _ doc.html"><span
+                                                    data-v-0e0099f1="" class="desc">Next page</span><span
+                                                    data-v-0e0099f1="" class="title">VS Code Setup</span></a></div>
+                                    </nav>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="VPFooter has-sidebar" data-v-2c31d08e="" data-v-55fd0418="">
+                <div class="container" data-v-55fd0418=""><!---->
+                    <p class="copyright" data-v-55fd0418="">COPYRIGHT © 2019-Present Pixinvent, All rights Reserved</p>
+                </div>
+            </footer><!--[--><!--]-->
+        </div>
+    </div>
+    <script>window.__VP_HASH_MAP__ = JSON.parse("{\"articles_how-to-add-acl-in-starter-kit.md\":\"DLAZOytc\",\"articles_how-to-add-authentication-in-starter-kit.md\":\"B6lv5JK5\",\"articles_how-to-add-i18n-in-starter-kit.md\":\"BoMZm8v_\",\"articles_how-to-add-search-in-starter-kit.md\":\"Co857yDK\",\"articles_how-to-change-background-and-surface-colors.md\":\"BhZ4ZYEH\",\"articles_how-to-change-base-url.md\":\"Bakfmy-m\",\"articles_how-to-change-logo.md\":\"B1VFAVJJ\",\"articles_how-to-change-typography.md\":\"C7mh1IgD\",\"articles_how-to-display-server-side-error.md\":\"BkrfUYrT\",\"articles_how-to-remove-fake-api-and-use-real-api.md\":\"p8yz6swF\",\"articles_how-to-update-configs.md\":\"pgeZJWOT\",\"articles_how-to-update-template-to-latest-version.md\":\"Wc0V7YO9\",\"articles_index.md\":\"CL620oKT\",\"articles_migrating-to-v4.md\":\"B63Mtpd9\",\"articles_understanding-authentication-and-acl-first-visit-part-1.md\":\"4Qr2qO3o\",\"articles_understanding-authentication-and-acl-login-flow-part-2.md\":\"xfNgrPAq\",\"articles_what-is-the-system-theme.md\":\"uUJueMK-\",\"code-examples_fetching-nav-items-from-api.md\":\"DYDnH0MI\",\"code-examples_layout_customize-footer.md\":\"B4r-G1uk\",\"code-examples_layout_customize-navbar.md\":\"DlXnQSwZ\",\"contribution_index.md\":\"BVm3IMcw\",\"contribution_styles.md\":\"CWQtTYdE\",\"contribution_themeconfig.md\":\"CYsDgZLR\",\"faq_index.md\":\"BgONB6ux\",\"guide_access-control.md\":\"qLehiUV6\",\"guide_authentication.md\":\"rh304ixc\",\"guide_components_dialog.md\":\"Cp0bQvN0\",\"guide_components_form-components.md\":\"CQEmnhSa\",\"guide_components_tour.md\":\"aFozxTld\",\"guide_core_components_app-card-actions.md\":\"BsvZVOxR\",\"guide_core_components_app-card-code.md\":\"BelROmoR\",\"guide_core_components_custom-input.md\":\"BsqAnKL1\",\"guide_core_components_navbar-i18n.md\":\"CJRrWleq\",\"guide_core_components_navbar-notifications.md\":\"DWkDkb69\",\"guide_core_components_navbar-shortcuts.md\":\"46ctDyi3\",\"guide_core_components_stepper.md\":\"BotpeGnC\",\"guide_core_components_theme-switcher.md\":\"CJ4hNE_5\",\"guide_core_components_tiptap-editor.md\":\"B2M0TTZc\",\"guide_core_composables.md\":\"WUlAZGHW\",\"guide_core_index.md\":\"DFl8EPeX\",\"guide_docker.md\":\"BWSeXii6\",\"guide_folder-structure.md\":\"sM0x-SBN\",\"guide_getting-started_colors-and-themes.md\":\"Cnpzq8TD\",\"guide_getting-started_data-fetching.md\":\"DmRHMg1u\",\"guide_getting-started_plugins.md\":\"C5mdUkkD\",\"guide_getting-started_rtl.md\":\"YKYI6w5E\",\"guide_getting-started_theme-configuration.md\":\"C5uhCarC\",\"guide_getting-support.md\":\"C1rHO_3X\",\"guide_github-access.md\":\"CZhfwdWB\",\"guide_how-to-create-a-new-page.md\":\"DYk_ag9i\",\"guide_icons.md\":\"-3zAIEo0\",\"guide_index.md\":\"ps4gmFFW\",\"guide_installation.md\":\"noxsysTf\",\"guide_laravel-integration_database-connection.md\":\"CrFZdiTp\",\"guide_laravel-integration_folder-structure.md\":\"BhevontJ\",\"guide_laravel-integration_frontend-api-call.md\":\"C839YG6h\",\"guide_laravel-integration_installation.md\":\"C3UHPtwc\",\"guide_laravel-integration_laravel-deployment.md\":\"BiiKxF4W\",\"guide_laravel-integration_laravel-passport-authentication.md\":\"B26ELwY3\",\"guide_laravel-integration_laravel-passport-integration.md\":\"Q8JFflCk\",\"guide_laravel-integration_laravel-sail-docker.md\":\"Mn7vZ1It\",\"guide_laravel-integration_laravel-sanctum-authentication.md\":\"CWnSK1m9\",\"guide_laravel-integration_laravel-sanctum-integration.md\":\"C3eT6tvb\",\"guide_layouts_index.md\":\"BAsFGZ8P\",\"guide_layouts_layout-types.md\":\"yaWNjEwP\",\"guide_layouts_layouts-plugin.md\":\"Dxw5I29A\",\"guide_navigation-menu.md\":\"CGIwS6g8\",\"guide_plugins_perfect-scrollbar.md\":\"BNtoBQNV\",\"guide_plugins_vite-svg-loader.md\":\"CdCbUcx5\",\"guide_splash-screen.md\":\"BF6qFc0w\",\"guide_styles.md\":\"Ow1ewaxN\",\"guide_video-tutorials.md\":\"B3DVvjtX\",\"guide_vscode-setup.md\":\"D_WBrNnc\",\"index.md\":\"yTezCVUi\"}"); window.__VP_SITE_DATA__ = JSON.parse("{\"lang\":\"en-US\",\"dir\":\"ltr\",\"title\":\"Vuexy\",\"description\":\"Production Ready, Carefully Crafted, Extensive Vuetify Admin Template\",\"base\":\"/vuexy-vuejs-admin-template/documentation/\",\"head\":[],\"router\":{\"prefetchLinks\":true},\"appearance\":true,\"themeConfig\":{\"logo\":\"https://cdn.pixinvent.com/pi-assets/vuexy/admin-template/logo/logo.png\",\"search\":{\"provider\":\"local\"},\"nav\":[{\"text\":\"Guide\",\"link\":\"/guide/\",\"activeMatch\":\"/guide/\"},{\"text\":\"FAQ\",\"link\":\"/faq/\"},{\"text\":\"Articles\",\"link\":\"/articles/\",\"activeMatch\":\"/articles/\"},{\"text\":\"Code Examples\",\"link\":\"/code-examples/fetching-nav-items-from-api\",\"activeMatch\":\"/code-examples/\"},{\"text\":\"Other\",\"items\":[{\"text\":\"Contribution\",\"link\":\"/contribution/\"},{\"text\":\"Changelog\",\"link\":\"https://demos.pixinvent.com/vuexy/changelog.html\"}]},{\"text\":\"Hire Us\",\"link\":\"https://themeselection.com/hire-us/\"},{\"text\":\"Demo\",\"items\":[{\"text\":\"Vue\",\"link\":\"https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-1/\"},{\"text\":\"Laravel\",\"link\":\"https://demos.pixinvent.com/vuexy-vuejs-laravel-admin-template/demo-1/\"},{\"text\":\"Nuxt\",\"link\":\"https://demos.pixinvent.com/vuexy-nuxtjs-admin-template/demo-1\"}]},{\"text\":\"Purchase\",\"link\":\"https://1.envato.market/vuexy_admin\"}],\"sidebar\":{\"/guide/\":[{\"text\":\"Welcome\",\"link\":\"/guide/\"},{\"text\":\"Video Tutorials\",\"link\":\"/guide/video-tutorials\"},{\"text\":\"Getting Started\",\"collapsed\":false,\"items\":[{\"text\":\"Installation\",\"link\":\"/guide/installation\"},{\"text\":\"VS Code Setup\",\"link\":\"/guide/vscode-setup\"},{\"text\":\"Folder Structure\",\"link\":\"/guide/folder-structure\"},{\"text\":\"Colors And Themes\",\"link\":\"/guide/getting-started/colors-and-themes\"},{\"text\":\"Theme Configuration\",\"link\":\"/guide/getting-started/theme-configuration\"},{\"text\":\"How To Create A New Page\",\"link\":\"/guide/how-to-create-a-new-page\"},{\"text\":\"Styles\",\"link\":\"/guide/styles\"},{\"text\":\"Navigation Menu\",\"link\":\"/guide/navigation-menu\"},{\"text\":\"Plugins\",\"link\":\"/guide/getting-started/plugins\"},{\"text\":\"Data Fetching\",\"link\":\"/guide/getting-started/data-fetching\"},{\"text\":\"Authentication\",\"link\":\"/guide/authentication\"},{\"text\":\"Access Control\",\"link\":\"/guide/access-control\"},{\"text\":\"Splash Screen\",\"link\":\"/guide/splash-screen\"},{\"text\":\"RTL\",\"link\":\"/guide/getting-started/rtl\"},{\"text\":\"Icons\",\"link\":\"/guide/icons\"}]},{\"text\":\"@core\",\"collapsed\":false,\"items\":[{\"text\":\"Introduction\",\"link\":\"/guide/core/\"},{\"text\":\"Components\",\"collapsed\":false,\"items\":[{\"text\":\"Stepper\",\"link\":\"/guide/core/components/stepper\"},{\"text\":\"Tip tap Editor\",\"link\":\"/guide/core/components/tiptap-editor\"},{\"text\":\"Custom Input\",\"link\":\"/guide/core/components/custom-input\"},{\"text\":\"Navbar I18n\",\"link\":\"/guide/core/components/navbar-i18n\"},{\"text\":\"App Card Code\",\"link\":\"/guide/core/components/app-card-code\"},{\"text\":\"App Card Actions\",\"link\":\"/guide/core/components/app-card-actions\"},{\"text\":\"Theme Switcher\",\"link\":\"/guide/core/components/theme-switcher\"},{\"text\":\"Navbar Notifications\",\"link\":\"/guide/core/components/navbar-notifications\"},{\"text\":\"Navbar Shortcuts\",\"link\":\"/guide/core/components/navbar-shortcuts\"}]},{\"text\":\"Composables\",\"link\":\"/guide/core/composables\"}]},{\"text\":\"@layouts\",\"collapsed\":false,\"items\":[{\"text\":\"Introduction\",\"link\":\"/guide/layouts/\"},{\"text\":\"Layouts Plugin\",\"link\":\"/guide/layouts/layouts-plugin\"},{\"text\":\"Layout Types\",\"link\":\"/guide/layouts/layout-types\"}]},{\"text\":\"Laravel Integration\",\"collapsed\":false,\"items\":[{\"text\":\"Folder Structure\",\"link\":\"/guide/laravel-integration/folder-structure\"},{\"text\":\"Installation\",\"link\":\"/guide/laravel-integration/installation\"},{\"text\":\"Database Connection\",\"link\":\"/guide/laravel-integration/database-connection\"},{\"text\":\"Passport Integration\",\"link\":\"/guide/laravel-integration/laravel-passport-integration\"},{\"text\":\"Passport Authentication\",\"link\":\"/guide/laravel-integration/laravel-passport-authentication\"},{\"text\":\"Sanctum Integration\",\"link\":\"/guide/laravel-integration/laravel-sanctum-integration\"},{\"text\":\"Sanctum Authentication\",\"link\":\"/guide/laravel-integration/laravel-sanctum-authentication\"},{\"text\":\"Frontend Api Call\",\"link\":\"/guide/laravel-integration/frontend-api-call\"},{\"text\":\"Laravel Sail Docker\",\"link\":\"/guide/laravel-integration/laravel-sail-docker\"},{\"text\":\"Laravel Deployment\",\"link\":\"/guide/laravel-integration/laravel-deployment\"}]},{\"text\":\"Components\",\"collapsed\":false,\"items\":[{\"text\":\"Dialog\",\"link\":\"/guide/components/dialog\"},{\"text\":\"Tour\",\"link\":\"/guide/components/tour\"}]},{\"text\":\"Plugins\",\"collapsed\":false,\"items\":[{\"text\":\"Perfect Scrollbar\",\"link\":\"/guide/plugins/perfect-scrollbar\"},{\"text\":\"Vite Svg Loader\",\"link\":\"/guide/plugins/vite-svg-loader\"}]},{\"text\":\"Support\",\"collapsed\":false,\"items\":[{\"text\":\"Getting Support\",\"link\":\"/guide/getting-support\"},{\"text\":\"Github Access\",\"link\":\"/guide/github-access\"}]}],\"/contribution/\":[{\"text\":\"Welcome\",\"link\":\"\"},{\"text\":\"ThemeConfig\",\"link\":\"/contribution/themeconfig\"},{\"text\":\"Styles\",\"link\":\"/contribution/styles\"}],\"code-examples/\":[{\"text\":\"Layout\",\"collapsed\":false,\"items\":[{\"text\":\"Customize Navbar\",\"link\":\"/code-examples/layout/customize-navbar\"},{\"text\":\"Customize Footer\",\"link\":\"/code-examples/layout/customize-footer\"},{\"text\":\"Fetching Nav Items From Api\",\"link\":\"/code-examples/fetching-nav-items-from-api\"}]}]},\"footer\":{\"copyright\":\"COPYRIGHT © 2019-Present Pixinvent, All rights Reserved\"}},\"locales\":{},\"scrollOffset\":134,\"cleanUrls\":false}");</script>
+
+
+    <script type="text/javascript" id="" charset="">console.log("PI:GTM Worked!");</script>
+    <script src="doc_files/themeSwither.js"> </script>
+    <script src="doc_files/vpmennu.js"></script>
+</body>
+
+</html>
