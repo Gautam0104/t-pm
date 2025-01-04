@@ -27,12 +27,12 @@ $(function () {
       3: { title: 'Inactive', class: 'bg-label-danger' }
     },
     categoryObj = {
-      0: { title: 'Household' },
-      1: { title: 'Office' },
-      2: { title: 'Electronics' },
-      3: { title: 'Shoes' },
-      4: { title: 'Accessories' },
-      5: { title: 'Game' }
+      0: { title: 'person-1' },
+      1: { title: 'person-2' },
+      2: { title: 'person-3' },
+      3: { title: 'person-4' },
+      4: { title: 'person-5' },
+      5: { title: 'person-6' }
     },
     stockObj = {
       0: { title: 'Out_of_Stock' },
@@ -57,7 +57,7 @@ $(function () {
         { data: 'stock' },
         { data: 'sku' },
         { data: 'price' },
-        { data: 'quantity' },
+        // { data: 'quantity' },
         { data: 'status' },
         { data: '' }
       ],
@@ -87,12 +87,93 @@ $(function () {
         },
         {
           // Product name and product_brand
-          targets: 2,
-          responsivePriority: 1,
+          // targets: 2,
+          // responsivePriority: 1,
+          // render: function (data, type, full, meta) {
+          //   var $name = full['product_name'],
+          //     $id = full['id'],
+          //     $product_brand = full['product_brand'],
+          //     $image = full['image'];
+          //   if ($image) {
+          //     // For Product image
+
+          //     var $output =
+          //       '<img src="' +
+          //       assetsPath +
+          //       'img/ecommerce-images/' +
+          //       $image +
+          //       '" alt="Product-' +
+          //       $id +
+          //       '" class="rounded-2">';
+          //   } else {
+          //     // For Product badge
+          //     var stateNum = Math.floor(Math.random() * 6);
+          //     var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+          //     var $state = states[stateNum],
+          //       $name = full['product_brand'],
+          //       $initials = $name.match(/\b\w/g) || [];
+          //     $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+          //     $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+          //   }
+          //   // Creates full output for Product name and product_brand
+          //   var $row_output =
+          //     '<div class="d-flex justify-content-start align-items-center product-name">' +
+          //     '<div class="avatar-wrapper">' +
+          //     '<div class="avatar avatar me-4 rounded-2 bg-label-secondary">' +
+          //     $output +
+          //     '</div>' +
+          //     '</div>' +
+          //     '<div class="d-flex flex-column">' +
+          //     '<h6 class="text-nowrap mb-0">' +
+          //     $name +
+          //     '</h6>' +
+          //     '<small class="text-truncate d-none d-sm-block">' +
+          //     $product_brand +
+          //     '</small>' +
+          //     '</div>' +
+          //     '</div>';
+          //   return $row_output;
+          // }
+        },
+        {
+          // Product Category
+
+          targets: 3,
+          responsivePriority: 5,
           render: function (data, type, full, meta) {
-            var $name = full['product_name'],
+            var $category = categoryObj[full['category']].title;
+            var categoryBadgeObj = {
+              Household:
+                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-4 p-3"><i class="ti ti-home-2 ti-sm"></i></span>',
+              Office:
+                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-4 p-3"><i class="ti ti-briefcase ti-sm"></i></span>',
+              Electronics:
+                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-4 p-3"><i class="ti ti-device-mobile ti-sm"></i></span>',
+              Shoes:
+                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-4"><i class="ti ti-shoe ti-sm"></i></span>',
+              Accessories:
+                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-4"><i class="ti ti-device-watch ti-sm"></i></span>',
+              Game: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-4"><i class="ti ti-device-gamepad-2 ti-sm"></i></span>'
+            };
+            return (
+              "<span class='text-truncate d-flex align-items-center text-heading'>" +
+
+              $category +
+              '</span>'
+            );
+          }
+        },
+        {
+          // Stock
+          targets: 4,
+          orderable: false,
+          responsivePriority: 3,
+          render: function (data, type, full, meta) {
+            // Product name and product_brand
+
+            var $name = '',
               $id = full['id'],
-              $product_brand = full['product_brand'],
+              $product_brand = '',
               $image = full['image'];
             if ($image) {
               // For Product image
@@ -135,69 +216,7 @@ $(function () {
             return $row_output;
           }
         },
-        {
-          // Product Category
 
-          targets: 3,
-          responsivePriority: 5,
-          render: function (data, type, full, meta) {
-            var $category = categoryObj[full['category']].title;
-            var categoryBadgeObj = {
-              Household:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-4 p-3"><i class="ti ti-home-2 ti-sm"></i></span>',
-              Office:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-4 p-3"><i class="ti ti-briefcase ti-sm"></i></span>',
-              Electronics:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-4 p-3"><i class="ti ti-device-mobile ti-sm"></i></span>',
-              Shoes:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-4"><i class="ti ti-shoe ti-sm"></i></span>',
-              Accessories:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-4"><i class="ti ti-device-watch ti-sm"></i></span>',
-              Game: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-4"><i class="ti ti-device-gamepad-2 ti-sm"></i></span>'
-            };
-            return (
-              "<span class='text-truncate d-flex align-items-center text-heading'>" +
-              categoryBadgeObj[$category] +
-              $category +
-              '</span>'
-            );
-          }
-        },
-        {
-          // Stock
-          targets: 4,
-          orderable: false,
-          responsivePriority: 3,
-          render: function (data, type, full, meta) {
-            var $stock = full['stock'];
-            var stockSwitchObj = {
-              Out_of_Stock:
-                '<label class="switch switch-primary switch-sm">' +
-                '<input type="checkbox" class="switch-input" id="switch">' +
-                '<span class="switch-toggle-slider">' +
-                '<span class="switch-off">' +
-                '</span>' +
-                '</span>' +
-                '</label>',
-              In_Stock:
-                '<label class="switch switch-primary switch-sm">' +
-                '<input type="checkbox" class="switch-input" checked="">' +
-                '<span class="switch-toggle-slider">' +
-                '<span class="switch-on">' +
-                '</span>' +
-                '</span>' +
-                '</label>'
-            };
-            return (
-              "<span class='text-truncate'>" +
-              stockSwitchObj[stockObj[$stock].title] +
-              '<span class="d-none">' +
-              stockObj[$stock].title +
-              '</span>' +
-              '</span>'
-            );
-          }
-        },
         {
           // Sku
           targets: 5,
@@ -218,13 +237,13 @@ $(function () {
         },
         {
           // qty
-          targets: 7,
-          responsivePriority: 4,
-          render: function (data, type, full, meta) {
-            var $qty = full['qty'];
+          // targets: 7,
+          // responsivePriority: 4,
+          // render: function (data, type, full, meta) {
+          //   var $qty = full['qty'];
 
-            return '<span>' + $qty + '</span>';
-          }
+          //   return '<span>' + $qty + '</span>';
+          // }
         },
         {
           // Status
@@ -243,22 +262,22 @@ $(function () {
         },
         {
           // Actions
-          targets: -1,
-          title: 'Actions',
-          searchable: false,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            return (
-              '<div class="d-inline-block text-nowrap">' +
-              '<button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></button>' +
-              '<button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="javascript:0;" class="dropdown-item">View</a>' +
-              '<a href="javascript:0;" class="dropdown-item">Suspend</a>' +
-              '</div>' +
-              '</div>'
-            );
-          }
+          // targets: -1,
+          // title: 'Actions',
+          // searchable: false,
+          // orderable: false,
+          // render: function (data, type, full, meta) {
+          //   return (
+          //     '<div class="d-inline-block text-nowrap">' +
+          //     '<button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></button>' +
+          //     '<button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button>' +
+          //     '<div class="dropdown-menu dropdown-menu-end m-0">' +
+          //     '<a href="javascript:0;" class="dropdown-item">View</a>' +
+          //     '<a href="javascript:0;" class="dropdown-item">Suspend</a>' +
+          //     '</div>' +
+          //     '</div>'
+          //   );
+          // }
         }
       ],
       order: [2, 'asc'], //set any columns order asc/desc
@@ -275,7 +294,7 @@ $(function () {
       language: {
         sLengthMenu: '_MENU_',
         search: '',
-        searchPlaceholder: 'Search Product',
+        searchPlaceholder: 'Search Project',
         info: 'Displaying _START_ to _END_ of _TOTAL_ entries',
         paginate: {
           next: '<i class="ti ti-chevron-right ti-sm"></i>',
@@ -441,18 +460,18 @@ $(function () {
             var data = $.map(columns, function (col, i) {
               return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
                 ? '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>'
+                col.rowIndex +
+                '" data-dt-column="' +
+                col.columnIndex +
+                '">' +
+                '<td>' +
+                col.title +
+                ':' +
+                '</td> ' +
+                '<td>' +
+                col.data +
+                '</td>' +
+                '</tr>'
                 : '';
             }).join('');
 
@@ -489,7 +508,7 @@ $(function () {
           .every(function () {
             var column = this;
             var select = $(
-              '<select id="ProductCategory" class="form-select text-capitalize"><option value="">Category</option></select>'
+              '<select id="ProductCategory" class="form-select text-capitalize"><option value="">Project/Ticket Leader</option></select>'
             )
               .appendTo('.product_category')
               .on('change', function () {
@@ -511,7 +530,7 @@ $(function () {
           .every(function () {
             var column = this;
             var select = $(
-              '<select id="ProductStock" class="form-select text-capitalize"><option value=""> Stock </option></select>'
+              '<select id="ProductStock" class="form-select text-capitalize"><option value=""> Project Name </option></select>'
             )
               .appendTo('.product_stock')
               .on('change', function () {
