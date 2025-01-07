@@ -1,8 +1,7 @@
 // Base URL of the API
-const API_BASE_URL = 'http://localhost:3000/api/auth';
+const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
-
-
+console.log(API_BASE_URL);
 
 
 // Handle login form submission
@@ -14,27 +13,39 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     const messageElement = document.getElementById('loginMessage');
 
     try {
-        const response = await fetch(`${API_BASE_URL}/login`, {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, password }),
         });
 
-        const data = await response.json();
+
 
         if (response.ok) {
-            // Save token and username to localStorage
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('username', username);
-
-            // Redirect to dashboard.html
+            const expireTime = new Date(Date.now() + 15 * 60 * 1000); // 30 minutes expiration
+            localStorage.setItem('sessionExpireTime', expireTime);
+            // document.getElementById('dashboardMessage').textContent = 'Login successful! Welcome to your dashboard.';
+            Swal.fire({
+                title: 'Login Successfully',
+                text: 'You are now logged in click ok to redirect on dashboard',
+                icon: 'success',
+                confirmButtonText: 'Ok!'
+            }).then(function () {
+                // Redirect to dashboard.html
                 window.location.href = 'dashboard.html';
+            })
+
 
         } else {
-            messageElement.style.color = 'red';
-            messageElement.textContent = data.message || 'Login failed.';
+            // messageElement.style.color = 'red';
+            Swal.fire({
+                title: 'Oops!',
+                text: 'username or password incorrect. Try again!',
+                icon: 'error',
+                confirmButtonText: 'Retry!'
+            });
         }
     } catch (error) {
         messageElement.style.color = 'red';
@@ -42,4 +53,3 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         console.error(error);
     }
 });
-

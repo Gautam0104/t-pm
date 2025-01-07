@@ -196,6 +196,8 @@ $(function () {
               $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
               $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
             }
+
+
             // Creates full output for Product name and product_brand
             var $row_output =
               '<div class="d-flex justify-content-start align-items-center product-name">' +
@@ -214,7 +216,11 @@ $(function () {
               '</div>' +
               '</div>';
             return $row_output;
+
+
           }
+
+
         },
 
         {
@@ -279,7 +285,10 @@ $(function () {
           //   );
           // }
         }
-      ],
+
+
+      ]
+      ,
       order: [2, 'asc'], //set any columns order asc/desc
       dom:
         '<"card-header d-flex border-top rounded-0 flex-wrap py-0 flex-column flex-md-row align-items-start"' +
@@ -439,10 +448,16 @@ $(function () {
           ]
         },
         {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add Product</span>',
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add Project</span>',
           className: 'add-new btn btn-primary ms-2 ms-sm-0 waves-effect waves-light',
+
           action: function () {
-            window.location.href = productAdd;
+
+            const modalElement = document.getElementById('modalCenter');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
+            // window.location.href = productAdd;
           }
         }
       ],
@@ -563,4 +578,5 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
 });

@@ -55,6 +55,10 @@
 
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../assets/js/config.js"></script>
+
+  <!-- Sweetalert -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -90,20 +94,21 @@
           <h4 class="mb-1">Welcome to Thunderbees! 👋</h4>
           <p class="mb-6">Please sign-in to your account and start the adventure</p>
 
-          <form id="loginForm" class="mb-6" >
+          <form id="loginForm" class="mb-6">
             <div class="mb-6">
               <label for="email" class="form-label">Email or Username</label>
-              <input type="text" class="form-control" id="loginUsername" 
-                placeholder="Enter your email or username" autofocus required />
+              <input type="text" class="form-control" id="loginUsername" placeholder="Enter your email or username"
+                autofocus required />
             </div>
             <div class="mb-6 form-password-toggle">
               <label class="form-label" for="password">Password</label>
               <div class="input-group input-group-merge">
-                <input type="password" id="loginPassword" class="form-control" 
-                  
-                  aria-describedby="password" required/>
-                  <p id="loginMessage" class="message"></p>
+                <input type="password" id="loginPassword" class="form-control" aria-describedby="password" required />
+
                 <!-- <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span> -->
+              </div>
+              <div class="mb-6 text-center mt-4">
+                <p id="loginMessage" class="message"></p>
               </div>
             </div>
             <!-- <div class="my-8">
@@ -153,6 +158,7 @@
       <!-- /Login -->
     </div>
   </div>
+  <script src="../config.js"></script>
   <script src="auth-login.js"></script>
   <!-- / Content -->
 
