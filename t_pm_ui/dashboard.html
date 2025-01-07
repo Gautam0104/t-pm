@@ -94,16 +94,15 @@
         <ul class="menu-inner py-1">
           <!-- Dashboards -->
           <li class="menu-item active">
-            <a href="javascript:void(0);" class="menu-link menu-toggle active">
+            <a href="dashboard.html" class="menu-link active">
               <i class="menu-icon tf-icons ti ti-smart-home"></i>
-              <div data-i18n="Dashboards">Dashboards</div>
-              <div class="badge bg-danger rounded-pill ms-auto">5</div>
+              <div>Dashboard</div>
             </a>
           </li>
-          <li class="menu-item ">
+          <li class="menu-item">
             <a href="todo.html" class="menu-link active">
               <i class="menu-icon tf-icons ti ti-smart-home"></i>
-              <div>TODO</div>
+              <div>Projects and Tickets</div>
 
             </a>
           </li>
@@ -1083,9 +1082,10 @@
                     </select>
                   </div>
                 </div>
+                <!-- search project filter -->
                 <div class="d-flex justify-content-between align-items-center row  mt-4 pt-4 gap-6 gap-md-0">
                   <div class="col-md-4 search_project">
-                    <input type="text" class="form-control" placeholder="Search Project ..... ">
+                    <input type="text" class="form-control" placeholder="Search Project ..... " id="filterInput" />
                   </div>
                   <div class="col-md-2 ">
 
@@ -1102,7 +1102,7 @@
               <div class="card">
                 <!-- <h5 class="card-header">Table Basic</h5> -->
                 <div class="table-responsive text-nowrap">
-                  <table class="table">
+                  <table class="table" id='tableBody'>
                     <thead>
                       <tr>
                         <th><input type="checkbox"></th>

@@ -27,3 +27,27 @@ setInterval(() => {
         window.location.href = 'auth-login-cover.html';
     }
 }, 1000);
+
+
+// Project table data filter
+const filterInput = document.getElementById('filterInput');
+const tableBody = document.getElementById('tableBody');
+
+filterInput.addEventListener('keyup', () => {
+    const filterValue = filterInput.value.toLowerCase();
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let row of rows) {
+        const cells = row.getElementsByTagName('td');
+        let match = false;
+
+        for (let cell of cells) {
+            if (cell.textContent.toLowerCase().includes(filterValue)) {
+                match = true;
+                break;
+            }
+        }
+
+        row.style.display = match ? '' : 'none';
+    }
+});
