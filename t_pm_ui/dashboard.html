@@ -92,8 +92,8 @@
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
-          <!-- Dashboards -->
-          <li class="menu-item active">
+           <!-- Dashboards -->
+           <li class="menu-item active">
             <a href="dashboard.html" class="menu-link active">
               <i class="menu-icon tf-icons ti ti-smart-home"></i>
               <div>Dashboard</div>
@@ -101,13 +101,21 @@
           </li>
           <li class="menu-item">
             <a href="todo.html" class="menu-link active">
-              <i class="menu-icon tf-icons ti ti-smart-home"></i>
+              <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
               <div>Projects and Tickets</div>
+
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-calendar.html" class="menu-link active">
+              <i class="menu-icon tf-icons ti ti-calendar"></i>
+              <div>Calender</div>
 
             </a>
           </li>
         </ul>
       </aside>
+      <!-- /Dashboards -->
       <!-- / Menu -->
 
       <!-- Layout container -->
@@ -344,7 +352,7 @@
                   aria-expanded="false">
                   <span class="position-relative">
                     <i class="ti ti-bell ti-md"></i>
-                    <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
+                    <!-- <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span> -->
                   </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end p-0">
@@ -352,7 +360,7 @@
                     <div class="dropdown-header d-flex align-items-center py-3">
                       <h6 class="mb-0 me-auto">Notification</h6>
                       <div class="d-flex align-items-center h6 mb-0">
-                        <span class="badge bg-label-primary me-2">8 New</span>
+                        <span class="badge bg-label-primary me-2">0 New</span>
                         <a href="javascript:void(0)"
                           class="btn btn-text-secondary rounded-pill btn-icon dropdown-notifications-all"
                           data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i
@@ -360,7 +368,7 @@
                       </div>
                     </div>
                   </li>
-                  <li class="dropdown-notifications-list scrollable-container">
+                  <!-- <li class="dropdown-notifications-list scrollable-container">
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item list-group-item-action dropdown-notifications-item">
                         <div class="d-flex">
@@ -548,7 +556,7 @@
                         </div>
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li class="border-top">
                     <div class="d-grid p-4">
                       <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
@@ -559,6 +567,14 @@
                 </ul>
               </li>
               <!--/ Notification -->
+
+              <!-- Calender -->
+              <li class="nav-item dropdown-language dropdown">
+                <a href="app-calendar.html" class="stretched-link"></a>
+                  <i class="ti ti-calendar rounded-circle ti-md"></i>
+                </a>
+                
+              <!--/ Calender -->
 
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -658,7 +674,7 @@
                         class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
                         <div>
                           <p class="mb-1">Active Projects</p>
-                          <h4 class="mb-1">2</h4>
+                          <h4 class="mb-1">1</h4>
                           <!-- <p class="mb-0">
                             <span class="me-2">5k orders</span><span class="badge bg-label-success">+5.7%</span>
                           </p> -->
@@ -674,7 +690,7 @@
                       <div
                         class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-4 pb-sm-0">
                         <div>
-                          <p class="mb-1">Total Active Tickets</p>
+                          <p class="mb-1">Total Projects and Tickets</p>
                           <h4 class="mb-1">4</h4>
                           <!-- <p class="mb-0">
                             <span class="me-2">21k orders</span><span class="badge bg-label-success">+12.4%</span>
@@ -1058,9 +1074,8 @@
                     <select id="ProductStatus" class="form-select text-capitalize">
                       <option value="">Status</option>
                       <option value="">Active</option>
-                      <option value="">Pending</option>
+                      <option value="">Overdue</option>
                       <option value="">Completed</option>
-                      <option value="">Scheduled</option>
                     </select>
                   </div>
                   <div class="col-md-4 product_category">
@@ -1181,7 +1196,7 @@
                         </td>
                         <td>3hours</td>
                         <td>2hour</td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                        <td><span class="badge bg-label-warning me-1">Overdue</span></td>
                         <td>
                           <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -1200,7 +1215,7 @@
                         <td><input type="checkbox"></td>
                         <td>
                           <i class="ti ti-brand-angular ti-md text-danger me-4"></i>
-                          <span class="fw-medium">Larave Project</span>
+                          <span class="fw-medium">Laravel Project</span>
                         </td>
                         <td>Albert Cook</td>
                         <td>
