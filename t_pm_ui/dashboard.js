@@ -52,6 +52,13 @@ filterInput.addEventListener('keyup', () => {
     }
 });
 
+function openModal() {
+    const modalElement = document.getElementById('shareProject');
+    const modal = new bootstrap.Modal(modalElement);
+
+    modal.show();
+}
+
 //redirect to projects & ticket name file
 function router() {
     window.location.href = "todo.html"
@@ -137,11 +144,42 @@ fetch(apiUrl)
         return response.json();
     })
     .then(data => {
+        const modifiedResults = data.map(project => {
+            let statusText = '';
+            switch (project.status) {
+                case 1:
+                    statusText = '<span class="badge bg-label-primary me-1">Active</span>';
+                    break;
+                case 2:
+                    statusText = '<span class="badge bg-label-success me-1">Complete</span>';
+                    break;
+                case 3:
+                    statusText = '<span class="badge bg-label-info me-1">Scheduled</span>';
+                    break;
+                case 4:
+                    statusText = '<span class="badge bg-label-warning me-1">Pending</span>';
+                    break;
+                default:
+                    statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
+            }
+            return {
+                project_id: project.project_id,
+                project_name: project.project_name,
+                project_Leader_id: project.project_leader_id,
+                project_leader_fname: project.first_name,
+                project_leader_lname: project.last_name,
+                description: project.description,
+                status: statusText,
+                total_eta: project.total_eta,
+                created_at: project.created_at,
+                updated_at: project.updated_at
+            };
+        });
         const tableBody = document.querySelector('#initailbody');
         // tableBody.innerHTML = ''; // Clear existing rows
 
         // Populate Table Rows with User Data
-        data.forEach(element => {
+        modifiedResults.forEach(element => {
 
             const row = `
             <tr>
