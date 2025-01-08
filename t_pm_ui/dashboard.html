@@ -764,13 +764,13 @@
                     <div class="row">
                       <div class="col mb-4">
                         <label for="nameWithTitle" class="form-label">Project/Ticket Name</label>
-                        <input type="text" id="nameWithTitle" class="form-control" placeholder="Enter Name" />
+                        <input type="text" class="form-control" placeholder="Enter Name" id="project-name" />
                       </div>
                     </div>
                     <div class="row g-4">
                       <div class="col mb-0">
                         <label for="select2Basic" class="form-label">Status</label>
-                        <select id="select2Basic" class="form-control form-select" data-allow-clear="true">
+                        <select class="form-control form-select" data-allow-clear="true" id="project-status">
                           <option class="badge bg-label-warning" style="text-align: left;">Status</option>
                           <option value="1" class="badge bg-label-primary m-0" style="text-align: left;">Active</option>
                           <option value="2" class="badge bg-label-success" style="text-align: left;">Complete</option>
@@ -780,14 +780,14 @@
                       </div>
                       <div class="col-md-6 col-12 mb-6">
                         <label for="flatpickr-multi" class="form-label">ETA</label>
-                        <input type="datetime-local" class="form-control" />
+                        <input type="datetime-local" class="form-control" id="project-eta" />
                       </div>
                     </div>
                     <div class="row">
                       <div class="col mb-4">
                         <label class="form-label" for="basic-default-message">Description</label>
-                        <textarea id="basic-default-message" class="form-control"
-                          placeholder="Hi, Do you have a moment to talk Joe?"></textarea>
+                        <textarea class="form-control" placeholder="Hi, Do you have a moment to talk Joe?"
+                          id="project-des"></textarea>
                       </div>
                     </div>
                   </div>
@@ -795,7 +795,8 @@
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                       Close
                     </button>
-                    <button type="button" class="btn btn-primary" style="color: #fff;">Create Project</button>
+                    <button type="button" class="btn btn-primary" style="color: #fff;" onclick="createProject()">Create
+                      Project</button>
                   </div>
                 </div>
               </div>

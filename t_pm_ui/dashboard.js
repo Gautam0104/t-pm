@@ -185,7 +185,17 @@ fetch(apiUrl)
             <tr>
               
               <td></td>
-              <td>${element.project_name}</td>
+              <td>
+                <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
+              <li class="avatar avatar-xs pull-up" title="Christina Parker">
+                       <img src="../assets/img/icons/dash_icon/active.png"
+                              alt="">
+                        </li>
+              <li class="mx-3">
+                        ${element.project_name}
+                        </li>
+              </ul>
+              </td>
               <td onclick="router()" style="cursor:pointer">${element.project_leader_fname}</td>
               <td>
                     <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
@@ -237,7 +247,7 @@ fetch(apiUrl)
         console.error('Error fetching user data:', error);
     });
 
-  // Fetch and count data active projects and completed tasks
+// Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
 const totalProjectsCountElement = document.getElementById('total-projects-counts');
@@ -272,3 +282,59 @@ fetch(apiUrl)
         activeProjectsCountElement.textContent = 'Error';
     });
 
+
+
+const createprojectURl = 'http://localhost:3000'
+const createProject = async () => {
+    //console.log('create project working');
+    const project_name = document.getElementById('project-name').value;
+    const leaderId = 1;
+    const desc = document.getElementById('project-status').value;
+    const projStatus = document.getElementById('project-eta').value;
+    const eta = document.getElementById('project-des').value;
+
+
+    try {
+        const response = await fetch(`${createprojectURl}/project`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ project_name, leaderId, desc, projStatus, eta }),
+        });
+
+        // const data = await response.json();
+
+        if (response.ok) {
+            const modalElement = document.getElementById('modalCenter');
+            const modal = new bootstrap.Modal(modalElement);
+
+            modal.hide();
+            Swal.fire({
+                title: 'Project created Successfully',
+                text: 'A new project created',
+                icon: 'success',
+                confirmButtonText: 'Ok!'
+            }).then(function () {
+                // Redirect to dashboard.html
+                window.location.href = 'dashboard.html';
+            })
+
+
+        } else {
+            // messageElement.style.color = 'red';
+            Swal.fire({
+                title: 'Oops!',
+                text: 'something went wrong. Try again!',
+                icon: 'error',
+                confirmButtonText: 'Retry!'
+            });
+
+        }
+    } catch (error) {
+        messageElement.style.color = 'red';
+        // messageElement.textContent = 'An error occurred.';
+        console.error(error);
+    }
+
+}
