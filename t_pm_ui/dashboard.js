@@ -237,7 +237,10 @@ fetch(apiUrl)
         console.error('Error fetching user data:', error);
     });
 
+  // Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
+const completeProjectsCountElement = document.getElementById('complete-projects-counts');
+const totalProjectsCountElement = document.getElementById('total-projects-counts');
 
 // Fetch Project Data from API
 fetch(apiUrl)
@@ -249,10 +252,20 @@ fetch(apiUrl)
     })
     .then(data => {
         // Filter projects with "active" status
-        const activeProjects = data.filter(project => project.status === '<span class=\"badge bg-label-primary me-1\">Active</span>');
+        const activeProjects = data.filter(project => project.status === 1);
 
         // Update the active projects count in the DOM
         activeProjectsCountElement.textContent = activeProjects.length;
+
+        // Filter projects with "completed" status
+        const completeProjects = data.filter(project => project.status === 2);
+
+        // Update the completed projects count in the DOM
+        completeProjectsCountElement.textContent = completeProjects.length;
+
+        // count total projects and tickets
+        const totalProjects = data.filter(project => project.project_id).length;
+        totalProjectsCountElement.textContent = totalProjects;
     })
     .catch(error => {
         console.error('Error fetching projects:', error);
