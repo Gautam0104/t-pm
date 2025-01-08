@@ -198,3 +198,26 @@ fetch(apiUrl)
     .catch(error => {
         console.error('Error fetching user data:', error);
     });
+
+const activeProjectsCountElement = document.getElementById('active-projects-counts');
+
+// Fetch Project Data from API
+fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Filter projects with "active" status
+        const activeProjects = data.filter(project => project.status === '<span class=\"badge bg-label-primary me-1\">Active</span>');
+
+        // Update the active projects count in the DOM
+        activeProjectsCountElement.textContent = activeProjects.length;
+    })
+    .catch(error => {
+        console.error('Error fetching projects:', error);
+        activeProjectsCountElement.textContent = 'Error';
+    });
+
