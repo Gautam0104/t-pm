@@ -1,7 +1,6 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
-console.log(API_BASE_URL);
 
 
 // Handle login form submission

@@ -724,6 +724,22 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="modalCenterTitle">Add Project</h5>
+                    <div class="checkbox">
+                      <div class="row " style="margin-left: 200px;">
+                        <div class="col">
+                          <label class="form-check m-0">
+                            <input type="checkbox" class="form-check-input" />
+                            <span class="form-check-label">Project</span>
+                          </label>
+                        </div>
+                        <div class="col">
+                          <label class="form-check m-0">
+                            <input type="checkbox" class="form-check-input" />
+                            <span class="form-check-label">Ticket</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -735,11 +751,12 @@
                     </div>
                     <div class="row g-4">
                       <div class="col mb-0">
-                        <label for="select2Basic" class="form-label">Basic</label>
+                        <label for="select2Basic" class="form-label">Status</label>
                         <select id="select2Basic" class="form-control form-select" data-allow-clear="true">
-                          <option value="1">Todo</option>
-                          <option value="2">In-progress</option>
-                          <option value="3">Completed</option>
+                          <option class="badge bg-label-warning">Status</option>
+                          <option value="1" class="badge bg-label-primary">Active</option>
+                          <option value="1" class="badge bg-label-success">Complete</option>
+                          <option value="1" class="badge bg-label-secondary">Scheduled</option>
                         </select>
                       </div>
                       <div class="col-md-6 col-12 mb-6">
@@ -748,12 +765,19 @@
                           id="flatpickr-date" readonly="readonly">
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col mb-4">
+                        <label class="form-label" for="basic-default-message">Description</label>
+                        <textarea id="basic-default-message" class="form-control"
+                          placeholder="Hi, Do you have a moment to talk Joe?"></textarea>
+                      </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                       Close
                     </button>
-                    <button type="button" class="btn btn-primary">Create Project</button>
+                    <button type="button" class="btn btn-primary" style="color: #fff;">Create Project</button>
                   </div>
                 </div>
               </div>
@@ -787,255 +811,7 @@
                     </select>
                   </div>
                   <h5 class="ms-4 ms-md-0">8 Members</h5>
-                  <ul class="p-0 m-0 mx-4 mx-md-0">
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/1.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Lester Palmer</p>
-                          <p class="small mb-0">pe&#64;vogeiz.net</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can Edit</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/2.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Mattie Blair</p>
-                          <p class="small mb-0">peromak&#64;zukedohik.gov</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Owner</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/3.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Marvin Wheeler</p>
-                          <p class="small mb-0">rumet&#64;jujpejah.net</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can Edit</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/4.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Nannie Ford</p>
-                          <p class="small mb-0">negza&#64;nuv.io</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can Comment</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/5.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Julian Murphy</p>
-                          <p class="small mb-0">lunebame&#64;umdomgu.net</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can View</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/6.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Sophie Gilbert</p>
-                          <p class="small mb-0">ha&#64;sugit.gov</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can View</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap mb-4">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/7.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Chris Watkins</p>
-                          <p class="small mb-0">zokap&#64;mak.org</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can Comment</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex flex-wrap">
-                      <div class="avatar me-4">
-                        <img src="../assets/img/avatars/8.png" alt="avatar" class="rounded-circle" />
-                      </div>
-                      <div class="d-flex justify-content-between flex-grow-1">
-                        <div class="me-2">
-                          <p class="mb-0 text-heading">Adelaide Nichols</p>
-                          <p class="small mb-0">ujinomu&#64;jigo.com</p>
-                        </div>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-text-secondary dropdown-toggle p-2 text-secondary"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 d-none d-sm-inline-block">Can Edit</span>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Owner</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can Comment</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="javascript:void(0);">Can View</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
+                  <ul class="p-0 m-0 mx-4 mx-md-0" id="list-content">
                   </ul>
                   <div class="d-flex align-items-start mt-6 align-items-sm-center mx-4 mx-md-0 mb-4 mb-md-0">
                     <i class="ti ti-users me-2 text-heading"></i>
@@ -1115,8 +891,8 @@
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
+                    <tbody class="table-border-bottom-0" id="initailbody">
+                      <!-- <tr>
                         <td><input type="checkbox"></td>
                         <td>
                           <i class="ti ti-brand-angular ti-md text-danger me-4"></i>
@@ -1124,7 +900,7 @@
                         </td>
                         <td>Albert Cook</td>
                         <td>
-                          <ul class="list-unstyled m-0 avatar-group d-flex align-items-center" onclick="openModal()">
+                          <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                               class="avatar avatar-xs pull-up" title="Lilian Fuller">
                               <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
@@ -1136,6 +912,11 @@
                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                               class="avatar avatar-xs pull-up" title="Christina Parker">
                               <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                              class="avatar avatar-xs pull-up" title="Add team member" onclick="openModal()">
+                              <i class="ti ti-plus me-0 me-sm-1 ti-xs border rounded-circle bg-dark"
+                                style="color: #fff;"></i>
                             </li>
                           </ul>
                         </td>
@@ -1275,7 +1056,7 @@
                             </div>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
 
 
                     </tbody>
@@ -1357,6 +1138,7 @@
   <!-- Page JS -->
 
   <script src="../assets/js/app-ecommerce-product-list.js"></script>
+  <script src="../config.js"></script>
   <script src="dashboard.js"></script>
   <script src="../assets/js/forms-pickers.js"></script>
 
@@ -1371,3 +1153,14 @@
 </body>
 
 </html>
+
+
+<div class="row border">
+  <div class="me-2">
+    <p class="mb-0 text-heading">${element.first_name}</p>
+    <p class="small mb-0">${element.username}</p>
+  </div>
+  <div class="">
+    <span class="badge bg-label-primary me-1">Active</span>
+  </div>
+</div>
