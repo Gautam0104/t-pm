@@ -122,7 +122,7 @@ fetch(usersapiUrl)
             listContent.innerHTML += content;
 
         });
-        console.log(data)
+        //console.log(data)
     })
 
     .catch(error => {
@@ -146,7 +146,7 @@ fetch(apiUrl)
     .then(data => {
         const modifiedResults = data.map(project => {
             let statusText = '';
-            switch (project.status) {
+            switch (project.project_status) {
                 case 1:
                     statusText = '<span class="badge bg-label-primary me-1">Active</span>';
                     break;
@@ -239,21 +239,24 @@ fetch(apiUrl)
             </tr>
           `;
             tableBody.innerHTML += row;
+            
         });
-        //  console.log(data)
+         //console.log(data)
     })
 
     .catch(error => {
         console.error('Error fetching user data:', error);
     });
 
+
+const countUrl = 'http://localhost:3000/projects'
 // Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
 const totalProjectsCountElement = document.getElementById('total-projects-counts');
 
 // Fetch Project Data from API
-fetch(apiUrl)
+fetch(countUrl)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
@@ -262,14 +265,14 @@ fetch(apiUrl)
     })
     .then(data => {
         // Filter projects with "active" status
-        const activeProjects = data.filter(project => project.status === 1);
+        const activeProjects = data.filter(project => project.project_status === 1);
 
         // Update the active projects count in the DOM
         activeProjectsCountElement.textContent = activeProjects.length;
 
         // Filter projects with "completed" status
-        const completeProjects = data.filter(project => project.status === 2);
-
+        const completeProjects = data.filter(project => project.project_status === 2);
+        
         // Update the completed projects count in the DOM
         completeProjectsCountElement.textContent = completeProjects.length;
 
@@ -286,7 +289,6 @@ fetch(apiUrl)
 
 const createprojectURl = 'http://localhost:3000'
 const createProject = async () => {
-    //console.log('create project working');
     const project_name = document.getElementById('project-name').value;
     const leaderId = 1;
     const desc = document.getElementById('project-status').value;
