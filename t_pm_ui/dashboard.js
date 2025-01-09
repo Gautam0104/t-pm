@@ -72,7 +72,7 @@ function router() {
 // project data
 
 // API Endpoint
-const usersapiUrl = 'http://localhost:3000/users';
+const usersapiUrl = 'https://advanced-serval-instantly.ngrok-free.app/users';
 
 // Fetch Project Data from API
 fetch(usersapiUrl)
@@ -136,7 +136,7 @@ fetch(usersapiUrl)
 
 
 // API Endpoint
-const apiUrl = 'http://localhost:3000/projects';
+const apiUrl = 'https://advanced-serval-instantly.ngrok-free.app/projects';
 
 
 // Fetch Project Data from API
@@ -253,7 +253,7 @@ fetch(apiUrl)
     });
 
 
-const countUrl = 'http://localhost:3000/projects'
+const countUrl = 'https://advanced-serval-instantly.ngrok-free.app/projects'
 // Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
@@ -291,7 +291,7 @@ fetch(countUrl)
 
 
 
-const createprojectURl = 'http://localhost:3000'
+const createprojectURl = 'https://advanced-serval-instantly.ngrok-free.app'
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
     const project_leader_id = 1;
