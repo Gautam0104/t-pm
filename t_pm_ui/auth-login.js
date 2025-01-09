@@ -23,8 +23,9 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 
 
         if (response.ok) {
-            const expireTime = new Date(Date.now() + 15 * 60 * 1000); // 30 minutes expiration
+            const expireTime = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiration
             localStorage.setItem('sessionExpireTime', expireTime);
+            localStorage.setItem('sessionIs', 'true');
             // document.getElementById('dashboardMessage').textContent = 'Login successful! Welcome to your dashboard.';
             Swal.fire({
                 title: 'Login Successfully',

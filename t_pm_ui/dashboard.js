@@ -1,20 +1,26 @@
+const session = localStorage.getItem('sessionIs')
+if (!session) {
+    window.location.href = "auth-login-cover.html"
+}
 // Logout Button Click
 document.getElementById('logoutButton').addEventListener('click', async () => {
-    try {
-        const response = await fetch(`${baseURL}/auth/logout`, {
-            method: 'POST'
-        });
-        if (response.ok) {
-            localStorage.removeItem('sessionExpireTime');
-            document.getElementById('dashboardMessage').textContent = '';
-            document.getElementById('logoutButton').style.display = 'none';
-            alert('Logout successful!');
-        } else {
-            alert('Logout failed!');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
+    // try {
+    //     const response = await fetch(`${baseURL}/auth/logout`, {
+    //         method: 'POST'
+    //     });
+    //     if (response.ok) {
+
+    //         localStorage.setItem('sessionIs', 'false');
+    //         document.getElementById('dashboardMessage').textContent = '';
+    //         document.getElementById('logoutButton').style.display = 'none';
+    //         alert('Logout successful!');
+    //     } else {
+    //         alert('Logout failed!');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
+    localStorage.removeItem('sessionIs');
 });
 
 // Check Session Expiration
@@ -23,6 +29,7 @@ setInterval(() => {
     if (sessionExpireTime && new Date() > new Date(sessionExpireTime)) {
         // alert('Session expired. Please log in again.');
         localStorage.removeItem('sessionExpireTime');
+        localStorage.removeItem('sessionIs');
         // window.location.reload();
         window.location.href = 'auth-login-cover.html';
     }
@@ -290,10 +297,10 @@ fetch(countUrl)
 const createprojectURl = 'http://localhost:3000'
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
-    const leaderId = 1;
-    const desc = document.getElementById('project-status').value;
-    const projStatus = document.getElementById('project-eta').value;
-    const eta = document.getElementById('project-des').value;
+    const project_leader_id = 1;
+    const description = document.getElementById('project-status').value;
+    const status = document.getElementById('project-eta').value;
+    const tatal_eta = document.getElementById('project-des').value;
 
 
     try {
@@ -302,16 +309,13 @@ const createProject = async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ project_name, leaderId, desc, projStatus, eta }),
+            body: JSON.stringify({ project_name, project_leader_id, description, status, tatal_eta }),
         });
 
         // const data = await response.json();
 
         if (response.ok) {
-            const modalElement = document.getElementById('modalCenter');
-            const modal = new bootstrap.Modal(modalElement);
 
-            modal.hide();
             Swal.fire({
                 title: 'Project created Successfully',
                 text: 'A new project created',
