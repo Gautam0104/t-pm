@@ -1,23 +1,23 @@
 
 // Logout Button Click
 document.getElementById('logoutButton').addEventListener('click', async () => {
-    // try {
-    //     const response = await fetch(`${baseURL}/auth/logout`, {
-    //         method: 'POST'
-    //     });
-    //     if (response.ok) {
+    try {
+        const response = await fetch(`${baseURL}/auth/logout`, {
+            method: 'POST'
+        });
+        if (response.ok) {
 
-    //         localStorage.setItem('sessionIs', 'false');
-    //         document.getElementById('dashboardMessage').textContent = '';
-    //         document.getElementById('logoutButton').style.display = 'none';
-    //         alert('Logout successful!');
-    //     } else {
-    //         alert('Logout failed!');
-    //     }
-    // } catch (error) {
-    //     console.error('Error:', error);
-    // }
-    localStorage.removeItem('sessionIs');
+            localStorage.removeItem('sessionIs');
+            document.getElementById('dashboardMessage').textContent = '';
+            document.getElementById('logoutButton').style.display = 'none';
+            alert('Logout successful!');
+        } else {
+            alert('Logout failed!');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
 });
 
 // Check Session Expiration
