@@ -253,41 +253,41 @@ fetch(apiUrl)
     });
 
 
-const countUrl = 'https://advanced-serval-instantly.ngrok-free.app/projects'
-// Fetch and count data active projects and completed tasks
-const activeProjectsCountElement = document.getElementById('active-projects-counts');
-const completeProjectsCountElement = document.getElementById('complete-projects-counts');
-const totalProjectsCountElement = document.getElementById('total-projects-counts');
+// const countUrl = 'https://advanced-serval-instantly.ngrok-free.app/projects'
+// // Fetch and count data active projects and completed tasks
+// const activeProjectsCountElement = document.getElementById('active-projects-counts');
+// const completeProjectsCountElement = document.getElementById('complete-projects-counts');
+// const totalProjectsCountElement = document.getElementById('total-projects-counts');
 
-// Fetch Project Data from API
-fetch(countUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Filter projects with "active" status
-        const activeProjects = data.filter(project => project.project_status === 1);
+// // Fetch Project Data from API
+// fetch(countUrl)
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok: ' + response.statusText);
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         // Filter projects with "active" status
+//         const activeProjects = data.filter(project => project.project_status === 1);
 
-        // Update the active projects count in the DOM
-        activeProjectsCountElement.textContent = activeProjects.length;
+//         // Update the active projects count in the DOM
+//         activeProjectsCountElement.textContent = activeProjects.length;
 
-        // Filter projects with "completed" status
-        const completeProjects = data.filter(project => project.project_status === 2);
+//         // Filter projects with "completed" status
+//         const completeProjects = data.filter(project => project.project_status === 2);
 
-        // Update the completed projects count in the DOM
-        completeProjectsCountElement.textContent = completeProjects.length;
+//         // Update the completed projects count in the DOM
+//         completeProjectsCountElement.textContent = completeProjects.length;
 
-        // count total projects and tickets
-        const totalProjects = data.filter(project => project.project_id).length;
-        totalProjectsCountElement.textContent = totalProjects;
-    })
-    .catch(error => {
-        console.error('Error fetching projects:', error);
-        activeProjectsCountElement.textContent = 'Error';
-    });
+//         // count total projects and tickets
+//         const totalProjects = data.filter(project => project.project_id).length;
+//         totalProjectsCountElement.textContent = totalProjects;
+//     })
+//     .catch(error => {
+//         console.error('Error fetching projects:', error);
+//         activeProjectsCountElement.textContent = 'Error';
+//     });
 
 
 
