@@ -1,7 +1,4 @@
-const session = localStorage.getItem('sessionIs')
-if (!session) {
-    window.location.href = "auth-login-cover.html"
-}
+
 // Logout Button Click
 document.getElementById('logoutButton').addEventListener('click', async () => {
     // try {
@@ -246,9 +243,9 @@ fetch(apiUrl)
             </tr>
           `;
             tableBody.innerHTML += row;
-            
+
         });
-         //console.log(data)
+        //console.log(data)
     })
 
     .catch(error => {
@@ -279,7 +276,7 @@ fetch(countUrl)
 
         // Filter projects with "completed" status
         const completeProjects = data.filter(project => project.project_status === 2);
-        
+
         // Update the completed projects count in the DOM
         completeProjectsCountElement.textContent = completeProjects.length;
 
