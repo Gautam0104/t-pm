@@ -205,15 +205,15 @@ fetch(apiUrl)
                     <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                         class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                        <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                        <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
                         </li>
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                         class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-                        <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                        <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
                         </li>
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                         class="avatar avatar-xs pull-up" title="Christina Parker">
-                        <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                        <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
                         </li>
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                         class="avatar avatar-xs pull-up" title="Add team member" onclick="openModal()">
@@ -295,9 +295,9 @@ const createprojectURl = 'http://localhost:3000'
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
     const project_leader_id = 1;
-    const description = document.getElementById('project-status').value;
-    const status = document.getElementById('project-eta').value;
-    const tatal_eta = document.getElementById('project-des').value;
+    const description = document.getElementById('project-des').value;
+    const status = document.getElementById('project-status').value;
+    const total_eta = document.getElementById('project-eta').value;
 
 
     try {
@@ -306,7 +306,7 @@ const createProject = async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ project_name, project_leader_id, description, status, tatal_eta }),
+            body: JSON.stringify({ project_name, project_leader_id, description, status, total_eta }),
         });
 
         // const data = await response.json();
