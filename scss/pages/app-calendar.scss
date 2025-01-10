@@ -5,7 +5,7 @@
 @use '../_bootstrap-extended/include-dark' as dark;
 @import '../_custom-variables/pages';
 
-$calender-sidebar-width: 18.75rem !default;
+$Calendar-sidebar-width: 18.75rem !default;
 
 // App Calendar specific
 .app-calendar-wrapper {
@@ -15,10 +15,10 @@ $calender-sidebar-width: 18.75rem !default;
     position: absolute;
     overflow: hidden;
     flex-grow: 0;
-    flex-basis: $calender-sidebar-width;
-    left: calc(-#{$calender-sidebar-width} - 1.2rem);
+    flex-basis: $Calendar-sidebar-width;
+    left: calc(-#{$Calendar-sidebar-width} - 1.2rem);
     height: 100%;
-    width: $calender-sidebar-width;
+    width: $Calendar-sidebar-width;
     transition: all 0.2s;
     z-index: 4;
     &.show {
@@ -56,7 +56,7 @@ $calender-sidebar-width: 18.75rem !default;
   .fc-toolbar-chunk {
     overflow: auto;
   }
-  // Set border 0 to app calender page only
+  // Set border 0 to app Calendar page only
   table.fc-scrollgrid {
     border-left: 0;
     border-right: 0;
@@ -131,7 +131,7 @@ $calender-sidebar-width: 18.75rem !default;
 
       .app-calendar-sidebar {
         left: auto;
-        right: calc(-#{$calender-sidebar-width} - 1.2rem);
+        right: calc(-#{$Calendar-sidebar-width} - 1.2rem);
         &.show {
           left: auto;
           right: 0;

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
       inlineCalendar = document.querySelector('.inline-calendar');
 
     let eventToUpdate,
-      currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update calender events
+      currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update Calendar events
       isFormValid = false,
       inlineCalInstance;
 
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fcSidebarToggleButton.insertAdjacentHTML('beforeend', '<i class="ti ti-menu-2 ti-lg text-heading"></i>');
     }
 
-    // Filter events by calender
+    // Filter events by Calendar
     function selectedCalendars() {
       let selected = [],
         filterInputChecked = [].slice.call(document.querySelectorAll('.input-filter:checked'));
@@ -377,26 +377,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
-      // ? Add new event data to current events object and refetch it to display on calender
+      // ? Add new event data to current events object and refetch it to display on Calendar
       // ? You can write below code to AJAX call success response
 
       currentEvents.push(eventData);
       calendar.refetchEvents();
 
-      // ? To add event directly to calender (won't update currentEvents object)
+      // ? To add event directly to Calendar (won't update currentEvents object)
       // calendar.addEvent(eventData);
     }
 
     // Update Event
     // ------------------------------------------------
     function updateEvent(eventData) {
-      // ? Update existing event data to current events object and refetch it to display on calender
+      // ? Update existing event data to current events object and refetch it to display on Calendar
       // ? You can write below code to AJAX call success response
       eventData.id = parseInt(eventData.id);
       currentEvents[currentEvents.findIndex(el => el.id === eventData.id)] = eventData; // Update event by id
       calendar.refetchEvents();
 
-      // ? To update event directly to calender (won't update currentEvents object)
+      // ? To update event directly to Calendar (won't update currentEvents object)
       // let propsToUpdate = ['id', 'title', 'url'];
       // let extendedPropsToUpdate = ['calendar', 'guests', 'location', 'description'];
 
@@ -407,14 +407,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // ------------------------------------------------
 
     function removeEvent(eventId) {
-      // ? Delete existing event data to current events object and refetch it to display on calender
+      // ? Delete existing event data to current events object and refetch it to display on Calendar
       // ? You can write below code to AJAX call success response
       currentEvents = currentEvents.filter(function (event) {
         return event.id != eventId;
       });
       calendar.refetchEvents();
 
-      // ? To delete event directly to calender (won't update currentEvents object)
+      // ? To delete event directly to Calendar (won't update currentEvents object)
       // removeEventInCalendar(eventId);
     }
 
@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', function () {
       appOverlay.classList.remove('show');
     });
 
-    // Calender filter functionality
+    // Calendar filter functionality
     // ------------------------------------------------
     if (selectAll) {
       selectAll.addEventListener('click', e => {

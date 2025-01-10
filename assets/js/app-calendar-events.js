@@ -122,7 +122,7 @@ window.events = [
   },{
     id: 9,
     url: '',
-    title: 'Calender Due Date',
+    title: 'Calendar Due Date',
     start:new Date(date.getFullYear(), date.getMonth() + 1, 0),
     end: new Date(date.getFullYear(), date.getMonth() + 1, 0),
     allDay: true,
