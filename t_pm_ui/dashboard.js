@@ -258,7 +258,7 @@ const countUrl = 'http://localhost:3000/projects'
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
 const totalProjectsCountElement = document.getElementById('total-projects-counts');
-
+console.log(countUrl);
 // Fetch Project Data from API
 fetch(countUrl)
     .then(response => {
@@ -294,7 +294,7 @@ fetch(countUrl)
 const createprojectURl = 'http://localhost:3000'
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
-    const project_leader_id = 1;
+    const project_leader_id = 10;
     const description = document.getElementById('project-des').value;
     const status = document.getElementById('project-status').value;
     const total_eta = document.getElementById('project-eta').value;
