@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expandable Table with Black Sub-Row</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .expand-icon {
+            cursor: pointer;
+            color: #007bff;
+            font-size: 18px;
+        }
+
+        .sub-row {
+            display: none;
+            background-color: black;
+            color: white;
+        }
+
+        .sub-row td {
+            padding: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Project Name</th>
+                <th>Leader</th>
+                <th>Status</th>
+                <th>ETA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="expand-icon" onclick="toggleSubRow(this)">+</span></td>
+                <td>Project Alpha</td>
+                <td>Jane Doe</td>
+                <td>In Progress</td>
+                <td>2025-01-15</td>
+            </tr>
+            <tr class="sub-row">
+                <td colspan="5">
+                    <strong>Name Details:</strong>
+                    <ul>
+                        <li>Full Name: Project Alpha Extended</li>
+                        <li>Description: A detailed overview of Project Alpha.</li>
+                    </ul>
+                </td>
+            </tr>
+            <!-- Repeat for other projects -->
+        </tbody>
+    </table>
+
+    <script>
+        function toggleSubRow(icon) {
+            const subRow = icon.closest('tr').nextElementSibling;
+            if (subRow.style.display === 'table-row') {
+                subRow.style.display = 'none';
+                icon.textContent = '+';
+            } else {
+                subRow.style.display = 'table-row';
+                icon.textContent = '-';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,23 +1,24 @@
-
+// Base URL of the API
+const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // Logout Button Click
 document.getElementById('logoutButton').addEventListener('click', async () => {
-    try {
-        const response = await fetch(`${baseURL}/auth/logout`, {
-            method: 'POST'
-        });
-        if (response.ok) {
+    // try {
+    //     const response = await fetch(`${baseURL}/auth/logout`, {
+    //         method: 'POST'
+    //     });
+    //     if (response.ok) {
 
-            localStorage.removeItem('sessionIs');
-            document.getElementById('dashboardMessage').textContent = '';
-            document.getElementById('logoutButton').style.display = 'none';
-            alert('Logout successful!');
-        } else {
-            alert('Logout failed!');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-
+    //         localStorage.setItem('sessionIs', 'false');
+    //         document.getElementById('dashboardMessage').textContent = '';
+    //         document.getElementById('logoutButton').style.display = 'none';
+    //         alert('Logout successful!');
+    //     } else {
+    //         alert('Logout failed!');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
+    localStorage.removeItem('sessionIs');
 });
 
 // Check Session Expiration
@@ -71,11 +72,10 @@ function router() {
 
 // project data
 
-// API Endpoint
-const usersapiUrl = 'https://advanced-serval-instantly.ngrok-free.app/users';
+
 
 // Fetch Project Data from API
-fetch(usersapiUrl)
+fetch(`${API_BASE_URL}/users`)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
@@ -135,14 +135,12 @@ fetch(usersapiUrl)
 
 
 
-// API Endpoint
-const apiUrl = 'https://advanced-serval-instantly.ngrok-free.app/projects';
+
 
 
 // Fetch Project Data from API
-fetch(apiUrl)
+fetch(`${API_BASE_URL}/projects`)
     .then(response => {
-
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -254,45 +252,45 @@ fetch(apiUrl)
     });
 
 
-// const countUrl = 'https://advanced-serval-instantly.ngrok-free.app/projects'
-// // Fetch and count data active projects and completed tasks
-// const activeProjectsCountElement = document.getElementById('active-projects-counts');
-// const completeProjectsCountElement = document.getElementById('complete-projects-counts');
-// const totalProjectsCountElement = document.getElementById('total-projects-counts');
 
-// // Fetch Project Data from API
-// fetch(countUrl)
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok: ' + response.statusText);
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         // Filter projects with "active" status
-//         const activeProjects = data.filter(project => project.project_status === 1);
+// Fetch and count data active projects and completed tasks
+const activeProjectsCountElement = document.getElementById('active-projects-counts');
+const completeProjectsCountElement = document.getElementById('complete-projects-counts');
+const totalProjectsCountElement = document.getElementById('total-projects-counts');
 
-//         // Update the active projects count in the DOM
-//         activeProjectsCountElement.textContent = activeProjects.length;
+// Fetch Project Data from API
+fetch(`${API_BASE_URL}/projects`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Filter projects with "active" status
+        const activeProjects = data.filter(project => project.project_status === 1);
 
-//         // Filter projects with "completed" status
-//         const completeProjects = data.filter(project => project.project_status === 2);
+        // Update the active projects count in the DOM
+        activeProjectsCountElement.textContent = activeProjects.length;
 
-//         // Update the completed projects count in the DOM
-//         completeProjectsCountElement.textContent = completeProjects.length;
+        // Filter projects with "completed" status
+        const completeProjects = data.filter(project => project.project_status === 2);
 
-//         // count total projects and tickets
-//         const totalProjects = data.filter(project => project.project_id).length;
-//         totalProjectsCountElement.textContent = totalProjects;
-//     })
-//     .catch(error => {
-//         console.error('Error fetching projects:', error);
-//         activeProjectsCountElement.textContent = 'Error';
-//     });
+        // Update the completed projects count in the DOM
+        completeProjectsCountElement.textContent = completeProjects.length;
+
+        // count total projects and tickets
+        const totalProjects = data.filter(project => project.project_id).length;
+        totalProjectsCountElement.textContent = totalProjects;
+    })
+    .catch(error => {
+        console.error('Error fetching projects:', error);
+        activeProjectsCountElement.textContent = 'Error';
+    });
 
 
 
-const createprojectURl = 'https://advanced-serval-instantly.ngrok-free.app'
+const createprojectURl = 'http://localhost:3000'
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
     const project_leader_id = 1;
@@ -302,7 +300,7 @@ const createProject = async () => {
 
 
     try {
-        const response = await fetch(`${createprojectURl}/project`, {
+        const response = await fetch(`${API_BASE_URL}/project`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
