@@ -64,10 +64,7 @@ function openModal() {
     modal.show();
 }
 
-//redirect to projects & ticket name file
-function router() {
-    window.location.href = "todo.html"
-}
+
 
 
 // project data
@@ -83,11 +80,34 @@ fetch(`${API_BASE_URL}/users`)
         return response.json();
     })
     .then(data => {
+        const modifiedRole = data.map(user => {
+            let roleText = '';
+            switch (user.role_id) {
+                case 1:
+                    roleText = '<span class="badge bg-label-success me-1">Admin</span>';
+                    break;
+                case 2:
+                    roleText = '<span class="badge bg-label-primary me-1">Project Manager</span>';
+                    break;
+                case 3:
+                    roleText = '<span class="badge bg-label-info me-1">Team Member</span>';
+                    break;
+                default:
+                    statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
+            }
+            return {
+                role: roleText,
+                username: user.username,
+                first_name: user.first_name,
+                last_name: user.last_name
+            };
+        });
         const listContent = document.querySelector('#list-content');
         // tableBody.innerHTML = ''; // Clear existing rows
-
+        const memberCount = document.getElementById('numofmember');
+        memberCount.innerHTML = `${data.length} Members`;
         // Populate List Content with User Data
-        data.forEach(element => {
+        modifiedRole.forEach(element => {
 
             const content = `
                      <li class="d-flex flex-wrap mb-4" >  
@@ -96,7 +116,7 @@ fetch(`${API_BASE_URL}/users`)
                       </div>
                       <div class="d-flex justify-content-between flex-grow-1">
                         <div class="me-2">
-                          <p class="mb-0 text-heading">${element.first_name} <span class="badge bg-label-success me-1">Admin</span></p>
+                          <p class="mb-0 text-heading">${element.first_name} ${element.role}
                           <p class="small mb-0">${element.username}</p>
                         </div>
                         <div class="dropdown">
@@ -165,6 +185,17 @@ fetch(`${API_BASE_URL}/projects`)
                 default:
                     statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
             }
+            let projectTpe = ''
+            switch (project.project_type) {
+                case "project":
+                    projectTpe = '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+                    break;
+                case "ticket":
+                    projectTpe = '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
+                    break;
+                default:
+                    projectTpe = '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
+            }
             return {
                 project_id: project.project_id,
                 project_name: project.project_name,
@@ -175,7 +206,8 @@ fetch(`${API_BASE_URL}/projects`)
                 status: statusText,
                 total_eta: project.total_eta,
                 created_at: project.created_at,
-                updated_at: project.updated_at
+                updated_at: project.updated_at,
+                project_type: projectTpe
             };
         });
         const tableBody = document.querySelector('#initailbody');
@@ -190,16 +222,15 @@ fetch(`${API_BASE_URL}/projects`)
               <td></td>
               <td>
                 <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-              <li class="avatar avatar-xs pull-up" title="Christina Parker">
-                       <img src="../assets/img/icons/dash_icon/active.png"
-                              alt="">
-                        </li>
-              <li class="mx-3">
+                    <li class="avatar avatar-xs pull-up" title="Christina Parker">
+                    ${element.project_type}
+                    </li>
+                     <li class="mx-3">
                         ${element.project_name}
                         </li>
               </ul>
               </td>
-              <td onclick="router()" style="cursor:pointer">${element.project_leader_fname}</td>
+              <td  style="cursor:pointer"> <a class="dropdown-item" href="todo.html?id=${element.project_id}">${element.project_leader_fname}</a></td>
               <td>
                     <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
@@ -257,7 +288,7 @@ fetch(`${API_BASE_URL}/projects`)
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
 const totalProjectsCountElement = document.getElementById('total-projects-counts');
-console.log(countUrl);
+
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}/projects`)
     .then(response => {
@@ -290,7 +321,7 @@ fetch(`${API_BASE_URL}/projects`)
 
 
 
-const createprojectURl = 'http://localhost:3000'
+
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
     const project_leader_id = 1;

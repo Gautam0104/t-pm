@@ -57,6 +57,13 @@
   <script src="../assets/js/config.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 
 <body>
@@ -742,29 +749,31 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="modalCenterTitle">Add Project</h5>
-                    <div class="checkbox">
-                      <div class="row " style="margin-left: 200px;">
-                        <div class="col">
-                          <label class="form-check m-0">
-                            <input type="checkbox" class="form-check-input" />
-                            <span class="form-check-label">Project</span>
-                          </label>
-                        </div>
-                        <div class="col">
-                          <label class="form-check m-0">
-                            <input type="checkbox" class="form-check-input" />
-                            <span class="form-check-label">Ticket</span>
-                          </label>
+                    <form id="createProjectorTicket">
+                      <div class="checkbox">
+                        <div class="row " style="margin-left: 200px;">
+                          <div class="col">
+                            <label class="form-check m-0">
+                              <input type="radio" name="type" class="form-check-input" value="project" checked />
+                              <span class="form-check-label">Project</span>
+                            </label>
+                          </div>
+                          <div class="col">
+                            <label class="form-check m-0">
+                              <input type="radio" name="type" class="form-check-input" value="ticket" />
+                              <span class="form-check-label">Ticket</span>
+                            </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="row">
                       <div class="col mb-4">
                         <label for="nameWithTitle" class="form-label">Project/Ticket Name</label>
                         <input type="text" class="form-control" placeholder="Enter Name" id="project-name" />
+                        <div class="error" id="nameError"></div>
                       </div>
                     </div>
                     <div class="row g-4">
@@ -777,10 +786,12 @@
                           <option value="3" class="badge bg-label-secondary" style="text-align: left;">Scheduled
                           </option>
                         </select>
+                        <div class="error" id="statusError"></div>
                       </div>
                       <div class="col-md-6 col-12 mb-6">
                         <label for="flatpickr-multi" class="form-label">ETA</label>
                         <input type="datetime-local" class="form-control" id="project-eta" />
+                        <div class="error" id="etaError"></div>
                       </div>
                     </div>
                     <div class="row">
@@ -788,6 +799,7 @@
                         <label class="form-label" for="basic-default-message">Description</label>
                         <textarea class="form-control" placeholder="Hi, Do you have a moment to talk Joe?"
                           id="project-des"></textarea>
+                        <div class="error" id="descriptionError"></div>
                       </div>
                     </div>
                   </div>
@@ -795,10 +807,10 @@
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                       Close
                     </button>
-                    <button type="button" class="btn btn-primary" style="color: #fff;" data-bs-dismiss="modal"
-                      onclick="createProject()">Create
+                    <button type="submit" class="btn btn-primary" style="color: #fff;" data-bs-dismiss="modal">Create
                       Project</button>
                   </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -817,7 +829,7 @@
                   </div>
                   <div class="mb-6 mx-4 mx-md-0">
                     <label for="select2Basic" class="form-label">Add Members</label>
-                    <select id="select2Basic" class="form-select form-select-lg share-project-select"
+                    <!-- <select id="select2Basic" class="form-select form-select-lg share-project-select"
                       data-allow-clear="true">
                       <option data-name="Adelaide Nichols" data-image="img/avatars/13.png" selected>
                         Adelaide Nichols
@@ -828,9 +840,9 @@
                           src="../assets/img/avatars/10.png" alt="">Sophie Gilbert</option>
                       <option data-name="Marvin Wheeler" data-image="img/avatars/7.png"><img
                           src="../assets/img/avatars/7.png" alt="">Marvin Wheeler</option>
-                    </select>
+                    </select> -->
                   </div>
-                  <h5 class="ms-4 ms-md-0">8 Members</h5>
+                  <h5 class="ms-4 ms-md-0" id="numofmember"></h5>
                   <ul class="p-0 m-0 mx-4 mx-md-0" id="list-content">
                   </ul>
                   <div class="d-flex align-items-start mt-6 align-items-sm-center mx-4 mx-md-0 mb-4 mb-md-0">
@@ -1159,6 +1171,7 @@
   <script src="../assets/js/app-ecommerce-product-list.js"></script>
   <script src="../config.js"></script>
   <script src="dashboard.js"></script>
+  <script src="createProject.js"></script>
   <script src="../assets/js/forms-pickers.js"></script>
 
 

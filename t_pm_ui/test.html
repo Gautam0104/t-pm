@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Additional Fields</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="myForm">
+        <div class="radio-group">
+            <label>
+                <input type="radio" name="type" value="project" checked> Project
+            </label>
+            <label>
+                <input type="radio" name="type" value="ticket"> Ticket
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name">
+            <div class="error" id="nameError"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+            <div class="error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4"
+                placeholder="Enter project or ticket description"></textarea>
+            <div class="error" id="descriptionError"></div>
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority">
+                <option value="">Select Priority</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <div class="error" id="priorityError"></div>
+        </div>
+        <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="date" id="dueDate" name="dueDate">
+            <div class="error" id="dueDateError"></div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Clear previous errors
+            const errorFields = ['nameError', 'emailError', 'passwordError', 'descriptionError', 'priorityError', 'dueDateError'];
+            errorFields.forEach(field => document.getElementById(field).textContent = '');
+
+            // Validate form fields
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const priority = document.getElementById('priority').value;
+            const dueDate = document.getElementById('dueDate').value;
+
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                isValid = false;
+            }
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Email is required.';
+                isValid = false;
+            } else if (!/\S+@\S+\.\S+/.test(email)) {
+                document.getElementById('emailError').textContent = 'Enter a valid email.';
+                isValid = false;
+            }
+            if (password === '') {
+                document.getElementById('passwordError').textContent = 'Password is required.';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long.';
+                isValid = false;
+            }
+            if (description === '') {
+                document.getElementById('descriptionError').textContent = 'Description is required.';
+                isValid = false;
+            }
+            if (priority === '') {
+                document.getElementById('priorityError').textContent = 'Priority must be selected.';
+                isValid = false;
+            }
+            if (dueDate === '') {
+                document.getElementById('dueDateError').textContent = 'Due date is required.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                const selectedType = document.querySelector('input[name="type"]:checked').value;
+                alert(`Form submitted successfully as a ${selectedType}!\nName: ${name}\nEmail: ${email}\nPriority: ${priority}\nDue Date: ${dueDate}`);
+                // Add logic to submit the form data here
+            }
+        });
+    </script>
+</body>
+
+</html>
