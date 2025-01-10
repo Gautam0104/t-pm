@@ -22,16 +22,16 @@ document.getElementById('logoutButton').addEventListener('click', async () => {
 });
 
 // Check Session Expiration
-setInterval(() => {
-    const sessionExpireTime = localStorage.getItem('sessionExpireTime');
-    if (sessionExpireTime && new Date() > new Date(sessionExpireTime)) {
-        // alert('Session expired. Please log in again.');
-        localStorage.removeItem('sessionExpireTime');
-        localStorage.removeItem('sessionIs');
-        // window.location.reload();
-        window.location.href = 'auth-login-cover.html';
-    }
-}, 1000);
+// setInterval(() => {
+//     const sessionExpireTime = localStorage.getItem('sessionExpireTime');
+//     if (sessionExpireTime && new Date() > new Date(sessionExpireTime)) {
+//         // alert('Session expired. Please log in again.');
+//         localStorage.removeItem('sessionExpireTime');
+//         localStorage.removeItem('sessionIs');
+//         // window.location.reload();
+//         window.location.href = 'auth-login-cover.html';
+//     }
+// }, 1000);
 
 
 // Project table data filter
@@ -64,10 +64,7 @@ function openModal() {
     modal.show();
 }
 
-//redirect to projects & ticket name file
-function router() {
-    window.location.href = "todo.html"
-}
+
 
 
 // project data
@@ -165,6 +162,17 @@ fetch(`${API_BASE_URL}/projects`)
                 default:
                     statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
             }
+            let projectTpe = ''
+            switch (project.project_type) {
+                case "project":
+                    projectTpe = '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+                    break;
+                case "ticket":
+                    projectTpe = '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
+                    break;
+                default:
+                    projectTpe = '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
+            }
             return {
                 project_id: project.project_id,
                 project_name: project.project_name,
@@ -175,7 +183,8 @@ fetch(`${API_BASE_URL}/projects`)
                 status: statusText,
                 total_eta: project.total_eta,
                 created_at: project.created_at,
-                updated_at: project.updated_at
+                updated_at: project.updated_at,
+                project_type: projectTpe
             };
         });
         const tableBody = document.querySelector('#initailbody');
@@ -190,16 +199,15 @@ fetch(`${API_BASE_URL}/projects`)
               <td></td>
               <td>
                 <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-              <li class="avatar avatar-xs pull-up" title="Christina Parker">
-                       <img src="../assets/img/icons/dash_icon/active.png"
-                              alt="">
-                        </li>
-              <li class="mx-3">
+                    <li class="avatar avatar-xs pull-up" title="Christina Parker">
+                    ${element.project_type}
+                    </li>
+                     <li class="mx-3">
                         ${element.project_name}
                         </li>
               </ul>
               </td>
-              <td onclick="router()" style="cursor:pointer">${element.project_leader_fname}</td>
+              <td  style="cursor:pointer"> <a class="dropdown-item" href="todo.html?id=${element.project_id}">${element.project_leader_fname}</a></td>
               <td>
                     <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
@@ -290,7 +298,7 @@ fetch(`${API_BASE_URL}/projects`)
 
 
 
-const createprojectURl = 'http://localhost:3000'
+
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
     const project_leader_id = 1;
