@@ -80,11 +80,34 @@ fetch(`${API_BASE_URL}/users`)
         return response.json();
     })
     .then(data => {
+        const modifiedRole = data.map(user => {
+            let roleText = '';
+            switch (user.role_id) {
+                case 1:
+                    roleText = '<span class="badge bg-label-success me-1">Admin</span>';
+                    break;
+                case 2:
+                    roleText = '<span class="badge bg-label-primary me-1">Project Manager</span>';
+                    break;
+                case 3:
+                    roleText = '<span class="badge bg-label-info me-1">Team Member</span>';
+                    break;
+                default:
+                    statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
+            }
+            return {
+                role: roleText,
+                username: user.username,
+                first_name: user.first_name,
+                last_name: user.last_name
+            };
+        });
         const listContent = document.querySelector('#list-content');
         // tableBody.innerHTML = ''; // Clear existing rows
-
+        const memberCount = document.getElementById('numofmember');
+        memberCount.innerHTML = `${data.length} Members`;
         // Populate List Content with User Data
-        data.forEach(element => {
+        modifiedRole.forEach(element => {
 
             const content = `
                      <li class="d-flex flex-wrap mb-4" >  
@@ -93,7 +116,7 @@ fetch(`${API_BASE_URL}/users`)
                       </div>
                       <div class="d-flex justify-content-between flex-grow-1">
                         <div class="me-2">
-                          <p class="mb-0 text-heading">${element.first_name} <span class="badge bg-label-success me-1">Admin</span></p>
+                          <p class="mb-0 text-heading">${element.first_name} ${element.role}
                           <p class="small mb-0">${element.username}</p>
                         </div>
                         <div class="dropdown">
