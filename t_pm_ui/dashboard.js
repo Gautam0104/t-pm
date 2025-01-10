@@ -288,7 +288,7 @@ fetch(`${API_BASE_URL}/projects`)
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
 const totalProjectsCountElement = document.getElementById('total-projects-counts');
-console.log(countUrl);
+
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}/projects`)
     .then(response => {
