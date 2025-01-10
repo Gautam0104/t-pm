@@ -1,4 +1,5 @@
-
+// Base URL of the API
+const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // Logout Button Click
 document.getElementById('logoutButton').addEventListener('click', async () => {
     // try {
@@ -71,11 +72,10 @@ function router() {
 
 // project data
 
-// API Endpoint
-const usersapiUrl = 'http://localhost:3000/users';
+
 
 // Fetch Project Data from API
-fetch(usersapiUrl)
+fetch(`${API_BASE_URL}/users`)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
@@ -135,12 +135,11 @@ fetch(usersapiUrl)
 
 
 
-// API Endpoint
-const apiUrl = 'http://localhost:3000/projects';
+
 
 
 // Fetch Project Data from API
-fetch(apiUrl)
+fetch(`${API_BASE_URL}/projects`)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
@@ -253,14 +252,14 @@ fetch(apiUrl)
     });
 
 
-const countUrl = 'http://localhost:3000/projects'
+
 // Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById('active-projects-counts');
 const completeProjectsCountElement = document.getElementById('complete-projects-counts');
 const totalProjectsCountElement = document.getElementById('total-projects-counts');
 console.log(countUrl);
 // Fetch Project Data from API
-fetch(countUrl)
+fetch(`${API_BASE_URL}/projects`)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
@@ -301,7 +300,7 @@ const createProject = async () => {
 
 
     try {
-        const response = await fetch(`${createprojectURl}/project`, {
+        const response = await fetch(`${API_BASE_URL}/project`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
