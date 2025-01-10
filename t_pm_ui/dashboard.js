@@ -293,7 +293,7 @@ fetch(`${API_BASE_URL}/projects`)
 const createprojectURl = 'http://localhost:3000'
 const createProject = async () => {
     const project_name = document.getElementById('project-name').value;
-    const project_leader_id = 10;
+    const project_leader_id = 1;
     const description = document.getElementById('project-des').value;
     const status = document.getElementById('project-status').value;
     const total_eta = document.getElementById('project-eta').value;
