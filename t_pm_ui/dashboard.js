@@ -22,16 +22,16 @@ document.getElementById('logoutButton').addEventListener('click', async () => {
 });
 
 // Check Session Expiration
-// setInterval(() => {
-//     const sessionExpireTime = localStorage.getItem('sessionExpireTime');
-//     if (sessionExpireTime && new Date() > new Date(sessionExpireTime)) {
-//         // alert('Session expired. Please log in again.');
-//         localStorage.removeItem('sessionExpireTime');
-//         localStorage.removeItem('sessionIs');
-//         // window.location.reload();
-//         window.location.href = 'auth-login-cover.html';
-//     }
-// }, 1000);
+setInterval(() => {
+    const sessionExpireTime = localStorage.getItem('sessionExpireTime');
+    if (sessionExpireTime && new Date() > new Date(sessionExpireTime)) {
+        // alert('Session expired. Please log in again.');
+        localStorage.removeItem('sessionExpireTime');
+        localStorage.removeItem('sessionIs');
+        // window.location.reload();
+        window.location.href = 'auth-login-cover.html';
+    }
+}, 1000);
 
 
 // Project table data filter
