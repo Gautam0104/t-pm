@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board with Draggable Cards</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f7f6;
+        }
+
+        .kanban-board {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            height: 80%;
+        }
+
+        .kanban-column {
+            width: 30%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .task {
+            background-color: #9ca5db;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .task:hover {
+            background-color: #8893d3;
+        }
+
+        .card {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: move;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .card:hover {
+            background-color: #e0f7fa;
+        }
+
+        .task[draggable="true"],
+        .card[draggable="true"] {
+            margin-bottom: 10px;
+        }
+
+        .kanban-column.drag-over {
+            background-color: #f4f7f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f7f6;
+        }
+
+        .kanban-board {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            height: 80%;
+        }
+
+        .kanban-column {
+            width: 30%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .task {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .task:hover {
+            background-color: #45a049;
+        }
+
+        .card {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: move;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .card:hover {
+            background-color: #e0f7fa;
+        }
+
+        .task[draggable="true"],
+        .card[draggable="true"] {
+            margin-bottom: 10px;
+        }
+
+        .kanban-column.drag-over {
+            background-color: #f4f7f6;
+        }
+
+        /* Modal Styles */
+        .ticket-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            /* Initially off-screen */
+            width: 400px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            transition: right 0.3s ease;
+        }
+
+        .ticket-modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .ticket-modal input,
+        .ticket-modal select,
+        .ticket-modal textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .ticket-modal button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ticket-modal button:hover {
+            background-color: #45a049;
+        }
+
+        /* Close Button */
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="kanban-board">
+        <div class="kanban-column" id="to-do">
+            <h2>To Do</h2>
+            <div class="task" id="task1" draggable="true">
+                <div class="card  " id="card1" draggable="true">
+                    <div class="card-header d-flex justify-content-center">
+                        <h5 id="title"></h5>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <h5 id="des"></h5>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <h5 id="priority"></h5>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <div class="task" id="task2" draggable="true">
+                <div class="card" id="card1" draggable="true">
+                    Card 2
+                </div>
+
+            </div>
+            <div class="task" id="task3" draggable="true">
+                <div class="card" id="card3" draggable="true">
+                    Card 3
+                </div>
+            </div> -->
+        </div>
+
+        <div class="kanban-column" id="in-progress">
+            <h2>In Progress</h2>
+        </div>
+
+        <div class="kanban-column" id="done">
+            <h2>Done</h2>
+        </div>
+        <!-- Ticket Creation Button -->
+        <button id="openModalBtn" class="open-modal-btn">Create Ticket</button>
+
+        <!-- Side Modal for Ticket Creation -->
+        <div id="ticketModal" class="ticket-modal">
+            <div class="ticket-modal-content">
+                <span id="closeModalBtn" class="close-modal-btn">&times;</span>
+                <h2>Create New Ticket</h2>
+                <form id="ticketForm">
+                    <label for="ticketTitle">Title:</label>
+                    <input type="text" id="ticketTitle" name="ticketTitle" required><br><br>
+
+                    <label for="ticketDescription">Description:</label>
+                    <textarea id="ticketDescription" name="ticketDescription" required></textarea><br><br>
+
+                    <label for="ticketPriority">Priority:</label>
+                    <select id="ticketPriority" name="ticketPriority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select><br><br>
+
+                    <button type="submit">Create Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../config.js"></script>
+    <script>
+        // Select all columns and cards
+        const columns = document.querySelectorAll('.kanban-column');
+        const cards = document.querySelectorAll('.card');
+
+        // Add dragstart event to each card
+        cards.forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                modal.style.right = '0';
+                e.dataTransfer.setData('text', card.id);
+            });
+        });
+
+        // Allow columns to accept dragged items (cards)
+        columns.forEach(column => {
+            column.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                modal.style.right = '0';
+                column.classList.add('drag-over');
+            });
+
+            column.addEventListener('dragleave', () => {
+                column.classList.remove('drag-over');
+            });
+
+            column.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const cardId = e.dataTransfer.getData('text');
+                const card = document.getElementById(cardId);
+                column.appendChild(card);
+                column.classList.remove('drag-over');
+            });
+        });
+
+        // If you want to drag the tasks themselves (optional, but would allow moving tasks as well)
+        document.querySelectorAll('.task').forEach(task => {
+            task.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text', task.id);
+            });
+        });
+
+    </script>
+    <script>
+        // Select the modal, button, and close button
+        const modal = document.getElementById('ticketModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const card1 = document.querySelectorAll('.card1');
+
+        // Open Modal
+        card1.addEventListener('click', () => {
+            modal.style.right = '0'; // Slide in the modal from the right
+        });
+
+        // Close Modal
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.right = '-400px'; // Slide out the modal to hide
+        });
+
+        // Submit Ticket Form (optional - You can add form submission logic)
+        const ticketForm = document.getElementById('ticketForm');
+        ticketForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('ticketTitle').value;
+            const description = document.getElementById('ticketDescription').value;
+            const priority = document.getElementById('ticketPriority').value;
+
+            // Log or process the form data
+            console.log(`Ticket Created: Title: ${title}, Description: ${description}, Priority: ${priority}`);
+
+            // Optionally, close the modal after form submission
+            modal.style.right = '-400px';
+        });
+
+    </script>
+    <script src="test.js"></script>
+</body>
+
+</html>

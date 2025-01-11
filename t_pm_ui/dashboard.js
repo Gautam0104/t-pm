@@ -261,7 +261,7 @@ fetch(`${API_BASE_URL}/projects`)
                             <div class="dropdown-menu">
                               <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-pencil me-1"></i>
                                 Edit</a>
-                              <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-trash me-1"></i>
+                              <a class="dropdown-item"  onclick="handleDelete(${element.project_id})"><i class="ti ti-trash me-1"></i>
                                 Delete</a>
                             </div>
                           </div>
@@ -368,3 +368,47 @@ const createProject = async () => {
         console.error(error);
     }
 };
+
+
+//Delete Project
+
+const handleDelete = async (id) => {
+    console.log('Project id is : ' + id);
+    // if (!recordId) {
+    //     messageDiv.textContent = 'Please enter a valid ID.';
+    //     messageDiv.className = 'message error';
+    //     return;
+    // }
+
+    try {
+        // Send DELETE request to the API
+        const response = await fetch(`${API_BASE_URL}/deleteProject/${id}`, {
+            method: 'DELETE',
+        });
+        window.location.reload();
+        // Parse the response
+        // const data = await response.json();
+
+        if (response.ok) {
+
+            Swal.fire({
+                title: "Project Deleted Successfully",
+                text: "A project is delete from your projects",
+                icon: "success",
+                confirmButtonText: "Ok!",
+            })
+        } else {
+            Swal.fire({
+                title: "Oops!",
+                text: "something went wrong. Try again!",
+                icon: "error",
+                confirmButtonText: "Retry!",
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        // messageDiv.textContent = 'Could not connect to the server.';
+        // messageDiv.className = 'message error';
+    }
+
+}
