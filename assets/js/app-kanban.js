@@ -3,7 +3,28 @@
  */
 
 'use strict';
+const API_BASE_URL = ENV.API_BASE_URL;
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get("id");
 
+const pageName = document.getElementById("page-title-text");
+fetch(`${API_BASE_URL}/project/${projectId}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        let statusText = "";
+        
+        pageName.innerText = data.project_name;
+    
+         console.log(data)
+    })
+    .catch(error => {
+        console.error("Error fetching user data:", error);
+    });
 (async function () {
   let boards;
   const kanbanSidebar = document.querySelector('.kanban-update-item-sidebar'),

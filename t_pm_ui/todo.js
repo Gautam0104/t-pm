@@ -6,7 +6,6 @@ const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // Get query parameters from the URL
 const urlParams = new URLSearchParams(window.location.search);
 const projectId = urlParams.get("id");
-console.log(projectId);
 
 const projectName = document.getElementById("name");
 const projectLeader = document.getElementById("leader");

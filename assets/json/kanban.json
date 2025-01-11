@@ -1,7 +1,7 @@
 [
   {
     "id": "board-in-progress",
-    "title": "In Progress",
+    "title": "ToDo",
     "item": [
       {
         "id": "in-progress-1",
@@ -12,12 +12,12 @@
         "due-date": "5 April",
         "attachments": "4",
         "assigned": [
-          "12.png",
-          "5.png"
+          "1.png",
+          "1.png"
         ],
         "members": [
-          "Bruce",
-          "Clark"
+          "Thunder",
+          "Thunder"
         ]
       },
       {
@@ -29,19 +29,139 @@
         "attachments": "2",
         "due-date": "10 April",
         "assigned": [
-          "3.png",
-          "8.png"
+          "1.png",
+          "1.png"
         ],
         "members": [
-          "Helena",
-          "Iris"
+          "Thunder",
+          "Thunder"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "board-in-progress",
+    "title": "In Progress",
+    "item": [
+      {
+        "id": "in-progress-1",
+        "title": "Research FAQ page UX",
+        "comments": "12",
+        "badge-text": "UX",
+        "badge": "success",
+        "due-date": "5 April",
+        "attachments": "4",
+        "assigned": [
+          "1.png",
+          "1.png"
+        ],
+        "members": [
+          "Thunder",
+          "Thunder"
+        ]
+      },
+      {
+        "id": "in-progress-2",
+        "title": "Review Javascript code",
+        "comments": "8",
+        "badge-text": "Code Review",
+        "badge": "danger",
+        "attachments": "2",
+        "due-date": "10 April",
+        "assigned": [
+          "1.png",
+          "1.png"
+        ],
+        "members": [
+          "Thunder",
+          "Thunder"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "board-in-progress",
+    "title": "For Approval",
+    "item": [
+      {
+        "id": "in-progress-1",
+        "title": "Research FAQ page UX",
+        "comments": "12",
+        "badge-text": "UX",
+        "badge": "success",
+        "due-date": "5 April",
+        "attachments": "4",
+        "assigned": [
+          "1.png",
+          "1.png"
+        ],
+        "members": [
+          "Thunder",
+          "Thunder"
+        ]
+      },
+      {
+        "id": "in-progress-2",
+        "title": "Review Javascript code",
+        "comments": "8",
+        "badge-text": "Code Review",
+        "badge": "danger",
+        "attachments": "2",
+        "due-date": "10 April",
+        "assigned": [
+          "1.png",
+          "1.png"
+        ],
+        "members": [
+          "Thunder",
+          "Thunder"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "board-in-progress",
+    "title": "Rejected",
+    "item": [
+      {
+        "id": "in-progress-1",
+        "title": "Research FAQ page UX",
+        "comments": "12",
+        "badge-text": "UX",
+        "badge": "success",
+        "due-date": "5 April",
+        "attachments": "4",
+        "assigned": [
+          "1.png",
+          "1.png"
+        ],
+        "members": [
+          "Thunder",
+          "Thunder"
+        ]
+      },
+      {
+        "id": "in-progress-2",
+        "title": "Review Javascript code",
+        "comments": "8",
+        "badge-text": "Code Review",
+        "badge": "danger",
+        "attachments": "2",
+        "due-date": "10 April",
+        "assigned": [
+          "1.png",
+          "1.png"
+        ],
+        "members": [
+          "Thunder",
+          "Thunder"
         ]
       }
     ]
   },
   {
     "id": "board-in-review",
-    "title": "In Review",
+    "title": "Approved",
     "item": [
       {
         "id": "in-review-1",
@@ -52,12 +172,12 @@
         "due-date": "8 April",
         "attachments": "8",
         "assigned": [
-          "11.png",
-          "6.png"
+          "1.png",
+          "1.png"
         ],
         "members": [
-          "Laurel",
-          "Harley"
+          "Thunder",
+          "Thunder"
         ]
       },
       {
@@ -70,58 +190,19 @@
         "due-date": "2 April",
         "attachments": "10",
         "assigned": [
-          "9.png",
-          "2.png",
-          "3.png",
-          "12.png"
-        ],
-        "members": [
-          "Dianna",
-          "Jordan",
-          "Vinnie",
-          "Lasa"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "board-done",
-    "title": "Done",
-    "item": [
-      {
-        "id": "done-1",
-        "title": "Forms & Tables section",
-        "comments": "4",
-        "badge-text": "App",
-        "badge": "secondary",
-        "due-date": "7 April",
-        "attachments": "1",
-        "assigned": [
-          "2.png",
-          "9.png",
-          "10.png"
-        ],
-        "members": [
-          "Kara",
-          "Nyssa",
-          "Darcey"
-        ]
-      },
-      {
-        "id": "done-2",
-        "title": "Completed Charts & Maps",
-        "comments": "21",
-        "badge-text": "Charts & Maps",
-        "badge": "primary",
-        "due-date": "7 April",
-        "attachments": "6",
-        "assigned": [
+          "1.png",
+          "1.png",
+          "1.png",
           "1.png"
         ],
         "members": [
-          "Sarah"
+          "Thunder",
+          "Thunder",
+          "Thunder",
+          "Thunder"
         ]
       }
     ]
   }
+ 
 ]
