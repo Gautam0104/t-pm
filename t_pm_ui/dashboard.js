@@ -1,7 +1,7 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // Logout Button Click
-document.getElementById('logoutButton').addEventListener('click', async () => {
+document.getElementById("logoutButton").addEventListener("click", async () => {
     // try {
     //     const response = await fetch(`${baseURL}/auth/logout`, {
     //         method: 'POST'
@@ -18,32 +18,31 @@ document.getElementById('logoutButton').addEventListener('click', async () => {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
-    localStorage.removeItem('sessionIs');
+    localStorage.removeItem("sessionIs");
 });
 
 // Check Session Expiration
 setInterval(() => {
-    const sessionExpireTime = localStorage.getItem('sessionExpireTime');
+    const sessionExpireTime = localStorage.getItem("sessionExpireTime");
     if (sessionExpireTime && new Date() > new Date(sessionExpireTime)) {
         // alert('Session expired. Please log in again.');
-        localStorage.removeItem('sessionExpireTime');
-        localStorage.removeItem('sessionIs');
+        localStorage.removeItem("sessionExpireTime");
+        localStorage.removeItem("sessionIs");
         // window.location.reload();
-        window.location.href = 'auth-login-cover.html';
+        window.location.href = "auth-login-cover.html";
     }
 }, 1000);
 
-
 // Project table data filter
-const filterInput = document.getElementById('filterInput');
-const tableBody = document.getElementById('tableBody');
+const filterInput = document.getElementById("filterInput");
+const tableBody = document.getElementById("tableBody");
 
-filterInput.addEventListener('keyup', () => {
+filterInput.addEventListener("keyup", () => {
     const filterValue = filterInput.value.toLowerCase();
-    const rows = tableBody.getElementsByTagName('tr');
+    const rows = tableBody.getElementsByTagName("tr");
 
     for (let row of rows) {
-        const cells = row.getElementsByTagName('td');
+        const cells = row.getElementsByTagName("td");
         let match = false;
 
         for (let cell of cells) {
@@ -53,62 +52,59 @@ filterInput.addEventListener('keyup', () => {
             }
         }
 
-        row.style.display = match ? '' : 'none';
+        row.style.display = match ? "" : "none";
     }
 });
 
 function openModal() {
-    const modalElement = document.getElementById('shareProject');
+    const modalElement = document.getElementById("shareProject");
     const modal = new bootstrap.Modal(modalElement);
 
     modal.show();
 }
 
-
-
-
 // project data
-
-
 
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}/users`)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            throw new Error("Network response was not ok " + response.statusText);
         }
         return response.json();
     })
     .then(data => {
         const modifiedRole = data.map(user => {
-            let roleText = '';
+            let roleText = "";
             switch (user.role_id) {
                 case 1:
                     roleText = '<span class="badge bg-label-success me-1">Admin</span>';
                     break;
                 case 2:
-                    roleText = '<span class="badge bg-label-primary me-1">Project Manager</span>';
+                    roleText =
+                        '<span class="badge bg-label-primary me-1">Project Manager</span>';
                     break;
                 case 3:
-                    roleText = '<span class="badge bg-label-info me-1">Team Member</span>';
+                    roleText =
+                        '<span class="badge bg-label-info me-1">Team Member</span>';
                     break;
                 default:
-                    statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
+                    statusText =
+                        '<span class="badge bg-label-danger me-1">Unknown</span>';
             }
             return {
                 role: roleText,
                 username: user.username,
                 first_name: user.first_name,
-                last_name: user.last_name
+                last_name: user.last_name,
             };
         });
-        const listContent = document.querySelector('#list-content');
+        const listContent = document.querySelector("#list-content");
         // tableBody.innerHTML = ''; // Clear existing rows
-        const memberCount = document.getElementById('numofmember');
+        const memberCount = document.getElementById("numofmember");
         memberCount.innerHTML = `${data.length} Members`;
         // Populate List Content with User Data
         modifiedRole.forEach(element => {
-
             const content = `
                      <li class="d-flex flex-wrap mb-4" >  
                      <div class="avatar me-4">
@@ -144,57 +140,58 @@ fetch(`${API_BASE_URL}/users`)
                    
           `;
             listContent.innerHTML += content;
-
         });
         //console.log(data)
     })
-
     .catch(error => {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
     });
-
-
-
-
-
 
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}/projects`)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            throw new Error("Network response was not ok " + response.statusText);
         }
         return response.json();
     })
     .then(data => {
         const modifiedResults = data.map(project => {
-            let statusText = '';
+            let statusText = "";
             switch (project.project_status) {
                 case 1:
-                    statusText = '<span class="badge bg-label-primary me-1">Active</span>';
+                    statusText =
+                        '<span class="badge bg-label-primary me-1">Active</span>';
                     break;
                 case 2:
-                    statusText = '<span class="badge bg-label-success me-1">Complete</span>';
+                    statusText =
+                        '<span class="badge bg-label-success me-1">Complete</span>';
                     break;
                 case 3:
-                    statusText = '<span class="badge bg-label-info me-1">Scheduled</span>';
+                    statusText =
+                        '<span class="badge bg-label-info me-1">Scheduled</span>';
                     break;
                 case 4:
-                    statusText = '<span class="badge bg-label-warning me-1">Pending</span>';
+                    statusText =
+                        '<span class="badge bg-label-warning me-1">Pending</span>';
                     break;
                 default:
-                    statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
+                    statusText =
+                        '<span class="badge bg-label-danger me-1">Unknown</span>';
             }
-            let projectTpe = ''
+            let projectTpe = "";
             switch (project.project_type) {
                 case "project":
-                    projectTpe = '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+                    projectTpe =
+                        '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
                     break;
                 case "ticket":
-                    projectTpe = '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
+                    projectTpe =
+                        '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
                     break;
                 default:
-                    projectTpe = '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
+                    projectTpe =
+                        '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
             }
             return {
                 project_id: project.project_id,
@@ -207,15 +204,14 @@ fetch(`${API_BASE_URL}/projects`)
                 total_eta: project.total_eta,
                 created_at: project.created_at,
                 updated_at: project.updated_at,
-                project_type: projectTpe
+                project_type: projectTpe,
             };
         });
-        const tableBody = document.querySelector('#initailbody');
+        const tableBody = document.querySelector("#initailbody");
         // tableBody.innerHTML = ''; // Clear existing rows
 
         // Populate Table Rows with User Data
         modifiedResults.forEach(element => {
-
             const row = `
             <tr>
               
@@ -273,27 +269,29 @@ fetch(`${API_BASE_URL}/projects`)
             </tr>
           `;
             tableBody.innerHTML += row;
-
         });
         //console.log(data)
     })
-
     .catch(error => {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
     });
 
-
-
 // Fetch and count data active projects and completed tasks
-const activeProjectsCountElement = document.getElementById('active-projects-counts');
-const completeProjectsCountElement = document.getElementById('complete-projects-counts');
-const totalProjectsCountElement = document.getElementById('total-projects-counts');
+const activeProjectsCountElement = document.getElementById(
+    "active-projects-counts"
+);
+const completeProjectsCountElement = document.getElementById(
+    "complete-projects-counts"
+);
+const totalProjectsCountElement = document.getElementById(
+    "total-projects-counts"
+);
 
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}/projects`)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
+            throw new Error("Network response was not ok: " + response.statusText);
         }
         return response.json();
     })
@@ -305,7 +303,9 @@ fetch(`${API_BASE_URL}/projects`)
         activeProjectsCountElement.textContent = activeProjects.length;
 
         // Filter projects with "completed" status
-        const completeProjects = data.filter(project => project.project_status === 2);
+        const completeProjects = data.filter(
+            project => project.project_status === 2
+        );
 
         // Update the completed projects count in the DOM
         completeProjectsCountElement.textContent = completeProjects.length;
@@ -315,59 +315,56 @@ fetch(`${API_BASE_URL}/projects`)
         totalProjectsCountElement.textContent = totalProjects;
     })
     .catch(error => {
-        console.error('Error fetching projects:', error);
-        activeProjectsCountElement.textContent = 'Error';
+        console.error("Error fetching projects:", error);
+        activeProjectsCountElement.textContent = "Error";
     });
 
-
-
-
 const createProject = async () => {
-    const project_name = document.getElementById('project-name').value;
+    const project_name = document.getElementById("project-name").value;
     const project_leader_id = 1;
-    const description = document.getElementById('project-des').value;
-    const status = document.getElementById('project-status').value;
-    const total_eta = document.getElementById('project-eta').value;
-
+    const description = document.getElementById("project-des").value;
+    const status = document.getElementById("project-status").value;
+    const total_eta = document.getElementById("project-eta").value;
 
     try {
         const response = await fetch(`${API_BASE_URL}/project`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ project_name, project_leader_id, description, status, total_eta }),
+            body: JSON.stringify({
+                project_name,
+                project_leader_id,
+                description,
+                status,
+                total_eta,
+            }),
         });
 
         // const data = await response.json();
 
         if (response.ok) {
-
             Swal.fire({
-                title: 'Project created Successfully',
-                text: 'A new project created',
-                icon: 'success',
-                confirmButtonText: 'Ok!'
+                title: "Project created Successfully",
+                text: "A new project created",
+                icon: "success",
+                confirmButtonText: "Ok!",
             }).then(function () {
                 // Redirect to dashboard.html
-                window.location.href = 'dashboard.html';
-            })
-
-
+                window.location.href = "dashboard.html";
+            });
         } else {
             // messageElement.style.color = 'red';
             Swal.fire({
-                title: 'Oops!',
-                text: 'something went wrong. Try again!',
-                icon: 'error',
-                confirmButtonText: 'Retry!'
+                title: "Oops!",
+                text: "something went wrong. Try again!",
+                icon: "error",
+                confirmButtonText: "Retry!",
             });
-
         }
     } catch (error) {
-        messageElement.style.color = 'red';
+        messageElement.style.color = "red";
         // messageElement.textContent = 'An error occurred.';
         console.error(error);
     }
-
-}
+};
