@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event Guests (select2)
     if (eventGuests.length) {
       // Fetch data from the API
-      fetch('https://xx87gmj8-3000.inc1.devtunnels.ms/users') // Replace with your API endpoint
+      fetch('https://xx87gmj8-3000.inc1.devtunnels.ms/users') //  API endpoint
         .then(response => response.json())
         .then(data => {
           // Populate the options with API data
