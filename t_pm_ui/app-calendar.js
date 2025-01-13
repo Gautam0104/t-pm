@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event Guests (select2)
     if (eventGuests.length) {
       // Fetch data from the API
-      fetch('https://xx87gmj8-3000.inc1.devtunnels.ms/users') //  API endpoint
+      fetch('https://thunderbees.com.br/tpm_api/users') //  API endpoint to fetch user information
         .then(response => response.json())
         .then(data => {
           // Populate the options with API data
