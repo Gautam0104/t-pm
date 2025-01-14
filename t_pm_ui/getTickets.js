@@ -5,7 +5,7 @@ const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // get tickets
 
 
-fetch(`${API_BASE_URL}/tickets`)
+fetch(`${API_BASE_URL}/ticket/`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);
@@ -14,12 +14,17 @@ fetch(`${API_BASE_URL}/tickets`)
     })
     .then(data => {
         data.forEach(element => {
-            const cardItem = document.getElementById('todo-task');
+            console.log(data);
+            const cardItemTodo = document.getElementById('todo-task');
+            // const cardItemInprogress = document.getElementById('in-progress');
+            // const cardItemForapproval = document.getElementById('todo-task');
+            // const cardItemRejected = document.getElementById('for-approval');
+            // const cardItemAproved = document.getElementById('app');
 
             // Create kanban card dynamically
             const card = document.createElement('div');
             card.className = "kanban-item";
-            card.setAttribute('data-eid', element.id || "in-progress-1");
+            card.setAttribute('data-eid', element.ticket_id || "in-progress-1");
             card.setAttribute('data-comments', element.comments || "0");
             card.setAttribute('data-badge-text', element.badge || "");
             card.setAttribute('data-badge', "success");
@@ -75,65 +80,52 @@ fetch(`${API_BASE_URL}/tickets`)
             makeDraggable(card);
 
             // Append card to the container
-            cardItem.appendChild(card);
+            cardItemTodo.appendChild(card);
         });
     })
     .catch(error => console.error("Error fetching data:", error));
 
 // Function to make an element draggable
-function makeDraggable(element) {
-    element.setAttribute('draggable', 'true');
+const kanbanselect = document.querySelectorAll('.kanban-item');
 
-    // Add dragstart event
-    element.addEventListener('dragstart', (event) => {
-        event.dataTransfer.setData('text/plain', element.id); // Set the id of the dragged element
-        element.classList.add('dragging');
-    });
-
-    // Add dragend event
-    element.addEventListener('dragend', () => {
-        element.classList.remove('dragging');
-    });
-}
-
-const containers = document.querySelectorAll('.kanban-container');
-
-containers.forEach(container => {
-    container.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        event.dataTransfer.dropEffect = "move"; // Show move cursor
-        const draggingElement = document.querySelector('.dragging');
-        const afterElement = getDragAfterElement(container, event.clientY);
-
-        if (afterElement == null) {
-            container.appendChild(draggingElement);
-        } else {
-            container.insertBefore(draggingElement, afterElement);
-        }
-    });
-
-    container.addEventListener('drop', (event) => {
-        event.preventDefault();
-        const cardId = event.dataTransfer.getData('text/plain');
-        const draggedElement = document.querySelector(`[data-eid='${cardId}']`);
-        container.appendChild(draggedElement); // Append card to the drop container
-    });
+// Add drag event listeners to kanban items
+kanbanselect.forEach(item => {
+    item.setAttribute('draggable', 'true'); // Ensure draggable attribute is set
+    item.addEventListener('dragstart', dragStart);
+    item.addEventListener('dragend', dragEnd);
 });
 
-// Helper function to find the correct position for the dragged item
-function getDragAfterElement(container, y) {
-    const draggableElements = [
-        ...container.querySelectorAll('.kanban-item:not(.dragging)')
-    ];
+// Select all drop zones (kanban-drag within kanban-board)
+const taskContainers = document.querySelectorAll('.kanban-drag');
 
-    return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
+taskContainers.forEach(container => {
+    container.addEventListener('dragover', dragOver);
+    container.addEventListener('drop', drop);
+});
 
-        if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child };
-        } else {
-            return closest;
-        }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
+// Variables
+let draggedItem = null;
+
+// Drag-and-drop functions
+function dragStart(e) {
+    draggedItem = this;
+    e.dataTransfer.effectAllowed = 'move'; // Allow moving the item
+    setTimeout(() => (this.style.display = 'none'), 0); // Temporarily hide the item while dragging
+}
+
+function dragEnd(e) {
+    this.style.display = 'block'; // Restore item visibility after dragging
+    draggedItem = null;
+}
+
+function dragOver(e) {
+    e.preventDefault(); // Allow items to be dropped
+    e.dataTransfer.dropEffect = 'move'; // Indicate the move action
+}
+
+function drop(e) {
+    e.preventDefault();
+    if (draggedItem) {
+        this.appendChild(draggedItem); // Append the dragged item to the drop target
+    }
 }
