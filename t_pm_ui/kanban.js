@@ -1,16 +1,16 @@
-const kanbanItems = document.querySelectorAll('.kanban-item');
-const offcanvas = document.querySelector('.offcanvas');
-const contentWrapper = document.querySelector('.content-wrapper');
-const offcanvasClosebtn = document.getElementById('offcanvase-close');
-const backdrop = `<div class="offcanvas-backdrop fade show"></div>`;
+// const kanbanItems = document.querySelectorAll('.kanban-item');
+// const offcanvas = document.querySelector('.offcanvas');
+// const contentWrapper = document.querySelector('.content-wrapper');
+// const offcanvasClosebtn = document.getElementById('offcanvase-close');
+// const backdrop = `<div class="offcanvas-backdrop fade show"></div>`;
 // open canbavase 
-for (const kanbanItem of kanbanItems) {
-    kanbanItem.addEventListener('click', function () {
-        console.log('kanban-item working');
-        offcanvas.classList.add('show');
-        contentWrapper.appendChild(backdrop);
-    });
-}
+// for (const kanbanItem of kanbanItems) {
+//     kanbanItem.addEventListener('click', function () {
+//         console.log('kanban-item working');
+//         offcanvas.classList.add('show');
+//         contentWrapper.appendChild(backdrop);
+//     });
+// }
 
 // close canvase
 offcanvasClosebtn.addEventListener('click', function () {

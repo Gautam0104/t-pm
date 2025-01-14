@@ -436,9 +436,12 @@
         class="template-customizer-core-css">
     <link rel="stylesheet" type="text/css" href="../assets/vendor/css/rtl/theme-default.css"
         class="template-customizer-theme-css">
+
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="" style="">
+<body class="">
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -1155,7 +1158,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title">
-                                <h4 class="page-title-text" id="page-title-text"></h4>
+                                <h4 class="page-title-text text-center" id="page-title-text" style="font-weight: 200;">
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -1208,6 +1212,9 @@
                                             <form class="new-item-form draggable" id="add-new-todo">
 
                                             </form>
+                                            <div id="backdrop">
+
+                                            </div>
                                         </main>
                                         <footer></footer>
                                     </div>
@@ -1566,7 +1573,7 @@
                                 <div class="offcanvas-header border-bottom">
                                     <h5 class="offcanvas-title">Edit Task</h5>
                                     <button type="button" class="btn-close" id="offcanvase-close"
-                                        aria-label="Close"></button>
+                                        onclick="closeCanvase()" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body pt-0">
                                     <div class="nav-align-top">
@@ -1591,198 +1598,8 @@
                                     <div class="tab-content p-0">
                                         <!-- Update item/tasks -->
                                         <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
-                                            <form>
-                                                <div class="mb-5">
-                                                    <label class="form-label" for="title">Title</label>
-                                                    <input type="text" id="title" class="form-control"
-                                                        placeholder="Enter Title">
-                                                </div>
-                                                <div class="mb-5">
-                                                    <label class="form-label" for="due-date">Due Date</label>
-                                                    <input type="hidden" id="due-date"
-                                                        class="form-control flatpickr-input"
-                                                        placeholder="Enter Due Date"><input
-                                                        class="form-control flatpickr-input form-control input"
-                                                        placeholder="Enter Due Date" tabindex="0" type="text"
-                                                        readonly="readonly"><input
-                                                        class="form-control form-control input"
-                                                        placeholder="Enter Due Date" tabindex="0" type="text"
-                                                        readonly="readonly">
-                                                </div>
-                                                <div class="mb-5">
-                                                    <label class="form-label" for="label"> Label</label>
-                                                    <div class="position-relative">
-                                                        <div class="position-relative"><select
-                                                                class="select2 select2-label form-select select2-hidden-accessible"
-                                                                id="label" data-select2-id="label" tabindex="-1"
-                                                                aria-hidden="true">
-                                                                <option data-color="bg-label-success" value="UX"
-                                                                    data-select2-id="2">UX</option>
-                                                                <option data-color="bg-label-warning" value="Images">
-                                                                    Images
-                                                                </option>
-                                                                <option data-color="bg-label-info" value="Info">Info
-                                                                </option>
-                                                                <option data-color="bg-label-danger"
-                                                                    value="Code Review">
-                                                                    Code Review</option>
-                                                                <option data-color="bg-label-secondary" value="App">App
-                                                                </option>
-                                                                <option data-color="bg-label-primary"
-                                                                    value="Charts &amp; Maps">Charts &amp; Maps</option>
-                                                            </select><span
-                                                                class="select2 select2-container select2-container--default"
-                                                                dir="ltr" data-select2-id="1" style="width: 1px;"><span
-                                                                    class="selection"><span
-                                                                        class="select2-selection select2-selection--single"
-                                                                        role="combobox" aria-haspopup="true"
-                                                                        aria-expanded="false" tabindex="-1"
-                                                                        aria-disabled="false"
-                                                                        aria-labelledby="select2-label-container"><span
-                                                                            class="select2-selection__rendered"
-                                                                            id="select2-label-container" role="textbox"
-                                                                            aria-readonly="true" title="UX">
-                                                                            <div class="badge bg-label-success"> UX
-                                                                            </div>
-                                                                        </span><span class="select2-selection__arrow"
-                                                                            role="presentation"><b
-                                                                                role="presentation"></b></span></span></span><span
-                                                                    class="dropdown-wrapper"
-                                                                    aria-hidden="true"></span></span></div>
-                                                        <div class="position-relative"><span
-                                                                class="select2 select2-container select2-container--default select2-hidden-accessible"
-                                                                dir="ltr" data-select2-id="1" style="width: 352px;"
-                                                                tabindex="-1" aria-hidden="true"><span
-                                                                    class="selection"><span
-                                                                        class="select2-selection select2-selection--single"
-                                                                        role="combobox" aria-haspopup="true"
-                                                                        aria-expanded="false" tabindex="0"
-                                                                        aria-disabled="false"
-                                                                        aria-labelledby="select2-label-container"><span
-                                                                            class="select2-selection__rendered"
-                                                                            id="select2-label-container" role="textbox"
-                                                                            aria-readonly="true" title="UX">
-                                                                            <div class="badge bg-label-success"> UX
-                                                                            </div>
-                                                                        </span><span class="select2-selection__arrow"
-                                                                            role="presentation"><b
-                                                                                role="presentation"></b></span></span></span><span
-                                                                    class="dropdown-wrapper"
-                                                                    aria-hidden="true"></span></span><span
-                                                                class="select2 select2-container select2-container--default"
-                                                                dir="ltr" data-select2-id="2"
-                                                                style="width: 352px;"><span class="selection"><span
-                                                                        class="select2-selection select2-selection--single"
-                                                                        role="combobox" aria-haspopup="true"
-                                                                        aria-expanded="false" tabindex="0"
-                                                                        aria-disabled="false"
-                                                                        aria-labelledby="select2-xo9g-container"><span
-                                                                            class="select2-selection__rendered"
-                                                                            id="select2-xo9g-container" role="textbox"
-                                                                            aria-readonly="true"><span
-                                                                                class="select2-selection__placeholder">Select
-                                                                                Label</span></span><span
-                                                                            class="select2-selection__arrow"
-                                                                            role="presentation"><b
-                                                                                role="presentation"></b></span></span></span><span
-                                                                    class="dropdown-wrapper"
-                                                                    aria-hidden="true"></span></span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-5">
-                                                    <label class="form-label">Assigned</label>
-                                                    <div class="assigned d-flex flex-wrap"></div>
-                                                </div>
-                                                <div class="mb-5">
-                                                    <label class="form-label" for="attachments">Attachments</label>
-                                                    <div>
-                                                        <input type="file" class="form-control" id="attachments">
-                                                    </div>
-                                                </div>
-                                                <div class="mb-5">
-                                                    <label class="form-label">Comment</label>
-                                                    <div class="comment-editor border-bottom-0 ql-container ql-snow">
-                                                        <div class="ql-editor ql-blank" data-gramm="false"
-                                                            contenteditable="true"
-                                                            data-placeholder="Write a Comment... ">
-                                                            <p><br></p>
-                                                        </div>
-                                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1">
-                                                        </div>
-                                                        <div class="ql-tooltip ql-hidden"><a class="ql-preview"
-                                                                rel="noopener noreferrer" target="_blank"
-                                                                href="about:blank"></a><input type="text"
-                                                                data-formula="e=mc^2" data-link="https://quilljs.com"
-                                                                data-video="Embed URL"><a class="ql-action"></a><a
-                                                                class="ql-remove"></a></div>
-                                                    </div>
-                                                    <div class="d-flex justify-content-end">
-                                                        <div class="comment-toolbar ql-toolbar ql-snow">
-                                                            <span class="ql-formats me-0">
-                                                                <button class="ql-bold" type="button"><svg
-                                                                        viewBox="0 0 18 18">
-                                                                        <path class="ql-stroke"
-                                                                            d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z">
-                                                                        </path>
-                                                                        <path class="ql-stroke"
-                                                                            d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z">
-                                                                        </path>
-                                                                    </svg></button>
-                                                                <button class="ql-italic" type="button"><svg
-                                                                        viewBox="0 0 18 18">
-                                                                        <line class="ql-stroke" x1="7" x2="13" y1="4"
-                                                                            y2="4"></line>
-                                                                        <line class="ql-stroke" x1="5" x2="11" y1="14"
-                                                                            y2="14"></line>
-                                                                        <line class="ql-stroke" x1="8" x2="10" y1="14"
-                                                                            y2="4"></line>
-                                                                    </svg></button>
-                                                                <button class="ql-underline" type="button"><svg
-                                                                        viewBox="0 0 18 18">
-                                                                        <path class="ql-stroke"
-                                                                            d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3">
-                                                                        </path>
-                                                                        <rect class="ql-fill" height="1" rx="0.5"
-                                                                            ry="0.5" width="12" x="3" y="15"></rect>
-                                                                    </svg></button>
-                                                                <button class="ql-link" type="button"><svg
-                                                                        viewBox="0 0 18 18">
-                                                                        <line class="ql-stroke" x1="7" x2="11" y1="7"
-                                                                            y2="11"></line>
-                                                                        <path class="ql-even ql-stroke"
-                                                                            d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z">
-                                                                        </path>
-                                                                        <path class="ql-even ql-stroke"
-                                                                            d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z">
-                                                                        </path>
-                                                                    </svg></button>
-                                                                <button class="ql-image" type="button"><svg
-                                                                        viewBox="0 0 18 18">
-                                                                        <rect class="ql-stroke" height="10" width="12"
-                                                                            x="3" y="4"></rect>
-                                                                        <circle class="ql-fill" cx="6" cy="7" r="1">
-                                                                        </circle>
-                                                                        <polyline class="ql-even ql-fill"
-                                                                            points="5 12 5 11 7 9 8 10 11 7 13 9 13 12 5 12">
-                                                                        </polyline>
-                                                                    </svg></button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="d-flex flex-wrap">
-                                                        <button type="button"
-                                                            class="btn btn-primary me-4 waves-effect waves-light"
-                                                            data-bs-dismiss="offcanvas">
-                                                            Update
-                                                        </button>
-                                                        <button type="button" class="btn btn-label-danger waves-effect"
-                                                            data-bs-dismiss="offcanvas">
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <form id="ticket-form">
+
                                             </form>
                                         </div>
                                         <!-- Activities -->
@@ -3091,11 +2908,11 @@
             </div>
         </div>
     </div>
-    <!-- <script src="../config.js"></script> -->
-    <script src="kanban.js"></script>
+    <script src="../config.js"></script>
+
     <script src="getTickets.js"></script>
     <script src="createTickets.js"></script>
-
+    <script src="kanban.js"></script>
 </body>
 
 </html>

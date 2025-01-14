@@ -29,7 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             // document.getElementById('dashboardMessage').textContent = 'Login successful! Welcome to your dashboard.';
             Swal.fire({
                 title: 'Login Successfully',
-                text: 'You are now logged in click ok to redirect on dashboard',
+                text: `You are now logged in click ok to redirect on dashboard`,
                 icon: 'success',
                 confirmButtonText: 'Ok!'
             }).then(function () {

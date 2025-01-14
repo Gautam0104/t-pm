@@ -226,7 +226,7 @@ fetch(`${API_BASE_URL}/projects`)
                         </li>
               </ul>
               </td>
-              <td  style="cursor:pointer"> <a class="dropdown-item" href="kanban.html?id=${element.project_id}">${element.project_leader_fname}</a></td>
+              <td  style="cursor:pointer"> <a class="dropdown-item" href="kanban.html?id=${element.project_id}&user_id=${element.project_Leader_id}">${element.project_leader_fname}</a></td>
               <td>
                     <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
