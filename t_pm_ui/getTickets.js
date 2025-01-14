@@ -47,9 +47,9 @@ fetch(`${API_BASE_URL}/ticket/${project_id}`)
                                                         <div class="d-flex"> <span
                                                                 class="d-flex align-items-center me-2"><i
                                                                     class="ti ti-paperclip me-1"></i><span
-                                                                    class="attachments">4</span></span> <span
+                                                                    class="attachments">0</span></span> <span
                                                                 class="d-flex align-items-center ms-2"><i
-                                                                    class="ti ti-message-2 me-1"></i><span> 12
+                                                                    class="ti ti-message-2 me-1"></i><span> 0
                                                                 </span></span></div>
                                                         <div
                                                             class="avatar-group d-flex align-items-center assigned-avatar">
