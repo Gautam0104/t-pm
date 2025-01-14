@@ -35,6 +35,51 @@ for (const addItem of addItems) {
     });
 }
 
+// Select all kanban items dynamically
+const kanbanselectItems = document.querySelectorAll('.kanban-item');
+
+// Add drag event listeners to kanban items
+kanbanselectItems.forEach(item => {
+  item.setAttribute('draggable', 'true'); // Ensure draggable attribute is set
+  item.addEventListener('dragstart', dragStart);
+  item.addEventListener('dragend', dragEnd);
+});
+
+// Select all drop zones (kanban-drag within kanban-board)
+const taskContainers = document.querySelectorAll('.kanban-drag');
+
+taskContainers.forEach(container => {
+  container.addEventListener('dragover', dragOver);
+  container.addEventListener('drop', drop);
+});
+
+// Variables
+let draggedItem = null;
+
+// Drag-and-drop functions
+function dragStart(e) {
+  draggedItem = this;
+  e.dataTransfer.effectAllowed = 'move'; // Allow moving the item
+  setTimeout(() => (this.style.display = 'none'), 0); // Temporarily hide the item while dragging
+}
+
+function dragEnd(e) {
+  this.style.display = 'block'; // Restore item visibility after dragging
+  draggedItem = null;
+}
+
+function dragOver(e) {
+  e.preventDefault(); // Allow items to be dropped
+  e.dataTransfer.dropEffect = 'move'; // Indicate the move action
+}
+
+function drop(e) {
+  e.preventDefault();
+  if (draggedItem) {
+    this.appendChild(draggedItem); // Append the dragged item to the drop target
+  }
+}
+
 // const cancelAddItem = document.getElementsByClassName('cancel-add-item');
 
 // const formhide = () => {
