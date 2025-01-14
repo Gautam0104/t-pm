@@ -20,11 +20,11 @@ fetch(`${API_BASE_URL}/tickets`)
             const card = document.createElement('div');
             card.className = "kanban-item";
             card.setAttribute('data-eid', element.id || "in-progress-1");
-            card.setAttribute('data-comments', element.comments || "12");
-            card.setAttribute('data-badge-text', element.badge || "UX");
+            card.setAttribute('data-comments', element.comments || "0");
+            card.setAttribute('data-badge-text', element.badge || "");
             card.setAttribute('data-badge', "success");
             card.setAttribute('data-due-date', element.dueDate || "5 April");
-            card.setAttribute('data-attachments', element.attachments || "4");
+            card.setAttribute('data-attachments', element.attachments || "0");
             card.setAttribute('data-members', element.members || "Thunder,Thunder");
 
             // Add card content
@@ -49,11 +49,11 @@ fetch(`${API_BASE_URL}/tickets`)
                     <div class="d-flex">
                         <span class="d-flex align-items-center me-2">
                             <i class="ti ti-paperclip me-1"></i>
-                            <span class="attachments">${element.attachments || "4"}</span>
+                            <span class="attachments">${element.attachments || "0"}</span>
                         </span>
                         <span class="d-flex align-items-center ms-2">
                             <i class="ti ti-message-2 me-1"></i>
-                            <span>${element.comments || "12"}</span>
+                            <span>${element.comments || "0"}</span>
                         </span>
                     </div>
                     <div class="avatar-group d-flex align-items-center assigned-avatar">
