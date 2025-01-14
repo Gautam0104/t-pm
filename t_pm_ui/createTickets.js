@@ -3,7 +3,9 @@
 var todoForm = document.getElementById('add-new-todo');
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
-console.log(project_id);
+var user_id = urlParams.get("user_id");
+console.log("project id : " + project_id);
+console.log("project leader id : " + user_id);
 
 const pageName = document.getElementById("page-title-text");
 fetch(`${API_BASE_URL}/project/${project_id}`)
@@ -32,7 +34,7 @@ todoForm.addEventListener('submit', async function (e) {
     const description = '';
     const status = "Backlog";
     const priority = "Medium";
-    const created_by = 23;
+    const created_by = user_id;
     const due_date = "2025-01-13"
 
 
