@@ -8,70 +8,356 @@ var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
 console.log(project_id);
 
-fetch(`${API_BASE_URL}/ticket/${project_id}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        data.map(element => {
-            const cardItem = document.getElementById('todo-task');
-            const cardContent = `                                                <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                    data-badge-text="UX" data-badge="success" data-due-date="5 April"
-                                                    data-attachments="4" data-assigned="1.png,1.png"
-                                                    data-members="Thunder,Thunder" onclick="openCanvase(${element.ticket_id})">
-                                                    <div
-                                                        class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                        <div class="item-badges">
-                                                            <div class="badge bg-label-success"> UX</div>
-                                                        </div>
-                                                        <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                                class="dropdown-toggle ti ti-dots-vertical"
-                                                                id="kanban-tasks-item-dropdown"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false"></i>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                    class="dropdown-item waves-effect"
-                                                                    href="javascript:void(0)">Copy
-                                                                    task link</a><a class="dropdown-item waves-effect"
-                                                                    href="javascript:void(0)">Duplicate task</a><a
-                                                                    class="dropdown-item delete-task waves-effect"
-                                                                    onclick="handleDelete(${element.ticket_id})">Delete</a></div>
-                                                        </div>
-                                                    </div><span class="kanban-text">${element.title}</span>
-                                                    <div
-                                                        class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                        <div class="d-flex"> <span
-                                                                class="d-flex align-items-center me-2"><i
-                                                                    class="ti ti-paperclip me-1"></i><span
-                                                                    class="attachments">0</span></span> <span
-                                                                class="d-flex align-items-center ms-2"><i
-                                                                    class="ti ti-message-2 me-1"></i><span> 0
-                                                                </span></span></div>
-                                                        <div
-                                                            class="avatar-group d-flex align-items-center assigned-avatar">
-                                                            <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" aria-label="Thunder" 
-                                                                data-bs-original-title="Thunder"><img
-                                                                    src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                    class="rounded-circle  pull-up"></div>
-                                                            <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" aria-label="Thunder"
-                                                                data-bs-original-title="Thunder"><img
-                                                                    src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                    class="rounded-circle  pull-up"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>  
-                               `;
-
-            cardItem.innerHTML += cardContent;
+// Function to fetch and create elements
+function fetchDataAndCreateElements() {
+    return fetch(`${API_BASE_URL}/ticket/${project_id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();
         })
+        .then(data => {
+            data.forEach(element => {
+                const cardItem = document.getElementById('todo-task');
+                const cardItem2 = document.getElementById('inprogress-task');
+                const cardItem3 = document.getElementById('for-approval-task');
+                const cardItem4 = document.getElementById('rejected-task');
+                const cardItem5 = document.getElementById('approved-task');
 
+                // Create kanban card dynamically
+                const card = document.createElement('div');
+                card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
+                card.draggable = true;
+                card.onclick = "openCanvase()"
+
+                // Add card content
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between flex-wrap align-items-center mb-2" >
+                    <div class="item-badges">
+                        <div class="badge bg-label-success">${element.badge || "UX"}</div>
+                    </div>
+                    <div class="dropdown kanban-tasks-item-dropdown">
+                        <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu dropdown-menu-end" 
+                            aria-labelledby="kanban-tasks-item-dropdown">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Copy task link</a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Duplicate task</a>
+                            <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <span class="kanban-text" onclick="openCanvase(${element.ticket_id})">${element.title}</span>
+                <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
+                    <div class="d-flex">
+                        <span class="d-flex align-items-center me-2">
+                            <i class="ti ti-paperclip me-1"></i>
+                            <span class="attachments">${element.attachments || "0"}</span>
+                        </span>
+                        <span class="d-flex align-items-center ms-2">
+                            <i class="ti ti-message-2 me-1"></i>
+                            <span>${element.comments || "0"}</span>
+                        </span>
+                    </div>
+                    <div class="avatar-group d-flex align-items-center assigned-avatar">
+                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
+                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
+                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
+                                class="rounded-circle pull-up">
+                        </div>
+                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
+                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
+                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
+                                class="rounded-circle pull-up">
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                // Append card to the container
+                switch (element.ticket_status) {
+                    case 'todo':
+                        cardItem.appendChild(card);
+                        break;
+                    case 'inprogress':
+                        cardItem2.appendChild(card);
+                        break;
+                    case 'for-approval':
+                        cardItem3.appendChild(card);
+                        break;
+                    case 'approved':
+                        cardItem5.appendChild(card);
+                        break;
+                    case 'rejected':
+                        cardItem4.appendChild(card);
+                        break;
+                    default:
+                        cardItem.appendChild(card);
+                }
+
+            });
+
+            return document.querySelectorAll('.dragg-from-todo'); // Return the elements
+        });
+}
+
+// Call the function and use the returned elements
+fetchDataAndCreateElements()
+    .then(trydraggElements => {
+        const inprogressTask = document.getElementById('inprogress-task');
+        const forApprovalTask = document.getElementById('for-approval-task');
+        const rejectedTask = document.getElementById('rejected-task');
+        const approvedTask = document.getElementById('approved-task');
+
+
+        console.log('trydragg elements outside fetch:', trydraggElements);
+        // Perform actions on the elements here
+        trydraggElements.forEach(element => {
+            element.addEventListener('dragstart', (e) => {
+                let selected = e.target;
+                //console.log(selected.classList[2]);
+                let ticket_id = selected.classList[2]
+                // console.log(ticket_id);
+                // let selectedData = [];
+                function fetchselectedData() {
+                    return fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok " + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            let selectedData = data[0];
+                            return selectedData
+
+                        });
+                }
+
+
+
+                inprogressTask.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+
+
+                });
+                inprogressTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    inprogressTask.appendChild(selected);
+                    selected.classList.remove('dragg-from-todo');
+                    selected.classList.add('dragg-from-inprogress');
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "inprogress";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log('Ticket ID or Status is missing');
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch('http://localhost:3000/updateticketStatus', {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ ticket_id: ticketId, ticket_status: ticketStatus }),
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log('Success:', data))
+                                .catch(error => console.error('Error:', error));
+
+                        })
+                        .catch(error => console.error('Error:', error));
+
+                    selected = null
+
+                });
+                forApprovalTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    forApprovalTask.appendChild(selected);
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "for-approval";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log('Ticket ID or Status is missing');
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch('http://localhost:3000/updateticketStatus', {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ ticket_id: ticketId, ticket_status: ticketStatus }),
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log('Success:', data))
+                                .catch(error => console.error('Error:', error));
+
+                        })
+                        .catch(error => console.error('Error:', error));
+                    selected = null
+                });
+                rejectedTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    rejectedTask.appendChild(selected);
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "rejected";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log('Ticket ID or Status is missing');
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch('http://localhost:3000/updateticketStatus', {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ ticket_id: ticketId, ticket_status: ticketStatus }),
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log('Success:', data))
+                                .catch(error => console.error('Error:', error));
+
+                        })
+                        .catch(error => console.error('Error:', error));
+                    selected = null
+                });
+                approvedTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    approvedTask.appendChild(selected);
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "approved";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log('Ticket ID or Status is missing');
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch('http://localhost:3000/updateticketStatus', {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ ticket_id: ticketId, ticket_status: ticketStatus }),
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log('Success:', data))
+                                .catch(error => console.error('Error:', error));
+
+                        })
+                        .catch(error => console.error('Error:', error));
+                    selected = null
+                });
+            });
+        });
     })
+
+    .catch(error => console.error('Error:', error));
+// Log all elements with class "try" after a delay
+// let todoCardItems = [];
+// setTimeout(() => {
+//     const dragElements = document.querySelectorAll('.trydragg');
+//     for (const dragElement of dragElements) {
+
+//         let todoCardItems = dragElement;
+//         return todoCardItems
+
+//     }
+// }, 500); // Adjust delay if necessary
+
+// console.log(todoCardItems);
+
+
+
+// console.log(todoCardItems);
+
+
+for (const todoItem of todoCardItems) {
+    console.log(todoItem);
+
+    todoItem.addEventListener("dragstart", function (e) { // Corrected typo here
+        let selected = e.target;
+        console.log(todoItem);
+
+        inprogressTask.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        });
+        inprogressTask.addEventListener("drop", function (e) {
+            inprogressTask.appendChild(selected);
+        });
+    });
+}
+// Function to make an element draggable
+function makeDraggable(element) {
+    element.setAttribute('draggable', 'true');
+
+    // Add dragstart event
+    element.addEventListener('dragstart', (event) => {
+        event.dataTransfer.setData('text/plain', element.id); // Set the id of the dragged element
+        element.classList.add('dragging');
+    });
+
+    // Add dragend event
+    element.addEventListener('dragend', () => {
+        element.classList.remove('dragging');
+    });
+}
+
+const containers = document.querySelectorAll('.kanban-container');
+
+containers.forEach(container => {
+    container.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move"; // Show move cursor
+        const draggingElement = document.querySelector('.dragging');
+        const afterElement = getDragAfterElement(container, event.clientY);
+
+        if (afterElement == null) {
+            container.appendChild(draggingElement);
+        } else {
+            container.insertBefore(draggingElement, afterElement);
+        }
+    });
+
+    container.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const cardId = event.dataTransfer.getData('text/plain');
+        const draggedElement = document.querySelector(`[data-eid='${cardId}']`);
+        container.appendChild(draggedElement); // Append card to the drop container
+    });
+});
+
+// Helper function to find the correct position for the dragged item
+function getDragAfterElement(container, y) {
+    const draggableElements = [
+        ...container.querySelectorAll('.kanban-item:not(.dragging)')
+    ];
+
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
 // Get query parameters from the URL
 // const urlParams = new URLSearchParams(window.location.search);
 // const project_id = urlParams.get("id");

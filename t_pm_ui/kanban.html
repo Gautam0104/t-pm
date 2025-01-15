@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" class="light-style layout-navbar-fixed layout-compact layout-menu-fixed" dir="ltr"
     data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template" data-style="light">
 
@@ -419,7 +420,10 @@
         }
     </style>
     <style>
-
+        main {
+            height: auto;
+            overflow: auto;
+        }
     </style>
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -1153,7 +1157,7 @@
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
-                <div class="content-wrapper">
+                <div class="content-wrapper ">
                     <!-- Content -->
                     <div class="row">
                         <div class="col-12">
@@ -1163,7 +1167,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="container-xxl flex-grow-1 container-p-y ">
                         <div class="app-kanban">
                             <!-- Add new board -->
                             <div class="row">
@@ -1173,437 +1177,237 @@
                             </div>
 
                             <!-- Kanban Wrapper -->
-                            <div class="kanban-wrapper ps ps--active-x">
+                            <div class="kanban-wrapper ps ps--active-x" ">
 
-                                <div class="ps__rail-x" style="width: 1392px; left: 0px; bottom: 0px;">
-                                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 1364px;"></div>
+                            <div class=" kanban-container" style="width: 1370px;">
+                                <div data-id="board-in-progress" data-order="1" class="kanban-board"
+                                    style="width: 250px; margin-left: 12px; margin-right: 12px;">
+                                    <header class="kanban-board-header">
+                                        <div class="kanban-title-board">ToDo</div>
+                                        <div class="dropdown"><i
+                                                class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
+                                                id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false"></i>
+                                            <div class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="board-dropdown"><a
+                                                    class="dropdown-item delete-board waves-effect"
+                                                    href="javascript:void(0)"> <i class="ti ti-trash ti-xs" me-1=""></i>
+                                                    <span class="align-middle">Delete</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-edit ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Rename</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-archive ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Archive</span></a></div>
+                                        </div><button class="kanban-title-button btn" id="add-todo-item">+ Add New
+                                            Item</button>
+                                    </header>
+                                    <main class="kanban-drag" style="height: 600px; overflow: auto;">
+
+                                        <div id="todo-task">
+
+                                        </div>
+                                        <form class="new-item-form draggable" id="add-new-todo">
+
+                                        </form>
+                                        <div id="backdrop">
+
+                                        </div>
+                                    </main>
+                                    <!-- <footer></footer> -->
                                 </div>
-                                <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                                </div>
-                                <div class="kanban-container" style="width: 1370px;">
-                                    <div data-id="board-in-progress" data-order="1" class="kanban-board"
-                                        style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                                        <header class="kanban-board-header">
-                                            <div class="kanban-title-board">ToDo</div>
-                                            <div class="dropdown"><i
-                                                    class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                                                    id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false"></i>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="board-dropdown"><a
-                                                        class="dropdown-item delete-board waves-effect"
-                                                        href="javascript:void(0)"> <i class="ti ti-trash ti-xs"
-                                                            me-1=""></i> <span class="align-middle">Delete</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-edit ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Rename</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-archive ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Archive</span></a></div>
-                                            </div><button class="kanban-title-button btn" id="add-todo-item">+ Add New
-                                                Item</button>
-                                        </header>
-                                        <main class="kanban-drag">
-
-                                            <div id="todo-task">
-
-                                            </div>
-                                            <form class="new-item-form draggable" id="add-new-todo">
-
-                                            </form>
-                                            <div id="backdrop">
-
-                                            </div>
-                                        </main>
-                                        <footer></footer>
-                                    </div>
-                                    <div data-id="board-in-progress" data-order="2" class="kanban-board"
-                                        style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                                        <header class="kanban-board-header">
-                                            <div class="kanban-title-board">In Progress</div>
-                                            <div class="dropdown"><i
-                                                    class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                                                    id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false"></i>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="board-dropdown"><a
-                                                        class="dropdown-item delete-board waves-effect"
-                                                        href="javascript:void(0)"> <i class="ti ti-trash ti-xs"
-                                                            me-1=""></i> <span class="align-middle">Delete</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-edit ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Rename</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-archive ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Archive</span></a></div>
-                                            </div><button class="kanban-title-button btn">+ Add New Item</button>
-                                        </header>
-                                        <main class="kanban-drag">
-                                            <!-- <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
+                                <div data-id="board-in-progress" data-order="2" class="kanban-board"
+                                    style="width: 250px; margin-left: 12px; margin-right: 12px;">
+                                    <header class="kanban-board-header">
+                                        <div class="kanban-title-board">In Progress</div>
+                                        <div class="dropdown"><i
+                                                class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
+                                                id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false"></i>
+                                            <div class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="board-dropdown"><a
+                                                    class="dropdown-item delete-board waves-effect"
+                                                    href="javascript:void(0)"> <i class="ti ti-trash ti-xs" me-1=""></i>
+                                                    <span class="align-middle">Delete</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-edit ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Rename</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-archive ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Archive</span></a></div>
+                                        </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                    </header>
+                                    <main class="kanban-drag">
+                                        <div id="inprogress-task">
+                                            <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
                                                 data-badge-text="UX" data-badge="success" data-due-date="5 April"
                                                 data-attachments="4" data-assigned="1.png,1.png"
                                                 data-members="Thunder,Thunder">
-                                                <div
-                                                    class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                    <div class="item-badges">
-                                                        <div class="badge bg-label-success"> UX</div>
-                                                    </div>
-                                                    <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                            class="dropdown-toggle ti ti-dots-vertical"
-                                                            id="kanban-tasks-item-dropdown" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"></i>
-                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Copy
-                                                                task link</a><a class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Duplicate task</a><a
-                                                                class="dropdown-item delete-task waves-effect"
-                                                                href="javascript:void(0)">Delete</a></div>
-                                                    </div>
-                                                </div><span class="kanban-text">Research FAQ page UX</span>
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                    <div class="d-flex"> <span class="d-flex align-items-center me-2"><i
-                                                                class="ti ti-paperclip me-1"></i><span
-                                                                class="attachments">4</span></span> <span
-                                                            class="d-flex align-items-center ms-2"><i
-                                                                class="ti ti-message-2 me-1"></i><span> 12
-                                                            </span></span></div>
-                                                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
 
-
-                                        </main>
-                                        <footer></footer>
-                                    </div>
-                                    <div data-id="board-in-progress" data-order="3" class="kanban-board"
-                                        style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                                        <header class="kanban-board-header">
-                                            <div class="kanban-title-board">For Approval</div>
-                                            <div class="dropdown"><i
-                                                    class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                                                    id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false"></i>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="board-dropdown"><a
-                                                        class="dropdown-item delete-board waves-effect"
-                                                        href="javascript:void(0)"> <i class="ti ti-trash ti-xs"
-                                                            me-1=""></i> <span class="align-middle">Delete</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-edit ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Rename</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-archive ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Archive</span></a></div>
-                                            </div><button class="kanban-title-button btn">+ Add New Item</button>
-                                        </header>
-                                        <main class="kanban-drag">
-                                            <!-- <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                data-badge-text="UX" data-badge="success" data-due-date="5 April"
-                                                data-attachments="4" data-assigned="1.png,1.png"
-                                                data-members="Thunder,Thunder">
-                                                <div
-                                                    class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                    <div class="item-badges">
-                                                        <div class="badge bg-label-success"> UX</div>
-                                                    </div>
-                                                    <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                            class="dropdown-toggle ti ti-dots-vertical"
-                                                            id="kanban-tasks-item-dropdown" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"></i>
-                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Copy
-                                                                task link</a><a class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Duplicate task</a><a
-                                                                class="dropdown-item delete-task waves-effect"
-                                                                href="javascript:void(0)">Delete</a></div>
-                                                    </div>
-                                                </div><span class="kanban-text">Research FAQ page UX</span>
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                    <div class="d-flex"> <span class="d-flex align-items-center me-2"><i
-                                                                class="ti ti-paperclip me-1"></i><span
-                                                                class="attachments">4</span></span> <span
-                                                            class="d-flex align-items-center ms-2"><i
-                                                                class="ti ti-message-2 me-1"></i><span> 12
-                                                            </span></span></div>
-                                                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        </main>
-                                        <footer></footer>
-                                    </div>
-                                    <div data-id="board-in-progress" data-order="4" class="kanban-board"
-                                        style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                                        <header class="kanban-board-header">
-                                            <div class="kanban-title-board">Rejected</div>
-                                            <div class="dropdown"><i
-                                                    class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                                                    id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false"></i>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="board-dropdown"><a
-                                                        class="dropdown-item delete-board waves-effect"
-                                                        href="javascript:void(0)"> <i class="ti ti-trash ti-xs"
-                                                            me-1=""></i> <span class="align-middle">Delete</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-edit ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Rename</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-archive ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Archive</span></a></div>
-                                            </div><button class="kanban-title-button btn">+ Add New Item</button>
-                                        </header>
-                                        <main class="kanban-drag">
-                                            <!-- <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                data-badge-text="UX" data-badge="success" data-due-date="5 April"
-                                                data-attachments="4" data-assigned="1.png,1.png"
-                                                data-members="Thunder,Thunder">
-                                                <div
-                                                    class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                    <div class="item-badges">
-                                                        <div class="badge bg-label-success"> UX</div>
-                                                    </div>
-                                                    <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                            class="dropdown-toggle ti ti-dots-vertical"
-                                                            id="kanban-tasks-item-dropdown" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"></i>
-                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Copy
-                                                                task link</a><a class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Duplicate task</a><a
-                                                                class="dropdown-item delete-task waves-effect"
-                                                                href="javascript:void(0)">Delete</a></div>
-                                                    </div>
-                                                </div><span class="kanban-text">Research FAQ page UX</span>
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                    <div class="d-flex"> <span class="d-flex align-items-center me-2"><i
-                                                                class="ti ti-paperclip me-1"></i><span
-                                                                class="attachments">4</span></span> <span
-                                                            class="d-flex align-items-center ms-2"><i
-                                                                class="ti ti-message-2 me-1"></i><span> 12
-                                                            </span></span></div>
-                                                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-                                        </main>
-                                        <footer></footer>
-                                    </div>
-                                    <div data-id="board-in-review" data-order="5" class="kanban-board"
-                                        style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                                        <header class="kanban-board-header">
-                                            <div class="kanban-title-board">Approved</div>
-                                            <div class="dropdown"><i
-                                                    class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                                                    id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false"></i>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="board-dropdown"><a
-                                                        class="dropdown-item delete-board waves-effect"
-                                                        href="javascript:void(0)"> <i class="ti ti-trash ti-xs"
-                                                            me-1=""></i> <span class="align-middle">Delete</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-edit ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Rename</span></a><a
-                                                        class="dropdown-item waves-effect" href="javascript:void(0)"><i
-                                                            class="ti ti-archive ti-xs" me-1=""></i> <span
-                                                            class="align-middle">Archive</span></a></div>
-                                            </div><button class="kanban-title-button btn">+ Add New Item</button>
-                                        </header>
-                                        <main class="kanban-drag">
-                                            <!-- <div class="kanban-item" data-eid="in-review-1" data-comments="17"
-                                                data-badge-text="Info" data-badge="info" data-due-date="8 April"
-                                                data-attachments="8" data-assigned="1.png,1.png"
-                                                data-members="Thunder,Thunder">
-                                                <div
-                                                    class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                    <div class="item-badges">
-                                                        <div class="badge bg-label-info"> Info</div>
-                                                    </div>
-                                                    <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                            class="dropdown-toggle ti ti-dots-vertical"
-                                                            id="kanban-tasks-item-dropdown" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"></i>
-                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Copy
-                                                                task link</a><a class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Duplicate task</a><a
-                                                                class="dropdown-item delete-task waves-effect"
-                                                                href="javascript:void(0)">Delete</a></div>
-                                                    </div>
-                                                </div><span class="kanban-text">Review completed Apps</span>
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                    <div class="d-flex"> <span class="d-flex align-items-center me-2"><i
-                                                                class="ti ti-paperclip me-1"></i><span
-                                                                class="attachments">8</span></span> <span
-                                                            class="d-flex align-items-center ms-2"><i
-                                                                class="ti ti-message-2 me-1"></i><span> 17
-                                                            </span></span></div>
-                                                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <div class="kanban-item" data-eid="in-review-2" data-comments="18"
-                                                data-badge-text="Images" data-image="16.jpg" data-badge="warning"
-                                                data-due-date="2 April" data-attachments="10"
-                                                data-assigned="1.png,1.png,1.png,1.png"
-                                                data-members="Thunder,Thunder,Thunder,Thunder">
-                                                <div
-                                                    class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                    <div class="item-badges">
-                                                        <div class="badge bg-label-warning"> Images</div>
-                                                    </div>
-                                                    <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                            class="dropdown-toggle ti ti-dots-vertical"
-                                                            id="kanban-tasks-item-dropdown" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"></i>
-                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Copy
-                                                                task link</a><a class="dropdown-item waves-effect"
-                                                                href="javascript:void(0)">Duplicate task</a><a
-                                                                class="dropdown-item delete-task waves-effect"
-                                                                href="javascript:void(0)">Delete</a></div>
-                                                    </div>
-                                                </div><img class="img-fluid rounded mb-2"
-                                                    src="../assets/img/elements/16.jpg"><span class="kanban-text">Find
-                                                    new images for pages</span>
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                    <div class="d-flex"> <span class="d-flex align-items-center me-2"><i
-                                                                class="ti ti-paperclip me-1"></i><span
-                                                                class="attachments">10</span></span> <span
-                                                            class="d-flex align-items-center ms-2"><i
-                                                                class="ti ti-message-2 me-1"></i><span> 18
-                                                            </span></span></div>
-                                                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                        <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" aria-label="Thunder"
-                                                            data-bs-original-title="Thunder"><img
-                                                                src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                class="rounded-circle  pull-up"></div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        </main>
-                                        <footer></footer>
-                                    </div>
+
+
+                                        </div>
+
+                                    </main>
+                                    <footer></footer>
                                 </div>
-                                <div class="ps__rail-x" style="width: 1392px; left: 0px; bottom: 0px;">
-                                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 1364px;"></div>
+                                <div data-id="board-in-progress" data-order="3" class="kanban-board"
+                                    style="width: 250px; margin-left: 12px; margin-right: 12px;">
+                                    <header class="kanban-board-header">
+                                        <div class="kanban-title-board">For Approval</div>
+                                        <div class="dropdown"><i
+                                                class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
+                                                id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false"></i>
+                                            <div class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="board-dropdown"><a
+                                                    class="dropdown-item delete-board waves-effect"
+                                                    href="javascript:void(0)"> <i class="ti ti-trash ti-xs" me-1=""></i>
+                                                    <span class="align-middle">Delete</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-edit ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Rename</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-archive ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Archive</span></a></div>
+                                        </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                    </header>
+                                    <main class="kanban-drag">
+                                        <div id="for-approval-task">
+                                            <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
+                                                data-badge-text="UX" data-badge="success" data-due-date="5 April"
+                                                data-attachments="4" data-assigned="1.png,1.png"
+                                                data-members="Thunder,Thunder">
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </main>
+                                    <footer></footer>
                                 </div>
-                                <div class="ps__rail-y" style="top: 0px; height: 719px; right: 0px;">
-                                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                                <div data-id="board-in-progress" data-order="4" class="kanban-board"
+                                    style="width: 250px; margin-left: 12px; margin-right: 12px;">
+                                    <header class="kanban-board-header">
+                                        <div class="kanban-title-board">Rejected</div>
+                                        <div class="dropdown"><i
+                                                class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
+                                                id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false"></i>
+                                            <div class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="board-dropdown"><a
+                                                    class="dropdown-item delete-board waves-effect"
+                                                    href="javascript:void(0)"> <i class="ti ti-trash ti-xs" me-1=""></i>
+                                                    <span class="align-middle">Delete</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-edit ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Rename</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-archive ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Archive</span></a></div>
+                                        </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                    </header>
+                                    <main class="kanban-drag">
+                                        <div id="rejected-task">
+                                            <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
+                                                data-badge-text="UX" data-badge="success" data-due-date="5 April"
+                                                data-attachments="4" data-assigned="1.png,1.png"
+                                                data-members="Thunder,Thunder">
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </main>
+                                    <footer></footer>
+                                </div>
+                                <div data-id="board-in-review" data-order="5" class="kanban-board"
+                                    style="width: 250px; margin-left: 12px; margin-right: 12px;">
+                                    <header class="kanban-board-header">
+                                        <div class="kanban-title-board">Approved</div>
+                                        <div class="dropdown"><i
+                                                class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
+                                                id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false"></i>
+                                            <div class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="board-dropdown"><a
+                                                    class="dropdown-item delete-board waves-effect"
+                                                    href="javascript:void(0)"> <i class="ti ti-trash ti-xs" me-1=""></i>
+                                                    <span class="align-middle">Delete</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-edit ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Rename</span></a><a
+                                                    class="dropdown-item waves-effect" href="javascript:void(0)"><i
+                                                        class="ti ti-archive ti-xs" me-1=""></i> <span
+                                                        class="align-middle">Archive</span></a></div>
+                                        </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                    </header>
+                                    <main class="kanban-drag">
+                                        <div id="approved-task" draggable="true">
+                                            <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
+                                                data-badge-text="UX" data-badge="success" data-due-date="5 April"
+                                                data-attachments="4" data-assigned="1.png,1.png"
+                                                data-members="Thunder,Thunder">
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </main>
+                                    <footer></footer>
                                 </div>
                             </div>
+                            <div class="ps__rail-x" style="width: 1392px; left: 0px; bottom: 0px;">
+                                <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 1364px;"></div>
+                            </div>
+                            <div class="ps__rail-y" style="top: 0px; right: 0px; height: 719px;">
+                                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 658px;"></div>
+                            </div>
+                        </div>
 
-                            <!-- Edit Task/Task & Activities -->
-                            <div class="offcanvas offcanvas-end kanban-update-item-sidebar">
-                                <div class="offcanvas-header border-bottom">
-                                    <h5 class="offcanvas-title">Edit Task</h5>
-                                    <button type="button" class="btn-close" id="offcanvase-close"
-                                        onclick="closeCanvase()" aria-label="Close"></button>
+                        <!-- Edit Task/Task & Activities -->
+                        <div class="offcanvas offcanvas-end kanban-update-item-sidebar">
+                            <div class="offcanvas-header border-bottom">
+                                <h5 class="offcanvas-title">Edit Task</h5>
+                                <button type="button" class="btn-close" id="offcanvase-close" onclick="closeCanvase()"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body pt-0">
+                                <div class="nav-align-top">
+                                    <ul class="nav nav-tabs mb-5 rounded-0" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active waves-effect" data-bs-toggle="tab"
+                                                data-bs-target="#tab-update" aria-selected="true" role="tab">
+                                                <i class="ti ti-edit ti-18px me-1_5"></i>
+                                                <span class="align-middle">Edit</span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link waves-effect" data-bs-toggle="tab"
+                                                data-bs-target="#tab-activity" aria-selected="false" tabindex="-1"
+                                                role="tab">
+                                                <i class="ti ti-chart-pie-2 ti-18px me-1_5"></i>
+                                                <span class="align-middle">Activity</span>
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="offcanvas-body pt-0">
-                                    <div class="nav-align-top">
-                                        <ul class="nav nav-tabs mb-5 rounded-0" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active waves-effect" data-bs-toggle="tab"
-                                                    data-bs-target="#tab-update" aria-selected="true" role="tab">
-                                                    <i class="ti ti-edit ti-18px me-1_5"></i>
-                                                    <span class="align-middle">Edit</span>
-                                                </button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link waves-effect" data-bs-toggle="tab"
-                                                    data-bs-target="#tab-activity" aria-selected="false" tabindex="-1"
-                                                    role="tab">
-                                                    <i class="ti ti-chart-pie-2 ti-18px me-1_5"></i>
-                                                    <span class="align-middle">Activity</span>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-content p-0">
-                                        <!-- Update item/tasks -->
-                                        <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
-                                            <form id="ticket-form">
+                                <div class="tab-content p-0">
+                                    <!-- Update item/tasks -->
+                                    <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
+                                        <form id="ticket-form">
 
-                                            </form>
-                                        </div>
-                                        <!-- Activities -->
-                                        <!-- <div class="tab-pane fade text-heading" id="tab-activity" role="tabpanel">
+                                        </form>
+                                    </div>
+                                    <!-- Activities -->
+                                    <!-- <div class="tab-pane fade text-heading" id="tab-activity" role="tabpanel">
                         <div class="media mb-4 d-flex align-items-center">
                           <div class="avatar me-3 flex-shrink-0">
                             <span class="avatar-initial bg-label-success rounded-circle">HJ</span>
@@ -1722,59 +1526,59 @@
                           </div>
                         </div>
                       </div> -->
-                                    </div>
                                 </div>
                             </div>
+                        </div>
 
+                    </div>
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl">
+                        <div
+                            class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                            <div class="text-body">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>202520252025
+                                , made with ❤️ by <a href="https://Thunderbees.com" target="_blank"
+                                    class="footer-link">Thunderbees</a>
+                            </div>
+                            <div class="d-none d-lg-inline-block">
+                                <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
+                                    target="_blank">License</a>
+                                <a href="https://1.envato.market/Thunderbees_portfolio" target="_blank"
+                                    class="footer-link me-4">More
+                                    Themes</a>
+
+                                <a href="https://demos.Thunderbees.com/Thunderbees-html-admin-template/documentation/"
+                                    target="_blank" class="footer-link me-4">Documentation</a>
+
+                                <a href="https://Thunderbees.ticksy.com/" target="_blank"
+                                    class="footer-link d-none d-sm-inline-block">Support</a>
+                            </div>
                         </div>
                     </div>
-                    <!-- / Content -->
+                </footer>
+                <!-- / Footer -->
 
-                    <!-- Footer -->
-                    <footer class="content-footer footer bg-footer-theme">
-                        <div class="container-xxl">
-                            <div
-                                class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-                                <div class="text-body">
-                                    ©
-                                    <script>
-                                        document.write(new Date().getFullYear());
-                                    </script>202520252025
-                                    , made with ❤️ by <a href="https://Thunderbees.com" target="_blank"
-                                        class="footer-link">Thunderbees</a>
-                                </div>
-                                <div class="d-none d-lg-inline-block">
-                                    <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
-                                        target="_blank">License</a>
-                                    <a href="https://1.envato.market/Thunderbees_portfolio" target="_blank"
-                                        class="footer-link me-4">More
-                                        Themes</a>
-
-                                    <a href="https://demos.Thunderbees.com/Thunderbees-html-admin-template/documentation/"
-                                        target="_blank" class="footer-link me-4">Documentation</a>
-
-                                    <a href="https://Thunderbees.ticksy.com/" target="_blank"
-                                        class="footer-link d-none d-sm-inline-block">Support</a>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- / Footer -->
-
-                    <div class="content-backdrop fade"></div>
-                </div>
-                <!-- Content wrapper -->
+                <div class="content-backdrop fade"></div>
             </div>
-            <!-- / Layout page -->
+            <!-- Content wrapper -->
         </div>
+        <!-- / Layout page -->
+    </div>
 
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
 
-        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-        <div class="drag-target"
-            style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-        </div>
+    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+    <div class="drag-target"
+        style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+    </div>
     </div>
     <!-- / Layout wrapper -->
 
@@ -2913,6 +2717,12 @@
     <script src="getTickets.js"></script>
     <script src="createTickets.js"></script>
     <script src="kanban.js"></script>
+
+    <script>
+        const kanbanItem = document.querySelector("#todo-task");
+        // console.log(kanbanItem);
+
+    </script>
 </body>
 
 </html>
