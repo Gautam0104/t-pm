@@ -8,6 +8,19 @@ var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
 console.log(project_id);
 
+fetch(`${API_BASE_URL}/project/${project_id}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        const projectTitle = document.getElementById('project-title');
+        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}">`
+
+        projectTitle.innerHTML += titleContent
+    });
 // Function to fetch and create elements
 function fetchDataAndCreateElements() {
     return fetch(`${API_BASE_URL}/ticket/${project_id}`)
