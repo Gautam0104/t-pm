@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </option>`;
           }).join('');
           eventGuests.html(options);
-    
+
           // Function to render guest avatar
           function renderGuestAvatar(option) {
             if (!option.id) {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             //const avatarUrl = $(option.element).data('avatar');
             const dynamicName = $(option.element).text();
-    
+
             var $avatar =
               "<div class='d-flex flex-wrap align-items-center'>" +
               "<div class='avatar avatar-xs me-2'>" +
@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
               '</div>' +
               dynamicName +
               '</div>';
-    
+
             return $avatar;
           }
-    
+
           // Initialize select2
           eventGuests.wrap('<div class="position-relative"></div>').select2({
             placeholder: 'Select value',
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.error('Error fetching guest data:', error);
         });
     }
-    
+
 
     // Event end (flatpicker)
     if (eventEndDate) {
@@ -223,120 +223,120 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return selected;
     }
-    
+
     // --------------------------------------------------------------------------------------------------
     // AXIOS: fetchEvents
     // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
     // --------------------------------------------------------------------------------------------------
     function fetchEvents(info, successCallback) {
       // Fetch Events from the API using Axios
-      axios.get('https://thunderbees.com.br/tpm_api/tickets')  // Replace with your actual API endpoint
-          .then(function (response) {
-              // Check the response structure
-              console.log('API Response:', response.data); 
-  
-              const result = response.data; 
-  
-              // Define a mapping of selected calendars to project_id values
-              const calendarToProjectIdMap = {
-                  'personal': "Dashboard",  
-                  'business':"Calendar",  
-                  'family': "Projects and Tickets",    
-                  'holiday': [53],   
-                  'etc': [53]        
-              };
-  
-              // Get the list of selected calendars (e.g., from checkboxes, dropdown, etc.)
-              let calendars = selectedCalendars(); // Ensure this returns an array of selected calendars
-              console.log('Selected Calendars:', calendars); 
-  
-              // Filter the events based on the selected calendars using the mapping
-              let selectedEvents = result.filter(function (event) {
-                  // Check if the event's project_id matches any of the selected calendar project IDs
-                  console.log('Checking event project:', event.project_name); // Debugging step
-                  
-                  // Check if the event's project_id is in any of the selected calendar mappings
-                  return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
-              }).map(function (event) {
-                  // Map the events to the FullCalendar event format
-                  return {
-                      id: event.ticket_id,             
-                      title: event.title,             
-                      start: new Date(event.created_at),
-                      //end: event.updated_at,         
-                      description: event.description, 
-                      allDay: true, 
-                      extendedProps: {
-                          calendar: 'Personal'   // Custom property to identify calendar
-                      }
-                  };
-              });
-  
-              console.log('Selected Events:', selectedEvents); // Debugging step
-  
-              // Call the successCallback to pass the filtered events to FullCalendar
-              successCallback(selectedEvents);
-          })
-          .catch(function (error) {
-              // Handle errors (e.g., log to console)
-              console.error('Error fetching events:', error);
+      axios.get('https://xx87gmj8-3000.inc1.devtunnels.ms/tickets')  // Replace with your actual API endpoint
+        .then(function (response) {
+          // Check the response structure
+          console.log('API Response:', response.data);
+
+          const result = response.data;
+
+          // Define a mapping of selected calendars to project_id values
+          const calendarToProjectIdMap = {
+            'personal': "Dashboard",
+            'business': "Calendar",
+            'family': "Projects and Tickets",
+            'holiday': [53],
+            'etc': [53]
+          };
+
+          // Get the list of selected calendars (e.g., from checkboxes, dropdown, etc.)
+          let calendars = selectedCalendars(); // Ensure this returns an array of selected calendars
+          console.log('Selected Calendars:', calendars);
+
+          // Filter the events based on the selected calendars using the mapping
+          let selectedEvents = result.filter(function (event) {
+            // Check if the event's project_id matches any of the selected calendar project IDs
+            console.log('Checking event project:', event.project_name); // Debugging step
+
+            // Check if the event's project_id is in any of the selected calendar mappings
+            return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
+          }).map(function (event) {
+            // Map the events to the FullCalendar event format
+            return {
+              id: event.ticket_id,
+              title: event.title,
+              start: new Date(event.created_at),
+              //end: event.updated_at,         
+              description: event.description,
+              allDay: true,
+              extendedProps: {
+                calendar: 'Personal'   // Custom property to identify calendar
+              }
+            };
           });
-  }
-  function fetchEvents(info, successCallback) {
+
+          console.log('Selected Events:', selectedEvents); // Debugging step
+
+          // Call the successCallback to pass the filtered events to FullCalendar
+          successCallback(selectedEvents);
+        })
+        .catch(function (error) {
+          // Handle errors (e.g., log to console)
+          console.error('Error fetching events:', error);
+        });
+    }
+    function fetchEvents(info, successCallback) {
       // Fetch Events from the API using Axios
       axios.get('https://thunderbees.com.br/tpm_api/tickets')  // Replace with your actual API endpoint
-          .then(function (response) {
-              // Check the response structure
-              console.log('API Response:', response.data); 
-  
-              const result = response.data; 
-  
-              // Define a mapping of selected calendars to project_id values
-              const calendarToProjectIdMap = {
-                  'personal': "Dashboard",  
-                  'business':"Calendar",  
-                  'family': "Projects and Tickets",    
-                  'holiday': [53],   
-                  'etc': [53]        
-              };
-  
-              // Get the list of selected calendars (e.g., from checkboxes, dropdown, etc.)
-              let calendars = selectedCalendars(); // Ensure this returns an array of selected calendars
-              console.log('Selected Calendars:', calendars); 
-  
-              // Filter the events based on the selected calendars using the mapping
-              let selectedEvents = result.filter(function (event) {
-                  // Check if the event's project_id matches any of the selected calendar project IDs
-                  console.log('Checking event project:', event.project_name); // Debugging step
-                  
-                  // Check if the event's project_id is in any of the selected calendar mappings
-                  return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
-              }).map(function (event) {
-                  // Map the events to the FullCalendar event format
-                  return {
-                      id: event.ticket_id,             
-                      title: event.title,             
-                      start: new Date(event.created_at),
-                      //end: event.updated_at,         
-                      description: event.description, 
-                      allDay: true, 
-                      extendedProps: {
-                          calendar: 'Personal'   // Custom property to identify calendar
-                      }
-                  };
-              });
-  
-              console.log('Selected Events:', selectedEvents); // Debugging step
-  
-              // Call the successCallback to pass the filtered events to FullCalendar
-              successCallback(selectedEvents);
-          })
-          .catch(function (error) {
-              // Handle errors (e.g., log to console)
-              console.error('Error fetching events:', error);
+        .then(function (response) {
+          // Check the response structure
+          console.log('API Response:', response.data);
+
+          const result = response.data;
+
+          // Define a mapping of selected calendars to project_id values
+          const calendarToProjectIdMap = {
+            'personal': "Dashboard",
+            'business': "Calendar",
+            'family': "Projects and Tickets",
+            'holiday': [53],
+            'etc': [53]
+          };
+
+          // Get the list of selected calendars (e.g., from checkboxes, dropdown, etc.)
+          let calendars = selectedCalendars(); // Ensure this returns an array of selected calendars
+          console.log('Selected Calendars:', calendars);
+
+          // Filter the events based on the selected calendars using the mapping
+          let selectedEvents = result.filter(function (event) {
+            // Check if the event's project_id matches any of the selected calendar project IDs
+            console.log('Checking event project:', event.project_name); // Debugging step
+
+            // Check if the event's project_id is in any of the selected calendar mappings
+            return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
+          }).map(function (event) {
+            // Map the events to the FullCalendar event format
+            return {
+              id: event.ticket_id,
+              title: event.title,
+              start: new Date(event.created_at),
+              //end: event.updated_at,         
+              description: event.description,
+              allDay: true,
+              extendedProps: {
+                calendar: 'Personal'   // Custom property to identify calendar
+              }
+            };
           });
-  }
-  
+
+          console.log('Selected Events:', selectedEvents); // Debugging step
+
+          // Call the successCallback to pass the filtered events to FullCalendar
+          successCallback(selectedEvents);
+        })
+        .catch(function (error) {
+          // Handle errors (e.g., log to console)
+          console.error('Error fetching events:', error);
+        });
+    }
+
     // Init FullCalendar
     // ------------------------------------------------
     let calendar = new Calendar(calendarEl, {
@@ -658,4 +658,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 });
-

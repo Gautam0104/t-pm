@@ -123,6 +123,7 @@ function fetchDataAndCreateElements() {
 // Call the function and use the returned elements
 fetchDataAndCreateElements()
     .then(trydraggElements => {
+        const todoTask = document.getElementById("todo-task");
         const inprogressTask = document.getElementById("inprogress-task");
         const forApprovalTask = document.getElementById("for-approval-task");
         const rejectedTask = document.getElementById("rejected-task");
@@ -216,7 +217,7 @@ fetchDataAndCreateElements()
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label">Description</label>
-                                                        <textarea class="form-control" name="" id="">${element.description}</textarea>
+                                                        <textarea class="form-control" name="" id="ticket-description">${element.description}</textarea>
                                                       </div>
                                                       <div>
                                                         <div class="d-flex flex-wrap">
@@ -246,9 +247,48 @@ fetchDataAndCreateElements()
                                 offcanvas.classList.remove("show");
                                 // backdropWrapper.innerHTML = "";
                             })
-                            updateButton.addEventListener("click", function () {
-                                selected = null;
-                                console.log('selected is null now');
+                            updateButton.addEventListener("click", async function () {
+
+                                const ticket_id = element.ticket_id;
+                                const title = document.getElementById('ticket-title').value;
+                                const description = document.getElementById('ticket-description').value;;
+                                const status = element.status;
+                                const priority = element.priority
+                                const ticket_status = element.ticket_status;
+
+                                try {
+                                    const response = await fetch(`${API_BASE_URL}/updateticket`, {
+                                        method: "PUT",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            ticket_id,
+                                            title,
+                                            description,
+                                            status,
+                                            priority,
+                                            ticket_status
+
+                                        })
+                                    });
+                                    if (response.ok) {
+                                        selected = null;
+                                        const offcanvas = document.querySelector(".offcanvas");
+                                        const backdropWrapper = document.getElementById("backdrop");
+                                        offcanvas.classList.remove("show");
+                                        backdropWrapper.innerHTML = "";
+                                        Swal.fire({
+                                            title: "Ticket updated Successfully",
+                                            text: "A Ticket is updated from your tickets",
+                                            icon: "success",
+                                            confirmButtonText: "Ok!"
+                                        });
+                                        // window.location.reload();
+                                    }
+                                } catch (error) {
+                                    console.log("error", error);
+                                }
 
                             })
 
@@ -285,9 +325,31 @@ fetchDataAndCreateElements()
 
                 inprogressTask.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                    const contentDiv = document.getElementById('content-div');
+                    const contentInprogress = document.getElementById('content-inprogress');
                     contentDiv.style.opacity = "1";
-                    console.log(contentDiv);
+
+
+
+                });
+                forApprovalTask.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                    const contentApproval = document.getElementById('content-approval');
+                    contentApproval.style.opacity = "1";
+
+
+                });
+                rejectedTask.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                    const contentRejected = document.getElementById('content-rejected');
+                    contentRejected.style.opacity = "1";
+
+
+                });
+                approvedTask.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                    const contentApproved = document.getElementById('content-approved');
+                    contentApproved.style.opacity = "1";
+
 
                 });
                 inprogressTask.addEventListener("drop", function (e) {
@@ -323,7 +385,43 @@ fetchDataAndCreateElements()
                         .catch(error => console.error("Error:", error));
 
                     selected = null;
-                    const contentDiv = document.getElementById('content-div');
+                    const contentInprogress = document.getElementById('content-inprogress');
+                    contentDiv.style.opacity = "0";
+                });
+                todoTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    todoTask.appendChild(selected);
+                    selected.classList.remove("dragg-from-inprogress");
+                    selected.classList.add("dragg-from-todo");
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "todo";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log("Ticket ID or Status is missing");
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch("http://localhost:3000/updateticketStatus", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    ticket_id: ticketId,
+                                    ticket_status: ticketStatus
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log("Success:", data))
+                                .catch(error => console.error("Error:", error));
+                        })
+                        .catch(error => console.error("Error:", error));
+
+                    selected = null;
+                    const contentInprogress = document.getElementById('content-inprogress');
                     contentDiv.style.opacity = "0";
                 });
                 forApprovalTask.addEventListener("drop", function (e) {
@@ -356,6 +454,8 @@ fetchDataAndCreateElements()
                         })
                         .catch(error => console.error("Error:", error));
                     selected = null;
+                    const contentApproval = document.getElementById('content-approval');
+                    contentApproval.style.opacity = "1";
                 });
                 rejectedTask.addEventListener("drop", function (e) {
                     e.preventDefault();
@@ -387,6 +487,8 @@ fetchDataAndCreateElements()
                         })
                         .catch(error => console.error("Error:", error));
                     selected = null;
+                    const contentRejected = document.getElementById('content-rejected');
+                    contentRejected.style.opacity = "1";
                 });
                 approvedTask.addEventListener("drop", function (e) {
                     e.preventDefault();
@@ -418,6 +520,8 @@ fetchDataAndCreateElements()
                         })
                         .catch(error => console.error("Error:", error));
                     selected = null;
+                    const contentApproved = document.getElementById('content-approved');
+                    contentApproved.style.opacity = "1";
                 });
             });
         });

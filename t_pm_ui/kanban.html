@@ -64,7 +64,7 @@
             /* margin-bottom: 20px; */
         }
 
-        #content-div {
+        #content-inprogress {
             opacity: 0;
         }
 
@@ -1357,9 +1357,9 @@
                                             <main class="kanban-drag">
 
                                                 <div id="todo-task">
-
+                                                    <div id="content-inprogress">Drop here in inprogress</div>
                                                 </div>
-                                                <form class="new-item-form" id="add-new-todo">
+                                                <form class="new-item-form" id="add-new-todo-form">
 
                                                 </form>
                                                 <div id="backdrop">
@@ -1390,16 +1390,24 @@
                                                             href="javascript:void(0)"><i class="ti ti-archive ti-xs"
                                                                 me-1=""></i> <span
                                                                 class="align-middle">Archive</span></a></div>
-                                                </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                                </div><button class="kanban-title-button btn" id="add-new-inprogress">+
+                                                    Add
+                                                    New Item</button>
                                             </header>
                                             <main class="kanban-drag">
                                                 <div id="inprogress-task">
-                                                    <div id="content-div"> content show on hover</div>
+                                                    <div id="content-inprogress">Drop here in inprogress</div>
 
                                                 </div>
+                                                <form class="new-item-form" id="add-new-inprogress-form">
 
+                                                </form>
+                                                <div id="backdrop">
+
+                                                </div>
                                             </main>
-                                            <footer></footer>
+
+                                            <!-- <footer></footer> -->
                                         </div>
                                         <div data-id="board-in-progress" data-order="3" class="kanban-board"
                                             style="width: 250px; margin-left: 12px; margin-right: 12px;">
@@ -1423,24 +1431,25 @@
                                                             href="javascript:void(0)"><i class="ti ti-archive ti-xs"
                                                                 me-1=""></i> <span
                                                                 class="align-middle">Archive</span></a></div>
-                                                </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                                </div><button class="kanban-title-button btn"
+                                                    id="add-new-for-approval">+
+                                                    Add New Item</button>
                                             </header>
                                             <main class="kanban-drag">
                                                 <div id="for-approval-task">
-                                                    <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                        data-badge-text="UX" data-badge="success"
-                                                        data-due-date="5 April" data-attachments="4"
-                                                        data-assigned="1.png,1.png" data-members="Thunder,Thunder"
-                                                        style="display: none;">
-
-                                                    </div>
+                                                    <div id="content-inprogress">Drop here in inprogress</div>
 
 
                                                 </div>
+                                                <form class="new-item-form" id="add-new-for-approval-form">
 
+                                                </form>
+                                                <div id="backdrop">
 
+                                                </div>
                                             </main>
-                                            <footer></footer>
+
+                                            <!-- <footer></footer> -->
                                         </div>
                                         <div data-id="board-in-progress" data-order="4" class="kanban-board"
                                             style="width: 250px; margin-left: 12px; margin-right: 12px;">
@@ -1464,23 +1473,26 @@
                                                             href="javascript:void(0)"><i class="ti ti-archive ti-xs"
                                                                 me-1=""></i> <span
                                                                 class="align-middle">Archive</span></a></div>
-                                                </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                                </div><button class="kanban-title-button btn" id="add-new-rejected">+
+                                                    Add
+                                                    New Item</button>
                                             </header>
                                             <main class="kanban-drag">
                                                 <div id="rejected-task">
-                                                    <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                        data-badge-text="UX" data-badge="success"
-                                                        data-due-date="5 April" data-attachments="4"
-                                                        data-assigned="1.png,1.png" data-members="Thunder,Thunder">
-
-                                                    </div>
+                                                    <div id="content-inprogress">Drop here in inprogress</div>
 
 
                                                 </div>
+                                                <div id="backdrop">
 
+                                                </div>
 
+                                                <form class="new-item-form" id="add-new-rejected-form">
+
+                                                </form>
                                             </main>
-                                            <footer></footer>
+                                            <!-- <footer></footer> -->
+
                                         </div>
                                         <div data-id="board-in-review" data-order="5" class="kanban-board"
                                             style="width: 250px; margin-left: 12px; margin-right: 12px;">
@@ -1504,23 +1516,29 @@
                                                             href="javascript:void(0)"><i class="ti ti-archive ti-xs"
                                                                 me-1=""></i> <span
                                                                 class="align-middle">Archive</span></a></div>
-                                                </div><button class="kanban-title-button btn">+ Add New Item</button>
+                                                </div><button class="kanban-title-button btn" id="add-new-approved">+
+                                                    Add
+                                                    New Item</button>
+                                                <form class="new-item-form" id="add-new-todo">
+
+                                                </form>
                                             </header>
                                             <main class="kanban-drag">
                                                 <div id="approved-task" draggable="true">
-                                                    <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                        data-badge-text="UX" data-badge="success"
-                                                        data-due-date="5 April" data-attachments="4"
-                                                        data-assigned="1.png,1.png" data-members="Thunder,Thunder">
-
-                                                    </div>
+                                                    <div id="content-inprogress">Drop here in inprogress</div>
 
 
                                                 </div>
 
+                                                <form class="new-item-form" id="add-new-approved-form">
 
+                                                </form>
+                                                <div id="backdrop">
+
+                                                </div>
                                             </main>
-                                            <footer></footer>
+
+                                            <!-- <footer></footer> -->
                                         </div>
                                     </div>
                                     <div class="ps__rail-x" style="width: 1392px; left: 0px; bottom: 0px;">
