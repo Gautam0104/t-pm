@@ -35,7 +35,8 @@ todoForm.addEventListener('submit', async function (e) {
     const status = "Backlog";
     const priority = "Medium";
     const created_by = user_id;
-    const due_date = "2025-01-13"
+    const due_date = "2025-01-13";
+    const ticket_status = "todo";
 
 
     try {
@@ -51,9 +52,8 @@ todoForm.addEventListener('submit', async function (e) {
                 status,
                 priority,
                 created_by,
-                due_date
-
-
+                due_date,
+                ticket_status
             }),
         });
         if (response.ok) {

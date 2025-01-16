@@ -5,7 +5,7 @@ const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // get tickets
 
 
-fetch(`${API_BASE_URL}/ticket/`)
+fetch(`${API_BASE_URL}/ticket/${project_id}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);
@@ -13,119 +13,233 @@ fetch(`${API_BASE_URL}/ticket/`)
         return response.json();
     })
     .then(data => {
-        data.forEach(element => {
-            console.log(data);
-            const cardItemTodo = document.getElementById('todo-task');
-            // const cardItemInprogress = document.getElementById('in-progress');
-            // const cardItemForapproval = document.getElementById('todo-task');
-            // const cardItemRejected = document.getElementById('for-approval');
-            // const cardItemAproved = document.getElementById('app');
+        data.map(element => {
+            const cardItem = document.getElementById('todo-task');
+            const cardContent = `                                                <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
+                                                    data-badge-text="UX" data-badge="success" data-due-date="5 April"
+                                                    data-attachments="4" data-assigned="1.png,1.png"
+                                                    data-members="Thunder,Thunder" onclick="openCanvase(${element.ticket_id})">
+                                                    <div
+                                                        class="d-flex justify-content-between flex-wrap align-items-center mb-2">
+                                                        <div class="item-badges">
+                                                            <div class="badge bg-label-success"> UX</div>
+                                                        </div>
+                                                        <div class="dropdown kanban-tasks-item-dropdown"><i
+                                                                class="dropdown-toggle ti ti-dots-vertical"
+                                                                id="kanban-tasks-item-dropdown"
+                                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false"></i>
+                                                            <div class="dropdown-menu dropdown-menu-end"
+                                                                aria-labelledby="kanban-tasks-item-dropdown"><a
+                                                                    class="dropdown-item waves-effect"
+                                                                    href="javascript:void(0)">Copy
+                                                                    task link</a><a class="dropdown-item waves-effect"
+                                                                    href="javascript:void(0)">Duplicate task</a><a
+                                                                    class="dropdown-item delete-task waves-effect"
+                                                                    onclick="handleDelete(${element.ticket_id})">Delete</a></div>
+                                                        </div>
+                                                    </div><span class="kanban-text">${element.title}</span>
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center flex-wrap mt-2">
+                                                        <div class="d-flex"> <span
+                                                                class="d-flex align-items-center me-2"><i
+                                                                    class="ti ti-paperclip me-1"></i><span
+                                                                    class="attachments">0</span></span> <span
+                                                                class="d-flex align-items-center ms-2"><i
+                                                                    class="ti ti-message-2 me-1"></i><span> 0
+                                                                </span></span></div>
+                                                        <div
+                                                            class="avatar-group d-flex align-items-center assigned-avatar">
+                                                            <div class="avatar avatar-xs" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" aria-label="Thunder" 
+                                                                data-bs-original-title="Thunder"><img
+                                                                    src="../assets/img/avatars/1.png" alt="Avatar"
+                                                                    class="rounded-circle  pull-up"></div>
+                                                            <div class="avatar avatar-xs" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" aria-label="Thunder"
+                                                                data-bs-original-title="Thunder"><img
+                                                                    src="../assets/img/avatars/1.png" alt="Avatar"
+                                                                    class="rounded-circle  pull-up"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                               `;
 
-            // Create kanban card dynamically
-            const card = document.createElement('div');
-            card.className = "kanban-item";
-            card.setAttribute('data-eid', element.ticket_id || "in-progress-1");
-            card.setAttribute('data-comments', element.comments || "0");
-            card.setAttribute('data-badge-text', element.badge || "");
-            card.setAttribute('data-badge', "success");
-            card.setAttribute('data-due-date', element.dueDate || "5 April");
-            card.setAttribute('data-attachments', element.attachments || "0");
-            card.setAttribute('data-members', element.members || "Thunder,Thunder");
+            cardItem.innerHTML += cardContent;
+        })
 
-            // Add card content
-            card.innerHTML = `
-                <div class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                    <div class="item-badges">
-                        <div class="badge bg-label-success">${element.badge || "UX"}</div>
-                    </div>
-                    <div class="dropdown kanban-tasks-item-dropdown">
-                        <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                        <div class="dropdown-menu dropdown-menu-end" 
-                            aria-labelledby="kanban-tasks-item-dropdown">
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Copy task link</a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Duplicate task</a>
-                            <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)">Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <span class="kanban-text">${element.title}</span>
-                <div class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center me-2">
-                            <i class="ti ti-paperclip me-1"></i>
-                            <span class="attachments">${element.attachments || "0"}</span>
-                        </span>
-                        <span class="d-flex align-items-center ms-2">
-                            <i class="ti ti-message-2 me-1"></i>
-                            <span>${element.comments || "0"}</span>
-                        </span>
-                    </div>
-                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
-                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
-                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
-                                class="rounded-circle pull-up">
-                        </div>
-                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
-                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
-                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
-                                class="rounded-circle pull-up">
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Make the card draggable
-            makeDraggable(card);
-
-            // Append card to the container
-            cardItemTodo.appendChild(card);
-        });
     })
-    .catch(error => console.error("Error fetching data:", error));
+// Get query parameters from the URL
+// const urlParams = new URLSearchParams(window.location.search);
+// const project_id = urlParams.get("id");
 
-// Function to make an element draggable
-const kanbanselect = document.querySelectorAll('.kanban-item');
 
-// Add drag event listeners to kanban items
-kanbanselect.forEach(item => {
-    item.setAttribute('draggable', 'true'); // Ensure draggable attribute is set
-    item.addEventListener('dragstart', dragStart);
-    item.addEventListener('dragend', dragEnd);
-});
 
-// Select all drop zones (kanban-drag within kanban-board)
-const taskContainers = document.querySelectorAll('.kanban-drag');
+const openCanvase = (ticket_id) => {
+    console.log(ticket_id);
+    const offcanvas = document.querySelector('.offcanvas');
+    const backdropWrapper = document.getElementById('backdrop');
+    offcanvas.classList.add('show');
 
-taskContainers.forEach(container => {
-    container.addEventListener('dragover', dragOver);
-    container.addEventListener('drop', drop);
-});
 
-// Variables
-let draggedItem = null;
 
-// Drag-and-drop functions
-function dragStart(e) {
-    draggedItem = this;
-    e.dataTransfer.effectAllowed = 'move'; // Allow moving the item
-    setTimeout(() => (this.style.display = 'none'), 0); // Temporarily hide the item while dragging
+
+    const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
+    backdropWrapper.innerHTML = backdropContent;
+
+    // Fetch Ticket Data from API
+    fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.map(element => {
+                const ticketForm = document.getElementById('ticket-form');
+                const formContent = `<div class="mb-5">
+                                  <label class="form-label" for="title">Title</label>
+                                  <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
+                                </div>
+                                <div class="mb-5">
+                                  <label class="form-label" for="due-date">Due Date</label>
+                                  <input type="hidden" id="due-date" class="form-control flatpickr-input" placeholder="Enter Due Date"><input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" readonly="readonly">
+                                </div>
+                                <div class="mb-5">
+                                  <label class="form-label" for="label"> Label</label>
+                                  <div class="position-relative">
+                                  <select class="form-control" id="label" data-select2-id="label" tabindex="-1" aria-hidden="true">
+                                    <option>UX</option>
+                                    <option>Images</option>
+                                    <option>Info</option>
+                                    <option>Code Review</option>
+                                    <option>App</option>
+                                    <option>Charts &amp; Maps</option>
+                                  </select>
+                                 
+                                  </div>
+                                </div>
+                                <div class="mb-5">
+                                  <label class="form-label">Assigned</label>
+                                  <div class="assigned d-flex flex-wrap"><div class="avatar avatar-xs me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div> <div class="avatar avatar-xs" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div><div class="avatar avatar-xs ms-1"><span class="avatar-initial rounded-circle bg-label-secondary"><i class="ti ti-plus ti-xs text-heading"></i></span></div></div>
+                                </div>
+                                <div class="mb-5">
+                                  <label class="form-label" for="attachments">Attachments</label>
+                                  <div>
+                                    <input type="file" class="form-control" id="attachments">
+                                  </div>
+                                </div>
+                                <div class="mb-5">
+                                  <label class="form-label">Description</label>
+                                  <textarea class="form-control" name="" id="">${element.description}</textarea>
+                                </div>
+                                <div>
+                                  <div class="d-flex flex-wrap">
+                                    <button type="button" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" onclick="handleUpdate(${element.ticket_id})">
+                                      Update
+                                    </button> 
+                                    <button type="button" class="btn btn-label-danger waves-effect" data-bs-dismiss="offcanvas" onclick="handleDelete(${element.ticket_id})">
+                                      Delete
+                                    </button>
+                                  </div>
+                                </div>`;
+
+                ticketForm.innerHTML = formContent;
+            })
+
+
+        });
 }
 
-function dragEnd(e) {
-    this.style.display = 'block'; // Restore item visibility after dragging
-    draggedItem = null;
-}
+const handleUpdate = async (ticket_id) => {
+    const title = document.getElementById('ticket-title').value;
+    const description = "this is discription";
+    const status = "Backlog";
+    const priority = "Medium";
+    const created_by = creator_id;
+    const due_date = "2025-01-13"
 
-function dragOver(e) {
-    e.preventDefault(); // Allow items to be dropped
-    e.dataTransfer.dropEffect = 'move'; // Indicate the move action
-}
 
-function drop(e) {
-    e.preventDefault();
-    if (draggedItem) {
-        this.appendChild(draggedItem); // Append the dragged item to the drop target
+    try {
+        const response = await fetch(`${API_BASE_URL}/updateticket/${ticket_id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                project_id,
+                title,
+                description,
+                status,
+                priority,
+                created_by,
+                due_date
+
+
+            }),
+        });
+        if (response.ok) {
+            const offcanvas = document.querySelector('.offcanvas');
+            const backdropWrapper = document.getElementById('backdrop');
+            offcanvas.classList.remove('show');
+            backdropWrapper.innerHTML = '';
+            console.log('ticket updated successfully')
+            window.location.reload();
+        }
     }
+    catch (error) {
+        console.log('error', error);
+
+    }
+}
+
+//Delete Ticket
+
+const handleDelete = async (ticket_id) => {
+    console.log('Project id is : ' + ticket_id);
+    // if (!recordId) {
+    //     messageDiv.textContent = 'Please enter a valid ID.';
+    //     messageDiv.className = 'message error';
+    //     return;
+    // }
+
+    try {
+        // Send DELETE request to the API
+        const response = await fetch(`${API_BASE_URL}/deleteticket/${ticket_id}`, {
+            method: 'DELETE',
+        });
+        window.location.reload();
+        // Parse the response
+        // const data = await response.json();
+
+        if (response.ok) {
+
+            Swal.fire({
+                title: "Ticket Deleted Successfully",
+                text: "A Ticket is delete from your tickets",
+                icon: "success",
+                confirmButtonText: "Ok!",
+            })
+        } else {
+            Swal.fire({
+                title: "Oops!",
+                text: "something went wrong. Try again!",
+                icon: "error",
+                confirmButtonText: "Retry!",
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        // messageDiv.textContent = 'Could not connect to the server.';
+        // messageDiv.className = 'message error';
+    }
+
+}
+
+const closeCanvase = () => {
+    const offcanvas = document.querySelector('.offcanvas');
+    const backdropWrapper = document.getElementById('backdrop');
+    offcanvas.classList.remove('show');
+    backdropWrapper.innerHTML = '';
 }
