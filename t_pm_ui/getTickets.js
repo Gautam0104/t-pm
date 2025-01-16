@@ -5,7 +5,7 @@ const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // get tickets
 
 
-fetch(`${API_BASE_URL}/ticket/${project_id}`)
+fetch(`${API_BASE_URL}/project/${project_id}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);
@@ -13,57 +13,77 @@ fetch(`${API_BASE_URL}/ticket/${project_id}`)
         return response.json();
     })
     .then(data => {
-        data.map(element => {
-            const cardItem = document.getElementById('todo-task');
-            const cardContent = `                                                <div class="kanban-item" data-eid="in-progress-1" data-comments="12"
-                                                    data-badge-text="UX" data-badge="success" data-due-date="5 April"
-                                                    data-attachments="4" data-assigned="1.png,1.png"
-                                                    data-members="Thunder,Thunder" onclick="openCanvase(${element.ticket_id})">
-                                                    <div
-                                                        class="d-flex justify-content-between flex-wrap align-items-center mb-2">
-                                                        <div class="item-badges">
-                                                            <div class="badge bg-label-success"> UX</div>
-                                                        </div>
-                                                        <div class="dropdown kanban-tasks-item-dropdown"><i
-                                                                class="dropdown-toggle ti ti-dots-vertical"
-                                                                id="kanban-tasks-item-dropdown"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false"></i>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="kanban-tasks-item-dropdown"><a
-                                                                    class="dropdown-item waves-effect"
-                                                                    href="javascript:void(0)">Copy
-                                                                    task link</a><a class="dropdown-item waves-effect"
-                                                                    href="javascript:void(0)">Duplicate task</a><a
-                                                                    class="dropdown-item delete-task waves-effect"
-                                                                    onclick="handleDelete(${element.ticket_id})">Delete</a></div>
-                                                        </div>
-                                                    </div><span class="kanban-text">${element.title}</span>
-                                                    <div
-                                                        class="d-flex justify-content-between align-items-center flex-wrap mt-2">
-                                                        <div class="d-flex"> <span
-                                                                class="d-flex align-items-center me-2"><i
-                                                                    class="ti ti-paperclip me-1"></i><span
-                                                                    class="attachments">0</span></span> <span
-                                                                class="d-flex align-items-center ms-2"><i
-                                                                    class="ti ti-message-2 me-1"></i><span> 0
-                                                                </span></span></div>
-                                                        <div
-                                                            class="avatar-group d-flex align-items-center assigned-avatar">
-                                                            <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" aria-label="Thunder" 
-                                                                data-bs-original-title="Thunder"><img
-                                                                    src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                    class="rounded-circle  pull-up"></div>
-                                                            <div class="avatar avatar-xs" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" aria-label="Thunder"
-                                                                data-bs-original-title="Thunder"><img
-                                                                    src="../assets/img/avatars/1.png" alt="Avatar"
-                                                                    class="rounded-circle  pull-up"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>  
-                               `;
+        const projectTitle = document.getElementById('project-title');
+        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}">`
+
+        projectTitle.innerHTML += titleContent
+    });
+// Function to fetch and create elements
+function fetchDataAndCreateElements() {
+    return fetch(`${API_BASE_URL}/ticket/${project_id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(element => {
+                const cardItem = document.getElementById('todo-task');
+                const cardItem2 = document.getElementById('inprogress-task');
+                const cardItem3 = document.getElementById('for-approval-task');
+                const cardItem4 = document.getElementById('rejected-task');
+                const cardItem5 = document.getElementById('approved-task');
+
+                // Create kanban card dynamically
+                const card = document.createElement('div');
+                card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
+                card.draggable = true;
+                card.onclick = "openCanvase()"
+
+                // Add card content
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between flex-wrap align-items-center mb-2" >
+                    <div class="item-badges">
+                        <div class="badge bg-label-success">${element.badge || "UX"}</div>
+                    </div>
+                    <div class="dropdown kanban-tasks-item-dropdown">
+                        <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu dropdown-menu-end" 
+                            aria-labelledby="kanban-tasks-item-dropdown">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Copy task link</a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Duplicate task</a>
+                            <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <span class="kanban-text" onclick="openCanvase(${element.ticket_id})">${element.title}</span>
+                <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
+                    <div class="d-flex">
+                        <span class="d-flex align-items-center me-2">
+                            <i class="ti ti-paperclip me-1"></i>
+                            <span class="attachments">${element.attachments || "0"}</span>
+                        </span>
+                        <span class="d-flex align-items-center ms-2">
+                            <i class="ti ti-message-2 me-1"></i>
+                            <span>${element.comments || "0"}</span>
+                        </span>
+                    </div>
+                    <div class="avatar-group d-flex align-items-center assigned-avatar">
+                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
+                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
+                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
+                                class="rounded-circle pull-up">
+                        </div>
+                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
+                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
+                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
+                                class="rounded-circle pull-up">
+                        </div>
+                    </div>
+                </div>
+                `;
 
             cardItem.innerHTML += cardContent;
         })
