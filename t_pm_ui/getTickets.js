@@ -1,7 +1,10 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
+function test() {
+    console.log("test is working");
+    // get tickets
+}
 
-// get tickets
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
@@ -41,11 +44,13 @@ function fetchDataAndCreateElements() {
                 const card = document.createElement("div");
                 card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
                 card.draggable = true;
-                card.onclick = "openCanvase()";
+                card.id = `${element.ticket_id}`
+
+
 
                 // Add card content
                 card.innerHTML = `
-                    <div class="d-flex justify-content-between flex-wrap align-items-center mb-2" >
+                    <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
                     <div class="item-badges">
                         <div class="badge bg-label-success">${element.badge ||
                     "UX"}</div>
@@ -126,6 +131,136 @@ fetchDataAndCreateElements()
         console.log("trydragg elements outside fetch:", trydraggElements);
         // Perform actions on the elements here
         trydraggElements.forEach(element => {
+            element.addEventListener("click", function (e) {
+                const offcanvas = document.querySelector(".offcanvas");
+                // const backdropWrapper = document.getElementById("backdrop");
+                offcanvas.classList.add("show");
+
+                const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
+                // backdropWrapper.innerHTML = backdropContent;
+                let selected = e.currentTarget.id;
+                let ticket_id = selected
+                console.log(e.currentTarget.id);
+                // Fetch Ticket Data from API
+                fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok " + response.statusText);
+                        }
+                        return response.json();
+
+                    })
+                    .then(data => {
+                        data.map(element => {
+                            const offcanvasDiv = document.getElementById("offcanvas-div");
+                            const offcanvasContent = `<div class="offcanvas-header border-bottom">
+                                        <h5 class="offcanvas-title">Edit Task</h5>
+                                        <button type="button" class="btn-close" id="offcanvase-close"
+                                             aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body pt-0">
+                                        <div class="nav-align-top">
+                                            <ul class="nav nav-tabs mb-5 rounded-0" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active waves-effect" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-update" aria-selected="true" role="tab">
+                                                        <i class="ti ti-edit ti-18px me-1_5"></i>
+                                                        <span class="align-middle">Edit</span>
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link waves-effect" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-activity" aria-selected="false"
+                                                        tabindex="-1" role="tab">
+                                                        <i class="ti ti-chart-pie-2 ti-18px me-1_5"></i>
+                                                        <span class="align-middle">Activity</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content p-0">
+                                            <!-- Update item/tasks -->
+                                            <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
+                                                <form id="ticket-form">
+                                                    <div class="mb-5">
+                                                        <label class="form-label" for="title">Title</label>
+                                                        <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
+                                                      </div>
+                                                      <div class="mb-5">
+                                                        <label class="form-label" for="due-date">Due Date</label>
+                                                        <input type="hidden" id="due-date" class="form-control flatpickr-input" placeholder="Enter Due Date"><input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" readonly="readonly">
+                                                      </div>
+                                                      <div class="mb-5">
+                                                        <label class="form-label" for="label"> Label</label>
+                                                        <div class="position-relative">
+                                                        <select class="form-control" id="label" data-select2-id="label" tabindex="-1" aria-hidden="true">
+                                                          <option>UX</option>
+                                                          <option>Images</option>
+                                                          <option>Info</option>
+                                                          <option>Code Review</option>
+                                                          <option>App</option>
+                                                          <option>Charts &amp; Maps</option>
+                                                        </select>
+                          
+                                                        </div>
+                                                      </div>
+                                                      <div class="mb-5">
+                                                        <label class="form-label">Assigned</label>
+                                                        <div class="assigned d-flex flex-wrap"><div class="avatar avatar-xs me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div> <div class="avatar avatar-xs" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div><div class="avatar avatar-xs ms-1"><span class="avatar-initial rounded-circle bg-label-secondary"><i class="ti ti-plus ti-xs text-heading"></i></span></div></div>
+                                                      </div>
+                                                      <div class="mb-5">
+                                                        <label class="form-label" for="attachments">Attachments</label>
+                                                        <div>
+                                                          <input type="file" class="form-control" id="attachments">
+                                                        </div>
+                                                      </div>
+                                                      <div class="mb-5">
+                                                        <label class="form-label">Description</label>
+                                                        <textarea class="form-control" name="" id="">${element.description}</textarea>
+                                                      </div>
+                                                      <div>
+                                                        <div class="d-flex flex-wrap">
+                                                          <button type="button" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" id="update-button" >
+                                                            Update
+                                                          </button> 
+                                                          <button type="button" class="btn btn-label-danger waves-effect" data-bs-dismiss="offcanvas" >
+                                                            Delete
+                                                          </button>
+                                                        </div>
+                                                      </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+                            offcanvasDiv.innerHTML = offcanvasContent;
+
+                            const updateButton = document.getElementById('update-button');
+                            const closeButton = document.getElementById('offcanvase-close');
+                            //console.log(updateButton);
+                            closeButton.addEventListener("click", function () {
+                                selected = null;
+                                console.log('selected is null now');
+                                const offcanvas = document.querySelector(".offcanvas");
+                                // const backdropWrapper = document.getElementById("backdrop");
+                                offcanvas.classList.remove("show");
+                                // backdropWrapper.innerHTML = "";
+                            })
+                            updateButton.addEventListener("click", function () {
+                                selected = null;
+                                console.log('selected is null now');
+
+                            })
+
+                        });
+                    });
+
+
+            });
+
+
+
+
             element.addEventListener("dragstart", e => {
                 let selected = e.target;
                 //console.log(selected.classList[2]);
@@ -150,6 +285,10 @@ fetchDataAndCreateElements()
 
                 inprogressTask.addEventListener("dragover", function (e) {
                     e.preventDefault();
+                    const contentDiv = document.getElementById('content-div');
+                    contentDiv.style.opacity = "1";
+                    console.log(contentDiv);
+
                 });
                 inprogressTask.addEventListener("drop", function (e) {
                     e.preventDefault();
@@ -184,6 +323,8 @@ fetchDataAndCreateElements()
                         .catch(error => console.error("Error:", error));
 
                     selected = null;
+                    const contentDiv = document.getElementById('content-div');
+                    contentDiv.style.opacity = "0";
                 });
                 forApprovalTask.addEventListener("drop", function (e) {
                     e.preventDefault();
@@ -378,7 +519,7 @@ function getDragAfterElement(container, y) {
 // const urlParams = new URLSearchParams(window.location.search);
 // const project_id = urlParams.get("id");
 
-const openCanvase = ticket_id => {
+const openCanvase = (ticket_id) => {
     console.log(ticket_id);
     const offcanvas = document.querySelector(".offcanvas");
     const backdropWrapper = document.getElementById("backdrop");
@@ -530,7 +671,7 @@ const handleDelete = async ticket_id => {
 
 const closeCanvase = () => {
     const offcanvas = document.querySelector(".offcanvas");
-    const backdropWrapper = document.getElementById("backdrop");
+    // const backdropWrapper = document.getElementById("backdrop");
     offcanvas.classList.remove("show");
-    backdropWrapper.innerHTML = "";
+    // backdropWrapper.innerHTML = "";
 };
