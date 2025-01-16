@@ -88,7 +88,7 @@ function fetchDataAndCreateElements() {
             cardItem.innerHTML += cardContent;
         })
 
-    })
+    })}
 // Get query parameters from the URL
 // const urlParams = new URLSearchParams(window.location.search);
 // const project_id = urlParams.get("id");
