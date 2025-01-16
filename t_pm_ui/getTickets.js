@@ -309,7 +309,7 @@ fetchDataAndCreateElements()
                                     const response = await fetch(`${API_BASE_URL}/deleteticket/${ticket_id}`, {
                                         method: "DELETE"
                                     });
-                                    window.location.reload();
+
                                     // Parse the response
                                     // const data = await response.json();
 
@@ -319,7 +319,11 @@ fetchDataAndCreateElements()
                                             text: "A Ticket is delete from your tickets",
                                             icon: "success",
                                             confirmButtonText: "Ok!"
+                                        }).then(function () {
+                                            window.location.reload();
                                         });
+
+
                                     } else {
                                         Swal.fire({
                                             title: "Oops!",
