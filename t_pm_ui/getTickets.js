@@ -66,7 +66,7 @@ function fetchDataAndCreateElements() {
                         </div>
                     </div>
                 </div>
-                <span class="kanban-text" onclick="openCanvase(${element.ticket_id})">${element.title}</span>
+                <span class="kanban-text" >${element.title}</span>
                 <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
                     <div class="d-flex">
                         <span class="d-flex align-items-center me-2">
@@ -224,7 +224,7 @@ fetchDataAndCreateElements()
                                                           <button type="button" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" id="update-button" >
                                                             Update
                                                           </button> 
-                                                          <button type="button" class="btn btn-label-danger waves-effect" data-bs-dismiss="offcanvas" >
+                                                          <button type="button" class="btn btn-label-danger waves-effect"  id="delete-ticket">
                                                             Delete
                                                           </button>
                                                         </div>
@@ -238,6 +238,7 @@ fetchDataAndCreateElements()
 
                             const updateButton = document.getElementById('update-button');
                             const closeButton = document.getElementById('offcanvase-close');
+                            const deleteButton = document.getElementById('delete-ticket')
                             //console.log(updateButton);
                             closeButton.addEventListener("click", function () {
                                 selected = null;
@@ -290,8 +291,50 @@ fetchDataAndCreateElements()
                                     console.log("error", error);
                                 }
 
-                            })
+                            });
+                            console.log(deleteButton);
 
+                            deleteButton.addEventListener("click", async function () {
+                                // console.log("deleteButtonworking");
+                                const ticket_id = element.ticket_id;
+                                console.log("Project id is : " + ticket_id);
+                                // if (!recordId) {
+                                //     messageDiv.textContent = 'Please enter a valid ID.';
+                                //     messageDiv.className = 'message error';
+                                //     return;
+                                // }
+
+                                try {
+                                    // Send DELETE request to the API
+                                    const response = await fetch(`${API_BASE_URL}/deleteticket/${ticket_id}`, {
+                                        method: "DELETE"
+                                    });
+                                    window.location.reload();
+                                    // Parse the response
+                                    // const data = await response.json();
+
+                                    if (response.ok) {
+                                        Swal.fire({
+                                            title: "Ticket Deleted Successfully",
+                                            text: "A Ticket is delete from your tickets",
+                                            icon: "success",
+                                            confirmButtonText: "Ok!"
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "Oops!",
+                                            text: "something went wrong. Try again!",
+                                            icon: "error",
+                                            confirmButtonText: "Retry!"
+                                        });
+                                    }
+                                } catch (error) {
+                                    console.error(error);
+                                    // messageDiv.textContent = 'Could not connect to the server.';
+                                    // messageDiv.className = 'message error';
+                                }
+
+                            })
                         });
                     });
 
