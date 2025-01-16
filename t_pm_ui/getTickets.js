@@ -1,9 +1,11 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
-
 // get tickets
-
+var urlParams = new URLSearchParams(window.location.search);
+var project_id = urlParams.get("id");
+var creator_id = urlParams.get("user_id");
+console.log(project_id);
 
 fetch(`${API_BASE_URL}/project/${project_id}`)
     .then(response => {
@@ -13,10 +15,10 @@ fetch(`${API_BASE_URL}/project/${project_id}`)
         return response.json();
     })
     .then(data => {
-        const projectTitle = document.getElementById('project-title');
-        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}">`
+        const projectTitle = document.getElementById("project-title");
+        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}">`;
 
-        projectTitle.innerHTML += titleContent
+        projectTitle.innerHTML += titleContent;
     });
 // Function to fetch and create elements
 function fetchDataAndCreateElements() {
@@ -29,23 +31,24 @@ function fetchDataAndCreateElements() {
         })
         .then(data => {
             data.forEach(element => {
-                const cardItem = document.getElementById('todo-task');
-                const cardItem2 = document.getElementById('inprogress-task');
-                const cardItem3 = document.getElementById('for-approval-task');
-                const cardItem4 = document.getElementById('rejected-task');
-                const cardItem5 = document.getElementById('approved-task');
+                const cardItem = document.getElementById("todo-task");
+                const cardItem2 = document.getElementById("inprogress-task");
+                const cardItem3 = document.getElementById("for-approval-task");
+                const cardItem4 = document.getElementById("rejected-task");
+                const cardItem5 = document.getElementById("approved-task");
 
                 // Create kanban card dynamically
-                const card = document.createElement('div');
+                const card = document.createElement("div");
                 card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
                 card.draggable = true;
-                card.onclick = "openCanvase()"
+                card.onclick = "openCanvase()";
 
                 // Add card content
                 card.innerHTML = `
                     <div class="d-flex justify-content-between flex-wrap align-items-center mb-2" >
                     <div class="item-badges">
-                        <div class="badge bg-label-success">${element.badge || "UX"}</div>
+                        <div class="badge bg-label-success">${element.badge ||
+                    "UX"}</div>
                     </div>
                     <div class="dropdown kanban-tasks-item-dropdown">
                         <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
@@ -63,7 +66,8 @@ function fetchDataAndCreateElements() {
                     <div class="d-flex">
                         <span class="d-flex align-items-center me-2">
                             <i class="ti ti-paperclip me-1"></i>
-                            <span class="attachments">${element.attachments || "0"}</span>
+                            <span class="attachments">${element.attachments ||
+                    "0"}</span>
                         </span>
                         <span class="d-flex align-items-center ms-2">
                             <i class="ti ti-message-2 me-1"></i>
@@ -85,24 +89,300 @@ function fetchDataAndCreateElements() {
                 </div>
                 `;
 
-            cardItem.innerHTML += cardContent;
-        })
+                // Append card to the container
+                switch (element.ticket_status) {
+                    case "todo":
+                        cardItem.appendChild(card);
+                        break;
+                    case "inprogress":
+                        cardItem2.appendChild(card);
+                        break;
+                    case "for-approval":
+                        cardItem3.appendChild(card);
+                        break;
+                    case "approved":
+                        cardItem5.appendChild(card);
+                        break;
+                    case "rejected":
+                        cardItem4.appendChild(card);
+                        break;
+                    default:
+                        cardItem.appendChild(card);
+                }
+            });
 
-    })}
+            return document.querySelectorAll(".dragg-from-todo"); // Return the elements
+        });
+}
+
+// Call the function and use the returned elements
+fetchDataAndCreateElements()
+    .then(trydraggElements => {
+        const inprogressTask = document.getElementById("inprogress-task");
+        const forApprovalTask = document.getElementById("for-approval-task");
+        const rejectedTask = document.getElementById("rejected-task");
+        const approvedTask = document.getElementById("approved-task");
+
+        console.log("trydragg elements outside fetch:", trydraggElements);
+        // Perform actions on the elements here
+        trydraggElements.forEach(element => {
+            element.addEventListener("dragstart", e => {
+                let selected = e.target;
+                //console.log(selected.classList[2]);
+                let ticket_id = selected.classList[2];
+                // console.log(ticket_id);
+                // let selectedData = [];
+                function fetchselectedData() {
+                    return fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(
+                                    "Network response was not ok " + response.statusText
+                                );
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            let selectedData = data[0];
+                            return selectedData;
+                        });
+                }
+
+                inprogressTask.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                inprogressTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    inprogressTask.appendChild(selected);
+                    selected.classList.remove("dragg-from-todo");
+                    selected.classList.add("dragg-from-inprogress");
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "inprogress";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log("Ticket ID or Status is missing");
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch("http://localhost:3000/updateticketStatus", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    ticket_id: ticketId,
+                                    ticket_status: ticketStatus
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log("Success:", data))
+                                .catch(error => console.error("Error:", error));
+                        })
+                        .catch(error => console.error("Error:", error));
+
+                    selected = null;
+                });
+                forApprovalTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    forApprovalTask.appendChild(selected);
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "for-approval";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log("Ticket ID or Status is missing");
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch("http://localhost:3000/updateticketStatus", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    ticket_id: ticketId,
+                                    ticket_status: ticketStatus
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log("Success:", data))
+                                .catch(error => console.error("Error:", error));
+                        })
+                        .catch(error => console.error("Error:", error));
+                    selected = null;
+                });
+                rejectedTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    rejectedTask.appendChild(selected);
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "rejected";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log("Ticket ID or Status is missing");
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch("http://localhost:3000/updateticketStatus", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    ticket_id: ticketId,
+                                    ticket_status: ticketStatus
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log("Success:", data))
+                                .catch(error => console.error("Error:", error));
+                        })
+                        .catch(error => console.error("Error:", error));
+                    selected = null;
+                });
+                approvedTask.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    approvedTask.appendChild(selected);
+                    fetchselectedData()
+                        .then(selectedData => {
+                            const ticketId = selectedData.ticket_id;
+                            const ticketStatus = "approved";
+
+                            // Check for undefined or empty values before sending the request
+                            if (!ticketId || !ticketStatus) {
+                                console.log("Ticket ID or Status is missing");
+                                return; // You could show an alert or handle the error here
+                            }
+
+                            fetch("http://localhost:3000/updateticketStatus", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    ticket_id: ticketId,
+                                    ticket_status: ticketStatus
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log("Success:", data))
+                                .catch(error => console.error("Error:", error));
+                        })
+                        .catch(error => console.error("Error:", error));
+                    selected = null;
+                });
+            });
+        });
+    })
+    .catch(error => console.error("Error:", error));
+// Log all elements with class "try" after a delay
+// let todoCardItems = [];
+// setTimeout(() => {
+//     const dragElements = document.querySelectorAll('.trydragg');
+//     for (const dragElement of dragElements) {
+
+//         let todoCardItems = dragElement;
+//         return todoCardItems
+
+//     }
+// }, 500); // Adjust delay if necessary
+
+// console.log(todoCardItems);
+
+// console.log(todoCardItems);
+
+for (const todoItem of todoCardItems) {
+    console.log(todoItem);
+
+    todoItem.addEventListener("dragstart", function (e) {
+        // Corrected typo here
+        let selected = e.target;
+        console.log(todoItem);
+
+        inprogressTask.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        });
+        inprogressTask.addEventListener("drop", function (e) {
+            inprogressTask.appendChild(selected);
+        });
+    });
+}
+// Function to make an element draggable
+function makeDraggable(element) {
+    element.setAttribute("draggable", "true");
+
+    // Add dragstart event
+    element.addEventListener("dragstart", event => {
+        event.dataTransfer.setData("text/plain", element.id); // Set the id of the dragged element
+        element.classList.add("dragging");
+    });
+
+    // Add dragend event
+    element.addEventListener("dragend", () => {
+        element.classList.remove("dragging");
+    });
+}
+
+const containers = document.querySelectorAll(".kanban-container");
+
+containers.forEach(container => {
+    container.addEventListener("dragover", event => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move"; // Show move cursor
+        const draggingElement = document.querySelector(".dragging");
+        const afterElement = getDragAfterElement(container, event.clientY);
+
+        if (afterElement == null) {
+            container.appendChild(draggingElement);
+        } else {
+            container.insertBefore(draggingElement, afterElement);
+        }
+    });
+
+    container.addEventListener("drop", event => {
+        event.preventDefault();
+        const cardId = event.dataTransfer.getData("text/plain");
+        const draggedElement = document.querySelector(`[data-eid='${cardId}']`);
+        container.appendChild(draggedElement); // Append card to the drop container
+    });
+});
+
+// Helper function to find the correct position for the dragged item
+function getDragAfterElement(container, y) {
+    const draggableElements = [
+        ...container.querySelectorAll(".kanban-item:not(.dragging)")
+    ];
+
+    return draggableElements.reduce(
+        (closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        },
+        { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+}
 // Get query parameters from the URL
 // const urlParams = new URLSearchParams(window.location.search);
 // const project_id = urlParams.get("id");
 
-
-
-const openCanvase = (ticket_id) => {
+const openCanvase = ticket_id => {
     console.log(ticket_id);
-    const offcanvas = document.querySelector('.offcanvas');
-    const backdropWrapper = document.getElementById('backdrop');
-    offcanvas.classList.add('show');
-
-
-
+    const offcanvas = document.querySelector(".offcanvas");
+    const backdropWrapper = document.getElementById("backdrop");
+    offcanvas.classList.add("show");
 
     const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
     backdropWrapper.innerHTML = backdropContent;
@@ -117,7 +397,7 @@ const openCanvase = (ticket_id) => {
         })
         .then(data => {
             data.map(element => {
-                const ticketForm = document.getElementById('ticket-form');
+                const ticketForm = document.getElementById("ticket-form");
                 const formContent = `<div class="mb-5">
                                   <label class="form-label" for="title">Title</label>
                                   <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
@@ -166,26 +446,23 @@ const openCanvase = (ticket_id) => {
                                 </div>`;
 
                 ticketForm.innerHTML = formContent;
-            })
-
-
+            });
         });
-}
+};
 
-const handleUpdate = async (ticket_id) => {
-    const title = document.getElementById('ticket-title').value;
+const handleUpdate = async ticket_id => {
+    const title = document.getElementById("ticket-title").value;
     const description = "this is discription";
     const status = "Backlog";
     const priority = "Medium";
     const created_by = creator_id;
-    const due_date = "2025-01-13"
-
+    const due_date = "2025-01-13";
 
     try {
         const response = await fetch(`${API_BASE_URL}/updateticket/${ticket_id}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 project_id,
@@ -195,29 +472,25 @@ const handleUpdate = async (ticket_id) => {
                 priority,
                 created_by,
                 due_date
-
-
-            }),
+            })
         });
         if (response.ok) {
-            const offcanvas = document.querySelector('.offcanvas');
-            const backdropWrapper = document.getElementById('backdrop');
-            offcanvas.classList.remove('show');
-            backdropWrapper.innerHTML = '';
-            console.log('ticket updated successfully')
+            const offcanvas = document.querySelector(".offcanvas");
+            const backdropWrapper = document.getElementById("backdrop");
+            offcanvas.classList.remove("show");
+            backdropWrapper.innerHTML = "";
+            console.log("ticket updated successfully");
             window.location.reload();
         }
+    } catch (error) {
+        console.log("error", error);
     }
-    catch (error) {
-        console.log('error', error);
-
-    }
-}
+};
 
 //Delete Ticket
 
-const handleDelete = async (ticket_id) => {
-    console.log('Project id is : ' + ticket_id);
+const handleDelete = async ticket_id => {
+    console.log("Project id is : " + ticket_id);
     // if (!recordId) {
     //     messageDiv.textContent = 'Please enter a valid ID.';
     //     messageDiv.className = 'message error';
@@ -227,26 +500,25 @@ const handleDelete = async (ticket_id) => {
     try {
         // Send DELETE request to the API
         const response = await fetch(`${API_BASE_URL}/deleteticket/${ticket_id}`, {
-            method: 'DELETE',
+            method: "DELETE"
         });
         window.location.reload();
         // Parse the response
         // const data = await response.json();
 
         if (response.ok) {
-
             Swal.fire({
                 title: "Ticket Deleted Successfully",
                 text: "A Ticket is delete from your tickets",
                 icon: "success",
-                confirmButtonText: "Ok!",
-            })
+                confirmButtonText: "Ok!"
+            });
         } else {
             Swal.fire({
                 title: "Oops!",
                 text: "something went wrong. Try again!",
                 icon: "error",
-                confirmButtonText: "Retry!",
+                confirmButtonText: "Retry!"
             });
         }
     } catch (error) {
@@ -254,12 +526,11 @@ const handleDelete = async (ticket_id) => {
         // messageDiv.textContent = 'Could not connect to the server.';
         // messageDiv.className = 'message error';
     }
-
-}
+};
 
 const closeCanvase = () => {
-    const offcanvas = document.querySelector('.offcanvas');
-    const backdropWrapper = document.getElementById('backdrop');
-    offcanvas.classList.remove('show');
-    backdropWrapper.innerHTML = '';
-}
+    const offcanvas = document.querySelector(".offcanvas");
+    const backdropWrapper = document.getElementById("backdrop");
+    offcanvas.classList.remove("show");
+    backdropWrapper.innerHTML = "";
+};
