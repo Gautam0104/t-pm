@@ -45,6 +45,7 @@ fetch(`${API_BASE_URL}/project/${projectId}`)
         projectDescription.innerText = data.description;
         projectStatus.innerHTML = statusText;
         projectETA.innerText = data.total_eta;
+        projectETA.innerText = data.total_eta;
 
         // console.log(data)
     })
