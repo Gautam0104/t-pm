@@ -16,7 +16,7 @@ let direction = 'ltr';
 if (isRtl) {
   direction = 'rtl';
 }
-
+let start = new Date();
 document.addEventListener('DOMContentLoaded', function () {
   (function () {
     const calendarEl = document.getElementById('calendar'),
@@ -147,6 +147,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }
+    if (eventStartDate) {
+      var end = eventStartDate.flatpickr({
+        enableTime: true,
+        altFormat: 'Y-m-dTH:i:S',
+        onReady: function (selectedDates, dateStr, instance) {
+          if (instance.isMobile) {
+            instance.mobileInput.setAttribute('step', null);
+          }
+        }
+      });
+    }
 
     // Inline sidebar calendar (flatpicker)
     if (inlineCalendar) {
@@ -174,11 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
       btnDeleteEvent.classList.remove('d-none');
 
       eventTitle.value = eventToUpdate.title;
-      start.setDate(eventToUpdate.start, true, 'Y-m-d');
-      eventToUpdate.allDay === true ? (allDaySwitch.checked = true) : (allDaySwitch.checked = false);
-      eventToUpdate.end !== null
-        ? end.setDate(eventToUpdate.end, true, 'Y-m-d')
-        : end.setDate(eventToUpdate.start, true, 'Y-m-d');
+      eventToUpdate.start ? eventStartDate.value = moment(eventToUpdate.start).format('YYYY-MM-DD') : eventStartDate.value = '';
+eventToUpdate.allDay === true ? (allDaySwitch.checked = true) : (allDaySwitch.checked = false);
+eventToUpdate.end !== null
+  ? eventEndDate.value = moment(eventToUpdate.end).format('YYYY-MM-DD')
+  : eventStartDate.value = moment(eventToUpdate.start).format('YYYY-MM-DD');
       eventLabel.val(eventToUpdate.extendedProps.calendar).trigger('change');
       eventToUpdate.extendedProps.location !== undefined
         ? (eventLocation.value = eventToUpdate.extendedProps.location)
@@ -263,8 +274,8 @@ document.addEventListener('DOMContentLoaded', function () {
                       id: event.ticket_id,             
                       title: event.title, 
                       // url:'',            
-                      start:  event.total_eta,
-                      //end: event.total_eta,         
+                      start:  event.created_at, 
+                      end: event.due_date,         
                       description: event.description, 
                       allDay: true, 
                       extendedProps: {
@@ -274,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   };
               });
   
-              //console.log('Selected Events:', selectedEvents); // Debugging step
+              console.log('Selected Events:', selectedEvents); // Debugging step
   
               // Call the successCallback to pass the filtered events to FullCalendar
               successCallback(selectedEvents);
@@ -330,6 +341,9 @@ document.addEventListener('DOMContentLoaded', function () {
         eventEndDate.value = date;
       },
       eventClick: function (info) {
+        console.log('Event Clicked:', info.event); // Debugging step
+        console.log('Start Date:', info.event.start);
+        console.log('End Date:', info.event.end);
         eventClick(info);
       },
       datesSet: function () {
@@ -407,8 +421,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function addEvent(eventData) {
       axios.post(`${API_BASE_URL}/tickets`, {
         title: eventData.title,
-        start: eventData.created_at,
-        end: eventData.due_date,
+        start: eventData.start,
+        end: eventData.end,
         description: eventData.extendedProps.description,
         calendar: eventData.extendedProps.calendar
       })
@@ -435,13 +449,17 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Update Event
     // ------------------------------------------------
+  
     function updateEvent(eventData) {
-      axios.put(`${API_BASE_URL}/${eventData.id}`, {
+      let ticket_id = eventData.id;
+      //console.log('Updating event:', ticket_id); // Debugging step
+      axios.put(`${API_BASE_URL}/calendarUpdate`, {
+        ticket_id: ticket_id,
         title: eventData.title,
-        start: eventData.created_at,
+        start: eventData.start,
         end: eventData.end,
         description: eventData.extendedProps.description,
-        calendar: eventData.extendedProps.calendar
+        //calendar: eventData.extendedProps.calendar
       })
       .then(function (response) {
         console.log('Event updated successfully:', response.data);

@@ -14,9 +14,22 @@
 //     });
 
 // let start = new Date();
-let date = new Date();
-let start= date;
-let end = date;
+//let date = new Date();
+//let start = new Date();
+//let end = new Date(); // Initialize 'start' as a Date object
+// let end = new Date();   // Initialize 'end' as a Date object
+// let date = new Date();
+// let nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+// // prettier-ignore
+// let nextMonth = date.getMonth() === 11 ? new Date(date.getFullYear() + 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() + 1, 1);
+// // prettier-ignore
+// let prevMonth = date.getMonth() === 11 ? new Date(date.getFullYear() - 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() - 1, 1);
+
+
+// Set the start date
+
+
+// Check if the event is an all-day event
 
 
 // let nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
@@ -26,22 +39,10 @@ let end = date;
 // let prevMonth = date.getMonth() === 11 ? new Date(date.getFullYear() - 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() - 1, 1);
     
     
-let tickets = [];
+//let tickets = [];
 // console.log(tickets);
 // Dynamically map tickets to events
 
-  window.events = tickets.map(ticket => ({
-  
-  // id: ticket.ticket_id,
-  // url: '', // Placeholder for URL, can be dynamic if needed
-  // title: ticket.title,
-  // start: ticket.created_at,
-  // end: ticket.due_date,
-  //  // Using `created_at` as start date
-  // allDay: true,
-  // extendedProps: {
-  //   calendar: 'Personal' // Static value, can be dynamic if needed
-  // }
-}));
+  window.events = [];
 
-//console.log(window.events);
+// console.log(window.events);

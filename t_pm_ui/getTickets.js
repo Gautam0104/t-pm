@@ -185,7 +185,8 @@ fetchDataAndCreateElements()
                                                 <form id="ticket-form">
                                                     <div class="mb-5">
                                                         <label class="form-label" for="title">Title</label>
-                                                        <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
+                                                        <textarea id="ticket-title" class="form-control" placeholder="Enter Title">${element.title}</textarea>
+
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>
@@ -693,7 +694,8 @@ const openCanvase = (ticket_id) => {
                 const ticketForm = document.getElementById("ticket-form");
                 const formContent = `<div class="mb-5">
                                   <label class="form-label" for="title">Title</label>
-                                  <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
+                                  <textarea id="ticket-title" class="form-control" placeholder="Enter Title">${element.title}</textarea>
+
                                 </div>
                                 <div class="mb-5">
                                   <label class="form-label" for="due-date">Due Date</label>
