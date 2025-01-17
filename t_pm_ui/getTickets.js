@@ -415,7 +415,7 @@ fetchDataAndCreateElements()
                                 return; // You could show an alert or handle the error here
                             }
 
-                            fetch("http://localhost:3000/updateticketStatus", {
+                            fetch(`${API_BASE_URL}/updateticketStatus`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"
@@ -451,7 +451,7 @@ fetchDataAndCreateElements()
                                 return; // You could show an alert or handle the error here
                             }
 
-                            fetch("http://localhost:3000/updateticketStatus", {
+                            fetch(`${API_BASE_URL}/updateticketStatus`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"
@@ -485,7 +485,7 @@ fetchDataAndCreateElements()
                                 return; // You could show an alert or handle the error here
                             }
 
-                            fetch("http://localhost:3000/updateticketStatus", {
+                            fetch(`${API_BASE_URL}/updateticketStatus`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"
@@ -518,7 +518,7 @@ fetchDataAndCreateElements()
                                 return; // You could show an alert or handle the error here
                             }
 
-                            fetch("http://localhost:3000/updateticketStatus", {
+                            fetch(`${API_BASE_URL}/updateticketStatus`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"
@@ -551,7 +551,7 @@ fetchDataAndCreateElements()
                                 return; // You could show an alert or handle the error here
                             }
 
-                            fetch("http://localhost:3000/updateticketStatus", {
+                            fetch(`${API_BASE_URL}/updateticketStatus`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"
