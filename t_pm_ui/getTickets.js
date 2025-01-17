@@ -250,48 +250,49 @@ fetchDataAndCreateElements()
                             })
                             updateButton.addEventListener("click", async function () {
 
-                                const ticket_id = element.ticket_id;
-                                const title = document.getElementById('ticket-title').value;
-                                const description = document.getElementById('ticket-description').value;;
-                                const status = element.status;
-                                const priority = element.priority
-                                const ticket_status = element.ticket_status;
+                                const ticketId = element.ticket_id;
+                                const ticketTitle = document.getElementById('ticket-title').value;
 
-                                try {
-                                    const response = await fetch(`${API_BASE_URL}/updateticket`, {
-                                        method: "PUT",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify({
-                                            ticket_id,
-                                            title,
-                                            description,
-                                            status,
-                                            priority,
-                                            ticket_status
 
-                                        })
-                                    });
-                                    if (response.ok) {
-                                        selected = null;
-                                        const offcanvas = document.querySelector(".offcanvas");
-                                        const backdropWrapper = document.getElementById("backdrop");
-                                        offcanvas.classList.remove("show");
-                                        backdropWrapper.innerHTML = "";
+                                const ticketDescription = document.getElementById('ticket-description').value;
+                                //console.log(description);
+
+                                const statusT = element.status;
+                                const ticketPriority = element.priority
+                                const ticketStatus = element.ticket_status;
+                                // Check for undefined or empty values before sending the request
+                                if (!ticketId || !ticketTitle || !ticketDescription || !statusT || !ticketPriority || !ticketStatus) {
+                                    console.log("Ticket ID or Status is missing");
+                                    return; // You could show an alert or handle the error here
+                                }
+                                fetch(`${API_BASE_URL}/updateticket`, {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        ticket_id: ticketId,
+                                        title: ticketTitle,
+                                        description: ticketDescription,
+                                        status: statusT,
+                                        priority: ticketPriority,
+                                        ticket_status: ticketStatus
+                                    })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log("Success:", data);
                                         Swal.fire({
-                                            title: "Ticket updated Successfully",
-                                            text: "A Ticket is updated from your tickets",
+                                            title: "Ticket Updated Successfully",
+                                            text: "A Ticket is update from your tickets",
                                             icon: "success",
                                             confirmButtonText: "Ok!"
+                                        }).then(function () {
+                                            window.location.reload();
                                         });
-                                        // window.location.reload();
-                                    }
-                                } catch (error) {
-                                    console.log("error", error);
-                                }
-
-                            });
+                                    })
+                                    .catch(error => console.error("Error:", error));
+                            })
                             console.log(deleteButton);
 
                             deleteButton.addEventListener("click", async function () {
