@@ -182,14 +182,14 @@ fetchDataAndCreateElements()
                                         <div class="tab-content p-0">
                                             <!-- Update item/tasks -->
                                             <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
-                                                <form id="ticket-form">
+                                                <form id="ticketForm">
                                                     <div class="mb-5">
                                                         <label class="form-label" for="title">Title</label>
-                                                        <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
+                                                        <input type="text" id="title" class="form-control" placeholder="Enter Title" value="${element.title}">
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>
-                                                        <input type="hidden" id="due-date" class="form-control flatpickr-input" placeholder="Enter Due Date"><input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" readonly="readonly">
+                                                        <input type="hidden" id="due-date" class="form-control flatpickr-input" placeholder="Enter Due Date"><input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" value="${element.due_date}" readonly="readonly">
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label" for="label"> Label</label>
@@ -212,16 +212,16 @@ fetchDataAndCreateElements()
                                                       <div class="mb-5">
                                                         <label class="form-label" for="attachments">Attachments</label>
                                                         <div>
-                                                          <input type="file" class="form-control" id="attachments">
+                                                          <input type="file" class="form-control" id="image">
                                                         </div>
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label">Description</label>
-                                                        <textarea class="form-control" name="" id="ticket-description">${element.description}</textarea>
+                                                        <textarea class="form-control" name="" id="description">${element.description}</textarea>
                                                       </div>
                                                       <div>
                                                         <div class="d-flex flex-wrap">
-                                                          <button type="button" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" id="update-button" >
+                                                          <button type="submit" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" id="update-button" >
                                                             Update
                                                           </button> 
                                                           <button type="button" class="btn btn-label-danger waves-effect"  id="delete-ticket">
@@ -230,6 +230,7 @@ fetchDataAndCreateElements()
                                                         </div>
                                                       </div>
                                                 </form>
+                                                <div id="message"></div>
                                             </div>
                                         </div>
                                     </div>`;
@@ -248,51 +249,71 @@ fetchDataAndCreateElements()
                                 offcanvas.classList.remove("show");
                                 // backdropWrapper.innerHTML = "";
                             })
-                            updateButton.addEventListener("click", async function () {
+                            // update ticket form
+                            document.getElementById('ticketForm').addEventListener('submit', function (e) {
+                                e.preventDefault();
 
-                                const ticketId = element.ticket_id;
-                                const ticketTitle = document.getElementById('ticket-title').value;
+                                // Collect form data using document.getElementById
+                                const ticket_id = element.ticket_id
+                                const title = document.getElementById('title').value;
+                                const description = document.getElementById('description').value;
+                                const status = "backlog";
+                                const priority = "Medium";
+                                const ticket_status = element.ticket_status;
+                                const image = document.getElementById('image').files[0]; // Get the image file
 
-
-                                const ticketDescription = document.getElementById('ticket-description').value;
-                                //console.log(description);
-
-                                const statusT = element.status;
-                                const ticketPriority = element.priority
-                                const ticketStatus = element.ticket_status;
-                                // Check for undefined or empty values before sending the request
-                                if (!ticketId || !ticketTitle || !ticketDescription || !statusT || !ticketPriority || !ticketStatus) {
-                                    console.log("Ticket ID or Status is missing");
-                                    return; // You could show an alert or handle the error here
+                                // Validate required fields
+                                if (!ticket_id || !title || !description || !status || !priority || !ticket_status) {
+                                    alert('Please fill in all required fields');
+                                    return;
                                 }
+
+                                // Create the form data object
+                                const formData = new FormData();
+                                formData.append('ticket_id', ticket_id);
+                                formData.append('title', title);
+                                formData.append('description', description);
+                                formData.append('status', status);
+                                formData.append('priority', priority);
+                                formData.append('ticket_status', ticket_status);
+
+                                // If an image is selected, append it to the form data
+                                if (image) {
+                                    formData.append('image', image);
+                                }
+
+                                // Display a message while waiting for the response
+                                const messageElement = document.getElementById('message');
+                                messageElement.textContent = 'Updating ticket...';
+
+                                // Send the data to the backend via fetch
                                 fetch(`${API_BASE_URL}/updateticket`, {
-                                    method: "PUT",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        ticket_id: ticketId,
-                                        title: ticketTitle,
-                                        description: ticketDescription,
-                                        status: statusT,
-                                        priority: ticketPriority,
-                                        ticket_status: ticketStatus
-                                    })
+                                    method: 'PUT',
+                                    body: formData,
                                 })
                                     .then(response => response.json())
                                     .then(data => {
-                                        console.log("Success:", data);
-                                        Swal.fire({
-                                            title: "Ticket Updated Successfully",
-                                            text: "A Ticket is update from your tickets",
-                                            icon: "success",
-                                            confirmButtonText: "Ok!"
-                                        }).then(function () {
-                                            window.location.reload();
-                                        });
+                                        if (data.message) {
+                                            Swal.fire({
+                                                title: "Ticket Updated Successfully",
+                                                text: "A Ticket is update from your tickets",
+                                                icon: "success",
+                                                confirmButtonText: "Ok!"
+                                            }).then(function () {
+                                                window.location.reload();
+                                            });
+                                        } else if (data.error) {
+                                            messageElement.textContent = data.error;
+                                            messageElement.style.color = 'red';
+                                        }
                                     })
-                                    .catch(error => console.error("Error:", error));
-                            })
+                                    .catch(error => {
+                                        messageElement.textContent = 'An error occurred.';
+                                        messageElement.style.color = 'red';
+                                        console.error('Error:', error);
+                                    });
+                            });
+
                             console.log(deleteButton);
 
                             deleteButton.addEventListener("click", async function () {
@@ -575,21 +596,7 @@ fetchDataAndCreateElements()
         });
     })
     .catch(error => console.error("Error:", error));
-// Log all elements with class "try" after a delay
-// let todoCardItems = [];
-// setTimeout(() => {
-//     const dragElements = document.querySelectorAll('.trydragg');
-//     for (const dragElement of dragElements) {
 
-//         let todoCardItems = dragElement;
-//         return todoCardItems
-
-//     }
-// }, 500); // Adjust delay if necessary
-
-// console.log(todoCardItems);
-
-// console.log(todoCardItems);
 
 for (const todoItem of todoCardItems) {
     console.log(todoItem);
@@ -667,159 +674,7 @@ function getDragAfterElement(container, y) {
         { offset: Number.NEGATIVE_INFINITY }
     ).element;
 }
-// Get query parameters from the URL
-// const urlParams = new URLSearchParams(window.location.search);
-// const project_id = urlParams.get("id");
 
-const openCanvase = (ticket_id) => {
-    console.log(ticket_id);
-    const offcanvas = document.querySelector(".offcanvas");
-    const backdropWrapper = document.getElementById("backdrop");
-    offcanvas.classList.add("show");
-
-    const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
-    backdropWrapper.innerHTML = backdropContent;
-
-    // Fetch Ticket Data from API
-    fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            data.map(element => {
-                const ticketForm = document.getElementById("ticket-form");
-                const formContent = `<div class="mb-5">
-                                  <label class="form-label" for="title">Title</label>
-                                  <input type="text" id="ticket-title" class="form-control" placeholder="Enter Title" value="${element.title}">
-                                </div>
-                                <div class="mb-5">
-                                  <label class="form-label" for="due-date">Due Date</label>
-                                  <input type="hidden" id="due-date" class="form-control flatpickr-input" placeholder="Enter Due Date"><input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" readonly="readonly">
-                                </div>
-                                <div class="mb-5">
-                                  <label class="form-label" for="label"> Label</label>
-                                  <div class="position-relative">
-                                  <select class="form-control" id="label" data-select2-id="label" tabindex="-1" aria-hidden="true">
-                                    <option>UX</option>
-                                    <option>Images</option>
-                                    <option>Info</option>
-                                    <option>Code Review</option>
-                                    <option>App</option>
-                                    <option>Charts &amp; Maps</option>
-                                  </select>
-                                 
-                                  </div>
-                                </div>
-                                <div class="mb-5">
-                                  <label class="form-label">Assigned</label>
-                                  <div class="assigned d-flex flex-wrap"><div class="avatar avatar-xs me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div> <div class="avatar avatar-xs" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div><div class="avatar avatar-xs ms-1"><span class="avatar-initial rounded-circle bg-label-secondary"><i class="ti ti-plus ti-xs text-heading"></i></span></div></div>
-                                </div>
-                                <div class="mb-5">
-                                  <label class="form-label" for="attachments">Attachments</label>
-                                  <div>
-                                    <input type="file" class="form-control" id="attachments">
-                                  </div>
-                                </div>
-                                <div class="mb-5">
-                                  <label class="form-label">Description</label>
-                                  <textarea class="form-control" name="" id="">${element.description}</textarea>
-                                </div>
-                                <div>
-                                  <div class="d-flex flex-wrap">
-                                    <button type="button" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" onclick="handleUpdate(${element.ticket_id})">
-                                      Update
-                                    </button> 
-                                    <button type="button" class="btn btn-label-danger waves-effect" data-bs-dismiss="offcanvas" onclick="handleDelete(${element.ticket_id})">
-                                      Delete
-                                    </button>
-                                  </div>
-                                </div>`;
-
-                ticketForm.innerHTML = formContent;
-            });
-        });
-};
-
-const handleUpdate = async ticket_id => {
-    const title = document.getElementById("ticket-title").value;
-    const description = "this is discription";
-    const status = "Backlog";
-    const priority = "Medium";
-    const created_by = creator_id;
-    const due_date = "2025-01-13";
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/updateticket/${ticket_id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                project_id,
-                title,
-                description,
-                status,
-                priority,
-                created_by,
-                due_date
-            })
-        });
-        if (response.ok) {
-            const offcanvas = document.querySelector(".offcanvas");
-            const backdropWrapper = document.getElementById("backdrop");
-            offcanvas.classList.remove("show");
-            backdropWrapper.innerHTML = "";
-            console.log("ticket updated successfully");
-            window.location.reload();
-        }
-    } catch (error) {
-        console.log("error", error);
-    }
-};
-
-//Delete Ticket
-
-const handleDelete = async ticket_id => {
-    console.log("Project id is : " + ticket_id);
-    // if (!recordId) {
-    //     messageDiv.textContent = 'Please enter a valid ID.';
-    //     messageDiv.className = 'message error';
-    //     return;
-    // }
-
-    try {
-        // Send DELETE request to the API
-        const response = await fetch(`${API_BASE_URL}/deleteticket/${ticket_id}`, {
-            method: "DELETE"
-        });
-        window.location.reload();
-        // Parse the response
-        // const data = await response.json();
-
-        if (response.ok) {
-            Swal.fire({
-                title: "Ticket Deleted Successfully",
-                text: "A Ticket is delete from your tickets",
-                icon: "success",
-                confirmButtonText: "Ok!"
-            });
-        } else {
-            Swal.fire({
-                title: "Oops!",
-                text: "something went wrong. Try again!",
-                icon: "error",
-                confirmButtonText: "Retry!"
-            });
-        }
-    } catch (error) {
-        console.error(error);
-        // messageDiv.textContent = 'Could not connect to the server.';
-        // messageDiv.className = 'message error';
-    }
-};
 
 const closeCanvase = () => {
     const offcanvas = document.querySelector(".offcanvas");
