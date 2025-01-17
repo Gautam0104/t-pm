@@ -185,7 +185,9 @@ fetchDataAndCreateElements()
                                                 <form id="ticketForm">
                                                     <div class="mb-5">
                                                         <label class="form-label" for="title">Title</label>
-                                                        <input type="text" id="title" class="form-control" placeholder="Enter Title" value="${element.title}">
+                                                        
+                                                         <textarea class="form-control" name="" id="title">${element.title}</textarea>
+
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>

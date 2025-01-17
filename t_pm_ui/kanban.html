@@ -1315,7 +1315,7 @@
                     </div>
                     <div class="container-xxl flex-grow-1 container-p-y ">
                         <div>
-                            <div class="app-kanban" style="width: 1500px; height: 1000px;">
+                            <div class="app-kanban" style="width: 1500px; height: auto; ">
                                 <!-- Add new board -->
                                 <!-- <div class="row">
                                 <div class="col-12">
@@ -1325,9 +1325,9 @@
 
                                 <!-- Kanban Wrapper -->
                                 <div class="kanban-wrapper ps ps--active-x" id="scroll-container"
-                                    style="height: 700px; width: 1500px; overflow: hidden;">
+                                    style="height: auto; width: 1500px; overflow: hidden; ">
 
-                                    <div class=" kanban-container">
+                                    <div class=" kanban-container" style="margin-bottom: 100px;">
                                         <div data-id="board-in-progress" data-order="1" class="kanban-board"
                                             style="width: 250px; margin-left: 12px; margin-right: 12px;">
                                             <header class="kanban-board-header">
@@ -1541,12 +1541,7 @@
                                             <!-- <footer></footer> -->
                                         </div>
                                     </div>
-                                    <div class="ps__rail-x" style="width: 1392px; left: 0px; bottom: 0px;">
-                                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 1364px;"></div>
-                                    </div>
-                                    <div class="ps__rail-y" style="top: 0px; right: 0px; height: 719px;">
-                                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 658px;"></div>
-                                    </div>
+
                                 </div>
 
                                 <!-- Edit Task/Task & Activities -->
@@ -2748,14 +2743,14 @@
         // console.log(kanbanItem);
 
     </script>
-    <script>
+    <!-- <script>
         // Initialize Perfect Scrollbar
         const container = document.getElementById('scroll-container');
         const ps = new PerfectScrollbar(container);
         console.log("something changed");
 
 
-    </script>
+    </script> -->
 </body>
 
 </html>
