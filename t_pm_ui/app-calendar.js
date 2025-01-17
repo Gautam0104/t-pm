@@ -10,7 +10,7 @@
  **/
 
 'use strict';
-
+const API_BASE_URL = ENV.API_BASE_URL; 
 let direction = 'ltr';
 
 if (isRtl) {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event Guests (select2)
     if (eventGuests.length) {
       // Fetch data from the API
-      fetch('https://thunderbees.com.br/tpm_api/users') //  API endpoint to fetch user information
+      fetch(`${API_BASE_URL}/users`) //  API endpoint to fetch user information
         .then(response => response.json())
         .then(data => {
           // Populate the options with API data
@@ -230,10 +230,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // --------------------------------------------------------------------------------------------------
     function fetchEvents(info, successCallback) {
       // Fetch Events from the API using Axios
-      axios.get('https://thunderbees.com.br/tpm_api/tickets')  // Replace with your actual API endpoint
+    axios.get(`${API_BASE_URL}/tickets`)  // Replace with your actual API endpoint
           .then(function (response) {
               // Check the response structure
-              console.log('API Response:', response.data); 
+              // console.log('API Response:', response.data); 
   
               const result = response.data; 
   
@@ -253,26 +253,28 @@ document.addEventListener('DOMContentLoaded', function () {
               // Filter the events based on the selected calendars using the mapping
               let selectedEvents = result.filter(function (event) {
                   // Check if the event's project_id matches any of the selected calendar project IDs
-                  console.log('Checking event project:', event.project_name); // Debugging step
-                  
+                  // console.log('Checking event project:', event.project_name); // Debugging step
+                  let test = 2;
                   // Check if the event's project_id is in any of the selected calendar mappings
                   return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
               }).map(function (event) {
                   // Map the events to the FullCalendar event format
                   return {
                       id: event.ticket_id,             
-                      title: event.title,             
-                      start: new Date(event.created_at),
-                      //end: event.updated_at,         
+                      title: event.title, 
+                      // url:'',            
+                      start:  event.total_eta,
+                      //end: event.total_eta,         
                       description: event.description, 
                       allDay: true, 
                       extendedProps: {
                           calendar: 'Personal'   // Custom property to identify calendar
                       }
+                     
                   };
               });
   
-              console.log('Selected Events:', selectedEvents); // Debugging step
+              //console.log('Selected Events:', selectedEvents); // Debugging step
   
               // Call the successCallback to pass the filtered events to FullCalendar
               successCallback(selectedEvents);
@@ -282,60 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
               console.error('Error fetching events:', error);
           });
   }
-  function fetchEvents(info, successCallback) {
-      // Fetch Events from the API using Axios
-      axios.get('https://thunderbees.com.br/tpm_api/tickets')  // Replace with your actual API endpoint
-          .then(function (response) {
-              // Check the response structure
-              console.log('API Response:', response.data); 
   
-              const result = response.data; 
-  
-              // Define a mapping of selected calendars to project_id values
-              const calendarToProjectIdMap = {
-                  'personal': "Dashboard",  
-                  'business':"Calendar",  
-                  'family': "Projects and Tickets",    
-                  'holiday': [53],   
-                  'etc': [53]        
-              };
-  
-              // Get the list of selected calendars (e.g., from checkboxes, dropdown, etc.)
-              let calendars = selectedCalendars(); // Ensure this returns an array of selected calendars
-              console.log('Selected Calendars:', calendars); 
-  
-              // Filter the events based on the selected calendars using the mapping
-              let selectedEvents = result.filter(function (event) {
-                  // Check if the event's project_id matches any of the selected calendar project IDs
-                  console.log('Checking event project:', event.project_name); // Debugging step
-                  
-                  // Check if the event's project_id is in any of the selected calendar mappings
-                  return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
-              }).map(function (event) {
-                  // Map the events to the FullCalendar event format
-                  return {
-                      id: event.ticket_id,             
-                      title: event.title,             
-                      start: new Date(event.created_at),
-                      //end: event.updated_at,         
-                      description: event.description, 
-                      allDay: true, 
-                      extendedProps: {
-                          calendar: 'Personal'   // Custom property to identify calendar
-                      }
-                  };
-              });
-  
-              console.log('Selected Events:', selectedEvents); // Debugging step
-  
-              // Call the successCallback to pass the filtered events to FullCalendar
-              successCallback(selectedEvents);
-          })
-          .catch(function (error) {
-              // Handle errors (e.g., log to console)
-              console.error('Error fetching events:', error);
-          });
-  }
   
     // Init FullCalendar
     // ------------------------------------------------
@@ -456,45 +405,77 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
-      // ? Add new event data to current events object and refetch it to display on Calendar
-      // ? You can write below code to AJAX call success response
-
-      currentEvents.push(eventData);
-      calendar.refetchEvents();
-
-      // ? To add event directly to Calendar (won't update currentEvents object)
-      // calendar.addEvent(eventData);
+      axios.post(`${API_BASE_URL}/tickets`, {
+        title: eventData.title,
+        start: eventData.created_at,
+        end: eventData.due_date,
+        description: eventData.extendedProps.description,
+        calendar: eventData.extendedProps.calendar
+      })
+      .then(function (response) {
+        console.log('Event added successfully:', response.data);
+    
+        // Add the event to FullCalendar
+        calendar.addEvent({
+          id: response.data.id, // Use the ID returned from the API
+          title: eventData.title,
+          start: eventData.start,
+          end: eventData.end,
+          description: eventData.extendedProps.description,
+          allDay: eventData.allDay,
+          extendedProps: {
+            calendar: eventData.extendedProps.calendar
+          }
+        });
+      })
+      .catch(function (error) {
+        console.error('Error adding event:', error);
+      });
     }
-
+    
     // Update Event
     // ------------------------------------------------
     function updateEvent(eventData) {
-      // ? Update existing event data to current events object and refetch it to display on Calendar
-      // ? You can write below code to AJAX call success response
-      eventData.id = parseInt(eventData.id);
-      currentEvents[currentEvents.findIndex(el => el.id === eventData.id)] = eventData; // Update event by id
-      calendar.refetchEvents();
-
-      // ? To update event directly to Calendar (won't update currentEvents object)
-      // let propsToUpdate = ['id', 'title', 'url'];
-      // let extendedPropsToUpdate = ['calendar', 'guests', 'location', 'description'];
-
-      // updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);
+      axios.put(`${API_BASE_URL}/${eventData.id}`, {
+        title: eventData.title,
+        start: eventData.created_at,
+        end: eventData.end,
+        description: eventData.extendedProps.description,
+        calendar: eventData.extendedProps.calendar
+      })
+      .then(function (response) {
+        console.log('Event updated successfully:', response.data);
+    
+        // Update the event in FullCalendar
+        const event = calendar.getEventById(eventData.id);
+        if (event) {
+          event.setProp('title', eventData.title);
+          event.setDates(eventData.start, eventData.end, { allDay: eventData.allDay });
+          event.setExtendedProp('description', eventData.extendedProps.description);
+          event.setExtendedProp('calendar', eventData.extendedProps.calendar);
+        }
+      })
+      .catch(function (error) {
+        console.error('Error updating event:', error);
+      });
     }
-
     // Remove Event
     // ------------------------------------------------
 
     function removeEvent(eventId) {
-      // ? Delete existing event data to current events object and refetch it to display on Calendar
-      // ? You can write below code to AJAX call success response
-      currentEvents = currentEvents.filter(function (event) {
-        return event.id != eventId;
+      axios.delete(`${API_BASE_URL}/${eventId}`)
+      .then(function (response) {
+        console.log('Event removed successfully:', response.data);
+    
+        // Remove the event from FullCalendar
+        const event = calendar.getEventById(eventId);
+        if (event) {
+          event.remove();
+        }
+      })
+      .catch(function (error) {
+        console.error('Error removing event:', error);
       });
-      calendar.refetchEvents();
-
-      // ? To delete event directly to Calendar (won't update currentEvents object)
-      // removeEventInCalendar(eventId);
     }
 
     // (Update Event In Calendar (UI Only)
