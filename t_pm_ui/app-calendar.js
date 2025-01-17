@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </option>`;
           }).join('');
           eventGuests.html(options);
-    
+
           // Function to render guest avatar
           function renderGuestAvatar(option) {
             if (!option.id) {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             //const avatarUrl = $(option.element).data('avatar');
             const dynamicName = $(option.element).text();
-    
+
             var $avatar =
               "<div class='d-flex flex-wrap align-items-center'>" +
               "<div class='avatar avatar-xs me-2'>" +
@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
               '</div>' +
               dynamicName +
               '</div>';
-    
+
             return $avatar;
           }
-    
+
           // Initialize select2
           eventGuests.wrap('<div class="position-relative"></div>').select2({
             placeholder: 'Select value',
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.error('Error fetching guest data:', error);
         });
     }
-    
+
 
     // Event end (flatpicker)
     if (eventEndDate) {
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return selected;
     }
-    
+
     // --------------------------------------------------------------------------------------------------
     // AXIOS: fetchEvents
     // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
@@ -639,4 +639,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 });
-

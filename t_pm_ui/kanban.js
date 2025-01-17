@@ -1,3 +1,4 @@
+console.log('kanbanjs working')
 const kanbanItems = document.querySelectorAll('.kanban-item');
 const offcanvas = document.querySelector('.offcanvas');
 const contentWrapper = document.querySelector('.content-wrapper');
@@ -5,35 +6,118 @@ const offcanvasClosebtn = document.getElementById('offcanvase-close');
 const backdrop = `<div class="offcanvas-backdrop fade show"></div>`;
 // open canbavase 
 for (const kanbanItem of kanbanItems) {
-    kanbanItem.addEventListener('click', function () {
-        console.log('kanban-item working');
-        offcanvas.classList.add('show');
-        contentWrapper.appendChild(backdrop);
-    });
+  kanbanItem.addEventListener('click', function () {
+    console.log('kanban-item working');
+    offcanvas.classList.add('show');
+    contentWrapper.appendChild(backdrop);
+  });
 }
 
 // close canvase
-offcanvasClosebtn.addEventListener('click', function () {
-    offcanvas.classList.remove('show');
-})
+// offcanvasClosebtn.addEventListener('click', function () {
+//   offcanvas.classList.remove('show');
+// })
 //Add new todo item||ticket||task
-const addItems = document.querySelectorAll('.kanban-title-button');
-const addItmeForm = document.getElementById('add-new-todo');
+// const addItems = document.querySelectorAll('.kanban-title-button');
+const addItem1 = document.getElementById('add-todo-item');
+const addItem2 = document.getElementById('add-new-inprogress');
+const addItem3 = document.getElementById('add-new-for-approval');
+const addItem4 = document.getElementById('add-new-rejected');
+const addItem5 = document.getElementById('add-new-approved');
+const addItmeForm1 = document.getElementById('add-new-todo-form');
+const addItmeForm2 = document.getElementById('add-new-inprogress-form');
+console.log(addItmeForm2);
 
-for (const addItem of addItems) {
-    addItem.addEventListener('click', function () {
+const addItmeForm3 = document.getElementById('add-new-for-approval-form');
+const addItmeForm4 = document.getElementById('add-new-rejected-form');
+const addItmeForm5 = document.getElementById('add-new-approved-form');
 
-        const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title"
+console.log(addItem1);
+
+addItem1.addEventListener('click', function () {
+
+  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title"
                                                         placeholder="Add Content"  required=""></textarea>
                                                 </div>
                                                 <div class="mb-4"><button type="submit"
                                                         class="btn btn-primary btn-sm me-4">Add</button><button
                                                         type="button"
-                                                        class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" >Cancel</button>
+                                                        class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
                                                 </div>`;
-        addItmeForm.innerHTML += formContent;
-    });
-}
+  addItmeForm1.innerHTML += formContent;
+  const cancelForm = document.getElementById('cancel-form-1');
+  cancelForm.addEventListener('click', function () {
+    addItmeForm1.innerHTML = ''
+  });
+});
+addItem2.addEventListener('click', function () {
+
+  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-inprogress"
+                                                        placeholder="Add Content"  required=""></textarea>
+                                                </div>
+                                                <div class="mb-4"><button type="submit"
+                                                        class="btn btn-primary btn-sm me-4">Add</button><button
+                                                        type="button"
+                                                        class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-2">Cancel</button>
+                                                </div>`;
+  addItmeForm2.innerHTML += formContent;
+  const cancelForm = document.getElementById('cancel-form-2');
+  cancelForm.addEventListener('click', function () {
+    addItmeForm2.innerHTML = ''
+  });
+});
+addItem3.addEventListener('click', function () {
+
+  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-for-approval"
+                                                        placeholder="Add Content"  required=""></textarea>
+                                                </div>
+                                                <div class="mb-4"><button type="submit"
+                                                        class="btn btn-primary btn-sm me-4">Add</button><button
+                                                        type="button"
+                                                        class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-3">Cancel</button>
+                                                </div>`;
+  addItmeForm3.innerHTML += formContent;
+  const cancelForm = document.getElementById('cancel-form-3');
+  cancelForm.addEventListener('click', function () {
+    addItmeForm3.innerHTML = ''
+  });
+});
+addItem4.addEventListener('click', function () {
+
+  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-rejected"
+                                                        placeholder="Add Content"  required=""></textarea>
+                                                </div>
+                                                <div class="mb-4"><button type="submit"
+                                                        class="btn btn-primary btn-sm me-4">Add</button><button
+                                                        type="button"
+                                                        class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-4">Cancel</button>
+                                                </div>`;
+  addItmeForm4.innerHTML += formContent;
+  const cancelForm = document.getElementById('cancel-form-4');
+  cancelForm.addEventListener('click', function () {
+    addItmeForm4.innerHTML = ''
+  });
+});
+addItem5.addEventListener('click', function () {
+
+  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-approved"
+                                                        placeholder="Add Content"  required=""></textarea>
+                                                </div>
+                                                <div class="mb-4"><button type="submit"
+                                                        class="btn btn-primary btn-sm me-4">Add</button><button
+                                                        type="button"
+                                                        class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-5">Cancel</button>
+                                                </div>`;
+  addItmeForm5.innerHTML += formContent;
+  const cancelForm = document.getElementById('cancel-form-5');
+  cancelForm.addEventListener('click', function () {
+    addItmeForm5.innerHTML = ''
+  });
+});
+
+// hide form
+
+
 
 // Select all kanban items dynamically
 const kanbanselectItems = document.querySelectorAll('.kanban-item');
