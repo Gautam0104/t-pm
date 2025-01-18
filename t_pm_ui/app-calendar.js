@@ -274,12 +274,12 @@ eventToUpdate.end !== null
                       id: event.ticket_id,             
                       title: event.title, 
                       // url:'',            
-                      start:  event.created_at, 
+                      start:  event.ticket_created_at, 
                       end: event.due_date,         
                       description: event.description, 
                       allDay: true, 
                       extendedProps: {
-                          calendar: 'Personal'   // Custom property to identify calendar
+                          calendar: 'Personal'   // map the project_name to the calendar name
                       }
                      
                   };
@@ -419,12 +419,12 @@ eventToUpdate.end !== null
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
-      axios.post(`${API_BASE_URL}/tickets`, {
+      axios.post(`${API_BASE_URL}/CalendarCreateTicket`, {
         title: eventData.title,
         start: eventData.start,
         end: eventData.end,
         description: eventData.extendedProps.description,
-        calendar: eventData.extendedProps.calendar
+        //calendar: eventData.extendedProps.calendar
       })
       .then(function (response) {
         console.log('Event added successfully:', response.data);
@@ -438,7 +438,7 @@ eventToUpdate.end !== null
           description: eventData.extendedProps.description,
           allDay: eventData.allDay,
           extendedProps: {
-            calendar: eventData.extendedProps.calendar
+            //calendar: eventData.extendedProps.calendar
           }
         });
       })
