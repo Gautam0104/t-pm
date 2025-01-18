@@ -191,7 +191,7 @@ fetchDataAndCreateElements()
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>
-                                                        <input type="hidden" id="due-date" class="form-control flatpickr-input" placeholder="Enter Due Date"><input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" value="${element.due_date}" readonly="readonly">
+                                                        <input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" id="due-date"  value="${element.due_date}" readonly="readonly">
                                                       </div>
                                                       <div class="mb-5">
                                                         <label class="form-label" for="label"> Label</label>
@@ -214,7 +214,7 @@ fetchDataAndCreateElements()
                                                       <div class="mb-5">
                                                         <label class="form-label" for="attachments">Attachments</label>
                                                         <div>
-                                                          <input type="file" class="form-control" id="image">
+                                                          <input type="file" class="form-control" id="image" multiple>
                                                         </div>
                                                       </div>
                                                       <div class="mb-5">
@@ -235,10 +235,25 @@ fetchDataAndCreateElements()
                                                 <div id="message"></div>
                                             </div>
                                         </div>
+                                        <div class="tab-content p-0">
+                                           <!-- Activities -->
+                                            <div class="tab-pane fade text-heading active" id="tab-activity" role="tabpanel">
+                                                <div class="card border">
+                                                    <div class="card-header text-center"><p>Ticket Name</p></div>
+                                                    <div class="card-body text-center w-100">
+                                                    <img src="../assets/img/backgrounds/2.jpg" alt="ticketImage" width="100%">
+                                                    </div>
+                                                    <div class="card-footer text-center"><p>Ticket Description</p></div>
+                                                </div>
+                                            </div>
                                     </div>`;
 
                             offcanvasDiv.innerHTML = offcanvasContent;
-
+                            flatpickr("#due-date", {
+                                enableTime: true,
+                                dateFormat: "Y-m-d H:i", // Format for Date and Time
+                                minDate: "today", // Set minimum date to today
+                            });
                             const updateButton = document.getElementById('update-button');
                             const closeButton = document.getElementById('offcanvase-close');
                             const deleteButton = document.getElementById('delete-ticket')
