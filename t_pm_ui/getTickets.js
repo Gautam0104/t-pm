@@ -284,11 +284,13 @@ fetchDataAndCreateElements()
 
                                 // Create FormData
                                 const formData = new FormData();
+                                //formData.append('project_id', project_id);
                                 formData.append('ticket_id', ticket_id);
                                 formData.append('title', title);
                                 formData.append('description', description);
                                 formData.append('status', status);
                                 formData.append('priority', priority);
+                                //formData.append('created_by', creator_id);
                                 formData.append('ticket_status', ticket_status);
 
                                 // Append multiple images
