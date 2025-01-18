@@ -153,6 +153,11 @@ fetchDataAndCreateElements()
                     })
                     .then(data => {
                         data.map(element => {
+
+
+
+
+
                             const offcanvasDiv = document.getElementById("offcanvas-div");
                             const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
@@ -182,55 +187,27 @@ fetchDataAndCreateElements()
                                         <div class="tab-content p-0">
                                             <!-- Update item/tasks -->
                                             <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
-                                                <form id="ticketForm">
+                                               <form id="ticketForm">
                                                     <div class="mb-5">
                                                         <label class="form-label" for="title">Title</label>
-                                                        
-                                                         <textarea class="form-control" name="" id="title">${element.title}</textarea>
-
-                                                      </div>
-                                                      <div class="mb-5">
+                                                        <textarea class="form-control" id="title">${element.title}</textarea>
+                                                    </div>
+                                                    <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>
-                                                        <input class="form-control form-control input" placeholder="Enter Due Date" tabindex="0" type="text" id="due-date"  value="${element.due_date}" readonly="readonly">
-                                                      </div>
-                                                      <div class="mb-5">
-                                                        <label class="form-label" for="label"> Label</label>
-                                                        <div class="position-relative">
-                                                        <select class="form-control" id="label" data-select2-id="label" tabindex="-1" aria-hidden="true">
-                                                          <option>UX</option>
-                                                          <option>Images</option>
-                                                          <option>Info</option>
-                                                          <option>Code Review</option>
-                                                          <option>App</option>
-                                                          <option>Charts &amp; Maps</option>
-                                                        </select>
-                          
-                                                        </div>
-                                                      </div>
-                                                      <div class="mb-5">
-                                                        <label class="form-label">Assigned</label>
-                                                        <div class="assigned d-flex flex-wrap"><div class="avatar avatar-xs me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div> <div class="avatar avatar-xs" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder"><img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle "></div><div class="avatar avatar-xs ms-1"><span class="avatar-initial rounded-circle bg-label-secondary"><i class="ti ti-plus ti-xs text-heading"></i></span></div></div>
-                                                      </div>
-                                                      <div class="mb-5">
+                                                        <input class="form-control" id="due-date" value="${element.due_date}" readonly="readonly">
+                                                    </div>
+                                                    <div class="mb-5">
                                                         <label class="form-label" for="attachments">Attachments</label>
-                                                        <div>
-                                                          <input type="file" class="form-control" id="image" multiple>
-                                                        </div>
-                                                      </div>
-                                                      <div class="mb-5">
-                                                        <label class="form-label">Description</label>
-                                                        <textarea class="form-control" name="" id="description">${element.description}</textarea>
-                                                      </div>
-                                                      <div>
-                                                        <div class="d-flex flex-wrap">
-                                                          <button type="submit" class="btn btn-primary me-4 waves-effect waves-light" data-bs-dismiss="offcanvas" id="update-button" >
-                                                            Update
-                                                          </button> 
-                                                          <button type="button" class="btn btn-label-danger waves-effect"  id="delete-ticket">
-                                                            Delete
-                                                          </button>
-                                                        </div>
-                                                      </div>
+                                                        <input type="file" class="form-control" id="image" name="images" multiple>
+                                                    </div>
+                                                    <div class="mb-5">
+                                                        <label class="form-label" for="description">Description</label>
+                                                        <textarea class="form-control" id="description">${element.description}</textarea>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary" id="update-button">Update</button>
+                                                        <button type="button" class="btn btn-label-danger" id="delete-ticket">Delete</button>
+                                                    </div>
                                                 </form>
                                                 <div id="message"></div>
                                             </div>
@@ -238,22 +215,46 @@ fetchDataAndCreateElements()
                                         <div class="tab-content p-0">
                                            <!-- Activities -->
                                             <div class="tab-pane fade text-heading active" id="tab-activity" role="tabpanel">
-                                                <div class="card border">
-                                                    <div class="card-header text-center"><p>Ticket Name</p></div>
-                                                    <div class="card-body text-center w-100">
-                                                    <img src="../assets/img/backgrounds/2.jpg" alt="ticketImage" width="100%">
-                                                    </div>
-                                                    <div class="card-footer text-center"><p>Ticket Description</p></div>
-                                                </div>
+                                                
                                             </div>
                                     </div>`;
 
+
                             offcanvasDiv.innerHTML = offcanvasContent;
+
                             flatpickr("#due-date", {
                                 enableTime: true,
                                 dateFormat: "Y-m-d H:i", // Format for Date and Time
                                 minDate: "today", // Set minimum date to today
                             });
+
+                            const imageArray = Array.isArray(element.images)
+                                ? element.images
+                                : element.images.replace(/^\[|\]$/g, '').split(',');
+
+                            imageArray.forEach(imagePath => {
+                                console.log(imagePath.trim()); // Logs each image path without quotes
+
+                                // Remove any quotes around the image path if they exist
+                                imagePath = imagePath.replace(/^"|"$/g, '').trim();
+
+                                const activitySection = document.getElementById('tab-activity');
+                                console.log(activitySection);
+
+                                const activityImages = `
+                                <div class="card border m-2">
+                                    
+                                    <div class="card-body text-center w-100 " style="height:200px">
+                                        <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%">
+                                    </div>
+                                    
+                                </div> 
+                            `;
+
+                                activitySection.innerHTML += activityImages;
+                            });
+
+
                             const updateButton = document.getElementById('update-button');
                             const closeButton = document.getElementById('offcanvase-close');
                             const deleteButton = document.getElementById('delete-ticket')
@@ -270,22 +271,21 @@ fetchDataAndCreateElements()
                             document.getElementById('ticketForm').addEventListener('submit', function (e) {
                                 e.preventDefault();
 
-                                // Collect form data using document.getElementById
-                                const ticket_id = element.ticket_id
+                                const ticket_id = element.ticket_id;
                                 const title = document.getElementById('title').value;
                                 const description = document.getElementById('description').value;
                                 const status = "backlog";
                                 const priority = "Medium";
                                 const ticket_status = element.ticket_status;
-                                const image = document.getElementById('image').files[0]; // Get the image file
+                                const images = document.getElementById('image').files;
 
                                 // Validate required fields
                                 if (!ticket_id || !title || !description || !status || !priority || !ticket_status) {
-                                    alert('Please fill in all required fields');
+                                    alert('Please fill in all required fields.');
                                     return;
                                 }
 
-                                // Create the form data object
+                                // Create FormData
                                 const formData = new FormData();
                                 formData.append('ticket_id', ticket_id);
                                 formData.append('title', title);
@@ -294,16 +294,18 @@ fetchDataAndCreateElements()
                                 formData.append('priority', priority);
                                 formData.append('ticket_status', ticket_status);
 
-                                // If an image is selected, append it to the form data
-                                if (image) {
-                                    formData.append('image', image);
+                                // Append multiple images
+                                if (images.length > 0) {
+                                    for (let i = 0; i < images.length; i++) {
+                                        formData.append('images', images[i]);
+                                    }
                                 }
 
-                                // Display a message while waiting for the response
+                                // Display a loading message
                                 const messageElement = document.getElementById('message');
                                 messageElement.textContent = 'Updating ticket...';
 
-                                // Send the data to the backend via fetch
+                                // Send request
                                 fetch(`${API_BASE_URL}/updateticket`, {
                                     method: 'PUT',
                                     body: formData,
@@ -313,10 +315,10 @@ fetchDataAndCreateElements()
                                         if (data.message) {
                                             Swal.fire({
                                                 title: "Ticket Updated Successfully",
-                                                text: "A Ticket is update from your tickets",
+                                                text: "The ticket has been updated successfully.",
                                                 icon: "success",
-                                                confirmButtonText: "Ok!"
-                                            }).then(function () {
+                                                confirmButtonText: "Ok!",
+                                            }).then(() => {
                                                 window.location.reload();
                                             });
                                         } else if (data.error) {
@@ -330,6 +332,7 @@ fetchDataAndCreateElements()
                                         console.error('Error:', error);
                                     });
                             });
+
 
                             console.log(deleteButton);
 
