@@ -228,34 +228,31 @@ fetchDataAndCreateElements()
                                 minDate: "today", // Set minimum date to today
                             });
 
-                            const imageArray = Array.isArray(element.images)
-                                ? element.images
-                                : element.images.replace(/^\[|\]$/g, '').split(',');
 
+                            // Check if the images field is null or empty
+                            const imageArray = element.images && element.images !== null
+                                ? Array.isArray(element.images)
+                                    ? element.images
+                                    : element.images.replace(/^\[|\]$/g, '').split(',')
+                                : [];
+
+                            // If imageArray is empty, you may choose to show a default message or not display the images section at all
                             imageArray.forEach(imagePath => {
-                                console.log(imagePath.trim()); // Logs each image path without quotes
-
-                                // Remove any quotes around the image path if they exist
-                                imagePath = imagePath.replace(/^"|"$/g, '').trim();
+                                imagePath = imagePath.replace(/^"|"$/g, '').trim(); // Clean image path
 
                                 const activitySection = document.getElementById('tab-activity');
-                                console.log(activitySection);
-
                                 const activityImages = `
-                                <div class="card border m-2">
-                                    
-                                    <div class="card-body text-center w-100 " style="height:200px">
-                                        <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%">
-                                    </div>
-                                    
-                                </div> 
-                            `;
+                                            <div class="card border m-2">
+                                                <div class="card-body text-center w-100" style="height:200px">
+                                                    <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%">
+                                                </div>
+                                            </div>
+                                        `;
 
                                 activitySection.innerHTML += activityImages;
                             });
 
 
-                            const updateButton = document.getElementById('update-button');
                             const closeButton = document.getElementById('offcanvase-close');
                             const deleteButton = document.getElementById('delete-ticket')
                             //console.log(updateButton);
@@ -313,13 +310,19 @@ fetchDataAndCreateElements()
                                     .then(response => response.json())
                                     .then(data => {
                                         if (data.message) {
+                                            selected = null;
+                                            // console.log('selected is null now');
+                                            const offcanvas = document.querySelector(".offcanvas");
+                                            // const backdropWrapper = document.getElementById("backdrop");
+                                            offcanvas.classList.remove("show");
+                                            // backdropWrapper.innerHTML = "";
                                             Swal.fire({
                                                 title: "Ticket Updated Successfully",
                                                 text: "The ticket has been updated successfully.",
                                                 icon: "success",
                                                 confirmButtonText: "Ok!",
                                             }).then(() => {
-                                                window.location.reload();
+                                                // window.location.reload();
                                             });
                                         } else if (data.error) {
                                             messageElement.textContent = data.error;
@@ -356,6 +359,7 @@ fetchDataAndCreateElements()
                                     // const data = await response.json();
 
                                     if (response.ok) {
+
                                         Swal.fire({
                                             title: "Ticket Deleted Successfully",
                                             text: "A Ticket is delete from your tickets",
