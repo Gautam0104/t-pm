@@ -1,9 +1,6 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
-function test() {
-    console.log("test is working");
-    // get tickets
-}
+
 
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
@@ -66,6 +63,7 @@ function fetchDataAndCreateElements() {
                         </div>
                     </div>
                 </div>
+                <img class="img-fluid rounded mb-2" id="card-img" draggable = false src="${API_BASE_URL}/uploads/${element.card_image}">
                 <span class="kanban-text" >${element.title}</span>
                 <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
                     <div class="d-flex">
@@ -93,6 +91,12 @@ function fetchDataAndCreateElements() {
                     </div>
                 </div>
                 `;
+                // const cardImg = document.getElementById('card-img');
+                // console.log(cardImg);
+
+                // if (!cardImg.src) {
+                //     cardImg.style.display = "none";
+                // };
 
                 // Append card to the container
                 switch (element.ticket_status) {
@@ -119,6 +123,8 @@ function fetchDataAndCreateElements() {
             return document.querySelectorAll(".dragg-from-todo"); // Return the elements
         });
 }
+const cardImg = document.getElementById('card-img');
+console.log(cardImg);
 
 // Call the function and use the returned elements
 fetchDataAndCreateElements()
@@ -197,6 +203,14 @@ fetchDataAndCreateElements()
                                                         <input class="form-control" id="due-date" value="${element.due_date}" readonly="readonly">
                                                     </div>
                                                     <div class="mb-5">
+                                                        <label class="form-label" for="attachments">Upload Card Image</label>
+                                                        <input type="file" class="form-control" id="card-image" name="card-image" accept="image/*">
+                                                        
+                                                        <div class="text-center" id="card-image-preview" style="margin-top: 10px;">
+                                                            <img id="card-image-preview-img" src="" alt="Card Image Preview" style="max-width: 100%; max-height: 200px; display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-5">
                                                         <label class="form-label" for="attachments">Attachments</label>
                                                         <input type="file" class="form-control" id="image" name="images" multiple>
                                                     </div>
@@ -264,6 +278,38 @@ fetchDataAndCreateElements()
                                 offcanvas.classList.remove("show");
                                 // backdropWrapper.innerHTML = "";
                             })
+                            // Add event listener for the card-image input field
+                            document.getElementById('card-image').addEventListener('change', function (event) {
+                                const fileInput = event.target;
+                                const previewContainer = document.getElementById('card-image-preview');
+                                const previewImage = document.getElementById('card-image-preview-img');
+
+                                // Check if a file is selected
+                                if (fileInput.files && fileInput.files[0]) {
+                                    const file = fileInput.files[0];
+
+                                    // Validate that the file is an image
+                                    if (!file.type.startsWith('image/')) {
+                                        alert('Please upload a valid image file.');
+                                        fileInput.value = ''; // Reset the input
+                                        previewImage.style.display = 'none'; // Hide preview
+                                        return;
+                                    }
+
+                                    // Use FileReader to display the image
+                                    const reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        // Set the preview image src to the loaded file data
+                                        previewImage.src = e.target.result;
+                                        previewImage.style.display = 'block'; // Show the image
+                                    };
+                                    reader.readAsDataURL(file); // Read the file data as a data URL
+                                } else {
+                                    // No file selected, hide the preview
+                                    previewImage.style.display = 'none';
+                                }
+                            });
+
                             // update ticket form
                             document.getElementById('ticketForm').addEventListener('submit', function (e) {
                                 e.preventDefault();
@@ -273,8 +319,10 @@ fetchDataAndCreateElements()
                                 const description = document.getElementById('description').value;
                                 const status = "backlog";
                                 const priority = "Medium";
+                                const due_date = document.getElementById("due-date").value;
                                 const ticket_status = element.ticket_status;
                                 const images = document.getElementById('image').files;
+                                const cardImage = document.getElementById('card-image').files;
 
                                 // Validate required fields
                                 if (!ticket_id || !title || !description || !status || !priority || !ticket_status) {
@@ -284,11 +332,14 @@ fetchDataAndCreateElements()
 
                                 // Create FormData
                                 const formData = new FormData();
+                                //formData.append('project_id', project_id);
                                 formData.append('ticket_id', ticket_id);
                                 formData.append('title', title);
                                 formData.append('description', description);
                                 formData.append('status', status);
                                 formData.append('priority', priority);
+                                formData.append('due_date', due_date);
+                                //formData.append('created_by', creator_id);
                                 formData.append('ticket_status', ticket_status);
 
                                 // Append multiple images
@@ -296,6 +347,10 @@ fetchDataAndCreateElements()
                                     for (let i = 0; i < images.length; i++) {
                                         formData.append('images', images[i]);
                                     }
+                                }
+                                // Append single cardImage
+                                if (cardImage.length > 0) {
+                                    formData.append('card_image', cardImage[0]); // Correctly append the first cardImage file
                                 }
 
                                 // Display a loading message
@@ -322,7 +377,7 @@ fetchDataAndCreateElements()
                                                 icon: "success",
                                                 confirmButtonText: "Ok!",
                                             }).then(() => {
-                                                // window.location.reload();
+                                                window.location.reload();
                                             });
                                         } else if (data.error) {
                                             messageElement.textContent = data.error;
@@ -622,37 +677,7 @@ fetchDataAndCreateElements()
     .catch(error => console.error("Error:", error));
 
 
-for (const todoItem of todoCardItems) {
-    console.log(todoItem);
 
-    todoItem.addEventListener("dragstart", function (e) {
-        // Corrected typo here
-        let selected = e.target;
-        console.log(todoItem);
-
-        inprogressTask.addEventListener("dragover", function (e) {
-            e.preventDefault();
-        });
-        inprogressTask.addEventListener("drop", function (e) {
-            inprogressTask.appendChild(selected);
-        });
-    });
-}
-// Function to make an element draggable
-function makeDraggable(element) {
-    element.setAttribute("draggable", "true");
-
-    // Add dragstart event
-    element.addEventListener("dragstart", event => {
-        event.dataTransfer.setData("text/plain", element.id); // Set the id of the dragged element
-        element.classList.add("dragging");
-    });
-
-    // Add dragend event
-    element.addEventListener("dragend", () => {
-        element.classList.remove("dragging");
-    });
-}
 
 const containers = document.querySelectorAll(".kanban-container");
 
