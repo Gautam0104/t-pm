@@ -1,9 +1,6 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
-function test() {
-    console.log("test is working");
-    // get tickets
-}
+
 
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
@@ -94,8 +91,8 @@ function fetchDataAndCreateElements() {
                     </div>
                 </div>
                 `;
-                const cardImg = document.getElementById('card-img');
-                console.log(cardImg);
+                // const cardImg = document.getElementById('card-img');
+                // console.log(cardImg);
 
                 // if (!cardImg.src) {
                 //     cardImg.style.display = "none";
@@ -322,6 +319,7 @@ fetchDataAndCreateElements()
                                 const description = document.getElementById('description').value;
                                 const status = "backlog";
                                 const priority = "Medium";
+                                const due_date = document.getElementById("due-date").value;
                                 const ticket_status = element.ticket_status;
                                 const images = document.getElementById('image').files;
                                 const cardImage = document.getElementById('card-image').files;
@@ -340,6 +338,7 @@ fetchDataAndCreateElements()
                                 formData.append('description', description);
                                 formData.append('status', status);
                                 formData.append('priority', priority);
+                                formData.append('due_date', due_date);
                                 //formData.append('created_by', creator_id);
                                 formData.append('ticket_status', ticket_status);
 
