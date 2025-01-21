@@ -204,7 +204,7 @@ fetchDataAndCreateElements()
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="attachments">Upload Card Image</label>
-                                                        <input type="file" class="form-control" id="card-image" name="card-image" accept="image/*">
+                                                        <input type="file" class="form-control" id="card-image" value="${element.card_image}" name="card-image" accept="image/*">
                                                         
                                                         <div class="text-center" id="card-image-preview" style="margin-top: 10px;">
                                                             <img id="card-image-preview-img" src="" alt="Card Image Preview" style="max-width: 100%; max-height: 200px; display: none;">
@@ -257,9 +257,11 @@ fetchDataAndCreateElements()
                                 const activitySection = document.getElementById('tab-activity');
                                 const activityImages = `
                                             <div class="card border m-2">
+                                                <div class ="card-header text-center"><P>Error Fixed</P></div>
                                                 <div class="card-body text-center w-100" style="height:200px">
                                                     <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%">
                                                 </div>
+                                                <div class ="card-header text-center"><P>Task was done by Gautam</P></div>
                                             </div>
                                         `;
 
