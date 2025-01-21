@@ -203,6 +203,10 @@ fetchDataAndCreateElements()
                                                         <input class="form-control" id="due-date" value="${element.due_date}" readonly="readonly">
                                                     </div>
                                                     <div class="mb-5">
+                                                        <label class="form-label" for="eta">ETA</label>
+                                                        <input class="form-control" id="ticket_eta" value="${element.ticket_eta}" readonly="readonly">
+                                                    </div>
+                                                    <div class="mb-5">
                                                         <label class="form-label" for="attachments">Upload Card Image</label>
                                                         <input type="file" class="form-control" id="card-image" value="${element.card_image}" name="card-image" accept="image/*">
                                                         
@@ -237,6 +241,11 @@ fetchDataAndCreateElements()
                             offcanvasDiv.innerHTML = offcanvasContent;
 
                             flatpickr("#due-date", {
+                                enableTime: true,
+                                dateFormat: "Y-m-d H:i", // Format for Date and Time
+                                minDate: "today", // Set minimum date to today
+                            });
+                            flatpickr("#ticket_eta", {
                                 enableTime: true,
                                 dateFormat: "Y-m-d H:i", // Format for Date and Time
                                 minDate: "today", // Set minimum date to today
@@ -325,6 +334,7 @@ fetchDataAndCreateElements()
                                 const ticket_status = element.ticket_status;
                                 const images = document.getElementById('image').files;
                                 const cardImage = document.getElementById('card-image').files;
+                                const ticket_eta = document.getElementById('ticket_eta').value;
 
                                 // Validate required fields
                                 if (!ticket_id || !title || !description || !status || !priority || !ticket_status) {
@@ -343,6 +353,7 @@ fetchDataAndCreateElements()
                                 formData.append('due_date', due_date);
                                 //formData.append('created_by', creator_id);
                                 formData.append('ticket_status', ticket_status);
+                                formData.append('ticket_eta', ticket_eta);
 
                                 // Append multiple images
                                 if (images.length > 0) {
