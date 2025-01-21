@@ -134,6 +134,27 @@ filterInput.addEventListener("keyup", () => {
     }
 });
 
+// get role
+const userRole = async () => {
+    return await fetch(`${API_BASE_URL}/GetRoles`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok ");
+            }
+            return response.json();
+        })
+        .then(data => {
+            const roleSelect = document.getElementById('user-role');
+            data.map(role => {
+                const roleOption = `
+                                <option value="${role.role_id}">${role.role_name}</option>
+                                `
+                roleSelect.innerHTML += roleOption;
+            })
+
+        })
+};
+userRole();
 // create new user
 const registerForm = document.getElementById('addNewUserForm');
 const messageDiv = document.getElementById('message');
@@ -168,11 +189,11 @@ registerForm.addEventListener('click', async (e) => {
                 icon: "success",
                 confirmButtonText: "Ok!",
             })
-            registerForm.reset();
+            // registerForm.reset();
         } else {
             // showMessage(result, true);
         }
     } catch (error) {
         showMessage('Error registering user.', true);
     }
-});;
+});
