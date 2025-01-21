@@ -788,20 +788,60 @@
             <!-- Users List Table -->
 
             <div class="card">
-              <div class="card-header border-bottom">
-                <h5 class="card-title mb-0">Filters</h5>
-                <div class="d-flex justify-content-between align-items-center row pt-4 gap-4 gap-md-0 border">
-                  <div class="col-md-4 user_role">1</div>
-                  <div class="col-md-4 user_plan">2</div>
-                  <div class="col-md-4 user_status">3</div>
+              <div class="card-header">
+                <h5 class="card-title">Filter</h5>
+                <div class="d-flex justify-content-between align-items-center row pt-4 gap-6 gap-md-0">
+                  <div class="col-md-4 product_status">
+                    <select id="ProductStatus" class="form-select text-capitalize">
+                      <option value="">Select Role</option>
+                      <option value="">Admin</option>
+                      <option value="">Author</option>
+                      <option value="">Editor</option>
+                      <option value="">Maintainer</option>
+                      <option value="">Subscriber</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 product_category">
+                    <select id="ProductCategory" class="form-select text-capitalize">
+                      <option value="">Select Plan</option>
+                      <option value="">Basic</option>
+                      <option value="">Company</option>
+                      <option value="">Enterprise</option>
+                      <option value="">Team</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 product_stock">
+                    <select id="ProductStock" class="form-select text-capitalize">
+                      <option value=""> Select Status </option>
+                      <option value=""> Pending </option>
+                      <option value=""> Active </option>
+                      <option value=""> Inactive </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- search project filter -->
+                <div class="d-flex justify-content-between align-items-center row  mt-4 pt-4 gap-6 gap-md-0">
+                  <div class="col-md-4 search_project">
+                    <input type="text" class="form-control" placeholder="Search User " id="filterInput">
+                  </div>
+                  <div class="col-md-2 ">
+
+                  </div>
+                  <div class="col-md-2 add_project">
+                    <button class="btn btn-secondary add-new btn-primary waves-effect waves-light" tabindex="0"
+                      aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas"
+                      data-bs-target="#offcanvasAddUser"><span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
+                          class="d-none d-sm-inline-block">Add New User</span></span></button>
+                  </div>
                 </div>
               </div>
               <div class="card-datatable table-responsive">
                 <table class=" table">
                   <thead class="border-top">
                     <tr>
-                      <th></th>
-                      <th></th>
+                      <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1"
+                        style="width: 18px;" data-col="1" aria-label=""><input type="checkbox" class="form-check-input">
+                      </th>
                       <th>User</th>
                       <th>Role</th>
                       <th>Plan</th>
@@ -899,6 +939,7 @@
                   </form>
                 </div>
               </div>
+
             </div>
           </div>
           <!-- / Content -->
