@@ -134,9 +134,45 @@ filterInput.addEventListener("keyup", () => {
     }
 });
 
-function openModal() {
-    const modalElement = document.getElementById("shareProject");
-    const modal = new bootstrap.Modal(modalElement);
+// create new user
+const registerForm = document.getElementById('addNewUserForm');
+const messageDiv = document.getElementById('message');
 
-    modal.show();
+
+function showMessage(message, isError = false) {
+    messageDiv.textContent = message;
+    messageDiv.className = `message ${isError ? 'error' : 'success'}`;
+    messageDiv.style.display = 'block';
 }
+
+registerForm.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('add-user-email').value;
+    const password = document.getElementById('add-user-password').value;
+    const first_name = document.getElementById('add-user-first-name').value;
+    const last_name = document.getElementById('add-user-last-name').value;
+    const role_id = document.getElementById('user-role').value;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, first_name, last_name, role_id }),
+        });
+        // const result = await response.text();
+        if (response.ok) {
+            Swal.fire({
+                title: "User created Successfully",
+                text: "A new user created successfully.",
+                icon: "success",
+                confirmButtonText: "Ok!",
+            })
+            registerForm.reset();
+        } else {
+            // showMessage(result, true);
+        }
+    } catch (error) {
+        showMessage('Error registering user.', true);
+    }
+});;
