@@ -57,6 +57,9 @@
   <script src="../assets/js/config.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/formvalidation/dist/js/FormValidation.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
   <style>
     .error {
       color: red;
@@ -67,6 +70,7 @@
 </head>
 
 <body>
+  
   <!-- <script>
 
     Swal.fire({
@@ -324,7 +328,7 @@
                         <small>User Dashboard</small>
                       </div> -->
                       <!-- <div class="dropdown-shortcuts-item col"> -->
-                        <!-- <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                      <!-- <span class="dropdown-shortcuts-icon rounded-circle mb-3">
                           <i class="ti ti-settings ti-26px text-heading"></i>
                         </span>
                         <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
@@ -592,7 +596,7 @@
                       </div>
                     </div>
                   </li>
-                 
+
                   <li class="border-top">
                     <div class="d-grid p-4">
                       <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
@@ -691,14 +695,15 @@
 
         <!-- / Navbar -->
 
-        
+
         <!-- / Navbar -->
+
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <!-- Content -->
 
-          <div class="container-xxl flex-grow-1 container-p-y">
+          <div  class="container-xxl flex-grow-1 container-p-y">
             <h4 class="mb-1">Roles List</h4>
 
             <p class="mb-6">
@@ -706,30 +711,12 @@
               assigned role an administrator can have access to what user needs.
             </p>
             <!-- Role cards -->
-            <div class="row g-6">
-              <div class="col-xl-4 col-lg-6 col-md-6">
+            <div id="rolesContainer" class="row g-6"  ></div>
+              <!-- <div class="col-xl-4 col-lg-6 col-md-6">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                       <h6 class="fw-normal mb-0 text-body">Total 4 users</h6>
-                      <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                          title="Vinnie Mostowy" class="avatar pull-up">
-                          <img class="rounded-circle" src="../assets/img/avatars/5.png" alt="Avatar" />
-                        </li>
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                          title="Allen Rieske" class="avatar pull-up">
-                          <img class="rounded-circle" src="../assets/img/avatars/12.png" alt="Avatar" />
-                        </li>
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                          title="Julee Rossignol" class="avatar pull-up">
-                          <img class="rounded-circle" src="../assets/img/avatars/6.png" alt="Avatar" />
-                        </li>
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                          title="Kaith D'souza" class="avatar pull-up">
-                          <img class="rounded-circle" src="../assets/img/avatars/3.png" alt="Avatar" />
-                        </li>
-                      </ul>
                     </div>
                     <div class="d-flex justify-content-between align-items-end">
                       <div class="role-heading">
@@ -905,14 +892,14 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-12">
+              </div> -->
+              <!-- <div class="col-12">
                 <h4 class="mt-6 mb-1">Total users with their roles</h4>
                 <p class="mb-0">Find all of your company’s administrator accounts and their associate roles.</p>
               </div>
-              <div class="col-12">
+              <div class="col-12"> -->
                 <!-- Role Table -->
-                <div class="card">
+                <!-- <div class="card">
                   <div class="card-datatable table-responsive">
                     <table class="datatables-users table border-top">
                       <thead>
@@ -929,10 +916,10 @@
                       </thead>
                     </table>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Role Table -->
-              </div>
-            </div>
+              <!-- </div>
+            </div> -->
             <!--/ Role cards -->
 
             <!-- Add Role Modal -->
@@ -956,7 +943,7 @@
                       <div class="col-12">
                         <h5 class="mb-6">Role Permissions</h5>
                         <!-- Permission table -->
-                        <div class="table-responsive">
+                        <!-- <div class="table-responsive">
                           <table class="table table-flush-spacing">
                             <tbody>
                               <tr>
@@ -1147,11 +1134,11 @@
                               </tr>
                             </tbody>
                           </table>
-                        </div>
+                        </div> -->
                         <!-- Permission table -->
                       </div>
                       <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary me-3 btnCSwitch">Submit</button>
+                        <button type="submit" class="btn btn-primary me-3 btnCSwitch" >Submit</button>
                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
                           Cancel
                         </button>
@@ -1242,6 +1229,7 @@
 
   <script src="../assets/js/app-access-roles.js"></script>
   <script src="../assets/js/modal-add-role.js"></script>
+  <script src="../config.js"></script>
 
   <script>
     const colorBoxes = document.querySelectorAll('.color-box');
@@ -1291,6 +1279,95 @@
       });
 
     });
+    document.addEventListener('DOMContentLoaded', function() {
+      const API_BASE_URL = ENV.API_BASE_URL;
+
+      async function fetchRoles() {
+        try {
+          // Replace `/api/roles` with your actual API endpoint
+          const response = await fetch(`${API_BASE_URL}/GetRoles`);
+          const roles = await response.json(); // Assuming the API returns a JSON array
+
+          
+
+          // Get the container element
+         
+          if (!rolesContainer) {
+            console.error('rolesContainer element not found'); // Debugging log
+            return;
+          }
+
+          // Clear any existing content
+         // rolesContainer.innerHTML = '';
+
+          // Dynamically create and append role cards
+          roles.forEach(role => {
+            const countRole = document.getElementById("count-role");
+            const cardDiv = document.getElementById('rolesContainer')
+
+            const card = `
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h6 id = "count-role" class="fw-normal mb-0 text-body">Total 4 users</h6>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                      <div class="role-heading">
+                        <h5 class="mb-1">${role.role_name}</h5>
+                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal"
+                          class="role-edit-modal "><span class="otext">Edit Role</span></a>
+                      </div>
+                      <a href="javascript:void(0);"><i class="ti ti-copy ti-md text-heading"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            cardDiv.innerHTML += card;
+          });
+        } catch (error) {
+          console.error('Error fetching roles:', error);
+        }
+      }
+ 
+      // Call the function on page load
+      fetchRoles();
+      setTimeout(() => {
+    
+    const cardDiv = document.getElementById('rolesContainer')  
+      const card = `<div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="card h-100">
+                  <div class="row h-100">
+                    <div class="col-sm-5">
+                      <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-4">
+                        <img src="../assets/img/illustrations/add-new-roles.png" class="img-fluid mt-sm-4 mt-md-0"
+                          alt="add-new-roles" width="83" />
+                      </div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="card-body text-sm-end text-center ps-sm-0">
+                        <button data-bs-target="#addRoleModal" data-bs-toggle="modal"
+                          class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role btnCSwitch">
+                          Add New Role
+                        </button>
+                        <p class="mb-0">
+                          Add new role, <br />
+                          if it doesn't exist.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `;
+
+            cardDiv.innerHTML += card; 
+}, 1000); // Adjust delay if necessary
+      
+    });
+   
+    
   </script>
 </body>
 
