@@ -312,7 +312,7 @@ fetchDataAndCreateElements()
                                                 <div class="card-body text-center w-100" style="height:200px" >
                                                
                                                
-                                                    <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%">
+                                                    <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
                                                     
                                                     </div>
                                                     <div class="card-footer text-center w-100">
@@ -342,6 +342,12 @@ fetchDataAndCreateElements()
                                         `;
 
                                 activitySection.innerHTML += activityImages;
+                                const activityImageArea = document.getElementById("activity-image-area");
+
+                                const imageContent = `<img src="${API_BASE_URL}/uploads/${imagePath}" alt="" width="100%" 
+                                                        height="100%">`;
+                                activityImageArea.innerHTML = imageContent;
+
                             });
 
 
