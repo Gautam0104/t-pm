@@ -1,7 +1,6 @@
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
-
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
@@ -41,9 +40,7 @@ function fetchDataAndCreateElements() {
                 const card = document.createElement("div");
                 card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
                 card.draggable = true;
-                card.id = `${element.ticket_id}`
-
-
+                card.id = `${element.ticket_id}`;
 
                 // Add card content
                 card.innerHTML = `
@@ -123,7 +120,7 @@ function fetchDataAndCreateElements() {
             return document.querySelectorAll(".dragg-from-todo"); // Return the elements
         });
 }
-const cardImg = document.getElementById('card-img');
+const cardImg = document.getElementById("card-img");
 console.log(cardImg);
 
 // Call the function and use the returned elements
@@ -146,24 +143,20 @@ fetchDataAndCreateElements()
                 const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
                 // backdropWrapper.innerHTML = backdropContent;
                 let selected = e.currentTarget.id;
-                let ticket_id = selected
+                let ticket_id = selected;
                 console.log(e.currentTarget.id);
                 // Fetch Ticket Data from API
                 fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error("Network response was not ok " + response.statusText);
+                            throw new Error(
+                                "Network response was not ok " + response.statusText
+                            );
                         }
                         return response.json();
-
                     })
                     .then(data => {
                         data.map(element => {
-
-
-
-
-
                             const offcanvasDiv = document.getElementById("offcanvas-div");
                             const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
@@ -212,6 +205,11 @@ fetchDataAndCreateElements()
                                                         
                                                         <div class="text-center" id="card-image-preview" style="margin-top: 10px;">
                                                             <img id="card-image-preview-img" src="" alt="Card Image Preview" style="max-width: 100%; max-height: 200px; display: none;">
+                                                           
+                                                        </div>
+                                                        <div class="text-center" id="card-image-preview-update" style="margin-top: 10px;">
+                                                            
+                                                            <img id="card-image-preview-update" src="${API_BASE_URL}/uploads/${element.card_image}" alt="Card Image Preview" style="max-width: 100%; max-height: 200px; display: block;">
                                                         </div>
                                                     </div>
                                                     <div class="mb-5">
@@ -237,18 +235,17 @@ fetchDataAndCreateElements()
                                             </div>
                                     </div>`;
 
-
                             offcanvasDiv.innerHTML = offcanvasContent;
 
                             flatpickr("#due-date", {
                                 enableTime: true,
                                 dateFormat: "Y-m-d H:i", // Format for Date and Time
-                                minDate: "today", // Set minimum date to today
+                                minDate: "today" // Set minimum date to today
                             });
                             flatpickr("#ticket_eta", {
                                 enableTime: true,
                                 dateFormat: "Y-m-d H:i", // Format for Date and Time
-                                minDate: "today", // Set minimum date to today
+                                minDate: "today" // Set minimum date to today
                             });
 
                             const isoDate = `${element.ticket_created_at}`;
@@ -278,35 +275,114 @@ fetchDataAndCreateElements()
 
                             // Extract date components
                             const day1 = dateupdate.getDate().toString().padStart(2, "0");
-                            const month1 = (dateupdate.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+                            const month1 = (dateupdate.getMonth() + 1)
+                                .toString()
+                                .padStart(2, "0"); // Months are 0-based
                             const year1 = dateupdate.getFullYear();
 
                             // Extract time components
                             const hours1 = dateupdate.getHours().toString().padStart(2, "0");
-                            const minutes1 = dateupdate.getMinutes().toString().padStart(2, "0");
-                            const seconds1 = dateupdate.getSeconds().toString().padStart(2, "0");
+                            const minutes1 = dateupdate
+                                .getMinutes()
+                                .toString()
+                                .padStart(2, "0");
+                            const seconds1 = dateupdate
+                                .getSeconds()
+                                .toString()
+                                .padStart(2, "0");
 
                             // Combine date and time
                             const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
-
-
+                            // fetch ticket history
 
                             // Check if the images field is null or empty
-                            const imageArray = element.images && element.images !== null
-                                ? Array.isArray(element.images)
-                                    ? element.images
-                                    : element.images.replace(/^\[|\]$/g, '').split(',')
-                                : [];
+                            const imageArray =
+                                element.images && element.images !== null
+                                    ? Array.isArray(element.images)
+                                        ? element.images
+                                        : element.images.replace(/^\[|\]$/g, "").split(",")
+                                    : [];
 
                             // If imageArray is empty, you may choose to show a default message or not display the images section at all
                             imageArray.forEach(imagePath => {
-                                imagePath = imagePath.replace(/^"|"$/g, '').trim(); // Clean image path
+                                imagePath = imagePath.replace(/^"|"$/g, "").trim(); // Clean image path
 
-                                const activitySection = document.getElementById('tab-activity');
+                                const activitySection = document.getElementById("tab-activity");
+                                fetch(`${API_BASE_URL}/ticket-history/${ticket_id}`)
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(
+                                                "Network response was not ok " + response.statusText
+                                            );
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(history => {
+                                        history.map(hisElement => {
+                                            console.log(hisElement);
+                                            // Check if the images field is null or empty
+                                            const previousimageArray =
+                                                hisElement.previous_images &&
+                                                    hisElement.previous_images !== null
+                                                    ? Array.isArray(hisElement.previous_images)
+                                                        ? hisElement.previous_images
+                                                        : hisElement.previous_images
+                                                            .replace(/^\[|\]$/g, "")
+                                                            .split(",")
+                                                    : [];
+
+                                            previousimageArray.forEach(preimagePath => {
+                                                preimagePath = preimagePath
+                                                    .replace(/^"|"$/g, "")
+                                                    .trim(); // Clean image path
+                                                const activityticketHistory = `
+                                           
+                                <div class="card border m-2">
+                                    <div class ="card-header text-center">
+                                    <h4>Ticket History</h4>
+                                     <span class="kanban-text" >${hisElement.previous_title}</span>
+                                    </div>
+                                    <div class="card-body text-center w-100" style="height:200px" >
+                                   
+                                   
+                                        <img src="${API_BASE_URL}/uploads/${preimagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                        
+                                        </div>
+                                        <div class="card-footer text-center w-100">
+                                        <span class="kanban-text" >Created-At : ${formattedDateTime}</span><br>
+                                        <div class="divider">
+                                        <div class="divider-text">
+                                            <i class="ti ti-star"></i>
+                                        </div>
+                                        </div>
+                                        <span class="kanban-text" >Updated-At : ${hisElement.updated_at}</span><br>
+                                        <div class="divider">
+                                        <div class="divider-text">
+                                            <i class="ti ti-star"></i>
+                                        </div>
+                                        </div>
+                                        <span class="kanban-text" >Created-By : Thunder</span>
+                                        <div class="divider">
+                                        <div class="divider-text">
+                                            <i class="ti ti-star"></i>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                               
+                            `;
+
+                                                activitySection.innerHTML += activityticketHistory;
+                                            });
+                                        });
+                                    });
                                 const activityImages = `
+                                           
                                             <div class="card border m-2">
                                                 <div class ="card-header text-center">
-                                                <h4>Ticket Preview</h4>
+                                                <h4>Ticket Activity</h4>
                                                  <span class="kanban-text" >${element.title}</span>
                                                 </div>
                                                 <div class="card-body text-center w-100" style="height:200px" >
@@ -342,141 +418,174 @@ fetchDataAndCreateElements()
                                         `;
 
                                 activitySection.innerHTML += activityImages;
-                                const activityImageArea = document.getElementById("activity-image-area");
+                                const activityImageArea = document.getElementById(
+                                    "activity-image-area"
+                                );
 
-                                const imageContent = `<img src="${API_BASE_URL}/uploads/${imagePath}" alt="" width="100%" 
-                                                        height="100%">`;
+                                const imageContent = `
+                                
+                                
+                                                        <img src="${API_BASE_URL}/uploads/${imagePath}" alt="" width="100%" 
+                                                        height="100%" id="activityImage>
+                                                        <div class="row d-flex justify-content-end">
+                                                            <div class="col-2">
+                                                                <button class="btn btn-primary" >Download</button>
+                                                            </div>
+                                                        </div>`;
                                 activityImageArea.innerHTML = imageContent;
+
+
 
                             });
 
-
-                            const closeButton = document.getElementById('offcanvase-close');
-                            const deleteButton = document.getElementById('delete-ticket')
+                            const closeButton = document.getElementById("offcanvase-close");
+                            const deleteButton = document.getElementById("delete-ticket");
                             //console.log(updateButton);
                             closeButton.addEventListener("click", function () {
                                 selected = null;
-                                console.log('selected is null now');
+                                console.log("selected is null now");
                                 const offcanvas = document.querySelector(".offcanvas");
                                 // const backdropWrapper = document.getElementById("backdrop");
                                 offcanvas.classList.remove("show");
                                 // backdropWrapper.innerHTML = "";
-                            })
+                            });
                             // Add event listener for the card-image input field
-                            document.getElementById('card-image').addEventListener('change', function (event) {
-                                const fileInput = event.target;
-                                const previewContainer = document.getElementById('card-image-preview');
-                                const previewImage = document.getElementById('card-image-preview-img');
+                            document
+                                .getElementById("card-image")
+                                .addEventListener("change", function (event) {
+                                    const fileInput = event.target;
+                                    const previewContainer = document.getElementById(
+                                        "card-image-preview"
+                                    );
+                                    const previewContainerUpdate = document.getElementById(
+                                        "card-image-preview-update"
+                                    );
+                                    const previewUpdate = document.getElementById(
+                                        "image-preview-update"
+                                    );
+                                    const previewImage = document.getElementById(
+                                        "card-image-preview-img"
+                                    );
 
-                                // Check if a file is selected
-                                if (fileInput.files && fileInput.files[0]) {
-                                    const file = fileInput.files[0];
 
-                                    // Validate that the file is an image
-                                    if (!file.type.startsWith('image/')) {
-                                        alert('Please upload a valid image file.');
-                                        fileInput.value = ''; // Reset the input
-                                        previewImage.style.display = 'none'; // Hide preview
+                                    previewContainerUpdate.style.display = "none"
+                                    // Check if a file is selected
+                                    if (fileInput.files && fileInput.files[0]) {
+                                        const file = fileInput.files[0];
+
+                                        // Validate that the file is an image
+                                        if (!file.type.startsWith("image/")) {
+                                            alert("Please upload a valid image file.");
+                                            fileInput.value = ""; // Reset the input
+                                            previewImage.style.display = "none"; // Hide preview
+                                            return;
+                                        }
+
+                                        // Use FileReader to display the image
+                                        const reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            // Set the preview image src to the loaded file data
+                                            previewImage.src = e.target.result;
+                                            previewImage.style.display = "block"; // Show the image
+                                        };
+                                        reader.readAsDataURL(file); // Read the file data as a data URL
+                                    } else {
+                                        // No file selected, hide the preview
+                                        previewImage.style.display = "none";
+                                    }
+                                });
+
+                            // update ticket form
+                            document
+                                .getElementById("ticketForm")
+                                .addEventListener("submit", function (e) {
+                                    e.preventDefault();
+
+                                    const ticket_id = element.ticket_id;
+                                    const title = document.getElementById("title").value;
+                                    const description = document.getElementById("description")
+                                        .value;
+                                    const status = "backlog";
+                                    const priority = "Medium";
+                                    const due_date = document.getElementById("due-date").value;
+                                    const ticket_status = element.ticket_status;
+                                    const images = document.getElementById("image").files;
+                                    const cardImage = document.getElementById("card-image").files;
+                                    const ticket_eta = document.getElementById("ticket_eta")
+                                        .value;
+
+                                    // Validate required fields
+                                    if (
+                                        !ticket_id ||
+                                        !title ||
+                                        !description ||
+                                        !status ||
+                                        !priority ||
+                                        !ticket_status
+                                    ) {
+                                        alert("Please fill in all required fields.");
                                         return;
                                     }
 
-                                    // Use FileReader to display the image
-                                    const reader = new FileReader();
-                                    reader.onload = function (e) {
-                                        // Set the preview image src to the loaded file data
-                                        previewImage.src = e.target.result;
-                                        previewImage.style.display = 'block'; // Show the image
-                                    };
-                                    reader.readAsDataURL(file); // Read the file data as a data URL
-                                } else {
-                                    // No file selected, hide the preview
-                                    previewImage.style.display = 'none';
-                                }
-                            });
+                                    // Create FormData
+                                    const formData = new FormData();
+                                    formData.append("ticket_id", ticket_id);
+                                    formData.append("title", title);
+                                    formData.append("description", description);
+                                    formData.append("status", status);
+                                    formData.append("priority", priority);
+                                    formData.append("due_date", due_date);
+                                    formData.append("ticket_status", ticket_status);
+                                    formData.append("ticket_eta", ticket_eta);
 
-                            // update ticket form
-                            document.getElementById('ticketForm').addEventListener('submit', function (e) {
-                                e.preventDefault();
-
-                                const ticket_id = element.ticket_id;
-                                const title = document.getElementById('title').value;
-                                const description = document.getElementById('description').value;
-                                const status = "backlog";
-                                const priority = "Medium";
-                                const due_date = document.getElementById("due-date").value;
-                                const ticket_status = element.ticket_status;
-                                const images = document.getElementById('image').files;
-                                const cardImage = document.getElementById('card-image').files;
-                                const ticket_eta = document.getElementById('ticket_eta').value;
-
-                                // Validate required fields
-                                if (!ticket_id || !title || !description || !status || !priority || !ticket_status) {
-                                    alert('Please fill in all required fields.');
-                                    return;
-                                }
-
-                                // Create FormData
-                                const formData = new FormData();
-                                //formData.append('project_id', project_id);
-                                formData.append('ticket_id', ticket_id);
-                                formData.append('title', title);
-                                formData.append('description', description);
-                                formData.append('status', status);
-                                formData.append('priority', priority);
-                                formData.append('due_date', due_date);
-                                //formData.append('created_by', creator_id);
-                                formData.append('ticket_status', ticket_status);
-                                formData.append('ticket_eta', ticket_eta);
-
-                                // Append multiple images
-                                if (images.length > 0) {
-                                    for (let i = 0; i < images.length; i++) {
-                                        formData.append('images', images[i]);
-                                    }
-                                }
-                                // Append single cardImage
-                                if (cardImage.length > 0) {
-                                    formData.append('card_image', cardImage[0]); // Correctly append the first cardImage file
-                                }
-
-                                // Display a loading message
-                                const messageElement = document.getElementById('message');
-                                messageElement.textContent = 'Updating ticket...';
-
-                                // Send request
-                                fetch(`${API_BASE_URL}/updateticket`, {
-                                    method: 'PUT',
-                                    body: formData,
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        if (data.message) {
-                                            selected = null;
-                                            // console.log('selected is null now');
-                                            const offcanvas = document.querySelector(".offcanvas");
-                                            // const backdropWrapper = document.getElementById("backdrop");
-                                            offcanvas.classList.remove("show");
-                                            // backdropWrapper.innerHTML = "";
-                                            Swal.fire({
-                                                title: "Ticket Updated Successfully",
-                                                text: "The ticket has been updated successfully.",
-                                                icon: "success",
-                                                confirmButtonText: "Ok!",
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                        } else if (data.error) {
-                                            messageElement.textContent = data.error;
-                                            messageElement.style.color = 'red';
+                                    // Append multiple images
+                                    if (images.length > 0) {
+                                        for (let i = 0; i < images.length; i++) {
+                                            formData.append("images", images[i]);
                                         }
-                                    })
-                                    .catch(error => {
-                                        messageElement.textContent = 'An error occurred.';
-                                        messageElement.style.color = 'red';
-                                        console.error('Error:', error);
-                                    });
-                            });
+                                    }
+                                    // Append single cardImage
+                                    if (cardImage.length > 0) {
+                                        formData.append("card_image", cardImage[0]); // Correctly append the first cardImage file
+                                    }
 
+                                    // Display a loading message
+                                    const messageElement = document.getElementById("message");
+                                    messageElement.textContent = "Updating ticket...";
+
+                                    // Send update request
+                                    fetch(`${API_BASE_URL}/updateticket`, {
+                                        method: "PUT",
+                                        body: formData
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.message) {
+                                                // Ticket successfully updated
+                                                selected = null;
+                                                const offcanvas = document.querySelector(".offcanvas");
+                                                offcanvas.classList.remove("show");
+
+                                                // Show success message
+                                                Swal.fire({
+                                                    title: "Ticket Updated Successfully",
+                                                    text: "The ticket has been updated successfully.",
+                                                    icon: "success",
+                                                    confirmButtonText: "Ok!"
+                                                }).then(() => {
+                                                    window.location.reload();
+                                                });
+                                            } else if (data.error) {
+                                                messageElement.textContent = data.error;
+                                                messageElement.style.color = "red";
+                                            }
+                                        })
+                                        .catch(error => {
+                                            messageElement.textContent = "An error occurred.";
+                                            messageElement.style.color = "red";
+                                            console.error("Error:", error);
+                                        });
+                                });
 
                             console.log(deleteButton);
 
@@ -492,15 +601,17 @@ fetchDataAndCreateElements()
 
                                 try {
                                     // Send DELETE request to the API
-                                    const response = await fetch(`${API_BASE_URL}/deleteticket/${ticket_id}`, {
-                                        method: "DELETE"
-                                    });
+                                    const response = await fetch(
+                                        `${API_BASE_URL}/deleteticket/${ticket_id}`,
+                                        {
+                                            method: "DELETE"
+                                        }
+                                    );
 
                                     // Parse the response
                                     // const data = await response.json();
 
                                     if (response.ok) {
-
                                         Swal.fire({
                                             title: "Ticket Deleted Successfully",
                                             text: "A Ticket is delete from your tickets",
@@ -509,8 +620,6 @@ fetchDataAndCreateElements()
                                         }).then(function () {
                                             window.location.reload();
                                         });
-
-
                                     } else {
                                         Swal.fire({
                                             title: "Oops!",
@@ -524,16 +633,10 @@ fetchDataAndCreateElements()
                                     // messageDiv.textContent = 'Could not connect to the server.';
                                     // messageDiv.className = 'message error';
                                 }
-
-                            })
+                            });
                         });
                     });
-
-
             });
-
-
-
 
             element.addEventListener("dragstart", e => {
                 let selected = e.target;
@@ -559,32 +662,25 @@ fetchDataAndCreateElements()
 
                 inprogressTask.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                    const contentInprogress = document.getElementById('content-inprogress');
+                    const contentInprogress = document.getElementById(
+                        "content-inprogress"
+                    );
                     contentDiv.style.opacity = "1";
-
-
-
                 });
                 forApprovalTask.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                    const contentApproval = document.getElementById('content-approval');
+                    const contentApproval = document.getElementById("content-approval");
                     contentApproval.style.opacity = "1";
-
-
                 });
                 rejectedTask.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                    const contentRejected = document.getElementById('content-rejected');
+                    const contentRejected = document.getElementById("content-rejected");
                     contentRejected.style.opacity = "1";
-
-
                 });
                 approvedTask.addEventListener("dragover", function (e) {
                     e.preventDefault();
-                    const contentApproved = document.getElementById('content-approved');
+                    const contentApproved = document.getElementById("content-approved");
                     contentApproved.style.opacity = "1";
-
-
                 });
                 inprogressTask.addEventListener("drop", function (e) {
                     e.preventDefault();
@@ -619,7 +715,9 @@ fetchDataAndCreateElements()
                         .catch(error => console.error("Error:", error));
 
                     selected = null;
-                    const contentInprogress = document.getElementById('content-inprogress');
+                    const contentInprogress = document.getElementById(
+                        "content-inprogress"
+                    );
                     contentDiv.style.opacity = "0";
                 });
                 todoTask.addEventListener("drop", function (e) {
@@ -655,7 +753,9 @@ fetchDataAndCreateElements()
                         .catch(error => console.error("Error:", error));
 
                     selected = null;
-                    const contentInprogress = document.getElementById('content-inprogress');
+                    const contentInprogress = document.getElementById(
+                        "content-inprogress"
+                    );
                     contentDiv.style.opacity = "0";
                 });
                 forApprovalTask.addEventListener("drop", function (e) {
@@ -688,7 +788,7 @@ fetchDataAndCreateElements()
                         })
                         .catch(error => console.error("Error:", error));
                     selected = null;
-                    const contentApproval = document.getElementById('content-approval');
+                    const contentApproval = document.getElementById("content-approval");
                     contentApproval.style.opacity = "1";
                 });
                 rejectedTask.addEventListener("drop", function (e) {
@@ -721,7 +821,7 @@ fetchDataAndCreateElements()
                         })
                         .catch(error => console.error("Error:", error));
                     selected = null;
-                    const contentRejected = document.getElementById('content-rejected');
+                    const contentRejected = document.getElementById("content-rejected");
                     contentRejected.style.opacity = "1";
                 });
                 approvedTask.addEventListener("drop", function (e) {
@@ -754,16 +854,13 @@ fetchDataAndCreateElements()
                         })
                         .catch(error => console.error("Error:", error));
                     selected = null;
-                    const contentApproved = document.getElementById('content-approved');
+                    const contentApproved = document.getElementById("content-approved");
                     contentApproved.style.opacity = "1";
                 });
             });
         });
     })
     .catch(error => console.error("Error:", error));
-
-
-
 
 const containers = document.querySelectorAll(".kanban-container");
 
@@ -809,7 +906,6 @@ function getDragAfterElement(container, y) {
         { offset: Number.NEGATIVE_INFINITY }
     ).element;
 }
-
 
 const closeCanvase = () => {
     const offcanvas = document.querySelector(".offcanvas");
