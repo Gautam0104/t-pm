@@ -134,9 +134,66 @@ filterInput.addEventListener("keyup", () => {
     }
 });
 
-function openModal() {
-    const modalElement = document.getElementById("shareProject");
-    const modal = new bootstrap.Modal(modalElement);
+// get role
+const userRole = async () => {
+    return await fetch(`${API_BASE_URL}/GetRoles`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok ");
+            }
+            return response.json();
+        })
+        .then(data => {
+            const roleSelect = document.getElementById('user-role');
+            data.map(role => {
+                const roleOption = `
+                                <option value="${role.role_id}">${role.role_name}</option>
+                                `
+                roleSelect.innerHTML += roleOption;
+            })
 
-    modal.show();
+        })
+};
+userRole();
+// create new user
+const registerForm = document.getElementById('addNewUserForm');
+const messageDiv = document.getElementById('message');
+
+
+function showMessage(message, isError = false) {
+    messageDiv.textContent = message;
+    messageDiv.className = `message ${isError ? 'error' : 'success'}`;
+    messageDiv.style.display = 'block';
 }
+
+registerForm.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('add-user-email').value;
+    const password = document.getElementById('add-user-password').value;
+    const first_name = document.getElementById('add-user-first-name').value;
+    const last_name = document.getElementById('add-user-last-name').value;
+    const role_id = document.getElementById('user-role').value;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, first_name, last_name, role_id }),
+        });
+        // const result = await response.text();
+        if (response.ok) {
+            Swal.fire({
+                title: "User created Successfully",
+                text: "A new user created successfully.",
+                icon: "success",
+                confirmButtonText: "Ok!",
+            })
+            // registerForm.reset();
+        } else {
+            // showMessage(result, true);
+        }
+    } catch (error) {
+        showMessage('Error registering user.', true);
+    }
+});

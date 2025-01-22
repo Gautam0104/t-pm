@@ -251,6 +251,45 @@ fetchDataAndCreateElements()
                                 minDate: "today", // Set minimum date to today
                             });
 
+                            const isoDate = `${element.ticket_created_at}`;
+
+                            // Convert to a Date object
+                            const date = new Date(isoDate);
+
+                            // Extract date components
+                            const day = date.getDate().toString().padStart(2, "0");
+                            const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+                            const year = date.getFullYear();
+
+                            // Extract time components
+                            const hours = date.getHours().toString().padStart(2, "0");
+                            const minutes = date.getMinutes().toString().padStart(2, "0");
+                            const seconds = date.getSeconds().toString().padStart(2, "0");
+
+                            // Combine date and time
+                            const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
+
+                            console.log("Formatted Date and Time:", formattedDateTime);
+
+                            const isoDateupdate = `${element.updated_at}`;
+
+                            // Convert to a Date object
+                            const dateupdate = new Date(isoDateupdate);
+
+                            // Extract date components
+                            const day1 = dateupdate.getDate().toString().padStart(2, "0");
+                            const month1 = (dateupdate.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+                            const year1 = dateupdate.getFullYear();
+
+                            // Extract time components
+                            const hours1 = dateupdate.getHours().toString().padStart(2, "0");
+                            const minutes1 = dateupdate.getMinutes().toString().padStart(2, "0");
+                            const seconds1 = dateupdate.getSeconds().toString().padStart(2, "0");
+
+                            // Combine date and time
+                            const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+
+
 
                             // Check if the images field is null or empty
                             const imageArray = element.images && element.images !== null
@@ -266,15 +305,49 @@ fetchDataAndCreateElements()
                                 const activitySection = document.getElementById('tab-activity');
                                 const activityImages = `
                                             <div class="card border m-2">
-                                                <div class ="card-header text-center"><P>Error Fixed</P></div>
-                                                <div class="card-body text-center w-100" style="height:200px">
-                                                    <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%">
+                                                <div class ="card-header text-center">
+                                                <h4>Ticket Preview</h4>
+                                                 <span class="kanban-text" >${element.title}</span>
                                                 </div>
-                                                <div class ="card-header text-center"><P>Task was done by Gautam</P></div>
-                                            </div>
+                                                <div class="card-body text-center w-100" style="height:200px" >
+                                               
+                                               
+                                                    <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                    
+                                                    </div>
+                                                    <div class="card-footer text-center w-100">
+                                                    <span class="kanban-text" >Created-At : ${formattedDateTime}</span><br>
+                                                    <div class="divider">
+                                                    <div class="divider-text">
+                                                        <i class="ti ti-star"></i>
+                                                    </div>
+                                                    </div>
+                                                    <span class="kanban-text" >Updated-At : ${formattedDateTimeupdate}</span><br>
+                                                    <div class="divider">
+                                                    <div class="divider-text">
+                                                        <i class="ti ti-star"></i>
+                                                    </div>
+                                                    </div>
+                                                    <span class="kanban-text" >Created-By : Thunder</span>
+                                                    <div class="divider">
+                                                    <div class="divider-text">
+                                                        <i class="ti ti-star"></i>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                           
                                         `;
 
                                 activitySection.innerHTML += activityImages;
+                                const activityImageArea = document.getElementById("activity-image-area");
+
+                                const imageContent = `<img src="${API_BASE_URL}/uploads/${imagePath}" alt="" width="100%" 
+                                                        height="100%">`;
+                                activityImageArea.innerHTML = imageContent;
+
                             });
 
 

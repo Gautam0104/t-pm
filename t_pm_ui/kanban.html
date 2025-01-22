@@ -1574,9 +1574,32 @@
 
                                 <!-- Edit Task/Task & Activities -->
                                 <div class="offcanvas offcanvas-end kanban-update-item-sidebar" id="offcanvas-div">
-
+                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                        data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                        Show
+                                    </button>
                                 </div>
+                                <div class="modal fade hide" id="pricingModal" tabindex="-1" aria-modal="true"
+                                    role="dialog">
+                                    <div class="modal-dialog modal-xl modal-simple modal-pricing">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                                <!-- Pricing Plans -->
+                                                <div class="rounded-top">
+                                                    <h4 class="text-center mb-2">Image Preview</h4>
 
+
+                                                </div>
+                                                <!--/ Pricing Plans -->
+                                                <div class="w-100 h-px-450" id="activity-image-area">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
