@@ -196,8 +196,8 @@ fetchDataAndCreateElements()
                                                         <input class="form-control" id="due-date" value="${element.due_date}" readonly="readonly">
                                                     </div>
                                                     <div class="mb-5">
-                                                        <label class="form-label" for="eta">ETA</label>
-                                                        <input class="form-control" id="ticket_eta" value="${element.ticket_eta}" readonly="readonly">
+                                                        <label class="form-label" for="eta">ETC</label>
+                                                        <input type= "text" class="form-control" id="ticket_eta" value="${element.ticket_eta}" >
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="attachments">Upload Card Image</label>
@@ -215,6 +215,15 @@ fetchDataAndCreateElements()
                                                     <div class="mb-5">
                                                         <label class="form-label" for="attachments">Attachments</label>
                                                         <input type="file" class="form-control" id="image" name="images" multiple>
+                                                    </div>
+                                                    <div class="mb-5">
+                                                        <label class="form-label" for="ticketOwner">Task Owner</label>
+                                                        <select  class="select2 form-select" >
+                                                            <option value="AK" >Thunder</option>
+                                                            <option value="HI">Aman Singh</option>
+                                                            <option value="CA" >Gautam Shukla</option>
+                                                            <option value="NV" >Utkarsh Singh</option>
+                                                            </select>
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="description">Description</label>
@@ -242,11 +251,7 @@ fetchDataAndCreateElements()
                                 dateFormat: "Y-m-d H:i", // Format for Date and Time
                                 minDate: "today" // Set minimum date to today
                             });
-                            flatpickr("#ticket_eta", {
-                                enableTime: true,
-                                dateFormat: "Y-m-d H:i", // Format for Date and Time
-                                minDate: "today" // Set minimum date to today
-                            });
+
 
                             const isoDate = `${element.ticket_created_at}`;
 
