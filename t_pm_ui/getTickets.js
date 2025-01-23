@@ -440,8 +440,8 @@ fetchDataAndCreateElements()
                                 
                                                         <img src="${API_BASE_URL}/uploads/${imagePath}" alt="" width="100%" 
                                                         height="100%" id="activityImage>
-                                                        <div class="row d-flex justify-content-end">
-                                                            <div class="col-2">
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-12 mt-3 text-center">
                                                                 <button class="btn btn-primary" >Download</button>
                                                             </div>
                                                         </div>`;
