@@ -218,11 +218,12 @@ fetchDataAndCreateElements()
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="ticketOwner">Task Owner</label>
-                                                        <select  class="select2 form-select" >
-                                                            <option value="AK" >Thunder</option>
-                                                            <option value="HI">Aman Singh</option>
-                                                            <option value="CA" >Gautam Shukla</option>
-                                                            <option value="NV" >Utkarsh Singh</option>
+                                                        <select  class="select2 form-select" id="ticket-owner" >
+                                                            <option disabled>Select a option to change the task owner</option>
+                                                            <option value="Aman Singh">Aman Singh</option>
+                                                            <option value="Gautam Shukla" >Gautam Shukla</option>
+                                                            <option value="Utkarsh Singh" >Utkarsh Singh</option>
+                                                            <option value="${element.ticket_owner}" selected disabled>Current Task Owner is : ${element.ticket_owner}</option>
                                                             </select>
                                                     </div>
                                                     <div class="mb-5">
@@ -415,6 +416,13 @@ fetchDataAndCreateElements()
                                                         <i class="ti ti-star"></i>
                                                     </div>
                                                     </div>
+                                                   
+                                                    <span class="kanban-text" >Task Owner : ${element.ticket_owner}</span>
+                                                    <div class="divider">
+                                                    <div class="divider-text">
+                                                        <i class="ti ti-star"></i>
+                                                    </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                                 
@@ -518,6 +526,7 @@ fetchDataAndCreateElements()
                                     const cardImage = document.getElementById("card-image").files;
                                     const ticket_eta = document.getElementById("ticket_eta")
                                         .value;
+                                    const ticket_owner = document.getElementById("ticket-owner").value;
 
                                     // Validate required fields
                                     if (
@@ -526,7 +535,8 @@ fetchDataAndCreateElements()
                                         !description ||
                                         !status ||
                                         !priority ||
-                                        !ticket_status
+                                        !ticket_status ||
+                                        !ticket_owner
                                     ) {
                                         alert("Please fill in all required fields.");
                                         return;
@@ -542,6 +552,7 @@ fetchDataAndCreateElements()
                                     formData.append("due_date", due_date);
                                     formData.append("ticket_status", ticket_status);
                                     formData.append("ticket_eta", ticket_eta);
+                                    formData.append("ticket_owner", ticket_owner);
 
                                     // Append multiple images
                                     if (images.length > 0) {
@@ -603,6 +614,30 @@ fetchDataAndCreateElements()
                                 //     messageDiv.className = 'message error';
                                 //     return;
                                 // }
+
+                                try {
+                                    // Send DELETE request to the API
+                                    const response = await fetch(
+                                        `${API_BASE_URL}/clearHistory/${ticket_id}`,
+                                        {
+                                            method: "DELETE"
+                                        }
+                                    );
+
+                                    // Parse the response
+                                    // const data = await response.json();
+
+                                    if (response.ok) {
+                                        console.log("ticket history clear");
+
+                                    } else {
+                                        console.log("something went wrong");
+                                    }
+                                } catch (error) {
+                                    console.error(error);
+                                    // messageDiv.textContent = 'Could not connect to the server.';
+                                    // messageDiv.className = 'message error';
+                                }
 
                                 try {
                                     // Send DELETE request to the API
