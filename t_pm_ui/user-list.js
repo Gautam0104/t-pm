@@ -195,7 +195,12 @@ registerForm.addEventListener('click', async (e) => {
             })
             // registerForm.reset();
         } else {
-            // showMessage(result, true);
+            Swal.fire({
+                title: "Oops!",
+                text: "something went wrong. Try again!",
+                icon: "error",
+                confirmButtonText: "Retry!",
+            });
         }
     } catch (error) {
         showMessage('Error registering user.', true);
@@ -241,49 +246,98 @@ const deleteUser = async (user_id) => {
 
 
 const editUser = async (user_id) => {
-    await fetch(`${API_BASE_URL}/user/${user_id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok ");
-            }
-            return response.json();
+    try {
+        const response = await fetch(`${API_BASE_URL}/user/${user_id}`);
+        if (!response.ok) throw new Error('Failed to fetch user details');
 
-        })
-        .then(user => {
-            user.map(ele => {
-                const updateUserForm = document.getElementById("update-user");
-                const formContent = ` <div class="mb-6">
-                                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                                        <input type="text" class="form-control" id="update-user-first-name" 
-                                            name="userFullname" aria-label="John Doe" value = "${ele.first_name}" />
-                                        </div>
-                                        <div class="mb-6">
-                                        <label class="form-label" for="add-user-fullname">Last Name</label>
-                                        <input type="text" class="form-control" id="update-user-last-name"
-                                            name="userFullname" aria-label="John Doe" value = "${ele.last_name}" />
-                                        </div>
-                                        <div class="mb-6">
-                                        <label class="form-label" for="add-user-email">Username</label>
-                                        <input type="text" id="update-user-email" class="form-control" 
-                                            aria-label="john.doe@example.com" name="userEmail" value = "${ele.username}" />
-                                        </div>
-                                        <div class="mb-6">
-                                        <label class="form-label" for="user-role">User Role</label>
-                                        <select id="update-user-role" class="form-select" name="userRole">
-                                          <option value="${ele.role_id}">${ele.role_name}</option>
-                                        </select>
-                                        </div>
-                                        <button type="button" class="btn btn-primary me-3 " id="updateUserForm">Update User</button>
-                                        <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>`;
+        const user = await response.json();
 
-                updateUserForm.innerHTML += formContent;
-            })
+        user.map((ele) => {
+            const updateUserForm = document.getElementById("update-user");
+            const formContent = `
+                                <div class="mb-6">
+                                    <label class="form-label" for="add-user-fullname">Full Name</label>
+                                    <input type="text" class="form-control" id="update-user-first-name" 
+                                        name="userFullname" aria-label="John Doe" value="${ele.first_name}" />
+                                </div>
+                                <div class="mb-6">
+                                    <label class="form-label" for="add-user-fullname">Last Name</label>
+                                    <input type="text" class="form-control" id="update-user-last-name"
+                                        name="userFullname" aria-label="John Doe" value="${ele.last_name}" />
+                                </div>
+                                <div class="mb-6">
+                                    <label class="form-label" for="add-user-email">Username</label>
+                                    <input type="text" id="update-user-email" class="form-control" 
+                                        aria-label="john.doe@example.com" name="userEmail" value="${ele.username}" />
+                                </div>
+                                <div class="mb-6">
+                                    <label class="form-label" for="user-role">User Role</label>
+                                    <select id="update-user-role" class="form-select" name="userRole">
+                                        <option value="${ele.role_id}">${ele.role_name}</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn btn-primary me-3" data-bs-dismiss="offcanvas" id="updateUserForm">Update User</button>
+                                <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>`;
 
-        })
+            updateUserForm.innerHTML = formContent;
 
+            document.getElementById("updateUserForm").addEventListener("click", async (e) => {
+                e.preventDefault();
 
+                const userId = ele.user_id;
+                const role_id = document.getElementById('update-user-role').value;
+                const username = document.getElementById('update-user-email').value.trim();
+                const first_name = document.getElementById('update-user-first-name').value.trim();
+                const last_name = document.getElementById('update-user-last-name').value.trim();
+                const messageElement = document.getElementById('message');
 
+                if (!userId || !role_id || !username) {
+                    messageElement.textContent = 'Please fill in all required fields.';
+                    messageElement.className = 'message error';
+                    return;
+                }
 
+                const payload = { role_id, username, first_name, last_name };
 
+                try {
+                    const response = await fetch(`${API_BASE_URL}/updateUser/${userId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                    });
 
-}
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "User Updated Successfully",
+                            text: "A user is update from your projects",
+                            icon: "success",
+                            confirmButtonText: "Ok!",
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    } else {
+                        Swal.fire({
+                            title: "Oops!",
+                            text: "something went wrong. Try again!",
+                            icon: "error",
+                            confirmButtonText: "Retry!",
+                        });
+                    }
+                } catch (error) {
+                    messageElement.textContent = 'Error connecting to the server.';
+                    messageElement.className = 'message error';
+                    console.error('Error:', error);
+                }
+            });
+        });
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        const messageElement = document.getElementById('message');
+        if (messageElement) {
+            messageElement.textContent = 'Error fetching user details.';
+            messageElement.className = 'message error';
+        }
+    }
+};

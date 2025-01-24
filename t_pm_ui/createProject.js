@@ -119,13 +119,13 @@ const editProject = async (project_id) => {
                                                             <div class="row " style="margin-left: 200px;">
                                                             <div class="col">
                                                                 <label class="form-check m-0">
-                                                                <input type="radio" name="type" class="form-check-input" value="project" checked />
+                                                                <input type="radio" name="update-type" class="form-check-input" value="project" checked />
                                                                 <span class="form-check-label">Project</span>
                                                                 </label>
                                                             </div>
                                                             <div class="col">
                                                                 <label class="form-check m-0">
-                                                                <input type="radio" name="type" class="form-check-input" value="ticket" />
+                                                                <input type="radio" name="update-type" class="form-check-input" value="ticket" />
                                                                 <span class="form-check-label">Ticket</span>
                                                                 </label>
                                                             </div>
@@ -137,7 +137,7 @@ const editProject = async (project_id) => {
                                                         <div class="row">
                                                         <div class="col mb-4">
                                                             <label for="nameWithTitle" class="form-label">Project/Ticket Name</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Name" id="project-name" value="${project.project_name}" />
+                                                            <input type="text" class="form-control" placeholder="Enter Name" id="update-project-name" value="${project.project_name}" />
                                                             <div class="error" id="nameError"></div>
                                                         </div>
                                                         </div>
@@ -163,7 +163,7 @@ const editProject = async (project_id) => {
                                                         <div class="col mb-4">
                                                             <label class="form-label" for="basic-default-message">Description</label>
                                                             <textarea class="form-control" placeholder="Hi, Do you have a moment to talk Joe?"
-                                                            id="project-des">${project.description}</textarea>
+                                                            id="update-project-des">${project.description}</textarea>
                                                             <div class="error" id="descriptionError"></div>
                                                         </div>
                                                         </div>
@@ -172,13 +172,64 @@ const editProject = async (project_id) => {
                                                         <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                                                         Close
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary" style="color: #fff;" id="submit-button">Update
+                                                        <button type="button" class="btn btn-primary" style="color: #fff;" data-bs-dismiss="modal" id="updateProjectForm">Update
                                                         Project</button>
                                                     </div>
                                                     </form>
                                                     </div>`;
 
-            updatemodal.innerHTML += modalContent;
+            updatemodal.innerHTML = modalContent;
+            document.getElementById("updateProjectForm").addEventListener("click", async (e) => {
+                e.preventDefault();
+
+                const projectId = project.project_id;
+                const project_name = document.getElementById('update-project-name').value;
+                const description = document.getElementById('update-project-des').value.trim();
+                const project_status = project.project_status;
+                const total_eta = project.total_eta;
+                const project_type = document.querySelector('input[name="update-type"]:checked').value;
+                const messageElement = document.getElementById('message');
+
+                if (!projectId || !project_name || !description) {
+                    messageElement.textContent = 'Please fill in all required fields.';
+                    messageElement.className = 'message error';
+                    return;
+                }
+
+                const payload = { project_name, description, project_status, project_type, total_eta };
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/updateproject/${projectId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Project Updated Successfully",
+                            text: "A project is update from your projects",
+                            icon: "success",
+                            confirmButtonText: "Ok!",
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    } else {
+                        Swal.fire({
+                            title: "Oops!",
+                            text: "something went wrong. Try again!",
+                            icon: "error",
+                            confirmButtonText: "Retry!",
+                        });
+                    }
+                } catch (error) {
+                    messageElement.textContent = 'Error connecting to the server.';
+                    messageElement.className = 'message error';
+                    console.error('Error:', error);
+                }
+            });
         })
 
 
