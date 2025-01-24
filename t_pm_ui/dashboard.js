@@ -259,7 +259,7 @@ fetch(`${API_BASE_URL}/projects`)
                               <i class="ti ti-dots-vertical"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-pencil me-1"></i>
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateProject" onclick="editProject(${element.project_id})"><i class="ti ti-pencil me-1"></i>
                                 Edit</a>
                               <a class="dropdown-item"  onclick="handleDelete(${element.project_id})"><i class="ti ti-trash me-1"></i>
                                 Delete</a>
@@ -372,30 +372,26 @@ const createProject = async () => {
 
 //Delete Project
 
-const handleDelete = async (id) => {
-    console.log('Project id is : ' + id);
-    // if (!recordId) {
-    //     messageDiv.textContent = 'Please enter a valid ID.';
-    //     messageDiv.className = 'message error';
-    //     return;
-    // }
+const handleDelete = async (project_id) => {
+
 
     try {
         // Send DELETE request to the API
-        const response = await fetch(`${API_BASE_URL}/deleteProject/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/deleteProject/${project_id}`, {
             method: 'DELETE',
         });
-        window.location.reload();
-        // Parse the response
-        // const data = await response.json();
+
+
 
         if (response.ok) {
 
             Swal.fire({
-                title: "Project Deleted Successfully",
+                title: "Projet Deleted Successfully",
                 text: "A project is delete from your projects",
                 icon: "success",
                 confirmButtonText: "Ok!",
+            }).then(() => {
+                window.location.reload();
             })
         } else {
             Swal.fire({
@@ -407,8 +403,5 @@ const handleDelete = async (id) => {
         }
     } catch (error) {
         console.error(error);
-        // messageDiv.textContent = 'Could not connect to the server.';
-        // messageDiv.className = 'message error';
     }
-
 }

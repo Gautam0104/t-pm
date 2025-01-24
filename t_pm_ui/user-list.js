@@ -95,9 +95,11 @@ const userData = async () => {
                             <i class="ti ti-dots-vertical"></i>
                             </button>
                             <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-pencil me-1"></i>
+                            <a class="dropdown-item" href="javascript:void(0);"tabindex="0"
+                                aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasUpdateUser" onclick="editUser(${element.user_id})"><i class="ti ti-pencil me-1"></i>
                                 Edit</a>
-                            <a class="dropdown-item"><i class="ti ti-trash me-1"></i>
+                            <a class="dropdown-item" onclick="deleteUser(${element.user_id})" style="cursor:pointer;"><i class="ti ti-trash me-1"></i>
                                 Delete</a>
                             </div>
                         </div>
@@ -188,6 +190,8 @@ registerForm.addEventListener('click', async (e) => {
                 text: "A new user created successfully.",
                 icon: "success",
                 confirmButtonText: "Ok!",
+            }).then(() => {
+                window.location.reload();
             })
             // registerForm.reset();
         } else {
@@ -197,3 +201,89 @@ registerForm.addEventListener('click', async (e) => {
         showMessage('Error registering user.', true);
     }
 });
+
+
+const deleteUser = async (user_id) => {
+    //console.log(id);
+
+    try {
+        // Send DELETE request to the API
+        const response = await fetch(`${API_BASE_URL}/deleteUser/${user_id}`, {
+            method: 'DELETE',
+        });
+
+
+
+        if (response.ok) {
+
+            Swal.fire({
+                title: "User Deleted Successfully",
+                text: "A user is delete from your projects",
+                icon: "success",
+                confirmButtonText: "Ok!",
+            }).then(() => {
+                window.location.reload();
+            })
+        } else {
+            Swal.fire({
+                title: "Oops!",
+                text: "something went wrong. Try again!",
+                icon: "error",
+                confirmButtonText: "Retry!",
+            });
+        }
+    } catch (error) {
+        console.error(error);
+    }
+
+
+}
+
+
+const editUser = async (user_id) => {
+    await fetch(`${API_BASE_URL}/user/${user_id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok ");
+            }
+            return response.json();
+
+        })
+        .then(user => {
+            user.map(ele => {
+                const updateUserForm = document.getElementById("update-user");
+                const formContent = ` <div class="mb-6">
+                                        <label class="form-label" for="add-user-fullname">Full Name</label>
+                                        <input type="text" class="form-control" id="update-user-first-name" 
+                                            name="userFullname" aria-label="John Doe" value = "${ele.first_name}" />
+                                        </div>
+                                        <div class="mb-6">
+                                        <label class="form-label" for="add-user-fullname">Last Name</label>
+                                        <input type="text" class="form-control" id="update-user-last-name"
+                                            name="userFullname" aria-label="John Doe" value = "${ele.last_name}" />
+                                        </div>
+                                        <div class="mb-6">
+                                        <label class="form-label" for="add-user-email">Username</label>
+                                        <input type="text" id="update-user-email" class="form-control" 
+                                            aria-label="john.doe@example.com" name="userEmail" value = "${ele.username}" />
+                                        </div>
+                                        <div class="mb-6">
+                                        <label class="form-label" for="user-role">User Role</label>
+                                        <select id="update-user-role" class="form-select" name="userRole">
+                                          <option value="${ele.role_id}">${ele.role_name}</option>
+                                        </select>
+                                        </div>
+                                        <button type="button" class="btn btn-primary me-3 " id="updateUserForm">Update User</button>
+                                        <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>`;
+
+                updateUserForm.innerHTML += formContent;
+            })
+
+        })
+
+
+
+
+
+
+}
