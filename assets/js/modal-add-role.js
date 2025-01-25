@@ -77,16 +77,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
   // Submit form via Axios
   function closeModal() {
     $('#addRoleModal').modal('hide');
-}
+  }
   form.addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent default form submission
-   
+
 
     validation.validate().then(function (status) {
       //console.log('Validation status:', status); // Debugging log
       if (status === 'Valid') {
         const roleName = document.getElementById('modalRoleName').value;
-       // console.log('Form is valid. Submitting...', roleName); // Debugging log
+        // console.log('Form is valid. Submitting...', roleName); // Debugging log
 
         // Send data to backend API using Axios
         axios
@@ -102,7 +102,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 text: "The Role has been Created successfully.",
                 icon: "success",
                 confirmButtonText: "Ok!",
-            })
+              }).then(() => {
+                window.location.reload();
+              })
               form.reset(); // Clear the form
             } else {
               closeModal()
@@ -111,7 +113,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 text: "The Role has been Created successfully.",
                 icon: "success",
                 confirmButtonText: "Ok!",
-            })
+              }).then(() => {
+                window.location.reload();
+              })
             }
           })
           .catch((error) => {
@@ -129,5 +133,5 @@ document.addEventListener('DOMContentLoaded', function (e) {
       }
     });
   });
-  
+
 });
