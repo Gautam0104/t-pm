@@ -63,7 +63,7 @@ const userData = async () => {
                     user_status: statusText,
                     created_at: user.created_at,
                     updated_at: user.updated_at
-                }
+                };
             });
             console.log(modifiedResults);
 
@@ -146,42 +146,46 @@ const userRole = async () => {
             return response.json();
         })
         .then(data => {
-            const roleSelect = document.getElementById('user-role');
+            const roleSelect = document.getElementById("user-role");
             data.map(role => {
                 const roleOption = `
                                 <option value="${role.role_id}">${role.role_name}</option>
-                                `
+                                `;
                 roleSelect.innerHTML += roleOption;
-            })
-
-        })
+            });
+        });
 };
 userRole();
 // create new user
-const registerForm = document.getElementById('addNewUserForm');
-const messageDiv = document.getElementById('message');
-
+const registerForm = document.getElementById("addNewUserForm");
+const messageDiv = document.getElementById("message");
 
 function showMessage(message, isError = false) {
     messageDiv.textContent = message;
-    messageDiv.className = `message ${isError ? 'error' : 'success'}`;
-    messageDiv.style.display = 'block';
+    messageDiv.className = `message ${isError ? "error" : "success"}`;
+    messageDiv.style.display = "block";
 }
 
-registerForm.addEventListener('click', async (e) => {
+registerForm.addEventListener("click", async e => {
     e.preventDefault();
 
-    const username = document.getElementById('add-user-email').value;
-    const password = document.getElementById('add-user-password').value;
-    const first_name = document.getElementById('add-user-first-name').value;
-    const last_name = document.getElementById('add-user-last-name').value;
-    const role_id = document.getElementById('user-role').value;
+    const username = document.getElementById("add-user-email").value;
+    const password = document.getElementById("add-user-password").value;
+    const first_name = document.getElementById("add-user-first-name").value;
+    const last_name = document.getElementById("add-user-last-name").value;
+    const role_id = document.getElementById("user-role").value;
 
     try {
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password, first_name, last_name, role_id }),
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username,
+                password,
+                first_name,
+                last_name,
+                role_id
+            })
         });
         // const result = await response.text();
         if (response.ok) {
@@ -189,70 +193,63 @@ registerForm.addEventListener('click', async (e) => {
                 title: "User created Successfully",
                 text: "A new user created successfully.",
                 icon: "success",
-                confirmButtonText: "Ok!",
+                confirmButtonText: "Ok!"
             }).then(() => {
                 window.location.reload();
-            })
+            });
             // registerForm.reset();
         } else {
             Swal.fire({
                 title: "Oops!",
                 text: "something went wrong. Try again!",
                 icon: "error",
-                confirmButtonText: "Retry!",
+                confirmButtonText: "Retry!"
             });
         }
     } catch (error) {
-        showMessage('Error registering user.', true);
+        showMessage("Error registering user.", true);
     }
 });
 
-
-const deleteUser = async (user_id) => {
+const deleteUser = async user_id => {
     //console.log(id);
 
     try {
         // Send DELETE request to the API
         const response = await fetch(`${API_BASE_URL}/deleteUser/${user_id}`, {
-            method: 'DELETE',
+            method: "DELETE"
         });
 
-
-
         if (response.ok) {
-
             Swal.fire({
                 title: "User Deleted Successfully",
                 text: "A user is delete from your projects",
                 icon: "success",
-                confirmButtonText: "Ok!",
+                confirmButtonText: "Ok!"
             }).then(() => {
                 window.location.reload();
-            })
+            });
         } else {
             Swal.fire({
                 title: "Oops!",
                 text: "something went wrong. Try again!",
                 icon: "error",
-                confirmButtonText: "Retry!",
+                confirmButtonText: "Retry!"
             });
         }
     } catch (error) {
         console.error(error);
     }
+};
 
-
-}
-
-
-const editUser = async (user_id) => {
+const editUser = async user_id => {
     try {
         const response = await fetch(`${API_BASE_URL}/user/${user_id}`);
-        if (!response.ok) throw new Error('Failed to fetch user details');
+        if (!response.ok) throw new Error("Failed to fetch user details");
 
         const user = await response.json();
 
-        user.map((ele) => {
+        user.map(ele => {
             const updateUserForm = document.getElementById("update-user");
             const formContent = `
                                 <div class="mb-6">
@@ -281,63 +278,74 @@ const editUser = async (user_id) => {
 
             updateUserForm.innerHTML = formContent;
 
-            document.getElementById("updateUserForm").addEventListener("click", async (e) => {
-                e.preventDefault();
+            document
+                .getElementById("updateUserForm")
+                .addEventListener("click", async e => {
+                    e.preventDefault();
 
-                const userId = ele.user_id;
-                const role_id = document.getElementById('update-user-role').value;
-                const username = document.getElementById('update-user-email').value.trim();
-                const first_name = document.getElementById('update-user-first-name').value.trim();
-                const last_name = document.getElementById('update-user-last-name').value.trim();
-                const messageElement = document.getElementById('message');
+                    const userId = ele.user_id;
+                    const role_id = document.getElementById("update-user-role").value;
+                    const username = document
+                        .getElementById("update-user-email")
+                        .value.trim();
+                    const first_name = document
+                        .getElementById("update-user-first-name")
+                        .value.trim();
+                    const last_name = document
+                        .getElementById("update-user-last-name")
+                        .value.trim();
+                    const messageElement = document.getElementById("message");
 
-                if (!userId || !role_id || !username) {
-                    messageElement.textContent = 'Please fill in all required fields.';
-                    messageElement.className = 'message error';
-                    return;
-                }
-
-                const payload = { role_id, username, first_name, last_name };
-
-                try {
-                    const response = await fetch(`${API_BASE_URL}/updateUser/${userId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload),
-                    });
-
-                    if (response.ok) {
-                        Swal.fire({
-                            title: "User Updated Successfully",
-                            text: "A user is update from your projects",
-                            icon: "success",
-                            confirmButtonText: "Ok!",
-                        }).then(() => {
-                            window.location.reload();
-                        })
-                    } else {
-                        Swal.fire({
-                            title: "Oops!",
-                            text: "something went wrong. Try again!",
-                            icon: "error",
-                            confirmButtonText: "Retry!",
-                        });
+                    if (!userId || !role_id || !username) {
+                        messageElement.textContent = "Please fill in all required fields.";
+                        messageElement.className = "message error";
+                        return;
                     }
-                } catch (error) {
-                    messageElement.textContent = 'Error connecting to the server.';
-                    messageElement.className = 'message error';
-                    console.error('Error:', error);
-                }
-            });
+
+                    const payload = { role_id, username, first_name, last_name };
+
+                    try {
+                        const response = await fetch(
+                            `${API_BASE_URL}/updateUser/${userId}`,
+                            {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(payload)
+                            }
+                        );
+
+                        if (response.ok) {
+                            Swal.fire({
+                                title: "User Updated Successfully",
+                                text: "A user is update from your projects",
+                                icon: "success",
+                                confirmButtonText: "Ok!"
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Oops!",
+                                text: "something went wrong. Try again!",
+                                icon: "error",
+                                confirmButtonText: "Retry!"
+                            });
+                        }
+                    } catch (error) {
+                        messageElement.textContent = "Error connecting to the server.";
+                        messageElement.className = "message error";
+                        console.error("Error:", error);
+                    }
+                });
         });
     } catch (error) {
-        console.error('Error fetching user details:', error);
-        const messageElement = document.getElementById('message');
+        console.error("Error fetching user details:", error);
+        const messageElement = document.getElementById("message");
         if (messageElement) {
-            messageElement.textContent = 'Error fetching user details.';
-            messageElement.className = 'message error';
+            messageElement.textContent = "Error fetching user details.";
+            messageElement.className = "message error";
         }
     }
 };
