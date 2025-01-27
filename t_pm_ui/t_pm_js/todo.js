@@ -157,11 +157,7 @@ fetchDataAndCreateElements()
                     })
                     .then(data => {
                         data.map(element => {
-                            flatpickr("#due-date", {
-                                enableTime: true,
-                                dateFormat: "Y-m-d H:i", // Format for Date and Time
-                                minDate: "today" // Set minimum date to today
-                            });
+
 
                             const isoDate = `${element.ticket_created_at}`;
 
@@ -355,7 +351,11 @@ fetchDataAndCreateElements()
 
                             offcanvasDiv.innerHTML = offcanvasContent;
 
-
+                            flatpickr("#due-date", {
+                                enableTime: true,
+                                dateFormat: "Y-m-d H:i", // Format for Date and Time
+                                minDate: "today" // Set minimum date to today
+                            });
 
                             // fetch ticket history
 

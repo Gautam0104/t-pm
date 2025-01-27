@@ -68,6 +68,9 @@ const userData = async () => {
             console.log(modifiedResults);
 
             modifiedResults.map(element => {
+
+                const password = await
+
                 const row = ` 
                          
                 <tr>
