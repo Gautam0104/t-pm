@@ -157,6 +157,58 @@ fetchDataAndCreateElements()
                     })
                     .then(data => {
                         data.map(element => {
+                            flatpickr("#due-date", {
+                                enableTime: true,
+                                dateFormat: "Y-m-d H:i", // Format for Date and Time
+                                minDate: "today" // Set minimum date to today
+                            });
+
+                            const isoDate = `${element.ticket_created_at}`;
+
+                            // Convert to a Date object
+                            const date = new Date(isoDate);
+
+                            // Extract date components
+                            const day = date.getDate().toString().padStart(2, "0");
+                            const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+                            const year = date.getFullYear();
+
+                            // Extract time components
+                            const hours = date.getHours().toString().padStart(2, "0");
+                            const minutes = date.getMinutes().toString().padStart(2, "0");
+                            const seconds = date.getSeconds().toString().padStart(2, "0");
+
+                            // Combine date and time
+                            const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
+
+                            console.log("Formatted Date and Time:", formattedDateTime);
+
+                            const isoDateupdate = `${element.updated_at}`;
+
+                            // Convert to a Date object
+                            const dateupdate = new Date(isoDateupdate);
+
+                            // Extract date components
+                            const day1 = dateupdate.getDate().toString().padStart(2, "0");
+                            const month1 = (dateupdate.getMonth() + 1)
+                                .toString()
+                                .padStart(2, "0"); // Months are 0-based
+                            const year1 = dateupdate.getFullYear();
+
+                            // Extract time components
+                            const hours1 = dateupdate.getHours().toString().padStart(2, "0");
+                            const minutes1 = dateupdate
+                                .getMinutes()
+                                .toString()
+                                .padStart(2, "0");
+                            const seconds1 = dateupdate
+                                .getSeconds()
+                                .toString()
+                                .padStart(2, "0");
+
+                            // Combine date and time
+                            const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+
                             const offcanvasDiv = document.getElementById("offcanvas-div");
                             const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
@@ -239,161 +291,23 @@ fetchDataAndCreateElements()
                                             </div>
                                         </div>
                                         <div class="tab-content p-0">
+                                        <div class="tab-pane fade" id="tab-activity" role="tabpanel">
                                            <!-- Activities -->
-                                            <div class="tab-pane fade text-heading active" id="tab-activity" role="tabpanel">
-                                                
-                                            </div>
-                                    </div>`;
-
-                            offcanvasDiv.innerHTML = offcanvasContent;
-
-                            flatpickr("#due-date", {
-                                enableTime: true,
-                                dateFormat: "Y-m-d H:i", // Format for Date and Time
-                                minDate: "today" // Set minimum date to today
-                            });
-
-                            const isoDate = `${element.ticket_created_at}`;
-
-                            // Convert to a Date object
-                            const date = new Date(isoDate);
-
-                            // Extract date components
-                            const day = date.getDate().toString().padStart(2, "0");
-                            const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
-                            const year = date.getFullYear();
-
-                            // Extract time components
-                            const hours = date.getHours().toString().padStart(2, "0");
-                            const minutes = date.getMinutes().toString().padStart(2, "0");
-                            const seconds = date.getSeconds().toString().padStart(2, "0");
-
-                            // Combine date and time
-                            const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
-
-                            console.log("Formatted Date and Time:", formattedDateTime);
-
-                            const isoDateupdate = `${element.updated_at}`;
-
-                            // Convert to a Date object
-                            const dateupdate = new Date(isoDateupdate);
-
-                            // Extract date components
-                            const day1 = dateupdate.getDate().toString().padStart(2, "0");
-                            const month1 = (dateupdate.getMonth() + 1)
-                                .toString()
-                                .padStart(2, "0"); // Months are 0-based
-                            const year1 = dateupdate.getFullYear();
-
-                            // Extract time components
-                            const hours1 = dateupdate.getHours().toString().padStart(2, "0");
-                            const minutes1 = dateupdate
-                                .getMinutes()
-                                .toString()
-                                .padStart(2, "0");
-                            const seconds1 = dateupdate
-                                .getSeconds()
-                                .toString()
-                                .padStart(2, "0");
-
-                            // Combine date and time
-                            const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
-                            // fetch ticket history
-
-                            // Check if the images field is null or empty
-                            const imageArray =
-                                element.images && element.images !== null
-                                    ? Array.isArray(element.images)
-                                        ? element.images
-                                        : element.images.replace(/^\[|\]$/g, "").split(",")
-                                    : [];
-
-                            // If imageArray is empty, you may choose to show a default message or not display the images section at all
-                            imageArray.forEach(imagePath => {
-                                imagePath = imagePath.replace(/^"|"$/g, "").trim(); // Clean image path
-
-                                const activitySection = document.getElementById("tab-activity");
-                                fetch(`${API_BASE_URL}/ticket-history/${ticket_id}`)
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            throw new Error(
-                                                "Network response was not ok " + response.statusText
-                                            );
-                                        }
-                                        return response.json();
-                                    })
-                                    .then(history => {
-                                        history.map(hisElement => {
-                                            console.log(hisElement);
-                                            // Check if the images field is null or empty
-                                            const previousimageArray =
-                                                hisElement.previous_images &&
-                                                    hisElement.previous_images !== null
-                                                    ? Array.isArray(hisElement.previous_images)
-                                                        ? hisElement.previous_images
-                                                        : hisElement.previous_images
-                                                            .replace(/^\[|\]$/g, "")
-                                                            .split(",")
-                                                    : [];
-
-                                            previousimageArray.forEach(preimagePath => {
-                                                preimagePath = preimagePath
-                                                    .replace(/^"|"$/g, "")
-                                                    .trim(); // Clean image path
-                                                const activityticketHistory = `
-                                           
-                                        <div class="card border m-2">
+                                                 <div class="divider"> 
+                                                <div class="divider-text">
+                                                    <p class="mt-3">Ticket Activity</p>
+                                                </div>
+                                                </div>
+                                                <div class="card border m-2">
                                             <div class ="card-header text-center">
-                                            <h4>Ticket History</h4>
-                                            <span class="kanban-text" >${hisElement.previous_title}</span>
-                                            </div>
-                                            <div class="card-body text-center w-100" style="height:200px" >
-                                        
-                                        
-                                                <img src="${API_BASE_URL}/uploads/${preimagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
-                                                
-                                                </div>
-                                                <div class="card-footer text-center w-100">
-                                                <span class="kanban-text" >Created-At : ${formattedDateTime}</span><br>
-                                                <div class="divider">
-                                                <div class="divider-text">
-                                                    <i class="ti ti-star"></i>
-                                                </div>
-                                                </div>
-                                                <span class="kanban-text" >Updated-At : ${hisElement.updated_at}</span><br>
-                                                <div class="divider">
-                                                <div class="divider-text">
-                                                    <i class="ti ti-star"></i>
-                                                </div>
-                                                </div>
-                                                <span class="kanban-text" >Created-By : Thunder</span>
-                                                <div class="divider">
-                                                <div class="divider-text">
-                                                    <i class="ti ti-star"></i>
-                                                </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                    
-                                    
-                               
-                            `;
-
-                                                activitySection.innerHTML += activityticketHistory;
-                                            });
-                                        });
-                                    });
-                                const activityImages = `
-                                           
-                                        <div class="card border m-2">
-                                            <div class ="card-header text-center">
-                                            <h4>Ticket Activity</h4>
+                                            
                                                 <span class="kanban-text" >${element.title}</span>
+                                                <div id="attachment-content"></div>
                                             </div>
-                                            <div class="card-body text-center w-100" style="height:200px" >
+                                            <div class="card-body text-center w-100" >
                                             
                                             
-                                                <img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                
                                                 
                                                 </div>
                                                 <div class="card-footer text-center w-100">
@@ -424,12 +338,44 @@ fetchDataAndCreateElements()
                                                 </div>
                                                 </div>
                                             </div>
-                                                
-                                                
+                                      
+                                           <!-- Activities History -->
                                            
-                                        `;
+                                             <div class="divider">
+                                                <div class="divider-text">
+                                                    <p class="mt-3">Ticket Activity History</p>
+                                                </div>
+                                                </div>
+                                            <div id="history-content">
+                                            </div>
+                                            </div>
+                                        
+                                                </div>
+                                    </div>`;
 
-                                activitySection.innerHTML += activityImages;
+                            offcanvasDiv.innerHTML = offcanvasContent;
+
+
+
+                            // fetch ticket history
+
+                            // Check if the images field is null or empty
+                            const imageArray =
+                                element.images && element.images !== null
+                                    ? Array.isArray(element.images)
+                                        ? element.images
+                                        : element.images.replace(/^\[|\]$/g, "").split(",")
+                                    : [];
+
+                            // If imageArray is empty, you may choose to show a default message or not display the images section at all
+                            imageArray.forEach(imagePath => {
+                                imagePath = imagePath.replace(/^"|"$/g, "").trim(); // Clean image path
+
+
+                                const attachmentDiv = document.getElementById("attachment-content");
+                                const activityImages = `<img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
+
+                                attachmentDiv.innerHTML += activityImages;
                                 const activityImageArea = document.getElementById(
                                     "activity-image-area"
                                 );
@@ -446,6 +392,128 @@ fetchDataAndCreateElements()
                                                         </div>`;
                                 activityImageArea.innerHTML = imageContent;
                             });
+
+
+                            // fetch ticket history
+                            fetch(`${API_BASE_URL}/ticket-history/${ticket_id}`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(
+                                            "Network response was not ok " + response.statusText
+                                        );
+                                    }
+                                    return response.json();
+                                })
+                                .then(histories => {
+
+                                    histories.map(history => {
+                                        const ticketHistory = document.getElementById("history-content");
+                                        // Convert to a Date object
+                                        const isoHisDateupdate = `${history.updated_at}`;
+                                        const historydateupdate = new Date(isoHisDateupdate);
+
+                                        // Extract date components
+                                        const day1 = historydateupdate.getDate().toString().padStart(2, "0");
+                                        const month1 = (historydateupdate.getMonth() + 1)
+                                            .toString()
+                                            .padStart(2, "0"); // Months are 0-based
+                                        const year1 = historydateupdate.getFullYear();
+
+                                        // Extract time components
+                                        const hours1 = historydateupdate.getHours().toString().padStart(2, "0");
+                                        const minutes1 = historydateupdate
+                                            .getMinutes()
+                                            .toString()
+                                            .padStart(2, "0");
+                                        const seconds1 = historydateupdate
+                                            .getSeconds()
+                                            .toString()
+                                            .padStart(2, "0");
+
+                                        // Combine date and time
+                                        const formattedDateTimehistoryupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+
+                                        const Content = `  <div class="card border m-2">
+                                            <div class ="card-header text-center">
+                                            
+                                                <span class="kanban-text" >${history.previous_title}</span>
+                                                <div id="attachment-content-history"></div>
+                                            </div>
+                                            <div class="card-body text-center w-100" >
+                                            
+                                            
+                                                
+                                                
+                                                </div>
+                                                <div class="card-footer text-center w-100">
+                                                <span class="kanban-text" >Created-At : ${formattedDateTime}</span><br>
+                                                <div class="divider">
+                                                <div class="divider-text">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                </div>
+                                                <span class="kanban-text" >Updated-At : ${formattedDateTimehistoryupdate} </span><br>
+                                                <div class="divider">
+                                                <div class="divider-text">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                </div>
+                                                <span class="kanban-text" >Created-By : Thunder</span>
+                                                <div class="divider">
+                                                <div class="divider-text">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                </div>
+                                                
+                                                <span class="kanban-text" >Task Owner : ${history.previous_ticket_owner}</span>
+                                                <div class="divider">
+                                                <div class="divider-text">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>`;
+
+                                        ticketHistory.innerHTML += Content;
+
+                                        // Check if the images field is null or empty
+                                        const historyimageArray =
+                                            history.previous_images && history.previous_images !== null
+                                                ? Array.isArray(history.previous_images)
+                                                    ? history.previous_images
+                                                    : history.previous_images.replace(/^\[|\]$/g, "").split(",")
+                                                : [];
+
+                                        // If imageArray is empty, you may choose to show a default message or not display the images section at all
+                                        historyimageArray.forEach(preimagePath => {
+                                            preimagePath = preimagePath.replace(/^"|"$/g, "").trim(); // Clean image path
+
+
+                                            const attachmenthistoryDiv = document.getElementById("attachment-content-history");
+                                            const activitypreImages = `<img src="${API_BASE_URL}/uploads/${preimagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
+
+                                            attachmenthistoryDiv.innerHTML += activitypreImages;
+                                            const activityImageArea = document.getElementById(
+                                                "activity-image-area"
+                                            );
+
+                                            const imageContent = `
+                            
+                            
+                                                    <img src="${API_BASE_URL}/uploads/${preimagePath}" alt="" width="100%" 
+                                                    height="100%" id="activityImage>
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="col-12 mt-3 text-center">
+                                                            <button class="btn btn-primary" >Download</button>
+                                                        </div>
+                                                    </div>`;
+                                            activityImageArea.innerHTML = imageContent;
+                                        });
+
+                                    })
+
+                                })
 
                             const closeButton = document.getElementById("offcanvase-close");
                             const deleteButton = document.getElementById("delete-ticket");
