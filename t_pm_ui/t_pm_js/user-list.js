@@ -69,7 +69,7 @@ const userData = async () => {
 
             modifiedResults.map(element => {
 
-                const password = await
+
 
                 const row = ` 
                          

@@ -479,44 +479,123 @@
             <div id="rolesContainer" class="row g-6"></div>
 
             <!--/ Role cards -->
+            <div class="col-12 mt-7">
+              <!-- Role Table -->
+              <div class="card">
+                <div class="card-datatable table-responsive">
+                  <table class=" table border-top">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Role</th>
+                        <th>Created By</th>
+                        <th>Created At</th>
+                        <th>Updated AT</th>
+                        <th>Updated By</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="role-data">
 
-            <!-- Add Role Modal -->
-            <!-- Add Role Modal -->
-            <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-lg modal-simple modal-dialog-centered modal-add-new-role">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center mb-6 ">
-                      <h4 class="role-title mb-2 otext">Add New Role</h4>
-                      <p>Set role permissions</p>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ Role Table -->
+              <!-- Add Role Modal -->
+              <!-- Add Role Modal -->
+              <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-dialog-centered modal-add-new-role">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-6 ">
+                        <h4 class="role-title mb-2 otext">Add New Role</h4>
+                        <p>Set role permissions</p>
+                      </div>
+                      <!-- Add role form -->
+                      <form id="addRoleForm" class="row g-6" onsubmit="return false">
+                        <div class="col-12">
+                          <label class="form-label" for="modalRoleName">Role Name</label>
+                          <input type="text" id="modalRoleName" name="modalRoleName" class="form-control"
+                            placeholder="Enter a role name" tabindex="-1" />
+                        </div>
+                        <div class="col-12">
+                          <h5 class="mb-6">Role Permissions</h5>
+
+                        </div>
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-3 btnCSwitch">Submit</button>
+                          <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                      <!--/ Add role form -->
                     </div>
-                    <!-- Add role form -->
-                    <form id="addRoleForm" class="row g-6" onsubmit="return false">
-                      <div class="col-12">
-                        <label class="form-label" for="modalRoleName">Role Name</label>
-                        <input type="text" id="modalRoleName" name="modalRoleName" class="form-control"
-                          placeholder="Enter a role name" tabindex="-1" />
+                  </div>
+                </div>
+              </div>
+              <!--/ Add Role Modal -->
+              <!-- Update Role Modal -->
+              <div class="modal fade" id="updateRoleModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-dialog-centered modal-add-new-role">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-6 ">
+                        <h4 class="role-title mb-2 otext">Add New Role</h4>
+                        <p>Set role permissions</p>
                       </div>
-                      <div class="col-12">
-                        <h5 class="mb-6">Role Permissions</h5>
+                      <!-- Add role form -->
+                      <div id="update-role-form"></div>
+                      <!--/ Add role form -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add Role Modal -->
 
+              <!-- / Add Role Modal -->
+
+              <div class="modal fade hide" id="pricingModal" tabindex="-1" aria-modal="true" role="dialog">
+                <div class="modal-dialog modal-xl modal-simple modal-pricing">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center">
+                        <h4 class="mb-2">Role Activity Log</h4>
+                        <p>Here you can see all role history log</p>
                       </div>
-                      <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary me-3 btnCSwitch">Submit</button>
-                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
-                          Cancel
-                        </button>
+                      <div class="card">
+
+                        <div class="card-datatable table-responsive">
+                          <table class=" table border-top">
+                            <thead>
+                              <tr>
+                                <th>Role</th>
+                                <th>Updated Role</th>
+                                <th>Updated AT</th>
+                                <th>Updated By</th>
+
+                              </tr>
+                            </thead>
+                            <tbody id="role-history-data">
+
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
-                    </form>
-                    <!--/ Add role form -->
+
+
+                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
-            <!--/ Add Role Modal -->
-
-            <!-- / Add Role Modal -->
           </div>
           <!-- / Content -->
 
