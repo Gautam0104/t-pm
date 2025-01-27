@@ -301,7 +301,7 @@ fetchDataAndCreateElements()
                                                 <div class="card border m-2">
                                             <div class ="card-header text-center">
                                             
-                                                <span class="kanban-text" >${element.title}</span>
+                                                <span class="kanban-text" ><span class="badge bg-label-primary  w-100">${element.title}</span></span>
                                                 <div id="attachment-content"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
@@ -368,12 +368,15 @@ fetchDataAndCreateElements()
                                     : [];
 
                             // If imageArray is empty, you may choose to show a default message or not display the images section at all
-                            imageArray.forEach(imagePath => {
-                                imagePath = imagePath.replace(/^"|"$/g, "").trim(); // Clean image path
+
+                            imageArray.forEach(imagePath)
 
 
+                            function imagePath(item, index) {
+                                item = item.replace(/^"|"$/g, "").trim(); // Clean image path
                                 const attachmentDiv = document.getElementById("attachment-content");
-                                const activityImages = `<img src="${API_BASE_URL}/uploads/${imagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
+                                const activityImages = `<span class="badge bg-label-secondary m-2">Attachment #${index + 1}</span>
+                                                           <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
 
                                 attachmentDiv.innerHTML += activityImages;
                                 const activityImageArea = document.getElementById(
@@ -381,17 +384,19 @@ fetchDataAndCreateElements()
                                 );
 
                                 const imageContent = `
-                                
-                                
-                                                        <img src="${API_BASE_URL}/uploads/${imagePath}" alt="" width="100%" 
-                                                        height="100%" id="activityImage>
-                                                        <div class="row d-flex justify-content-center">
-                                                            <div class="col-12 mt-3 text-center">
-                                                                <button class="btn btn-primary" >Download</button>
-                                                            </div>
-                                                        </div>`;
+                                    
+                                    
+                                                            <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
+                                                            height="100%" id="activityImage>
+                                                            <div class="row d-flex justify-content-center">
+                                                                <div class="col-12 mt-3 text-center">
+                                                                    <button class="btn btn-primary" >Download</button>
+                                                                </div>
+                                                            </div>`;
                                 activityImageArea.innerHTML = imageContent;
-                            });
+                            }
+
+
 
 
                             // fetch ticket history
@@ -436,7 +441,7 @@ fetchDataAndCreateElements()
                                         const Content = `  <div class="card border m-2">
                                             <div class ="card-header text-center">
                                             
-                                                <span class="kanban-text" >${history.previous_title}</span>
+                                                <span class="kanban-text" ><span class="badge bg-label-primary m-2 w-100">${history.previous_title}</span></span>
                                                 <div id="attachment-content-history"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
@@ -486,12 +491,15 @@ fetchDataAndCreateElements()
                                                 : [];
 
                                         // If imageArray is empty, you may choose to show a default message or not display the images section at all
-                                        historyimageArray.forEach(preimagePath => {
-                                            preimagePath = preimagePath.replace(/^"|"$/g, "").trim(); // Clean image path
+                                        historyimageArray.forEach(preimagePath)
+
+                                        function preimagePath(item, index) {
+                                            item = item.replace(/^"|"$/g, "").trim(); // Clean image path
 
 
                                             const attachmenthistoryDiv = document.getElementById("attachment-content-history");
-                                            const activitypreImages = `<img src="${API_BASE_URL}/uploads/${preimagePath}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
+                                            const activitypreImages = `<span class="badge bg-label-secondary m-2">Attachment #${index + 1}</span>
+                                                                           <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
 
                                             attachmenthistoryDiv.innerHTML += activitypreImages;
                                             const activityImageArea = document.getElementById(
@@ -499,17 +507,19 @@ fetchDataAndCreateElements()
                                             );
 
                                             const imageContent = `
-                            
-                            
-                                                    <img src="${API_BASE_URL}/uploads/${preimagePath}" alt="" width="100%" 
-                                                    height="100%" id="activityImage>
-                                                    <div class="row d-flex justify-content-center">
-                                                        <div class="col-12 mt-3 text-center">
-                                                            <button class="btn btn-primary" >Download</button>
-                                                        </div>
-                                                    </div>`;
+                                
+                                
+                                                        <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
+                                                        height="100%" id="activityImage>
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-12 mt-3 text-center">
+                                                                <button class="btn btn-primary" >Download</button>
+                                                            </div>
+                                                        </div>`;
                                             activityImageArea.innerHTML = imageContent;
-                                        });
+
+                                        }
+
 
                                     })
 
