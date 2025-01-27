@@ -11,6 +11,7 @@
   <title>Fullcalendar - Apps | Thunderbees - Bootstrap Admin Template</title>
 
   <meta name="description" content="" />
+  <script src="./t_pm_js/session.js"></script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.png" />
@@ -349,7 +350,8 @@
                   </li>
                   <li>
                     <div class="d-grid px-2 pt-2 pb-1">
-                      <a class="btn btn-sm btn-danger d-flex" href="auth-login-cover.html" target="_blank">
+                      <a class="btn btn-sm btn-danger d-flex" id="logoutButton" href="auth-login-cover.html"
+                        target="_blank">
                         <small class="align-middle">Logout</small>
                         <i class="ti ti-logout ms-2 ti-14px"></i>
                       </a>
@@ -611,6 +613,7 @@
 
 
   <script src="../config.js"></script>
+  <script src="./t_pm_js/logout.js"></script>
   <script src="./t_pm_js/app-calendar.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
