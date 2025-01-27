@@ -251,7 +251,7 @@ fetch(`${API_BASE_URL}/GetRoles`)
                           <td>Thunder</td>
                           <td class="" style="">
                           <div class="d-flex align-items-center">
-                          <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                          <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record" onclick="deleteRole(${item.role_id})">
                           <i class="ti ti-trash ti-md">
                           </i>
                           </a>
@@ -259,12 +259,8 @@ fetch(`${API_BASE_URL}/GetRoles`)
                            data-bs-target="#pricingModal">
                           <i class="ti ti-eye ti-md"></i>
                           </a>
-                          <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                          <i class="ti ti-dots-vertical ti-md"></i>
-                          </a><div class="dropdown-menu dropdown-menu-end m-0">
-                          <a href="javascript:;" "="" class="dropdown-item">Edit</a>
-                          <a href="javascript:;" class="dropdown-item">Suspend</a><
-                          /div>
+                                              
+                        
                           </div>
                           </td>
                         </tr>`;
@@ -336,3 +332,42 @@ const fetchrolehistory = async (roleId, roleName) => {
       console.error("Error fetching role history:", error);
     });
 };
+
+
+const deleteRole = async (role_id) => {
+  try {
+    // Send DELETE request to the API
+    const response1 = await fetch(`${API_BASE_URL}/clearroleHistory/${role_id}`, {
+      method: "DELETE"
+    });
+  }
+  catch (error) {
+    console.error(error);
+  }
+  try {
+    // Send DELETE request to the API
+    const response = await fetch(`${API_BASE_URL}/delete-role/${role_id}`, {
+      method: "DELETE"
+    });
+
+    if (response.ok) {
+      Swal.fire({
+        title: "Role Deleted Successfully",
+        text: "A role is delete from your projects",
+        icon: "success",
+        confirmButtonText: "Ok!"
+      }).then(() => {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: "Oops!",
+        text: "something went wrong. Try again!",
+        icon: "error",
+        confirmButtonText: "Retry!"
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
