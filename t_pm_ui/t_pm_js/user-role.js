@@ -245,7 +245,7 @@ fetch(`${API_BASE_URL}/GetRoles`)
                           <td></td>
                           <td></td>
                           <td>${item.role_name}</td>
-                          <td>Thudner</td>
+                          <td>Thunder</td>
                           <td>${formattedDateTime}</td>
                           <td>${formattedDateTimeupdate}</td>
                           <td>Thunder</td>
