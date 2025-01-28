@@ -298,11 +298,13 @@ fetchDataAndCreateElements()
                                             <div class ="card-header text-center">
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary  w-100">${element.title}</span></span>
-                                                <div id="attachment-content"></div>
+                                                <span class="badge bg-label-secondary m-2"> # Task Image</span>
+                                                 <img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                
                                             </div>
                                             <div class="card-body text-center w-100" >
                                             
-                                            
+                                            <div id="attachment-content"></div>
                                                 
                                                 
                                                 </div>
@@ -442,10 +444,12 @@ fetchDataAndCreateElements()
                                             <div class ="card-header text-center">
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary m-2 w-100">${history.previous_title}</span></span>
-                                                <div id="attachment-content-history"></div>
+                                                <span class="badge bg-label-secondary m-2"> # Previous Task Image</span>
+                                                 <img src="${API_BASE_URL}/uploads/${history.previous_card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                
                                             </div>
                                             <div class="card-body text-center w-100" >
-                                            
+                                            <div id="attachment-content-history"></div>
                                             
                                                 
                                                 
