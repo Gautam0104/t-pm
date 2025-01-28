@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
         end: eventData.end || eventData.start,
         description: eventData.extendedProps.description,
         calendar: eventData.extendedProps.calendar
-        calendar: eventData.extendedProps.calendar
+       
       })
         .then(function (response) {
           console.log('Event updated successfully:', response.data);
