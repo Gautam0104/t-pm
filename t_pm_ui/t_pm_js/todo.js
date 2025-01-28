@@ -300,15 +300,21 @@ fetchDataAndCreateElements()
                                                 <span class="kanban-text" ><span class="badge bg-label-primary  w-100">${element.title}</span></span>
                                                 <span class="badge bg-label-secondary m-2"> # Task Image</span>
                                                  <img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
-                                                
+                                                <div id="attachment-content"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
                                             
-                                            <div id="attachment-content"></div>
+                                               <p>${element.description}</p>
                                                 
                                                 
                                                 </div>
                                                 <div class="card-footer text-center w-100">
+                                                <span class="kanban-text" >ETA : ${element.ticket_eta}</span><br>
+                                                <div class="divider">
+                                                <div class="divider-text">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                </div>
                                                 <span class="kanban-text" >Created-At : ${formattedDateTime}</span><br>
                                                 <div class="divider">
                                                 <div class="divider-text">
@@ -446,15 +452,21 @@ fetchDataAndCreateElements()
                                                 <span class="kanban-text" ><span class="badge bg-label-primary m-2 w-100">${history.previous_title}</span></span>
                                                 <span class="badge bg-label-secondary m-2"> # Previous Task Image</span>
                                                  <img src="${API_BASE_URL}/uploads/${history.previous_card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
-                                                
+                                                <div id="attachment-content-history"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
-                                            <div id="attachment-content-history"></div>
+                                            <p>${element.previous_description}</p>
                                             
                                                 
                                                 
                                                 </div>
                                                 <div class="card-footer text-center w-100">
+                                                <span class="kanban-text" >Previous : ${history.previous_ticket_eta}</span><br>
+                                                <div class="divider">
+                                                <div class="divider-text">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                </div>
                                                 <span class="kanban-text" >Created-At : ${formattedDateTime}</span><br>
                                                 <div class="divider">
                                                 <div class="divider-text">
