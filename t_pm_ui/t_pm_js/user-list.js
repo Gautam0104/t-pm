@@ -47,11 +47,12 @@ const userData = async () => {
                         break;
                     case 3:
                         roleText =
-                            '<i class="ti ti-user ti-md text-info me-2"></i><span class=" me-1">Team Membar</span>';
+                            '<i class="ti ti-user ti-md text-info me-2"></i><span class=" me-1">Team Member</span>';
                         break;
+
                     default:
                         roleText =
-                            '<i class="ti ti-user ti-md text-danger me-2"></i><span class=" me-1">Unknown</span>';
+                            `<i class="ti ti-user ti-md text-info me-2"></i><span class=" me-1">${user.role_name}</span>`;
                 }
 
                 return {
@@ -98,6 +99,9 @@ const userData = async () => {
                             <i class="ti ti-dots-vertical"></i>
                             </button>
                             <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);"tabindex="0"
+                                aria-controls="DataTables_Table_0" type="button" data-bs-toggle="modal" data-bs-target="#pricingModal" onclick="fetchuserhistory(${element.user_id})"><i class="ti ti-eye me-1"></i>
+                                View</a>
                             <a class="dropdown-item" href="javascript:void(0);"tabindex="0"
                                 aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasUpdateUser" onclick="editUser(${element.user_id})"><i class="ti ti-pencil me-1"></i>
@@ -273,13 +277,30 @@ const editUser = async user_id => {
                                 <div class="mb-6">
                                     <label class="form-label" for="user-role">User Role</label>
                                     <select id="update-user-role" class="form-select" name="userRole">
-                                        <option value="${ele.role_id}">${ele.role_name}</option>
+                                        
                                     </select>
                                 </div>
                                 <button type="button" class="btn btn-primary me-3" data-bs-dismiss="offcanvas" id="updateUserForm">Update User</button>
                                 <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>`;
 
             updateUserForm.innerHTML = formContent;
+
+            fetch(`${API_BASE_URL}/GetRoles`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok ");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const updateroleSelect = document.getElementById("update-user-role");
+                    data.map(role => {
+                        const roleOption = `
+                                <option value="${role.role_id}">${role.role_name}</option>
+                                `;
+                        updateroleSelect.innerHTML += roleOption;
+                    });
+                });
 
             document
                 .getElementById("updateUserForm")
@@ -351,4 +372,101 @@ const editUser = async user_id => {
             messageElement.className = "message error";
         }
     }
+};
+
+
+const fetchuserhistory = async (userId) => {
+    // Clear the previous content
+    const historytablebody = document.getElementById("role-history-data");
+    historytablebody.innerHTML = '';  // Clear any existing rows
+
+    // Fetch role history based on roleId
+    await fetch(`${API_BASE_URL}/user-history/${userId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(userHistory => {
+            // Loop through each role history entry and append it to the table
+
+
+
+
+            const modifieduserHistory = userHistory.map(user => {
+
+                let roleText = "";
+                switch (user.role_id) {
+                    case 1:
+                        roleText =
+                            '<i class="ti ti-user ti-md text-success me-2"></i><span class=" me-1">Admin</span>';
+                        break;
+                    case 2:
+                        roleText =
+                            '<i class="ti ti-user ti-md text-secondary me-2"></i><span class=" me-1">Project Manager</span>';
+                        break;
+                    case 3:
+                        roleText =
+                            '<i class="ti ti-user ti-md text-info me-2"></i><span class=" me-1">Team Member</span>';
+                        break;
+
+                    default:
+                        roleText =
+                            `<i class="ti ti-user ti-md text-info me-2"></i><span class=" me-1">${user.role_name}</span>`;
+                }
+
+                return {
+                    user_id: user.user_id,
+                    role_id: roleText,
+                    username: user.username,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    updated_at: user.updated_at
+                };
+            });
+            modifieduserHistory.map(userHistory => {
+                const isoDateupdate_history = `${userHistory.updated_at}`;
+
+                // Convert to a Date object
+                const dateupdate_history = new Date(isoDateupdate_history);
+
+                // Extract date components
+                const day1 = dateupdate_history.getDate().toString().padStart(2, "0");
+                const month1 = (dateupdate_history.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0"); // Months are 0-based
+                const year1 = dateupdate_history.getFullYear();
+
+                // Extract time components
+                const hours1 = dateupdate_history.getHours().toString().padStart(2, "0");
+                const minutes1 = dateupdate_history
+                    .getMinutes()
+                    .toString()
+                    .padStart(2, "0");
+                const seconds1 = dateupdate_history
+                    .getSeconds()
+                    .toString()
+                    .padStart(2, "0");
+
+                // Combine date and time
+                const formattedDateTimeupdate_history = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+                // Create table row content
+                const historybodyContent = ` 
+                           <tr>
+                             <td>${userHistory.username}</td>
+                             <td>${userHistory.first_name}</td>
+                             <td>${userHistory.last_name}</td>
+                             <td>${userHistory.role_id}</td>
+                             <td>${formattedDateTimeupdate_history}</td>
+                           </tr>`;
+
+                // Append the new row to the table body
+                historytablebody.innerHTML += historybodyContent;
+            })
+
+        })
+        .catch(error => {
+            console.error("Error fetching role history:", error);
+        });
 };

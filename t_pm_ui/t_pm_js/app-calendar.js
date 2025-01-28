@@ -10,13 +10,13 @@
  **/
 
 'use strict';
-const API_BASE_URL = ENV.API_BASE_URL; 
+const API_BASE_URL = ENV.API_BASE_URL;
 let direction = 'ltr';
 
 if (isRtl) {
   direction = 'rtl';
 }
-let start = new Date();
+// let start = new Date();
 document.addEventListener('DOMContentLoaded', function () {
   (function () {
     const calendarEl = document.getElementById('calendar'),
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     if (eventStartDate) {
-      var end = eventStartDate.flatpickr({
+      var start = eventStartDate.flatpickr({
         enableTime: true,
         altFormat: 'Y-m-dTH:i:S',
         onReady: function (selectedDates, dateStr, instance) {
@@ -186,10 +186,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       eventTitle.value = eventToUpdate.title;
       eventToUpdate.start ? eventStartDate.value = moment(eventToUpdate.start).format('YYYY-MM-DD') : eventStartDate.value = '';
-eventToUpdate.allDay === true ? (allDaySwitch.checked = true) : (allDaySwitch.checked = false);
-eventToUpdate.end !== null
-  ? eventEndDate.value = moment(eventToUpdate.end).format('YYYY-MM-DD')
-  : eventStartDate.value = moment(eventToUpdate.start).format('YYYY-MM-DD');
+      eventToUpdate.allDay === true ? (allDaySwitch.checked = true) : (allDaySwitch.checked = false);
+      eventToUpdate.end !== null
+        ? eventEndDate.value = moment(eventToUpdate.end).format('YYYY-MM-DD')
+        : eventStartDate.value = moment(eventToUpdate.start).format('YYYY-MM-DD');
       eventLabel.val(eventToUpdate.extendedProps.calendar).trigger('change');
       eventToUpdate.extendedProps.location !== undefined
         ? (eventLocation.value = eventToUpdate.extendedProps.location)
@@ -426,30 +426,30 @@ eventToUpdate.end !== null
         description: eventData.extendedProps.description,
         calendar: eventData.extendedProps.calendar
       })
-      .then(function (response) {
-        console.log('Event added successfully:', response.data);
-    
-        // Add the event to FullCalendar
-        calendar.addEvent({
-          id: response.data.id, // Use the ID returned from the API
-          title: eventData.title,
-          start: eventData.start,
-          end: eventData.end,
-          description: eventData.extendedProps.description,
-          allDay: eventData.allDay,
-          extendedProps: {
-            calendar: eventData.extendedProps.calendar
-          }
+        .then(function (response) {
+          console.log('Event added successfully:', response.data);
+
+          // Add the event to FullCalendar
+          calendar.addEvent({
+            id: response.data.id, // Use the ID returned from the API
+            title: eventData.title,
+            start: eventData.start,
+            end: eventData.end || eventData.start,
+            description: eventData.extendedProps.description,
+            allDay: eventData.allDay,
+            extendedProps: {
+              calendar: eventData.extendedProps.calendar
+            }
+          });
+        })
+        .catch(function (error) {
+          console.error('Error adding event:', error);
         });
-      })
-      .catch(function (error) {
-        console.error('Error adding event:', error);
-      });
     }
-    
+
     // Update Event
     // ------------------------------------------------
-  
+
     function updateEvent(eventData) {
       let ticket_id = eventData.id;
       //console.log('Updating event:', ticket_id); // Debugging step
@@ -457,43 +457,44 @@ eventToUpdate.end !== null
         ticket_id: ticket_id,
         title: eventData.title,
         start: eventData.start,
-        end: eventData.end,
+        end: eventData.end || eventData.start,
         description: eventData.extendedProps.description,
         calendar: eventData.extendedProps.calendar
+        calendar: eventData.extendedProps.calendar
       })
-      .then(function (response) {
-        console.log('Event updated successfully:', response.data);
-    
-        // Update the event in FullCalendar
-        const event = calendar.getEventById(eventData.id);
-        if (event) {
-          event.setProp('title', eventData.title);
-          event.setDates(eventData.start, eventData.end, { allDay: eventData.allDay });
-          event.setExtendedProp('description', eventData.extendedProps.description);
-          event.setExtendedProp('calendar', eventData.extendedProps.calendar);
-        }
-      })
-      .catch(function (error) {
-        console.error('Error updating event:', error);
-      });
+        .then(function (response) {
+          console.log('Event updated successfully:', response.data);
+
+          // Update the event in FullCalendar
+          const event = calendar.getEventById(eventData.id);
+          if (event) {
+            event.setProp('title', eventData.title);
+            event.setDates(eventData.start, eventData.end, { allDay: eventData.allDay });
+            event.setExtendedProp('description', eventData.extendedProps.description);
+            event.setExtendedProp('calendar', eventData.extendedProps.calendar);
+          }
+        })
+        .catch(function (error) {
+          console.error('Error updating event:', error);
+        });
     }
     // Remove Event
     // ------------------------------------------------
 
     function removeEvent(eventId) {
       axios.delete(`${API_BASE_URL}/${eventId}`)
-      .then(function (response) {
-        console.log('Event removed successfully:', response.data);
-    
-        // Remove the event from FullCalendar
-        const event = calendar.getEventById(eventId);
-        if (event) {
-          event.remove();
-        }
-      })
-      .catch(function (error) {
-        console.error('Error removing event:', error);
-      });
+        .then(function (response) {
+          console.log('Event removed successfully:', response.data);
+
+          // Remove the event from FullCalendar
+          const event = calendar.getEventById(eventId);
+          if (event) {
+            event.remove();
+          }
+        })
+        .catch(function (error) {
+          console.error('Error removing event:', error);
+        });
     }
 
     // (Update Event In Calendar (UI Only)
