@@ -70,7 +70,57 @@ const userData = async () => {
 
             modifiedResults.map(element => {
 
+                const isoDatecreate = `${element.created_at}`;
 
+                // Convert to a Date object
+                const datecreate = new Date(isoDatecreate);
+
+                // Extract date components
+                const day = datecreate.getDate().toString().padStart(2, "0");
+                const month = (datecreate.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0"); // Months are 0-based
+                const year = datecreate.getFullYear();
+
+                // Extract time components
+                const hours = datecreate.getHours().toString().padStart(2, "0");
+                const minutes = datecreate
+                    .getMinutes()
+                    .toString()
+                    .padStart(2, "0");
+                const seconds = datecreate
+                    .getSeconds()
+                    .toString()
+                    .padStart(2, "0");
+
+                // Combine date and time
+                const formattedDateTimecreate = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
+
+                const isoDateupdate = `${element.updated_at}`;
+
+                // Convert to a Date object
+                const dateupdate = new Date(isoDateupdate);
+
+                // Extract date components
+                const day1 = dateupdate.getDate().toString().padStart(2, "0");
+                const month1 = (dateupdate.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0"); // Months are 0-based
+                const year1 = dateupdate.getFullYear();
+
+                // Extract time components
+                const hours1 = dateupdate.getHours().toString().padStart(2, "0");
+                const minutes1 = dateupdate
+                    .getMinutes()
+                    .toString()
+                    .padStart(2, "0");
+                const seconds1 = dateupdate
+                    .getSeconds()
+                    .toString()
+                    .padStart(2, "0");
+
+                // Combine date and time
+                const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
 
                 const row = ` 
                          
@@ -90,8 +140,8 @@ const userData = async () => {
                     </div>
                     </td>
                     <td>${element.role_id}</td>
-                    <td>Plan</td>
-                    <td>Billing</td>
+                    <td>${formattedDateTimecreate}</td>
+                    <td>${formattedDateTimeupdate}</td>
                     <td>${element.user_status}</td>
                     <td>
                         <div class="dropdown">
@@ -272,7 +322,12 @@ const editUser = async user_id => {
                                 <div class="mb-6">
                                     <label class="form-label" for="add-user-email">Username</label>
                                     <input type="text" id="update-user-email" class="form-control" 
-                                        aria-label="john.doe@example.com" name="userEmail" value="${ele.username}" />
+                                        name="userEmail" value="${ele.username}" />
+                                </div>
+                                <div class="mb-6">
+                                <label class="form-label" for="add-user-password">Password</label>
+                                <input type="password" id="add-user-password" class="form-control"
+                                  name="userPassword" value="${ele.password}">
                                 </div>
                                 <div class="mb-6">
                                     <label class="form-label" for="user-role">User Role</label>
@@ -459,6 +514,7 @@ const fetchuserhistory = async (userId) => {
                              <td>${userHistory.last_name}</td>
                              <td>${userHistory.role_id}</td>
                              <td>${formattedDateTimeupdate_history}</td>
+                             <td>Thunder</td>
                            </tr>`;
 
                 // Append the new row to the table body
