@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <option value="${guest.user_id}" data-avatar="${guest.avatar}">
                 ${guest.first_name}
               </option>`;
-              
+
           }).join('');
           eventGuests.html(options);
 
@@ -235,12 +235,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return selected;
     }
-     
+
     // --------------------------------------------------------------------------------------------------
     // AXIOS: fetchEvents
     // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
     // --------------------------------------------------------------------------------------------------
-   
+
     function fetchEvents(info, successCallback) {
       // Get selected user and project filters
       const selectedUserId = document.getElementById('UserName').value;
@@ -248,63 +248,63 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Selected User:', selectedUserId);
 
       console.log('Selected Project:', selectedProjectId);
-     
-      
-     
-    // Fetch events from the API using Axios
+
+
+
+      // Fetch events from the API using Axios
       axios.get(`${API_BASE_URL}/tickets`)
-          .then(function (response) {
-              console.log('API Response:', response.data);
-  
-              const result = response.data;
-  
-              // Filter events based on selected user_id and project_id
-              let filteredEvents = result.filter(function (event) {
-                  return (
-                      (!selectedUserId || event.ticket_owner == selectedUserId) &&
-                      (!selectedProjectId || event.project_id == selectedProjectId)
-                  );
-              }).map(function (event) {
-                  // Map the events to the FullCalendar event format
-                  return {
-                      id: event.ticket_id,
-                      title: event.title,
-                      start: event.ticket_created_at,
-                      end: event.due_date,
-                      description: event.description,
-                      allDay: true,
-                      extendedProps: {
-                          calendar: event.calendar,
-                          guest: event.ticket_owner
-                      }
-                  };
-              });
-  
-              
-  
-              // Pass the filtered events to FullCalendar
-              successCallback(filteredEvents);
-          })
-          .catch(function (error) {
-              console.error('Error fetching events:', error);
+        .then(function (response) {
+          console.log('API Response:', response.data);
+
+          const result = response.data;
+
+          // Filter events based on selected user_id and project_id
+          let filteredEvents = result.filter(function (event) {
+            return (
+              (!selectedUserId || event.ticket_owner == selectedUserId) &&
+              (!selectedProjectId || event.project_id == selectedProjectId)
+            );
+          }).map(function (event) {
+            // Map the events to the FullCalendar event format
+            return {
+              id: event.ticket_id,
+              title: event.title,
+              start: event.ticket_created_at,
+              end: event.due_date,
+              description: event.description,
+              allDay: true,
+              extendedProps: {
+                calendar: event.calendar,
+                guest: event.ticket_owner
+              }
+            };
           });
-  }
-  document.getElementById('UserName').addEventListener('change', () => fetchEvents(null, renderEvents));
-document.getElementById('ProjectName').addEventListener('change', () => fetchEvents(null, renderEvents));
 
-document.getElementById('UserName').addEventListener('change', () => fetchEvents(null, renderEvents));
-document.getElementById('ProjectName').addEventListener('change', () => fetchEvents(null, renderEvents));
 
-// Function to render events in FullCalendar (Make sure this function exists)
-function renderEvents(events) {
-    console.log("Rendering Events:", events);
-    // Update FullCalendar with the filtered events
-    calendar.getEventSources().forEach(source => source.remove()); 
-    calendar.removeAllEvents(); 
-    calendar.addEventSource(events); 
-    calendar.refetchEvents(); 
-}
-  
+
+          // Pass the filtered events to FullCalendar
+          successCallback(filteredEvents);
+        })
+        .catch(function (error) {
+          console.error('Error fetching events:', error);
+        });
+    }
+    document.getElementById('UserName').addEventListener('change', () => fetchEvents(null, renderEvents));
+    document.getElementById('ProjectName').addEventListener('change', () => fetchEvents(null, renderEvents));
+
+    document.getElementById('UserName').addEventListener('change', () => fetchEvents(null, renderEvents));
+    document.getElementById('ProjectName').addEventListener('change', () => fetchEvents(null, renderEvents));
+
+    // Function to render events in FullCalendar (Make sure this function exists)
+    function renderEvents(events) {
+      console.log("Rendering Events:", events);
+      // Update FullCalendar with the filtered events
+      calendar.getEventSources().forEach(source => source.remove());
+      calendar.removeAllEvents();
+      calendar.addEventSource(events);
+      calendar.refetchEvents();
+    }
+
     // Init FullCalendar
     // ------------------------------------------------
     let calendar = new Calendar(calendarEl, {
@@ -423,16 +423,16 @@ function renderEvents(events) {
         btnCancel.classList.remove('d-none');
       });
     }
-    document.getElementById('ProjectName').addEventListener('change', () =>{
+    document.getElementById('ProjectName').addEventListener('change', () => {
       fetchEvents(null, renderEvents);
       let projectId = document.getElementById('ProjectName').value;
       localStorage.setItem('Projectid', projectId);
     }
-  );
- 
-    let projectPost  = localStorage.getItem('Projectid');
+    );
+
+    let projectPost = localStorage.getItem('Projectid');
     console.log('Project id:', projectPost);
-      
+
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
@@ -449,7 +449,7 @@ function renderEvents(events) {
           window.location.reload();
           // Add the event to FullCalendar
           calendar.addEvent({
-           
+
             id: response.data.id, // Use the ID returned from the API
             title: eventData.title,
             start: eventData.start,
@@ -458,11 +458,11 @@ function renderEvents(events) {
             allDay: eventData.allDay,
             extendedProps: {
               calendar: eventData.extendedProps.calendar,
-              
+
             }
           });
-          
- 
+
+
         })
         .catch(function (error) {
           console.error('Error adding event:', error);
@@ -483,7 +483,7 @@ function renderEvents(events) {
         end: eventData.end || eventData.start,
         description: eventData.extendedProps.description,
         calendar: eventData.extendedProps.calendar
-       
+
       })
         .then(function (response) {
           console.log('Event updated successfully:', response.data);
@@ -557,7 +557,7 @@ function renderEvents(events) {
 
     // Add new event
     // ------------------------------------------------
-    btnSubmit.addEventListener('click', function(e) {
+    btnSubmit.addEventListener('click', function (e) {
       e.preventDefault();
       if (btnSubmit.classList.contains('btn-add-event')) {
         if (isFormValid) {
@@ -585,14 +585,14 @@ function renderEvents(events) {
           }
           addEvent(newEvent);
           bsAddEventSidebar.hide();
-       
+
         }
       } else {
         // Update event
         // ------------------------------------------------
         if (isFormValid) {
           let eventData = {
-            
+
             id: eventToUpdate.id,
             title: eventTitle.value,
             start: eventStartDate.value,
