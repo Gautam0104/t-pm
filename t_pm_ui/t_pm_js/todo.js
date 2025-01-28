@@ -309,7 +309,7 @@ fetchDataAndCreateElements()
                                                 
                                                 </div>
                                                 <div class="card-footer text-center w-100">
-                                                <span class="kanban-text" >ETA : ${element.ticket_eta}</span><br>
+                                                <span class="kanban-text" >ETC : ${element.ticket_eta}</span><br>
                                                 <div class="divider">
                                                 <div class="divider-text">
                                                     <i class="ti ti-star"></i>
@@ -461,7 +461,7 @@ fetchDataAndCreateElements()
                                                 
                                                 </div>
                                                 <div class="card-footer text-center w-100">
-                                                <span class="kanban-text" >Previous : ${history.previous_ticket_eta}</span><br>
+                                                <span class="kanban-text" >Previous ETC : ${history.previous_ticket_eta}</span><br>
                                                 <div class="divider">
                                                 <div class="divider-text">
                                                     <i class="ti ti-star"></i>
