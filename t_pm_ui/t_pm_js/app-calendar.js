@@ -279,7 +279,7 @@ eventToUpdate.end !== null
                       description: event.description, 
                       allDay: true, 
                       extendedProps: {
-                          calendar: 'Personal'   // map the project_name to the calendar name
+                          calendar: event.calendar   // map the project_name to the calendar name
                       }
                      
                   };
@@ -424,7 +424,7 @@ eventToUpdate.end !== null
         start: eventData.start,
         end: eventData.end,
         description: eventData.extendedProps.description,
-        //calendar: eventData.extendedProps.calendar
+        calendar: eventData.extendedProps.calendar
       })
       .then(function (response) {
         console.log('Event added successfully:', response.data);
@@ -459,7 +459,7 @@ eventToUpdate.end !== null
         start: eventData.start,
         end: eventData.end,
         description: eventData.extendedProps.description,
-        //calendar: eventData.extendedProps.calendar
+        calendar: eventData.extendedProps.calendar
       })
       .then(function (response) {
         console.log('Event updated successfully:', response.data);
