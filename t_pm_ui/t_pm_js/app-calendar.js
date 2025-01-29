@@ -430,14 +430,14 @@ function renderEvents(events) {
     }
   );
  
-    let project_id  = localStorage.getItem('Projectid');
-    console.log('Project id:', project_id);
+    let projectPost  = localStorage.getItem('Projectid');
+    console.log('Project id:', projectPost);
       
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
-      axios.post(`${API_BASE_URL}/CalendarCreateTicket`, {
-        project_id: project_id,
+      axios.post(`${API_BASE_URL}/calendar-ticket`, {
+        project_id: projectPost,
         title: eventData.title,
         start: eventData.start,
         end: eventData.end,
@@ -446,10 +446,10 @@ function renderEvents(events) {
       })
         .then(function (response) {
           console.log('Event added successfully:', response.data);
-
+          window.location.reload();
           // Add the event to FullCalendar
           calendar.addEvent({
-            project_id: project_id,
+           
             id: response.data.id, // Use the ID returned from the API
             title: eventData.title,
             start: eventData.start,
@@ -461,12 +461,13 @@ function renderEvents(events) {
               
             }
           });
+          
+ 
         })
         .catch(function (error) {
           console.error('Error adding event:', error);
         });
 
-        localStorage.removeItem('Projectid');
     }
 
     // Update Event
@@ -557,10 +558,11 @@ function renderEvents(events) {
     // Add new event
     // ------------------------------------------------
     btnSubmit.addEventListener('click', function(e) {
+      e.preventDefault();
       if (btnSubmit.classList.contains('btn-add-event')) {
         if (isFormValid) {
           let newEvent = {
-            project_id:  project_id,
+            project_id: projectPost,
             id: calendar.getEvents().length + 1,
             title: eventTitle.value,
             start: eventStartDate.value,
@@ -583,6 +585,7 @@ function renderEvents(events) {
           }
           addEvent(newEvent);
           bsAddEventSidebar.hide();
+       
         }
       } else {
         // Update event
