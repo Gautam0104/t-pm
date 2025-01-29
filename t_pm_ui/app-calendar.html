@@ -378,6 +378,25 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
+            <!-- Filter Card -->
+            <div class="card mb-4 ">
+              <div class="card-header">
+                <h5 class="card-title">Filter</h5>
+                <div class="d-flex justify-content-center align-items-center row pt-4 gap-6 gap-md-0">
+                  <div class="col-md-4 product_status">
+                    <select id="UserName" class="form-select text-capitalize">
+                      <option value="">Users</option>
+
+                    </select>
+                  </div>
+                  <div class="col-md-4 product_stock">
+                    <select id="ProjectName" class="form-select text-capitalize">
+                      <option value=""> Project Name </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="card app-calendar-wrapper">
               <div class="row g-0">
 
@@ -621,7 +640,31 @@
 
   <!-- <script src="app-calendar-script.js"></script> -->
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Fetch status options
+      fetch(`${API_BASE_URL}/users`)
+        .then(response => response.json())
+        .then(users => {
+          const userSelect = document.getElementById('UserName');
+          users.forEach(user => {
+            const option = new Option(user.username, user.username);
+            userSelect.add(option);
+          });
+        });
 
+      // Fetch project options
+      fetch(`${API_BASE_URL}/projects`)
+        .then(response => response.json())
+        .then(projects => {
+          const projectSelect = document.getElementById('ProjectName');
+          projects.forEach(project => {
+            const option = new Option(project.project_name, project.project_id);
+            projectSelect.add(option);
+          });
+        });
+    });
+  </script>
 </body>
 
 </html>

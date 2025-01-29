@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <option value="${guest.user_id}" data-avatar="${guest.avatar}">
                 ${guest.first_name}
               </option>`;
+              
           }).join('');
           eventGuests.html(options);
 
@@ -234,68 +235,75 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return selected;
     }
-
+     
     // --------------------------------------------------------------------------------------------------
     // AXIOS: fetchEvents
     // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
     // --------------------------------------------------------------------------------------------------
+   
     function fetchEvents(info, successCallback) {
-      // Fetch Events from the API using Axios
-    axios.get(`${API_BASE_URL}/tickets`)  // Replace with your actual API endpoint
+      // Get selected user and project filters
+      const selectedUserId = document.getElementById('UserName').value;
+      const selectedProjectId = document.getElementById('ProjectName').value;
+      console.log('Selected User:', selectedUserId);
+
+      console.log('Selected Project:', selectedProjectId);
+     
+      
+     
+    // Fetch events from the API using Axios
+      axios.get(`${API_BASE_URL}/tickets`)
           .then(function (response) {
-              // Check the response structure
-              console.log('API Response:', response.data); 
+              console.log('API Response:', response.data);
   
-              const result = response.data; 
+              const result = response.data;
   
-              // Define a mapping of selected calendars to project_id values
-              const calendarToProjectIdMap = {
-                'personal': ["Dashboard"],  
-                'business': ["Calendar"],  
-                'family': ["Project and Tickets"],    
-                'holiday': ["Holiday Project"],   // Replace with actual project names
-                'etc': ["Other Projects"]        // Replace with actual project names
-            };
-  
-              // Get the list of selected calendars (e.g., from checkboxes, dropdown, etc.)
-              let calendars = selectedCalendars(); // Ensure this returns an array of selected calendars
-              console.log('Selected Calendars:', calendars); 
-  
-              // Filter the events based on the selected calendars using the mapping
-              let selectedEvents = result.filter(function (event) {
-                  // Check if the event's project_id matches any of the selected calendar project IDs
-                  // console.log('Checking event project:', event.project_name); // Debugging step
-                  
-                  // Check if the event's project_id is in any of the selected calendar mappings
-                  return calendars.some(calendar => calendarToProjectIdMap[calendar]?.includes(event.project_name));
+              // Filter events based on selected user_id and project_id
+              let filteredEvents = result.filter(function (event) {
+                  return (
+                      (!selectedUserId || event.ticket_owner == selectedUserId) &&
+                      (!selectedProjectId || event.project_id == selectedProjectId)
+                  );
               }).map(function (event) {
                   // Map the events to the FullCalendar event format
                   return {
-                      id: event.ticket_id,             
-                      title: event.title, 
-                      // url:'',            
-                      start: event.ticket_created_at, 
-                      end: event.due_date,         
-                      description: event.description, 
-                      allDay: true, 
+                      id: event.ticket_id,
+                      title: event.title,
+                      start: event.ticket_created_at,
+                      end: event.due_date,
+                      description: event.description,
+                      allDay: true,
                       extendedProps: {
-                          calendar: event.calendar   // map the project_name to the calendar name
+                          calendar: event.calendar,
+                          guest: event.ticket_owner
                       }
-                     
                   };
               });
   
-              console.log('Selected Events:', selectedEvents); // Debugging step
+              
   
-              // Call the successCallback to pass the filtered events to FullCalendar
-              successCallback(selectedEvents);
+              // Pass the filtered events to FullCalendar
+              successCallback(filteredEvents);
           })
           .catch(function (error) {
-              // Handle errors (e.g., log to console)
               console.error('Error fetching events:', error);
           });
   }
-  
+  document.getElementById('UserName').addEventListener('change', () => fetchEvents(null, renderEvents));
+document.getElementById('ProjectName').addEventListener('change', () => fetchEvents(null, renderEvents));
+
+document.getElementById('UserName').addEventListener('change', () => fetchEvents(null, renderEvents));
+document.getElementById('ProjectName').addEventListener('change', () => fetchEvents(null, renderEvents));
+
+// Function to render events in FullCalendar (Make sure this function exists)
+function renderEvents(events) {
+    console.log("Rendering Events:", events);
+    // Update FullCalendar with the filtered events
+    calendar.getEventSources().forEach(source => source.remove()); 
+    calendar.removeAllEvents(); 
+    calendar.addEventSource(events); 
+    calendar.refetchEvents(); 
+}
   
     // Init FullCalendar
     // ------------------------------------------------
@@ -415,11 +423,21 @@ document.addEventListener('DOMContentLoaded', function () {
         btnCancel.classList.remove('d-none');
       });
     }
-
+    document.getElementById('ProjectName').addEventListener('change', () =>{
+      fetchEvents(null, renderEvents);
+      let projectId = document.getElementById('ProjectName').value;
+      localStorage.setItem('Projectid', projectId);
+    }
+  );
+ 
+    let project_id  = localStorage.getItem('Projectid');
+    console.log('Project id:', project_id);
+      
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
       axios.post(`${API_BASE_URL}/CalendarCreateTicket`, {
+        project_id: project_id,
         title: eventData.title,
         start: eventData.start,
         end: eventData.end,
@@ -431,6 +449,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           // Add the event to FullCalendar
           calendar.addEvent({
+            project_id: project_id,
             id: response.data.id, // Use the ID returned from the API
             title: eventData.title,
             start: eventData.start,
@@ -438,13 +457,16 @@ document.addEventListener('DOMContentLoaded', function () {
             description: eventData.extendedProps.description,
             allDay: eventData.allDay,
             extendedProps: {
-              calendar: eventData.extendedProps.calendar
+              calendar: eventData.extendedProps.calendar,
+              
             }
           });
         })
         .catch(function (error) {
           console.error('Error adding event:', error);
         });
+
+        localStorage.removeItem('Projectid');
     }
 
     // Update Event
@@ -534,10 +556,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add new event
     // ------------------------------------------------
-    btnSubmit.addEventListener('click', e => {
+    btnSubmit.addEventListener('click', function(e) {
       if (btnSubmit.classList.contains('btn-add-event')) {
         if (isFormValid) {
           let newEvent = {
+            project_id:  project_id,
             id: calendar.getEvents().length + 1,
             title: eventTitle.value,
             start: eventStartDate.value,
@@ -566,6 +589,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // ------------------------------------------------
         if (isFormValid) {
           let eventData = {
+            
             id: eventToUpdate.id,
             title: eventTitle.value,
             start: eventStartDate.value,
@@ -585,6 +609,7 @@ document.addEventListener('DOMContentLoaded', function () {
           bsAddEventSidebar.hide();
         }
       }
+
     });
 
     // Call removeEvent function
