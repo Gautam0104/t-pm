@@ -268,9 +268,6 @@ fetchDataAndCreateElements()
                                                         <label class="form-label" for="ticketOwner">Task Owner</label>
                                                         <select  class="select2 form-select" id="ticket-owner" >
                                                             <option disabled>Select a option to change the task owner</option>
-                                                            <option value="Aman Singh">Aman Singh</option>
-                                                            <option value="Gautam Shukla" >Gautam Shukla</option>
-                                                            <option value="Utkarsh Singh" >Utkarsh Singh</option>
                                                             <option value="${element.ticket_owner}" selected disabled>Current Task Owner is : ${element.ticket_owner}</option>
                                                             </select>
                                                     </div>
@@ -366,7 +363,23 @@ fetchDataAndCreateElements()
                             });
 
                             // fetch ticket history
+                            fetch(`${API_BASE_URL}/users`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(
+                                            "Network response was not ok " + response.statusText
+                                        );
+                                    }
+                                    return response.json();
+                                })
+                                .then(users => {
+                                    users.map(user => {
+                                        const taskOwnerfield = document.getElementById("ticket-owner");
+                                        const taskOwnerContent = `<option value="${user.first_name}">${user.first_name}</option>`;
 
+                                        taskOwnerfield.innerHTML += taskOwnerContent;
+                                    })
+                                })
                             // Check if the images field is null or empty
                             const imageArray =
                                 element.images && element.images !== null
