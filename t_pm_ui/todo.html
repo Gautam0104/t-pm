@@ -60,6 +60,7 @@
 
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../assets/js/config.js"></script>
+
   <style>
     img[src="https://xx87gmj8-3000.inc1.devtunnels.ms/uploads/null"],
     img:not([src]) {
@@ -435,6 +436,36 @@
                 </ul>
               </li>
               <!--/ Calendar -->
+              <!-- change background image buttton -->
+              <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+                <a href="app-calendar.html" class="stretched-link" data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasSetting"></a>
+                <i class="ti ti-settings rounded-circle ti-md"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-0">
+                  <li class="dropdown-menu-header border-bottom">
+                    <div class="dropdown-header d-flex align-items-center py-3">
+                      <h6 class="mb-0 me-auto">Notification</h6>
+                      <div class="d-flex align-items-center h6 mb-0">
+                        <span class="badge bg-label-primary me-2">0 New</span>
+                        <a href="javascript:void(0)"
+                          class="btn btn-text-secondary rounded-pill btn-icon dropdown-notifications-all"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i
+                            class="ti ti-mail-opened text-heading"></i></a>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="border-top">
+                    <div class="d-grid p-4">
+                      <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
+                        <small class="align-middle">View all notifications</small>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!--/ change background image buttton -->
 
 
               <!-- User -->
@@ -527,11 +558,11 @@
 
           <div class="container-xxl flex-grow-1 container-p-y ">
             <div>
-              <div class="app-kanban" style="width: 1900px; height: auto; ">
+              <div class="app-kanban" style=" height: auto; ">
                 <!-- Add new board -->
-                <div class="row">
+                <div class="row ">
                   <div class="col-12">
-                    <div class="page-title">
+                    <div class="page-title  project-name-box">
                       <div class=" search_project" style="width: 20%; margin-bottom: 20px; margin-left: 10px;"
                         id="project-title">
 
@@ -547,7 +578,7 @@
                     <div data-id="board-in-progress" data-order="1" class="kanban-board"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header">
-                        <div class="kanban-title-board">ToDo</div>
+                        <div class="kanban-title-board">Todo</div>
                         <div class="dropdown"><i class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
                             id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"></i>
@@ -722,7 +753,7 @@
 
                       <!-- <footer></footer> -->
                     </div>
-                    <form class="kanban-add-new-board">
+                    <!-- <form class="kanban-add-new-board">
                       <label class="kanban-add-board-btn" for="kanban-add-board-input" id="form-show">
                         <i class="ti ti-plus"></i>
                         <span class="align-middle">Add new</span>
@@ -738,7 +769,7 @@
                           Cancel
                         </button>
                       </div>
-                    </form>
+                    </form> -->
                   </div>
 
                 </div>
@@ -772,57 +803,190 @@
               </div>
             </div>
           </div>
-          <!-- / Content -->
 
-          <!-- Footer -->
-          <footer class="content-footer footer bg-footer-theme">
-            <div class="container-xxl">
-              <div
-                class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-                <div class="text-body">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>, made with ❤️ by <a href="https://Thunderbees.com" target="_blank"
-                    class="footer-link">Thunderbees</a>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSetting"
+            aria-labelledby="offcanvasSettingLabel" aria-modal="true" role="dialog">
+            <div class="offcanvas-header border-bottom">
+              <h5 id="offcanvasAddUserLabel" class="offcanvas-title">T&PM SETTING</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
+
+              <div class="tab-content p-0">
+                <!-- Update Tab (Only Navigation) -->
+                <div class="tab-pane fade show active" id="tab-update" role="tabpanel">
+                  <div class="nav-align-left">
+                    <ul class="nav nav-pills flex-column mb-5 rounded-3  p-2  w-100" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active d-flex align-items-center gap-2 py-3 px-4 rounded-3"
+                          data-bs-toggle="tab" data-bs-target="#tab-update" aria-selected="true" role="tab">
+                          <i class="fa fa-edit fa-lg"></i>
+                          <span>T&PM Setting</span>
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
+                          data-bs-toggle="tab" data-bs-target="#tab-activity" aria-selected="false" tabindex="-1"
+                          role="tab">
+                          <i class="fa fa-chart-line fa-lg"></i>
+                          <span>Change Background Image</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
-                    target="_blank">License</a>
-                  <a href="https://1.envato.market/Thunderbees_portfolio" target="_blank" class="footer-link me-4">More
-                    Themes</a>
 
-                  <a href="https://demos.Thunderbees.com/Thunderbees-html-admin-template/documentation/" target="_blank"
-                    class="footer-link me-4">Documentation</a>
+                <!-- Activity Tab (Content + Back Button) -->
+                <div class="tab-pane fade" id="tab-activity" role="tabpanel">
+                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
+                  </button><br>
+                  <span class="text-primary me-1">Choose a image to make ticket
+                    and project board background</span>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 1.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 2.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 11.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 4.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 5.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 6.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 12.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 8.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 17.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 10.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 16.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image 15.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image18.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image19.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image20.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                    <div class="col-lg-6">
+                      <img class="rounded" src="../assets/img/Todo_Change_background/Image21.png"
+                        onclick="changeBackground(this.src)" width="100%">
+                    </div>
+                  </div>
 
-                  <a href="https://Thunderbees.ticksy.com/" target="_blank"
-                    class="footer-link d-none d-sm-inline-block">Support</a>
                 </div>
               </div>
+
             </div>
-          </footer>
-          <!-- / Footer -->
 
-          <div class="content-backdrop fade"></div>
+          </div>
         </div>
-        <!-- Content wrapper -->
+        <!-- / Content -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme" id="footer">
+          <div class="container-xxl">
+            <div
+              class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+              <div class="text-body">
+                ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>, <span>made with ❤️ by</span> <a href="https://Thunderbees.com" target="_blank"
+                  class="footer-link">Thunderbees</a>
+              </div>
+              <div class="d-none d-lg-inline-block">
+                <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank">License</a>
+                <a href="https://1.envato.market/Thunderbees_portfolio" target="_blank" class="footer-link me-4">More
+                  Themes</a>
+
+                <a href="https://demos.Thunderbees.com/Thunderbees-html-admin-template/documentation/" target="_blank"
+                  class="footer-link me-4">Documentation</a>
+
+                <a href="https://Thunderbees.ticksy.com/" target="_blank"
+                  class="footer-link d-none d-sm-inline-block">Support</a>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
       </div>
-      <!-- / Layout page -->
+      <!-- Content wrapper -->
     </div>
+    <!-- / Layout page -->
+  </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+  <!-- Overlay -->
+  <div class="layout-overlay layout-menu-toggle"></div>
 
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-    <div class="drag-target"
-      style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-    </div>
+  <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+  <div class="drag-target"
+    style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+  </div>
   </div>
   <!-- / Layout wrapper -->
-
+  <!-- JavaScript to Make Back Button Work -->
+  <script>
+    document.getElementById('back-to-edit').addEventListener('click', function () {
+      var updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+      updateTab.show();
+    });
+  </script>
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
-
   <script src="../assets/vendor/libs/jquery/jquery.js"></script>
   <script src="../assets/vendor/libs/popper/popper.js"></script>
   <script src="../assets/vendor/js/bootstrap.js"></script>
@@ -857,6 +1021,7 @@
   <script src="./t_pm_js/createNewArea.js"></script>
   <script src="./t_pm_js/todo.js"></script>
   <script src="./t_pm_js/createTickets.js"></script>
+  <script src="./t_pm_js/backgrounderSetter.js"></script>
 
 </body>
 

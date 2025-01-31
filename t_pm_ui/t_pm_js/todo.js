@@ -15,7 +15,7 @@ fetch(`${API_BASE_URL}/project/${project_id}`)
     })
     .then(data => {
         const projectTitle = document.getElementById("project-title");
-        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}">`;
+        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}" id="project-title-input">`;
 
         projectTitle.innerHTML += titleContent;
     });
