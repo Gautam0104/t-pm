@@ -307,8 +307,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Init FullCalendar
     // ------------------------------------------------
+  
     let calendar = new Calendar(calendarEl, {
       initialView: 'dayGridMonth',
+
       events: fetchEvents,
       plugins: [dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
       editable: true,
@@ -320,8 +322,11 @@ document.addEventListener('DOMContentLoaded', function () {
           text: 'Sidebar'
         }
       },
+
       headerToolbar: {
-        start: 'sidebarToggle, prev,next, title',
+
+        start: 'sidebarToggle, prev,next, title,',
+
         end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
       },
       direction: direction,
@@ -436,9 +441,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add Event
     // ------------------------------------------------
     function addEvent(eventData) {
+      let filterDiv = "hello"
       axios.post(`${API_BASE_URL}/calendar-ticket`, {
+
         project_id: projectPost,
         title: eventData.title,
+        filtername: filterDiv,
         start: eventData.start,
         end: eventData.end,
         description: eventData.extendedProps.description,
