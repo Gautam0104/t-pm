@@ -40,7 +40,9 @@ document.getElementById("logoutButton").addEventListener("click", async () => {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
+    localStorage.removeItem("sessionExpireTime");
     localStorage.removeItem("sessionIs");
+    window.location.href = "auth-login-cover.html";
 });
 
 // Check Session Expiration
