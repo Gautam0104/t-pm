@@ -12,7 +12,7 @@ const featureComparisonData = async () => {
         .then(data => {
             const modifiedResults = data.map(modifiedData => {
                 let verificationBoxTrello = "";
-                switch (modifiedData.trello_verification) {
+                switch (modifiedData.trello) {
                     case 1:
                         verificationBoxTrello = `<label class="checkbox-container">
                                                     <input type="checkbox" class="toggle-checkbox" checked>
@@ -32,7 +32,7 @@ const featureComparisonData = async () => {
                                                 </label>`  ;
                 }
                 let verificationBoxTpm = "";
-                switch (modifiedData.t_pm_verification) {
+                switch (modifiedData.tpm) {
                     case 1:
                         verificationBoxTpm = `<label class="checkbox-container">
                                                     <input type="checkbox" class="toggle-checkbox" checked>
@@ -55,8 +55,8 @@ const featureComparisonData = async () => {
                 return {
                     id: modifiedData.id,
                     feature: modifiedData.feature,
-                    trello: modifiedData.trello,
-                    tpm: modifiedData.tpm,
+                    trello: verificationBoxTrello,
+                    tpm: verificationBoxTpm,
                     notes: modifiedData.notes,
                     trello_verification: verificationBoxTrello,
                     tpm_verification: verificationBoxTpm,
@@ -71,8 +71,8 @@ const featureComparisonData = async () => {
                 const tableBodyContent = ` <tr>
                                                 <td>${featureIndex++}</td>
                                                 <td class="feature">${element.feature}</td>
-                                                <td>${element.trello_verification}</td>
-                                                <td>${element.tpm_verification}</td>
+                                                <td>${element.trello}</td>
+                                                <td>${element.tpm}</td>
                                                 <td class="notes">${element.notes}</td>
                                             </tr>
                                             <tr>
