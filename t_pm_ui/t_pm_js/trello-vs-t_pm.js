@@ -1,0 +1,93 @@
+// Base URL of the API
+const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
+
+const featureComparisonData = async () => {
+    await fetch(`${API_BASE_URL}/feature-comparison`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok ");
+            }
+            return response.json();
+        })
+        .then(data => {
+            const modifiedResults = data.map(modifiedData => {
+                let verificationBoxTrello = "";
+                switch (modifiedData.trello_verification) {
+                    case 1:
+                        verificationBoxTrello = `<label class="checkbox-container">
+                                                    <input type="checkbox" class="toggle-checkbox" checked>
+                                                    <span class="checkbox-display"></span>
+                                                </label>`  ;
+                        break;
+                    case 2:
+                        verificationBoxTrello = `<label class="checkbox-container">
+                                                    <input type="checkbox" class="toggle-checkbox">
+                                                    <span class="checkbox-display"></span>
+                                                </label>`  ;
+                        break;
+                    default:
+                        verificationBoxTrello = `<label class="checkbox-container">
+                                                    <input type="checkbox" class="toggle-checkbox" checked>
+                                                    <span class="checkbox-display"></span>
+                                                </label>`  ;
+                }
+                let verificationBoxTpm = "";
+                switch (modifiedData.t_pm_verification) {
+                    case 1:
+                        verificationBoxTpm = `<label class="checkbox-container">
+                                                    <input type="checkbox" class="toggle-checkbox" checked>
+                                                    <span class="checkbox-display"></span>
+                                                </label>`  ;
+                        break;
+                    case 2:
+                        verificationBoxTpm = `<label class="checkbox-container">
+                                                    <input type="checkbox" class="toggle-checkbox">
+                                                    <span class="checkbox-display"></span>
+                                                </label>`  ;
+                        break;
+                    default:
+                        verificationBoxTpm = `<label class="checkbox-container">
+                                                    <input type="checkbox" class="toggle-checkbox">
+                                                    <span class="checkbox-display"></span>
+                                                </label>`  ;
+                }
+
+                return {
+                    id: modifiedData.id,
+                    feature: modifiedData.feature,
+                    trello: modifiedData.trello,
+                    tpm: modifiedData.tpm,
+                    notes: modifiedData.notes,
+                    trello_verification: verificationBoxTrello,
+                    tpm_verification: verificationBoxTpm,
+                    trello_image: modifiedData.trello_image,
+                    tpm_image: modifiedData.t_pm_image
+                }
+            })
+            let featureIndex = 1;
+            modifiedResults.map(element => {
+
+                const tableBody = document.getElementById("feature-table-body");
+                const tableBodyContent = ` <tr>
+                                                <td>${featureIndex++}</td>
+                                                <td class="feature">${element.feature}</td>
+                                                <td>${element.trello_verification}</td>
+                                                <td>${element.tpm_verification}</td>
+                                                <td class="notes">${element.notes}</td>
+                                            </tr>
+                                            <tr>
+                                            <td></td>
+                                            <td class=""><img class="rounded h-100 w-100" src="../assets/img/feature-comparison-image/${element.trello_image}" alt="" height="100%" width="100%" style="border-radius:5px;"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><img class="rounded h-100 w-100" src="../assets/img/feature-comparison-image/${element.tpm_image}" alt="" height="100%" width="100%" style="border-radius:5px;"></td>
+                                            </tr>`;
+
+                tableBody.innerHTML += tableBodyContent;
+            })
+
+        })
+}
+
+
+featureComparisonData();

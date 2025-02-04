@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Comparison Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding-top: 0;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 15px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            margin: 0;
+            /* Ensure no margin */
+            padding: 15px;
+            /* Keep padding for better appearance */
+        }
+
+        td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+
+
+        /* / Checkbox styles / */
+        .checkbox-container {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkbox-container .checkbox-display {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: red;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked+.checkbox-display {
+            color: green;
+        }
+
+        .checkbox-container .checkbox-display::before {
+            content: '✖';
+        }
+
+        .checkbox-container input[type="checkbox"]:checked+.checkbox-display::before {
+            content: '✔';
+        }
+
+        .notes {
+            text-align: left;
+        }
+
+        .feature {
+            text-align: left;
+        }
+
+        /* / Responsive styles / */
+        @media (max-width: 768px) {
+            .card {
+                width: 95%;
+            }
+
+            table {
+                font-size: 1rem;
+            }
+
+            th,
+            td {
+                padding: 10px;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            .checkbox-container {
+                width: 25px;
+                height: 25px;
+            }
+
+            .checkbox-container .checkbox-display {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                width: 100%;
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            .checkbox-container {
+                width: 20px;
+                height: 20px;
+            }
+
+            .checkbox-container .checkbox-display {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h3>TRELLO Vs T&PM: Feature Comparison</h3>
+        <p>The table below compares Trello’s features against those currently available in T&PM:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="feature">Feature</th>
+                    <th>Trello</th>
+                    <th>T&PM</th>
+                    <th class="notes">Notes</th>
+                </tr>
+            </thead>
+            <tbody id="feature-table-body"></tbody>
+        </table>
+    </div>
+
+
+</body>
+<script src="../config.js"></script>
+<script src="./t_pm_js/trello-vs-t_pm.js"></script>
+
+</html>
