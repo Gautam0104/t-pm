@@ -58,8 +58,6 @@ const featureComparisonData = async () => {
                     trello: verificationBoxTrello,
                     tpm: verificationBoxTpm,
                     notes: modifiedData.notes,
-                    trello_verification: verificationBoxTrello,
-                    tpm_verification: verificationBoxTpm,
                     trello_image: modifiedData.trello_image,
                     tpm_image: modifiedData.t_pm_image
                 }
