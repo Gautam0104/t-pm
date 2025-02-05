@@ -20,7 +20,7 @@ document
 
         const project_name = document.getElementById("project-name").value.trim();
         const project_type = document.querySelector('input[name="type"]:checked').value;
-        const project_leader_id = 12;
+        const project_leader_id = localStorage.getItem("logged-user-id");
         const status = document.getElementById("project-status").value;
         const total_eta = document.getElementById("project-eta").value;
         const description = document.getElementById("project-des").value.trim();
