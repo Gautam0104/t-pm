@@ -10,6 +10,11 @@ function checkInactivity() {
     if (lastActivity && Date.now() - lastActivity > logoutTime) {
         localStorage.removeItem("sessionExpireTime");
         localStorage.removeItem("sessionIs");
+        localStorage.removeItem("logged-user-id");
+        localStorage.removeItem("logged-username");
+        localStorage.removeItem("logged-first-name");
+        localStorage.removeItem("logged-role-id");
+        localStorage.removeItem("logged-role-name");
         window.location.href = "auth-login-cover.html";
     }
 }
@@ -42,6 +47,11 @@ document.getElementById("logoutButton").addEventListener("click", async () => {
     // }
     localStorage.removeItem("sessionExpireTime");
     localStorage.removeItem("sessionIs");
+    localStorage.removeItem("logged-user-id");
+    localStorage.removeItem("logged-username");
+    localStorage.removeItem("logged-first-name");
+    localStorage.removeItem("logged-role-id");
+    localStorage.removeItem("logged-role-name");
     window.location.href = "auth-login-cover.html";
 });
 

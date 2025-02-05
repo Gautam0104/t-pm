@@ -36,7 +36,22 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
                 // Redirect to dashboard.html
                 window.location.href = 'dashboard.html';
             })
-
+            fetch(`${API_BASE_URL}/username/${username}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok " + response);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    data.map(user => {
+                        localStorage.setItem("logged-user-id", user.user_id);
+                        localStorage.setItem("logged-username", user.username);
+                        localStorage.setItem("logged-first-name", user.first_name);
+                        localStorage.setItem("logged-user-role-id", user.role_id);
+                        localStorage.setItem("logged-user-role-name", user.role_name);
+                    })
+                })
 
         } else {
             // messageElement.style.color = 'red';

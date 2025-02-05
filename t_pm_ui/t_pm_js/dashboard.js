@@ -290,7 +290,7 @@ fetch(`${API_BASE_URL}/projects`)
 
 const createProject = async () => {
     const project_name = document.getElementById("project-name").value;
-    const project_leader_id = 1;
+    const project_leader_id = localStorage.getItem("logged-user-id");
     const description = document.getElementById("project-des").value;
     const status = document.getElementById("project-status").value;
     const total_eta = document.getElementById("project-eta").value;

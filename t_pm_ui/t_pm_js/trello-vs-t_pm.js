@@ -86,7 +86,7 @@ const featureComparisonData = async () => {
 </tr>`;
 
                 tableBody.innerHTML += tableBodyContent;
-                let imageRow = document.getElementsByClassName("image-row");
+
 
             });
         });
