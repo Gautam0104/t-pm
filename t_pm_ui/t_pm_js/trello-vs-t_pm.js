@@ -79,14 +79,13 @@ const featureComparisonData = async () => {
 </tr>
 <tr class="image-row" style="display: none;">
     <td></td>
-    <td class=""><img class="rounded h-100 w-100" src="../assets/img/feature-comparison-image/${element.trello_image}" alt="" height="100%" width="100%" style="border-radius:5px;"></td>
+    <td class=""><img class="rounded h-100 w-100" src="../assets/img/feature-comparison-image/${element.trello_image}" alt="" height="100%" width="100%" style="border-radius:5px;" onclick="openModal('${element.trello_image}')"></td>
     <td></td>
     <td></td>
-    <td><img class="rounded h-100 w-100" src="../assets/img/feature-comparison-image/${element.tpm_image}" alt="" height="100%" width="100%" style="border-radius:5px;"></td>
+    <td><img class="rounded h-100 w-100" src="../assets/img/feature-comparison-image/${element.tpm_image}" alt="" height="100%" width="100%" style="border-radius:5px;" onclick="openModal('${element.tpm_image}')"></td>
 </tr>`;
 
                 tableBody.innerHTML += tableBodyContent;
-
 
             });
         });
@@ -105,3 +104,15 @@ function toggleRow(button) {
     }
 }
 featureComparisonData();
+
+
+
+function openModal(url) {
+    const imageWrapper = document.getElementById("image-wrapper");
+    document.getElementById("myModal").style.display = "flex";
+    imageWrapper.innerHTML = `<img src="../assets/img/feature-comparison-image/${url}" alt="">`
+}
+
+function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
