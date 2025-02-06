@@ -282,6 +282,7 @@ fetchDataAndCreateElements()
                                                             <button type="button" class="toolbar-btn bold" onclick="applyStyle('bold')">B</button>
                                                             <button type="button" class="toolbar-btn italic" onclick="applyStyle('italic')">I</button>
                                                             <button type="button" class="toolbar-btn underline" onclick="applyStyle('underline')">U</button>
+                                                            <button type="button" class="toolbar-btn bullet" onclick="applyStyle('insertUnorderedList')">•</button>
                                                             <button type="button" class="toolbar-btn link" onclick="addLink()">🔗</button>
                                                             <button type="button" class="toolbar-btn image" onclick="addImage()">🖼️</button>
                                                         </div>
