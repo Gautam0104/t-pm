@@ -17,7 +17,9 @@ todoForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
 
-    const title = document.getElementById('ticket-title').value;
+    const title = document.querySelector('#ticket-title-todo').value;
+    console.log(title);
+
     const description = '';
     const status = "Backlog";
     const priority = "Medium";

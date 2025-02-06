@@ -130,6 +130,56 @@
       opacity: 1;
     }
   </style>
+  <style>
+    .comment-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 8px;
+      background: #f9f9f9;
+    }
+
+    .editable-area {
+      width: 100%;
+      min-height: 100px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      padding: 4px;
+      border-radius: 4px;
+      background: white;
+      overflow: auto;
+      word-wrap: break-word;
+    }
+
+    .editable-area[placeholder]:empty:before {
+      content: attr(placeholder);
+      color: #aaa;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 4px;
+      justify-content: end;
+    }
+
+    .toolbar-btn {
+      padding: 4px 6px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      background: #e0e0e0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toolbar-btn:hover {
+      background: #d0d0d0;
+    }
+  </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

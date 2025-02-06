@@ -36,7 +36,7 @@ console.log(addItem1);
 
 addItem1.addEventListener('click', function () {
 
-  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title"
+  const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
                                                         placeholder="Add Content"  required=""></textarea>
                                                 </div>
                                                 <div class="mb-4"><button type="submit"

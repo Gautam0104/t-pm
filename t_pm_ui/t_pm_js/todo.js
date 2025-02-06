@@ -204,6 +204,9 @@ fetchDataAndCreateElements()
 
                             // Combine date and time
                             const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+                            function stripTags(html) {
+                                return html.replace(/<\/?[^>]+(>|$)/g, "");
+                            }
 
                             const offcanvasDiv = document.getElementById("offcanvas-div");
                             const offcanvasContent = `<div class="offcanvas-header border-bottom">
@@ -272,9 +275,18 @@ fetchDataAndCreateElements()
                                                             </select>
                                                     </div>
                                                     <div class="mb-5">
-                                                        <label class="form-label" for="description">Description</label>
-                                                        <textarea class="form-control" id="description">${element.description}</textarea>
+                                                    <label class="form-label" for="description">Description</label>
+                                                    <div class="comment-box">
+                                                        <div class="editable-area" id="description" contenteditable="true" placeholder="Write a Content...">${element.description}</div>
+                                                        <div class="toolbar">
+                                                            <button type="button" class="toolbar-btn bold" onclick="applyStyle('bold')">B</button>
+                                                            <button type="button" class="toolbar-btn italic" onclick="applyStyle('italic')">I</button>
+                                                            <button type="button" class="toolbar-btn underline" onclick="applyStyle('underline')">U</button>
+                                                            <button type="button" class="toolbar-btn link" onclick="addLink()">🔗</button>
+                                                            <button type="button" class="toolbar-btn image" onclick="addImage()">🖼️</button>
+                                                        </div>
                                                     </div>
+                                                  </div>
                                                     <div>
                                                         <button type="submit" class="btn btn-primary" id="update-button">Update</button>
                                                         <button type="button" class="btn btn-label-danger" id="delete-ticket">Delete</button>
@@ -619,7 +631,7 @@ fetchDataAndCreateElements()
                                     const ticket_id = element.ticket_id;
                                     const title = document.getElementById("title").value;
                                     const description = document.getElementById("description")
-                                        .value;
+                                        .innerHTML;
                                     const status = "backlog";
                                     const priority = "Medium";
                                     const due_date = document.getElementById("due-date").value;
@@ -1002,3 +1014,39 @@ const closeCanvase = () => {
     offcanvas.classList.remove("show");
     // backdropWrapper.innerHTML = "";
 };
+
+
+// textarea js
+
+function applyStyle(style) {
+    document.execCommand(style, false, null);
+}
+
+function addLink() {
+    const url = prompt('Enter the URL:');
+    if (url) {
+        const selection = document.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.textContent = range.toString();
+            range.deleteContents();
+            range.insertNode(anchor);
+        }
+    }
+}
+
+function addImage() {
+    const imageUrl = prompt('Enter the image URL:');
+    if (imageUrl) {
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.style.maxWidth = '100%';
+        const selection = document.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.insertNode(img);
+        }
+    }
+}
