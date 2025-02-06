@@ -220,7 +220,7 @@ fetchDataAndCreateElements()
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link active waves-effect" data-bs-toggle="tab"
                                                         data-bs-target="#tab-update" aria-selected="true" role="tab">
-                                                        <i class="ti ti-edit ti-18px me-1_5"></i>
+                                                        <i class="ti ti-edit ti-18px me-1"></i>
                                                         <span class="align-middle">Edit</span>
                                                     </button>
                                                 </li>
@@ -228,8 +228,16 @@ fetchDataAndCreateElements()
                                                     <button class="nav-link waves-effect" data-bs-toggle="tab"
                                                         data-bs-target="#tab-activity" aria-selected="false"
                                                         tabindex="-1" role="tab">
-                                                        <i class="ti ti-chart-pie-2 ti-18px me-1_5"></i>
+                                                        <i class="ti ti-chart-pie-2 ti-18px me-1"></i>
                                                         <span class="align-middle">Activity</span>
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link waves-effect" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-comments" aria-selected="false"
+                                                        tabindex="-1" role="tab">
+                                                        <i class="ti ti-chart-pie-2 ti-18px me-1"></i>
+                                                        <span class="align-middle">Comments</span>
                                                     </button>
                                                 </li>
                                             </ul>
@@ -364,6 +372,38 @@ fetchDataAndCreateElements()
                                             </div>
                                             </div>
                                         
+                                                </div>
+                                                <div class="tab-content p-0">
+                                                <div class="tab-pane fade text-heading" id="tab-comments" role="tabpanel">
+                                                <div class="media mb-4 d-flex align-items-center">
+                                                    <div class="avatar me-3 flex-shrink-0">
+                                                    <span class="avatar-initial bg-label-success rounded-circle">AS</span>
+                                                    </div>
+                                                    <div class="media-body">
+                                                    <p class="mb-0"><span>Aman</span> Left the board.</p>
+                                                    <small class="text-muted">Today 11:00 AM</small>
+                                                    </div>
+                                                </div>
+                                                <div class="media mb-4 d-flex align-items-center">
+                                                    <div class="avatar me-3 flex-shrink-0">
+                                                    <span class="avatar-initial bg-label-success rounded-circle">GS</span>
+                                                    </div>
+                                                    <div class="media-body">
+                                                    <p class="mb-0"><span>Gautam</span> Join the board.</p>
+                                                    <small class="text-muted">Today 11:00 AM</small>
+                                                    </div>
+                                                </div>
+                                                <div class="media mb-4 d-flex align-items-center">
+                                                    <div class="avatar me-3 flex-shrink-0">
+                                                    <span class="avatar-initial bg-label-success rounded-circle">US</span>
+                                                    </div>
+                                                    <div class="media-body">
+                                                    <p class="mb-0"><span>Utkarsh</span></span> Left the board.</p>
+                                                    <small class="text-muted">Today 11:00 AM</small>
+                                                    </div>
+                                                </div>
+                                                
+                                                </div>
                                                 </div>
                                     </div>`;
 
