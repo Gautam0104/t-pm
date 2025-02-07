@@ -268,7 +268,7 @@ fetchDataAndCreateElements()
                                                         </div>
                                                         <div class="text-center" id="card-image-preview-update" style="margin-top: 10px;">
                                                             
-                                                            <img id="card-image-preview-update" src="${API_BASE_URL}/uploads/${element.card_image}" alt="Card Image Preview" style="max-width: 100%; max-height: 200px; display: block;">
+                                                            <img id="card-image-preview-update" src="${API_BASE_URL}/uploads/${element.card_image}" alt="Card Image Preview" style="max-width: 100%; max-height: 200px; display: block;"  onerror="this.style.display='none'">
                                                         </div>
                                                     </div>
                                                     <div class="mb-5">
@@ -317,7 +317,7 @@ fetchDataAndCreateElements()
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary  w-100">${element.title}</span></span>
                                                 <span class="badge bg-label-secondary m-2"> # Task Image</span>
-                                                 <img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                 <img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingCardImage">
                                                 <div id="attachment-content"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
@@ -408,6 +408,11 @@ fetchDataAndCreateElements()
                                     </div>`;
 
                             offcanvasDiv.innerHTML = offcanvasContent;
+                            // card image zone in modal
+                            const imageArea = document.getElementById("activity-card-image-area");
+                            const cardImage = `<img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" >`;
+                            imageArea.innerHTML = cardImage
+
 
                             flatpickr("#due-date", {
                                 enableTime: true,
@@ -461,7 +466,7 @@ fetchDataAndCreateElements()
                                     
                                     
                                                             <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
-                                                            height="100%" id="activityImage>
+                                                            height="100%" id="activityImage">
                                                             <div class="row d-flex justify-content-center">
                                                                 <div class="col-12 mt-3 text-center">
                                                                     <button class="btn btn-primary" >Download</button>
@@ -517,7 +522,7 @@ fetchDataAndCreateElements()
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary m-2 w-100">${history.previous_title}</span></span>
                                                 <span class="badge bg-label-secondary m-2"> # Previous Task Image</span>
-                                                 <img src="${API_BASE_URL}/uploads/${history.previous_card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                  <img src="${API_BASE_URL}/uploads/${history.previous_card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
                                                 <div id="attachment-content-history"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
@@ -563,7 +568,15 @@ fetchDataAndCreateElements()
                                             </div>`;
 
                                         ticketHistory.innerHTML += Content;
+                                        // image src check
 
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            let imgElement = document.getElementById("card-image-preview-update");
+
+                                            if (!imgElement.src || imgElement.src.includes("null")) {
+                                                imgElement.style.display = "none";  // Hide the image if src is null or invalid
+                                            }
+                                        });
                                         // Check if the images field is null or empty
                                         const historyimageArray =
                                             history.previous_images && history.previous_images !== null
