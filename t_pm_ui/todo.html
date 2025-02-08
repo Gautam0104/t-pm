@@ -12,7 +12,11 @@
 
   <meta name="description" content="" />
   <script src="./t_pm_js/session.js"></script>
-
+  <style>
+    .app-kanban .kanban-board .kanban-item {
+      background-color: #0D9394;
+    }
+  </style>
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.png" />
 
@@ -624,9 +628,10 @@
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header">
                         <div class="kanban-title-board">Todo</div>
-                        <div class="dropdown"><i class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                            id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"></i>
+                        <div class="dropdown">
+                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown"><a
                               class="dropdown-item delete-board waves-effect" href="javascript:void(0)"> <i
                                 class="ti ti-trash ti-xs" me-1=""></i>
@@ -634,14 +639,49 @@
                               href="javascript:void(0)"><i class="ti ti-edit ti-xs" me-1=""></i> <span
                                 class="align-middle">Rename</span></a><a class="dropdown-item waves-effect"
                               href="javascript:void(0)"><i class="ti ti-archive ti-xs" me-1=""></i> <span
-                                class="align-middle">Archive</span></a></div>
+                                class="align-middle">Archive</span></a>
+                            <p>Change card bg</p>
+                            <div class="row d-flex justify-content-center">
+
+                              <div class="col-6">
+                                <div class="card w-100 h-px-30" style="background-color: #EB3D63;"
+                                  onclick="changecardGB()"></div>
+                              </div>
+                              <div class="col-6">
+                                <div class="card w-100 h-px-30" style="background-color:#FFAB1D;"
+                                  onclick="changeCardbg('#FFAB1D')"></div>
+                              </div>
+                            </div>
+                            <div class="row d-flex justify-content-center pt-2">
+
+                              <div class="col-6">
+                                <div class="card w-100 h-px-30" style="background-color: #eb3dc0;"
+                                  onclick="changeCardbg('#eb3dc0')"></div>
+                              </div>
+                              <div class="col-6">
+                                <div class="card  w-100 h-px-30" style="background-color: #eb743d;"
+                                  onclick="changeCardbg('#eb743d')"></div>
+                              </div>
+                            </div>
+                            <div class="row d-flex justify-content-center pt-2">
+
+                              <div class="col-6">
+                                <div class="card w-100 h-px-30" style="background-color: #973deb;"
+                                  onclick="changeCardbg('#973deb')"></div>
+                              </div>
+                              <div class="col-6">
+                                <div class="card w-100 h-px-30" style="background-color: #3dd1eb;"
+                                  onclick="changeCardbg('#3dd1eb')"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div><button class="kanban-title-button btn" id="add-todo-item">+ Add
                           New
                           Item</button>
                       </header>
                       <main class="kanban-drag">
 
-                        <div id="todo-task">
+                        <div id="todo-task" style="display: block;">
                           <div id="content-inprogress">Droped in todo</div>
 
                         </div>
@@ -1218,7 +1258,17 @@
   <script src="./t_pm_js/todo.js"></script>
   <script src="./t_pm_js/createTickets.js"></script>
   <script src="./t_pm_js/backgrounderSetter.js"></script>
+  <script>
+    function toggleTodo() {
+      const todoTab = document.getElementById("todo-task");
 
+      if (todoTab.style.display === "block") {
+        todoTab.style.display = "none";
+      } else {
+        todoTab.style.display = "block";
+      }
+    }
+  </script>
 </body>
 
 </html>

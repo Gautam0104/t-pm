@@ -133,8 +133,10 @@ fetchDataAndCreateElements()
         const approvedTask = document.getElementById("approved-task");
 
         console.log("trydragg elements outside fetch:", trydraggElements);
+
         // Perform actions on the elements here
         trydraggElements.forEach(element => {
+
             element.addEventListener("click", function (e) {
                 const offcanvas = document.querySelector(".offcanvas");
                 // const backdropWrapper = document.getElementById("backdrop");
@@ -145,6 +147,7 @@ fetchDataAndCreateElements()
                 let selected = e.currentTarget.id;
                 let ticket_id = selected;
                 console.log(e.currentTarget.id);
+
                 // Fetch Ticket Data from API
                 fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
                     .then(response => {
@@ -1103,4 +1106,10 @@ function addImage() {
             range.insertNode(img);
         }
     }
+}
+
+
+
+function changecardGB(element) {
+    element.style.backgroundColor = "red";
 }
