@@ -198,6 +198,14 @@
       padding: 10px;
       margin-bottom: 10px;
     }
+
+    /* Horizontal layout when toggled */
+    .horizontal-layout {
+      display: flex;
+      flex-direction: column;
+      width: 30px;
+
+    }
   </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -646,10 +654,11 @@
                   <div class=" kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
                     <div data-id="board-in-progress" data-order="1" class="kanban-board"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header">
+                      <header class="kanban-board-header" id="todo-header">
                         <div class="kanban-title-board">Todo</div>
                         <div class="dropdown">
-                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="ti ti-arrows-horizontal"
+                            onclick="toggleTodo('todo-task','todo-header', 'new-todo-item')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
@@ -711,6 +720,8 @@
                         <button class="kanban-title-button btn" id="add-todo-item">+ Add
                           New
                           Item</button>
+
+
                       </header>
                       <main class="kanban-drag">
 
@@ -729,10 +740,11 @@
                     </div>
                     <div data-id="board-in-progress" data-order="2" class="kanban-board"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header">
+                      <header class="kanban-board-header" id="inprogress-header">
                         <div class="kanban-title-board">In Progress</div>
                         <div class="dropdown">
-                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="ti ti-arrows-horizontal"
+                            onclick="toggleTodo('inprogress-task','inprogress-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
@@ -791,9 +803,11 @@
                             </div>
                           </div>
                         </div>
+
                         <button class="kanban-title-button btn" id="add-new-inprogress">+
                           Add
                           New Item</button>
+
                       </header>
                       <main class="kanban-drag">
                         <div id="inprogress-task">
@@ -812,10 +826,11 @@
                     </div>
                     <div data-id="board-in-progress" data-order="3" class="kanban-board"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header">
+                      <header class="kanban-board-header" id="for-approval-header">
                         <div class="kanban-title-board">For Approval</div>
                         <div class="dropdown">
-                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="ti ti-arrows-horizontal"
+                            onclick="toggleTodo('for-approval-task','for-approval-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
@@ -894,10 +909,11 @@
                     </div>
                     <div data-id="board-in-progress" data-order="4" class="kanban-board"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header">
+                      <header class="kanban-board-header" id="rejected-header">
                         <div class="kanban-title-board">Rejected</div>
                         <div class="dropdown">
-                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="ti ti-arrows-horizontal"
+                            onclick="toggleTodo('rejected-task','rejected-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
@@ -979,10 +995,11 @@
                     </div>
                     <div data-id="board-in-review" data-order="5" class="kanban-board"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header">
+                      <header class="kanban-board-header" id="approved-header">
                         <div class="kanban-title-board">Approved</div>
                         <div class="dropdown">
-                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="ti ti-arrows-horizontal"
+                            onclick="toggleTodo('approved-task','approved-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
@@ -1487,13 +1504,19 @@
   <script src="./t_pm_js/createTickets.js"></script>
   <script src="./t_pm_js/backgrounderSetter.js"></script>
   <script>
-    function toggleTodo() {
-      const todoTab = document.getElementById("todo-task");
-
+    function toggleTodo(elementId, elementHeader, elementButton) {
+      const taskHeader = document.getElementById(elementHeader)
+      const addtaskButton = document.getElementById(elementButton)
+      const todoTab = document.getElementById(elementId);
+      document.getElementById("add-todo-item").style.display = "none";
       if (todoTab.style.display === "block") {
         todoTab.style.display = "none";
+        taskHeader.classList.add("horizontal-layout")
+
       } else {
         todoTab.style.display = "block";
+        taskHeader.classList.remove("horizontal-layout")
+        document.getElementById("add-todo-item").style.display = "block";
       }
     }
   </script>
