@@ -179,6 +179,26 @@
       background: #d0d0d0;
     }
   </style>
+  <style>
+    .color-box {
+      width: 30px;
+      height: 30px;
+      margin: 4px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+    }
+
+    .color-box:hover {
+      opacity: 0.7;
+    }
+
+    .card-bg-color {
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -621,7 +641,7 @@
                   </div>
                 </div>
                 <!-- Kanban Wrapper -->
-                <div class="kanban-wrapper ps ps--active-x" style="height: auto; width: auto; overflow: hidden; ">
+                <div class="kanban-wrapper ps ps--active-x" style="height: auto; width: 1920px; overflow: hidden; ">
 
                   <div class=" kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
                     <div data-id="board-in-progress" data-order="1" class="kanban-board"
@@ -632,50 +652,63 @@
                           <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown"><a
-                              class="dropdown-item delete-board waves-effect" href="javascript:void(0)"> <i
-                                class="ti ti-trash ti-xs" me-1=""></i>
-                              <span class="align-middle">Delete</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-edit ti-xs" me-1=""></i> <span
-                                class="align-middle">Rename</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-archive ti-xs" me-1=""></i> <span
-                                class="align-middle">Archive</span></a>
-                            <p>Change card bg</p>
-                            <div class="row d-flex justify-content-center">
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+                            </a>
 
-                              <div class="col-6">
-                                <div class="card w-100 h-px-30" style="background-color: #EB3D63;"
-                                  onclick="changecardGB()"></div>
-                              </div>
-                              <div class="col-6">
-                                <div class="card w-100 h-px-30" style="background-color:#FFAB1D;"
-                                  onclick="changeCardbg('#FFAB1D')"></div>
-                              </div>
-                            </div>
-                            <div class="row d-flex justify-content-center pt-2">
-
-                              <div class="col-6">
-                                <div class="card w-100 h-px-30" style="background-color: #eb3dc0;"
-                                  onclick="changeCardbg('#eb3dc0')"></div>
-                              </div>
-                              <div class="col-6">
-                                <div class="card  w-100 h-px-30" style="background-color: #eb743d;"
-                                  onclick="changeCardbg('#eb743d')"></div>
-                              </div>
-                            </div>
-                            <div class="row d-flex justify-content-center pt-2">
-
-                              <div class="col-6">
-                                <div class="card w-100 h-px-30" style="background-color: #973deb;"
-                                  onclick="changeCardbg('#973deb')"></div>
-                              </div>
-                              <div class="col-6">
-                                <div class="card w-100 h-px-30" style="background-color: #3dd1eb;"
-                                  onclick="changeCardbg('#3dd1eb')"></div>
+                            <!-- Color Picker Section -->
+                            <div class="dropdown-item">
+                              <i class="ti ti-palette ti-xs"></i>
+                              <span class="align-middle">Card Bg</span>
+                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                                <div class="color-box" style="background: #ff5733;"
+                                  onclick="changeBgColor('#ff5733','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #33ff57;"
+                                  onclick="changeBgColor('#33ff57','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #3357ff;"
+                                  onclick="changeBgColor('#3357ff','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #f4d03f;"
+                                  onclick="changeBgColor('#f4d03f','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #8e44ad;"
+                                  onclick="changeBgColor('#8e44ad','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #1abc9c;"
+                                  onclick="changeBgColor('#1abc9c','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #e74c3c;"
+                                  onclick="changeBgColor('#e74c3c','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #2c3e50;"
+                                  onclick="changeBgColor('#2c3e50','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #d35400;"
+                                  onclick="changeBgColor('#d35400','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #16a085;"
+                                  onclick="changeBgColor('#16a085','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #ed0cf5;"
+                                  onclick="changeBgColor('#ed0cf5','todo-task')">
+                                </div>
+                                <div class="color-box" style="background: #f9fafa;" onclick="makeDefault('todo-task')">
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div><button class="kanban-title-button btn" id="add-todo-item">+ Add
+                        </div>
+
+                        <button class="kanban-title-button btn" id="add-todo-item">+ Add
                           New
                           Item</button>
                       </header>
@@ -698,18 +731,67 @@
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header">
                         <div class="kanban-title-board">In Progress</div>
-                        <div class="dropdown"><i class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                            id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown"><a
-                              class="dropdown-item delete-board waves-effect" href="javascript:void(0)"> <i
-                                class="ti ti-trash ti-xs" me-1=""></i>
-                              <span class="align-middle">Delete</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-edit ti-xs" me-1=""></i> <span
-                                class="align-middle">Rename</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-archive ti-xs" me-1=""></i> <span
-                                class="align-middle">Archive</span></a></div>
-                        </div><button class="kanban-title-button btn" id="add-new-inprogress">+
+                        <div class="dropdown">
+                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+                            </a>
+
+                            <!-- Color Picker Section -->
+                            <div class="dropdown-item">
+                              <i class="ti ti-palette ti-xs"></i>
+                              <span class="align-middle">Card Bg</span>
+                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                                <div class="color-box" style="background: #ff5733;"
+                                  onclick="changeBgColor('#ff5733','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #33ff57;"
+                                  onclick="changeBgColor('#33ff57','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #3357ff;"
+                                  onclick="changeBgColor('#3357ff','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #f4d03f;"
+                                  onclick="changeBgColor('#f4d03f','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #8e44ad;"
+                                  onclick="changeBgColor('#8e44ad','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #1abc9c;"
+                                  onclick="changeBgColor('#1abc9c','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #e74c3c;"
+                                  onclick="changeBgColor('#e74c3c','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #2c3e50;"
+                                  onclick="changeBgColor('#2c3e50','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #d35400;"
+                                  onclick="changeBgColor('#d35400','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #16a085;"
+                                  onclick="changeBgColor('#16a085','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #ed0cf5;"
+                                  onclick="changeBgColor('#ed0cf5','inprogress-task')">
+                                </div>
+                                <div class="color-box" style="background: #f9fafa;"
+                                  onclick="makeDefault('inprogress-task')">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="kanban-title-button btn" id="add-new-inprogress">+
                           Add
                           New Item</button>
                       </header>
@@ -732,17 +814,65 @@
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header">
                         <div class="kanban-title-board">For Approval</div>
-                        <div class="dropdown"><i class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                            id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown"><a
-                              class="dropdown-item delete-board waves-effect" href="javascript:void(0)"> <i
-                                class="ti ti-trash ti-xs" me-1=""></i>
-                              <span class="align-middle">Delete</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-edit ti-xs" me-1=""></i> <span
-                                class="align-middle">Rename</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-archive ti-xs" me-1=""></i> <span
-                                class="align-middle">Archive</span></a></div>
+                        <div class="dropdown">
+                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+                            </a>
+
+                            <!-- Color Picker Section -->
+                            <div class="dropdown-item">
+                              <i class="ti ti-palette ti-xs"></i>
+                              <span class="align-middle">Card Bg</span>
+                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                                <div class="color-box" style="background: #ff5733;"
+                                  onclick="changeBgColor('#ff5733','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #33ff57;"
+                                  onclick="changeBgColor('#33ff57','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #3357ff;"
+                                  onclick="changeBgColor('#3357ff','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #f4d03f;"
+                                  onclick="changeBgColorr('#f4d03f','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #8e44ad;"
+                                  onclick="changeBgColor('#8e44ad','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #1abc9c;"
+                                  onclick="changeBgColor('#1abc9c','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #e74c3c;"
+                                  onclick="changeBgColor('#e74c3c','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #2c3e50;"
+                                  onclick="changeBgColorr('#2c3e50','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #d35400;"
+                                  onclick="changeBgColor('#d35400','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #16a085;"
+                                  onclick="changeBgColor('#16a085','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #ed0cf5;"
+                                  onclick="changeBgColor('#ed0cf5','for-approval-task')">
+                                </div>
+                                <div class="color-box" style="background: #f9fafa;"
+                                  onclick="makeDefault('for-approval-task','for-approval-task')">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div><button class="kanban-title-button btn" id="add-new-for-approval">+
                           Add New Item</button>
                       </header>
@@ -766,18 +896,67 @@
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header">
                         <div class="kanban-title-board">Rejected</div>
-                        <div class="dropdown"><i class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                            id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown"><a
-                              class="dropdown-item delete-board waves-effect" href="javascript:void(0)"> <i
-                                class="ti ti-trash ti-xs" me-1=""></i>
-                              <span class="align-middle">Delete</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-edit ti-xs" me-1=""></i> <span
-                                class="align-middle">Rename</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-archive ti-xs" me-1=""></i> <span
-                                class="align-middle">Archive</span></a></div>
-                        </div><button class="kanban-title-button btn" id="add-new-rejected">+
+                        <div class="dropdown">
+                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+                            </a>
+
+                            <!-- Color Picker Section -->
+                            <div class="dropdown-item">
+                              <i class="ti ti-palette ti-xs"></i>
+                              <span class="align-middle">Card Bg</span>
+                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                                <div class="color-box" style="background: #ff5733;"
+                                  onclick="changeBgColor('#ff5733','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #33ff57;"
+                                  onclick="changeBgColor('#33ff57','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #3357ff;"
+                                  onclick="changeBgColor('#3357ff','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #f4d03f;"
+                                  onclick="changeBgColor('#f4d03f','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #8e44ad;"
+                                  onclick="changeBgColor('#8e44ad','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #1abc9c;"
+                                  onclick="changeBgColor('#1abc9c','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #e74c3c;"
+                                  onclick="changeBgColor('#e74c3c','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #2c3e50;"
+                                  onclick="changeBgColor('#2c3e50','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #d35400;"
+                                  onclick="changeBgColor('#d35400','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #16a085;"
+                                  onclick="changeBgColor('#16a085','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #ed0cf5;"
+                                  onclick="changeBgColor('#ed0cf5','rejected-task')">
+                                </div>
+                                <div class="color-box" style="background: #f9fafa;"
+                                  onclick="makeDefault('rejected-task')">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="kanban-title-button btn" id="add-new-rejected">+
                           Add
                           New Item</button>
                       </header>
@@ -802,18 +981,67 @@
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header">
                         <div class="kanban-title-board">Approved</div>
-                        <div class="dropdown"><i class="dropdown-toggle ti ti-dots-vertical cursor-pointer"
-                            id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown"><a
-                              class="dropdown-item delete-board waves-effect" href="javascript:void(0)"> <i
-                                class="ti ti-trash ti-xs" me-1=""></i>
-                              <span class="align-middle">Delete</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-edit ti-xs" me-1=""></i> <span
-                                class="align-middle">Rename</span></a><a class="dropdown-item waves-effect"
-                              href="javascript:void(0)"><i class="ti ti-archive ti-xs" me-1=""></i> <span
-                                class="align-middle">Archive</span></a></div>
-                        </div><button class="kanban-title-button btn" id="add-new-approved">+
+                        <div class="dropdown">
+                          <i class="ti ti-arrows-horizontal" onclick="toggleTodo()"></i>
+                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                            </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+                            </a>
+
+                            <!-- Color Picker Section -->
+                            <div class="dropdown-item">
+                              <i class="ti ti-palette ti-xs"></i>
+                              <span class="align-middle">Card Bg</span>
+                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                                <div class="color-box" style="background: #ff5733;"
+                                  onclick="changeBgColor('#ff5733','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #33ff57;"
+                                  onclick="changeBgColor('#33ff57','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #3357ff;"
+                                  onclick="changeBgColor('#3357ff','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #f4d03f;"
+                                  onclick="changeBgColor('#f4d03f','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #8e44ad;"
+                                  onclick="changeBgColor('#8e44ad','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #1abc9c;"
+                                  onclick="changeBgColor('#1abc9c','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #e74c3c;"
+                                  onclick="changeBgColor('#e74c3c','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #2c3e50;"
+                                  onclick="changeBgColor('#2c3e50','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #d35400;"
+                                  onclick="changeBgColor('#d35400','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #16a085;"
+                                  onclick="changeBgColor('#16a085','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #ed0cf5;"
+                                  onclick="changeBgColor('#ed0cf5','approved-task')">
+                                </div>
+                                <div class="color-box" style="background: #f9fafa;"
+                                  onclick="makeDefault('approved-task')">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="kanban-title-button btn" id="add-new-approved">+
                           Add
                           New Item</button>
                         <form class="new-item-form" id="add-new-todo">
@@ -1267,6 +1495,24 @@
       } else {
         todoTab.style.display = "block";
       }
+    }
+  </script>
+  <script>
+    function changeBgColor(color, elementId) {
+      let cardBG = document.getElementById(elementId);
+      cardBG.style.borderRadius = "10px"
+      cardBG.style.padding = "10px"
+      cardBG.style.marginBottom = "10px"
+      cardBG.style.backgroundColor = color;
+    }
+
+    function makeDefault(cardId) {
+
+      let cardBG = document.getElementById(`${cardId}`);
+      cardBG.style.borderRadius = "";
+      cardBG.style.padding = "";
+      cardBG.style.marginBottom = "";
+      cardBG.style.backgroundColor = "";
     }
   </script>
 </body>
