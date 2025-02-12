@@ -1118,8 +1118,8 @@ function changecardGB(element) {
 
 let isAscending = true; // Track sorting order
 
-function toggleTicketSortByName() {
-    let todoTask = document.getElementById("todo-task");
+function toggleTicketSortByName(elementId) {
+    let todoTask = document.getElementById(elementId);
     let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
 
     kanbanItems.sort((a, b) => {
@@ -1136,8 +1136,8 @@ function toggleTicketSortByName() {
 
 let isDateAscending = true; // Track sorting order for date
 
-function toggleTicketSortByDate() {
-    let todoTask = document.getElementById("todo-task");
+function toggleTicketSortByDate(elementId) {
+    let todoTask = document.getElementById(elementId);
     let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
 
     kanbanItems.sort((a, b) => {
