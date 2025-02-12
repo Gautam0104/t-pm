@@ -1153,7 +1153,7 @@ function toggleTicketSortByDate(elementId) {
 }
 
 
-
+//  Move all card in this list 
 function moveAllTask(moveFrom, moveTo) {
     let todoContainer = document.getElementById(moveFrom);
     let inProgressContainer = document.getElementById(moveTo);

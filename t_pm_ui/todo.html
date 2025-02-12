@@ -1823,16 +1823,65 @@
     }
   </script>
   <script>
+
+    // Function to change and store background color
     function changeBgColor(color, elementId) {
-      let cardBG = document.getElementById(elementId);
-      cardBG.style.borderRadius = "10px"
-      cardBG.style.padding = "10px"
-      cardBG.style.marginBottom = "10px"
-      cardBG.style.backgroundColor = color;
+      localStorage.setItem("card-bg-color-" + elementId, color); // Store color per element
+      applyBgColor(elementId); // Apply immediately
     }
 
-    function makeDefault(cardId) {
+    // Function to apply stored background color on page load
+    function applyBgColor(elementId) {
+      let cardBG = document.getElementById(elementId);
+      if (!cardBG) return; // Prevent errors if element doesn't exist
 
+      let storedColor = localStorage.getItem("card-bg-color-" + elementId);
+
+      if (storedColor) {
+        cardBG.style.backgroundColor = storedColor;
+      }
+
+      // Ensure consistent styling
+      cardBG.style.borderRadius = "10px";
+      cardBG.style.padding = "10px";
+      cardBG.style.marginBottom = "10px";
+    }
+
+    // Ensure colors are applied when the page loads
+    window.addEventListener("load", function () {
+      let elementIds = ["todo-task", "yourElementId2"];// Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["inprogress-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["rejected-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["for-approval-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["approved-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+
+
+    function makeDefault(cardId) {
+      localStorage.removeItem("card-bg-color-todo-task")
       let cardBG = document.getElementById(`${cardId}`);
       cardBG.style.borderRadius = "";
       cardBG.style.padding = "";
