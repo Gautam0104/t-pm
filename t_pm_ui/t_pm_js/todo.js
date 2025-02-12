@@ -1151,3 +1151,18 @@ function toggleTicketSortByDate(elementId) {
 
     isAscending = !isAscending; // Toggle sorting order for next call
 }
+
+
+
+function moveAllTask(moveFrom, moveTo) {
+    let todoContainer = document.getElementById(moveFrom);
+    let inProgressContainer = document.getElementById(moveTo);
+
+    // Select all tasks inside the To-Do container
+    let tasks = todoContainer.querySelectorAll(".kanban-item");
+
+    // Move each task to the In-Progress container
+    tasks.forEach(task => {
+        inProgressContainer.appendChild(task);
+    });
+}

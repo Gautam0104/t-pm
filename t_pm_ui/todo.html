@@ -707,19 +707,23 @@
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('todo-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('todo-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('todo-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('todo-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -831,7 +835,8 @@
                                   list</span>
                               </a>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('inprogress-task', 'todo-task')">
 
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
@@ -841,15 +846,18 @@
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('inprogress-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('inprogress-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('inprogress-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -971,12 +979,14 @@
                                   list</span>
                               </a>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('for-approval-task', 'todo-task')">
 
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('for-approval-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
@@ -985,11 +995,13 @@
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('for-approval-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('for-approval-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -1108,25 +1120,30 @@
                                   list</span>
                               </a>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('rejected-task', 'todo-task')">
 
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('rejected-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('rejected-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('rejected-task', 'rejected-task')"
                                   style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('rejected-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -1245,20 +1262,24 @@
                                   list</span>
                               </a>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('approved-task', 'todo-task')">
 
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('approved-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('approved-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="moveAllTask('approved-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
