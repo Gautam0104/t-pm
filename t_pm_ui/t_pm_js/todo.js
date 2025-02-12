@@ -1113,3 +1113,41 @@ function addImage() {
 function changecardGB(element) {
     element.style.backgroundColor = "red";
 }
+
+
+
+let isAscending = true; // Track sorting order
+
+function toggleTicketSortByName() {
+    let todoTask = document.getElementById("todo-task");
+    let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
+
+    kanbanItems.sort((a, b) => {
+        let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+        let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
+
+        return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+
+    kanbanItems.forEach(item => todoTask.appendChild(item));
+
+    isAscending = !isAscending; // Toggle sorting order for next call
+}
+
+let isDateAscending = true; // Track sorting order for date
+
+function toggleTicketSortByDate() {
+    let todoTask = document.getElementById("todo-task");
+    let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
+
+    kanbanItems.sort((a, b) => {
+        let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+        let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
+
+        return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+
+    kanbanItems.forEach(item => todoTask.appendChild(item));
+
+    isAscending = !isAscending; // Toggle sorting order for next call
+}

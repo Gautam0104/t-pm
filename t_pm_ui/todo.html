@@ -206,6 +206,22 @@
       width: 30px;
 
     }
+
+    /* Style to make the nested dropdown work */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -5px;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
   </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -659,57 +675,78 @@
                         <div class="dropdown">
                           <i class="ti ti-arrows-horizontal"
                             onclick="toggleTodo('todo-task','todo-header', 'new-todo-item')"></i>
+
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                            <!-- Delete -->
                             <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
                               <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
                             </a>
+
+                            <!-- Rename -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
                             </a>
+
+                            <!-- Archive -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
 
-                            <!-- Color Picker Section -->
+                            <!-- Sort By (Nested Dropdown) -->
+                            <div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
+                                  by...</span>
+                              </a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByName()">
+                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    Name</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    created date (newest first)</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
+                                    date (oldest first)</span>
+                                </a>
+                              </div>
+                            </div>
+
+                            <!-- Color Picker -->
                             <div class="dropdown-item">
                               <i class="ti ti-palette ti-xs"></i>
                               <span class="align-middle">Card Bg</span>
                               <div class="d-flex flex-wrap mt-2" style="width: 140px;">
                                 <div class="color-box" style="background: #ff5733;"
-                                  onclick="changeBgColor('#ff5733','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#ff5733','todo-task')"></div>
                                 <div class="color-box" style="background: #33ff57;"
-                                  onclick="changeBgColor('#33ff57','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#33ff57','todo-task')"></div>
                                 <div class="color-box" style="background: #3357ff;"
-                                  onclick="changeBgColor('#3357ff','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#3357ff','todo-task')"></div>
                                 <div class="color-box" style="background: #f4d03f;"
-                                  onclick="changeBgColor('#f4d03f','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#f4d03f','todo-task')"></div>
                                 <div class="color-box" style="background: #8e44ad;"
-                                  onclick="changeBgColor('#8e44ad','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#8e44ad','todo-task')"></div>
                                 <div class="color-box" style="background: #1abc9c;"
-                                  onclick="changeBgColor('#1abc9c','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#1abc9c','todo-task')"></div>
                                 <div class="color-box" style="background: #e74c3c;"
-                                  onclick="changeBgColor('#e74c3c','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#e74c3c','todo-task')"></div>
                                 <div class="color-box" style="background: #2c3e50;"
-                                  onclick="changeBgColor('#2c3e50','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#2c3e50','todo-task')"></div>
                                 <div class="color-box" style="background: #d35400;"
-                                  onclick="changeBgColor('#d35400','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#d35400','todo-task')"></div>
                                 <div class="color-box" style="background: #16a085;"
-                                  onclick="changeBgColor('#16a085','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#16a085','todo-task')"></div>
                                 <div class="color-box" style="background: #ed0cf5;"
-                                  onclick="changeBgColor('#ed0cf5','todo-task')">
-                                </div>
+                                  onclick="changeBgColor('#ed0cf5','todo-task')"></div>
                                 <div class="color-box" style="background: #f9fafa;" onclick="makeDefault('todo-task')">
                                 </div>
                               </div>
@@ -757,7 +794,30 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-
+                            <!-- Sort By (Nested Dropdown) -->
+                            <div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
+                                  by...</span>
+                              </a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByName()">
+                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    Name</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    created date (newest first)</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
+                                    date (oldest first)</span>
+                                </a>
+                              </div>
+                            </div>
                             <!-- Color Picker Section -->
                             <div class="dropdown-item">
                               <i class="ti ti-palette ti-xs"></i>
@@ -843,7 +903,30 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-
+                            <!-- Sort By (Nested Dropdown) -->
+                            <div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
+                                  by...</span>
+                              </a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByName()">
+                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    Name</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    created date (newest first)</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
+                                    date (oldest first)</span>
+                                </a>
+                              </div>
+                            </div>
                             <!-- Color Picker Section -->
                             <div class="dropdown-item">
                               <i class="ti ti-palette ti-xs"></i>
@@ -926,7 +1009,30 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-
+                            <!-- Sort By (Nested Dropdown) -->
+                            <div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
+                                  by...</span>
+                              </a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByName()">
+                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    Name</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    created date (newest first)</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
+                                    date (oldest first)</span>
+                                </a>
+                              </div>
+                            </div>
                             <!-- Color Picker Section -->
                             <div class="dropdown-item">
                               <i class="ti ti-palette ti-xs"></i>
@@ -1012,7 +1118,30 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-
+                            <!-- Sort By (Nested Dropdown) -->
+                            <div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
+                                  by...</span>
+                              </a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByName()">
+                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    Name</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
+                                    created date (newest first)</span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                  onclick="toggleTicketSortByDate()">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
+                                    date (oldest first)</span>
+                                </a>
+                              </div>
+                            </div>
                             <!-- Color Picker Section -->
                             <div class="dropdown-item">
                               <i class="ti ti-palette ti-xs"></i>
