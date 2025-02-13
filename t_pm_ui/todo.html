@@ -696,35 +696,36 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-                             <!-- Move all card in this list -->
-                             <div class="dropdown-submenu">
+                            <!-- Move all card in this list -->
+                            <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this list</span>
+                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                                  list</span>
                               </a>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
-                                  
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
+                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
+
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('todo-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('todo-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                    </span>
+                                  </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('todo-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('todo-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -738,17 +739,17 @@
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName()">
+                                  onclick="toggleTicketSortByName('todo-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
                                     Name</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('todo-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
                                     created date (newest first)</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('todo-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
                                     date (oldest first)</span>
                                 </a>
@@ -832,35 +833,36 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-                             <!-- Move all card in this list -->
-                             <div class="dropdown-submenu">
+                            <!-- Move all card in this list -->
+                            <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this list</span>
+                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                                  list</span>
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
-                                  
+                                  onclick="moveAllTask('inprogress-task', 'todo-task')">
+
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
+                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('inprogress-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                    </span>
+                                  </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('inprogress-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('inprogress-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -874,17 +876,17 @@
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName()">
+                                  onclick="toggleTicketSortByName('inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
                                     Name</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('inprogress-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
                                     created date (newest first)</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('inprogress-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
                                     date (oldest first)</span>
                                 </a>
@@ -982,32 +984,33 @@
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this list</span>
+                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                                  list</span>
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" >
-                                  
+                                  onclick="moveAllTask('for-approval-task', 'todo-task')">
+
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('for-approval-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
+                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                    </span>
+                                  </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('for-approval-task', 'rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('for-approval-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -1021,17 +1024,17 @@
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName()">
+                                  onclick="toggleTicketSortByName('for-approval-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
                                     Name</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
                                     created date (newest first)</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
                                     date (oldest first)</span>
                                 </a>
@@ -1123,35 +1126,37 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-                             <!-- Move all card in this list -->
-                             <div class="dropdown-submenu">
+                            <!-- Move all card in this list -->
+                            <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this list</span>
+                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                                  list</span>
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
-                                  
+                                  onclick="moveAllTask('rejected-task', 'todo-task')">
+
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('rejected-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('rejected-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                    </span>
+                                  </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
+                                  onclick="moveAllTask('rejected-task', 'rejected-task')"
+                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('rejected-task', 'approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
@@ -1165,17 +1170,17 @@
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName()">
+                                  onclick="toggleTicketSortByName('rejected-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
                                     Name</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
                                     created date (newest first)</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('rejected-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
                                     date (oldest first)</span>
                                 </a>
@@ -1273,38 +1278,39 @@
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this list</span>
+                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                                  list</span>
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" >
-                                  
+                                  onclick="moveAllTask('approved-task', 'todo-task')">
+
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('approved-task', 'inprogress-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
+                                  onclick="moveAllTask('approved-task', 'for-approval-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                    </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                                   </span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="" style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
+                                  onclick="moveAllTask('approved-task', 'rejected-task')">
+                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
+                                  </span>
+                                </a>
+                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
+                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                                   </span>
                                 </a>
                               </div>
                             </div>
-                           
+
                             <!-- Sort By (Nested Dropdown) -->
                             <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
@@ -1313,17 +1319,17 @@
                               </a>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName()">
+                                  onclick="toggleTicketSortByName('approved-task')">
                                   <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
                                     Name</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
                                     created date (newest first)</span>
                                 </a>
                                 <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate()">
+                                  onclick="toggleTicketSortByDate('approved-task')">
                                   <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
                                     date (oldest first)</span>
                                 </a>
@@ -1841,16 +1847,65 @@
     }
   </script>
   <script>
+
+    // Function to change and store background color
     function changeBgColor(color, elementId) {
-      let cardBG = document.getElementById(elementId);
-      cardBG.style.borderRadius = "10px"
-      cardBG.style.padding = "10px"
-      cardBG.style.marginBottom = "10px"
-      cardBG.style.backgroundColor = color;
+      localStorage.setItem("card-bg-color-" + elementId, color); // Store color per element
+      applyBgColor(elementId); // Apply immediately
     }
 
-    function makeDefault(cardId) {
+    // Function to apply stored background color on page load
+    function applyBgColor(elementId) {
+      let cardBG = document.getElementById(elementId);
+      if (!cardBG) return; // Prevent errors if element doesn't exist
 
+      let storedColor = localStorage.getItem("card-bg-color-" + elementId);
+
+      if (storedColor) {
+        cardBG.style.backgroundColor = storedColor;
+      }
+
+      // Ensure consistent styling
+      cardBG.style.borderRadius = "10px";
+      cardBG.style.padding = "10px";
+      cardBG.style.marginBottom = "10px";
+    }
+
+    // Ensure colors are applied when the page loads
+    window.addEventListener("load", function () {
+      let elementIds = ["todo-task", "yourElementId2"];// Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["inprogress-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["rejected-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["for-approval-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+    window.addEventListener("load", function () {
+      let elementIds = ["approved-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+      if (localStorage.getItem("card-bg-color-todo-task")) {
+        elementIds.forEach(applyBgColor);
+      }
+    });
+
+
+    function makeDefault(cardId) {
+      localStorage.removeItem("card-bg-color-todo-task")
       let cardBG = document.getElementById(`${cardId}`);
       cardBG.style.borderRadius = "";
       cardBG.style.padding = "";
