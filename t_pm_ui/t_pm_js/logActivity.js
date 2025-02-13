@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+    // Log when user enters the page (name assumed to be passed or retrieved)
+    const userName = "User";  // You can dynamically retrieve this (e.g., from a form or session)
+    logActivity(`${userName} entered the page at ${new Date().toLocaleString()}`);
+});
+
+document.addEventListener("beforeunload", () => {
+    // Log when user leaves the page
+    const userName = "User";  // Same here, retrieve dynamically if possible
+    logActivity(`${userName} left the page at ${new Date().toLocaleString()}`);
+});
+
 document.addEventListener("click", (event) => {
     let currentTime = new Date().toLocaleString(); // Get the current date and time as a string
     logActivity(`Clicked on ${event.target.tagName} ${event.target.className} at (${event.clientX}, ${event.clientY}) at ${currentTime}`);
@@ -26,7 +38,6 @@ function logActivity(message) {
     //     headers: { "Content-Type": "application/json" }
     // });
 }
-
 
 function showLogs() {
     const logs = JSON.parse(localStorage.getItem("activityLogs")) || [];
