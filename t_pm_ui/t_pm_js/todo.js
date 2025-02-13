@@ -1154,7 +1154,7 @@ function toggleTicketSortByDate(elementId) {
 
 
 //  Move all card in this list 
-function moveAllTask(moveFrom, moveTo) {
+async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
     let todoContainer = document.getElementById(moveFrom);
     let inProgressContainer = document.getElementById(moveTo);
 
@@ -1165,4 +1165,28 @@ function moveAllTask(moveFrom, moveTo) {
     tasks.forEach(task => {
         inProgressContainer.appendChild(task);
     });
+
+    const payload = { newStatus };
+    try {
+        const response = await fetch(`${API_BASE_URL}/updateticketstatus/${currentStatus}/${project_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+            console.log("Ticket Updated");
+
+        } else {
+            console.log("Something went wrong");
+
+        }
+    } catch (error) {
+        messageElement.textContent = 'Error connecting to the server.';
+        messageElement.className = 'message error';
+        console.error('Error:', error);
+    }
+
 }
