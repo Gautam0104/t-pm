@@ -762,7 +762,7 @@
                             </div>
                             <!-- Watch -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-todo-card')">
+                              onclick="watchedCard('watched-todo-card')" id="watched-todo-card-anchor">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker -->
@@ -901,7 +901,7 @@
                             </div>
                             <!-- Watch -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-inprogress-card')">
+                              onclick="watchedCard('watched-inprogress-card')" id="watched-inprogress-card-anchor">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -1051,7 +1051,7 @@
                             </div>
                             <!-- Watch -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-for-approval-card')">
+                              onclick="watchedCard('watched-for-approval-card')" id="watched-for-approval-card-anchor">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -1198,7 +1198,7 @@
                             </div>
                             <!-- Watch -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-rejected-card')">
+                              onclick="watchedCard('watched-rejected-card')" id="watched-rejected-card-anchor">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -1349,7 +1349,7 @@
                             </div>
                             <!-- Watch -->
                             <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-approved-card')">
+                              onclick="watchedCard('watched-approved-card')" id="watched-approved-card-anchor">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -1926,16 +1926,16 @@
       cardBG.style.backgroundColor = "";
     }
     document.addEventListener("DOMContentLoaded", function () {
-    new Sortable(document.getElementById("kanban-wrapper-container"), {
+      new Sortable(document.getElementById("kanban-wrapper-container"), {
         group: "kanban-boards",
         animation: 150,
         handle: ".kanban-board-header", // Only allows dragging by header
         ghostClass: "sortable-ghost",
         onEnd: function (evt) {
-            console.log("Moved from index", evt.oldIndex, "to", evt.newIndex);
+          console.log("Moved from index", evt.oldIndex, "to", evt.newIndex);
         }
+      });
     });
-});
 
   </script>
 </body>

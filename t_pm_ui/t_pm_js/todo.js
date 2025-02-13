@@ -1193,20 +1193,30 @@ async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
 
 function watchedCard(watched) {
     let checkedCard = document.getElementById(watched);
+    let watchedAnchor = document.getElementById(`${watched}-anchor`);
+    let isWatched = localStorage.getItem(`watched-${watched}`);
 
-    // Update the UI
-    checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
-
-    // Save to localStorage
-    localStorage.setItem(`watched-${watched}`, true);
+    if (isWatched) {
+        checkedCard.innerHTML = "";
+        if (watchedAnchor) watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(/<i class=\"ti ti-check ti-xs me-1\"><\/i>/g, "");
+        localStorage.removeItem(`watched-${watched}`);
+    } else {
+        checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+        if (watchedAnchor) watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
+        localStorage.setItem(`watched-${watched}`, true);
+    }
 }
 
 // Restore state on page load
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[id]").forEach((element) => {
         let watchedId = element.id;
+        let watchedAnchor = document.getElementById(`${watchedId}-anchor`);
         if (localStorage.getItem(`watched-${watchedId}`)) {
             element.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+            if (watchedAnchor && !watchedAnchor.innerHTML.includes("ti-check")) {
+                watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
+            }
         }
     });
 });
