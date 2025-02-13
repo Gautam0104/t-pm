@@ -1190,3 +1190,23 @@ async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
     }
 
 }
+
+function watchedCard(watched) {
+    let checkedCard = document.getElementById(watched);
+
+    // Update the UI
+    checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+
+    // Save to localStorage
+    localStorage.setItem(`watched-${watched}`, true);
+}
+
+// Restore state on page load
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[id]").forEach((element) => {
+        let watchedId = element.id;
+        if (localStorage.getItem(`watched-${watchedId}`)) {
+            element.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+        }
+    });
+});

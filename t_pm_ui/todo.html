@@ -675,6 +675,9 @@
 
 
                         <div class="dropdown">
+
+                          <span id="watched-todo-card"></span>
+
                           <i class="ti ti-arrows-horizontal"
                             onclick="toggleTodo('todo-task','todo-header', 'new-todo-item')"></i>
 
@@ -756,7 +759,8 @@
                               </div>
                             </div>
                             <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="watchedCard('watched-todo-card')">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker -->
@@ -819,6 +823,7 @@
                       <header class="kanban-board-header" id="inprogress-header">
                         <div class="kanban-title-board">In Progress</div>
                         <div class="dropdown">
+                          <span id="watched-inprogress-card"></span>
                           <i class="ti ti-arrows-horizontal"
                             onclick="toggleTodo('inprogress-task','inprogress-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
@@ -893,7 +898,8 @@
                               </div>
                             </div>
                             <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="watchedCard('watched-inprogress-card')">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -967,6 +973,7 @@
                       <header class="kanban-board-header" id="for-approval-header">
                         <div class="kanban-title-board">For Approval</div>
                         <div class="dropdown">
+                          <span id="watched-for-approval-card"></span>
                           <i class="ti ti-arrows-horizontal"
                             onclick="toggleTodo('for-approval-task','for-approval-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
@@ -1041,7 +1048,8 @@
                               </div>
                             </div>
                             <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="watchedCard('watched-for-approval-card')">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -1112,6 +1120,7 @@
                       <header class="kanban-board-header" id="rejected-header">
                         <div class="kanban-title-board">Rejected</div>
                         <div class="dropdown">
+                          <span id="watched-rejected-card"></span>
                           <i class="ti ti-arrows-horizontal"
                             onclick="toggleTodo('rejected-task','rejected-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
@@ -1186,7 +1195,8 @@
                               </div>
                             </div>
                             <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="watchedCard('watched-rejected-card')">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
@@ -1260,6 +1270,7 @@
                       <header class="kanban-board-header" id="approved-header">
                         <div class="kanban-title-board">Approved</div>
                         <div class="dropdown">
+                          <span id="watched-approved-card"></span>
                           <i class="ti ti-arrows-horizontal"
                             onclick="toggleTodo('approved-task','approved-header')"></i>
                           <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
@@ -1335,7 +1346,8 @@
                               </div>
                             </div>
                             <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="watchedCard('watched-approved-card')">
                               <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                             </a>
                             <!-- Color Picker Section -->
