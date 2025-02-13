@@ -1,17 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Log when user enters the page (name assumed to be passed or retrieved)
-    const userName = localStorage.getItem("logged-username");  // You can dynamically retrieve this (e.g., from a form or session)
+    // Log when user enters the page
+    const userName = localStorage.getItem("logged-username") || "Guest";
     logActivity(`${userName} entered the page at ${new Date().toLocaleString()}`);
+
+    // Track changes in the ticket form (if it exists)
+    const ticketForm = document.getElementById("ticketForm");
+
+    if (ticketForm) {
+        ticketForm.addEventListener("input", (event) => {
+            event.preventDefault();
+            logActivity(`${userName} updated ${event.target.name || "a field"} in the ticket form`);
+        });
+
+        ticketForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            logActivity(`${userName} submitted the ticket form`);
+        });
+    }
 });
 
 document.addEventListener("beforeunload", () => {
     // Log when user leaves the page
-    const userName = localStorage.getItem("logged-username");  // Same here, retrieve dynamically if possible
+    const userName = localStorage.getItem("logged-username") || "Guest";
     logActivity(`${userName} left the page at ${new Date().toLocaleString()}`);
 });
 
 document.addEventListener("click", (event) => {
-    let currentTime = new Date().toLocaleString(); // Get the current date and time as a string
+    let currentTime = new Date().toLocaleString();
     logActivity(`Clicked on ${event.target.tagName} ${event.target.className} at (${event.clientX}, ${event.clientY}) at ${currentTime}`);
 });
 

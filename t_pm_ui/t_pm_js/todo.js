@@ -753,6 +753,9 @@ fetchDataAndCreateElements()
                                                 selected = null;
                                                 const offcanvas = document.querySelector(".offcanvas");
                                                 offcanvas.classList.remove("show");
+                                                // Log activity
+                                                const userName = localStorage.getItem("logged-username")
+                                                logActivity(`${userName} updated ticket ID ${ticket_id} with title: "${title}"`);
 
                                                 // Show success message
                                                 Swal.fire({
