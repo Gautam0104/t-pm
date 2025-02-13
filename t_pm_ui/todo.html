@@ -64,6 +64,8 @@
 
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../assets/js/config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+
 
   <style>
     img[src="https://xx87gmj8-3000.inc1.devtunnels.ms/uploads/null"],
@@ -1923,6 +1925,18 @@
       cardBG.style.marginBottom = "";
       cardBG.style.backgroundColor = "";
     }
+    document.addEventListener("DOMContentLoaded", function () {
+    new Sortable(document.getElementById("kanban-wrapper-container"), {
+        group: "kanban-boards",
+        animation: 150,
+        handle: ".kanban-board-header", // Only allows dragging by header
+        ghostClass: "sortable-ghost",
+        onEnd: function (evt) {
+            console.log("Moved from index", evt.oldIndex, "to", evt.newIndex);
+        }
+    });
+});
+
   </script>
 </body>
 
