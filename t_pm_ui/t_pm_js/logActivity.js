@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Log when user enters the page (name assumed to be passed or retrieved)
-    const userName = "User";  // You can dynamically retrieve this (e.g., from a form or session)
+    const userName = localStorage.getItem("logged-username");  // You can dynamically retrieve this (e.g., from a form or session)
     logActivity(`${userName} entered the page at ${new Date().toLocaleString()}`);
 });
 
 document.addEventListener("beforeunload", () => {
     // Log when user leaves the page
-    const userName = "User";  // Same here, retrieve dynamically if possible
+    const userName = localStorage.getItem("logged-username");  // Same here, retrieve dynamically if possible
     logActivity(`${userName} left the page at ${new Date().toLocaleString()}`);
 });
 
