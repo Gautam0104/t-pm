@@ -702,14 +702,15 @@
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
                             <!-- Move Board -->
-<a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)" onclick="moveBoard(this)">
-  <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
-</a>
+                            <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)"
+                              onclick="moveBoard(this)">
+                              <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
+                            </a>
 
-<!-- Copy Board -->
-<a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="copyBoard(this)">
-  <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
-</a>
+                            <!-- Copy Board -->
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="copyBoard(this)">
+                              <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
+                            </a>
 
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
@@ -1935,42 +1936,42 @@
       cardBG.style.marginBottom = "";
       cardBG.style.backgroundColor = "";
     }
-    document.addEventListener("DOMContentLoaded", function () {
-      new Sortable(document.getElementById("kanban-wrapper-container"), {
-        group: "kanban-boards",
-        animation: 150,
-        handle: ".kanban-board-header", // Only allows dragging by header
-        ghostClass: "sortable-ghost",
-        onEnd: function (evt) {
-          console.log("Moved from index", evt.oldIndex, "to", evt.newIndex);
-        }
-    });
-});
-function copyBoard(element) {
-    const board = element.closest(".kanban-board");
-    const container = document.getElementById("kanban-wrapper-container");
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   new Sortable(document.getElementById("kanban-wrapper-container"), {
+    //     group: "kanban-boards",
+    //     animation: 150,
+    //     handle: ".kanban-board-header", // Only allows dragging by header
+    //     ghostClass: "sortable-ghost",
+    //     onEnd: function (evt) {
+    //       console.log("Moved from index", evt.oldIndex, "to", evt.newIndex);
+    //     }
+    //   });
+    // });
+    function copyBoard(element) {
+      const board = element.closest(".kanban-board");
+      const container = document.getElementById("kanban-wrapper-container");
 
-    // Ask user for new board name
-    let newBoardName = prompt("Enter a name for the copied board:");
-    if (!newBoardName) return; // Exit if user cancels
+      // Ask user for new board name
+      let newBoardName = prompt("Enter a name for the copied board:");
+      if (!newBoardName) return; // Exit if user cancels
 
-    // Clone the board
-    const clonedBoard = board.cloneNode(true);
+      // Clone the board
+      const clonedBoard = board.cloneNode(true);
 
-    // Update header title
-    clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
+      // Update header title
+      clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
 
-    // Remove old tasks (so it starts fresh)
-    let taskContainer = clonedBoard.querySelector(".kanban-drag");
-    
-    
-    // Insert the copied board right after the original
-    if (board.nextElementSibling) {
+      // Remove old tasks (so it starts fresh)
+      let taskContainer = clonedBoard.querySelector(".kanban-drag");
+
+
+      // Insert the copied board right after the original
+      if (board.nextElementSibling) {
         container.insertBefore(clonedBoard, board.nextElementSibling);
-    } else {
+      } else {
         container.appendChild(clonedBoard); // If last board, add it at the end
+      }
     }
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".move-board-trigger").forEach(button => {
@@ -2034,7 +2035,7 @@ function moveToPosition(board, newIndex) {
 
   </script>
 
-  <script src="./t_pm_js/logActivity.js"></script>
+  <script src="./t_pm_js/moveList.js"></script>
 </body>
 
 </html>
