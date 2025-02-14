@@ -670,7 +670,7 @@
                 <div class="kanban-wrapper ps ps--active-x" style="height: auto; width: 1920px; overflow: hidden; ">
 
                   <div class=" kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
-                    <div data-id="board-in-progress" data-order="1" class="kanban-board"
+                    <div data-id="board-in-progress" data-order="1" class="kanban-board" id="board-1"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header" id="todo-header">
                         <div class="kanban-title-board">Todo</div>
@@ -831,7 +831,7 @@
                       </main>
                       <!-- <footer></footer> -->
                     </div>
-                    <div data-id="board-in-progress" data-order="2" class="kanban-board"
+                    <div data-id="board-in-progress" data-order="2" class="kanban-board" id="board-2"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header" id="inprogress-header">
                         <div class="kanban-title-board">In Progress</div>
@@ -981,7 +981,7 @@
 
                       <!-- <footer></footer> -->
                     </div>
-                    <div data-id="board-in-progress" data-order="3" class="kanban-board"
+                    <div data-id="board-in-progress" data-order="3" class="kanban-board" id="board-3"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header" id="for-approval-header">
                         <div class="kanban-title-board">For Approval</div>
@@ -1128,7 +1128,7 @@
 
                       <!-- <footer></footer> -->
                     </div>
-                    <div data-id="board-in-progress" data-order="4" class="kanban-board"
+                    <div data-id="board-in-progress" data-order="4" class="kanban-board" id="board-4"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header" id="rejected-header">
                         <div class="kanban-title-board">Rejected</div>
@@ -1278,7 +1278,7 @@
                       <!-- <footer></footer> -->
 
                     </div>
-                    <div data-id="board-in-review" data-order="5" class="kanban-board"
+                    <div data-id="board-in-review" data-order="5" class="kanban-board" id="board-5"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header" id="approved-header">
                         <div class="kanban-title-board">Approved</div>
@@ -1947,6 +1947,9 @@
     //     }
     //   });
     // });
+
+
+    // copy board
     function copyBoard(element) {
       const board = element.closest(".kanban-board");
       const container = document.getElementById("kanban-wrapper-container");
