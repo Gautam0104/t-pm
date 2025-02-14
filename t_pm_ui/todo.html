@@ -2003,7 +2003,7 @@ function showMoveBoardDropdown(element) {
         let option = document.createElement("a");
         option.classList.add("dropdown-item");
         option.href = "javascript:void(0)";
-        option.textContent = `Move to position ${index+ 1}`;
+        option.textContent = `Move to position ${index+1}`;
         option.onclick = function () {
             moveToPosition(board, index);
             dropdown.remove(); // Remove dropdown after selection
@@ -2024,8 +2024,9 @@ function showMoveBoardDropdown(element) {
 function moveToPosition(board, newIndex) {
     const container = document.getElementById("kanban-wrapper-container");
     const boards = Array.from(container.children);
+    boards.splice(boards.indexOf(board), 1); // Remove board from its current position
 
-    if (newIndex >= 0 && newIndex < boards.length) {
+    if (newIndex >= 0 && newIndex <= boards.length) {
         container.insertBefore(board, boards[newIndex]);
     }
 }
