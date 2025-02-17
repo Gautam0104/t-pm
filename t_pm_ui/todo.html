@@ -2064,7 +2064,23 @@ function loadBoardsFromLocalStorage() {
                     </a>
                 </div>
             </div>
-            
+            <button class="kanban-title-button btn" id='${boardData.id}-task'>+
+                          Add
+                          New Item</button>
+                      </header>
+                      <main class="kanban-drag">
+                        <div id="rejected-task">
+                          <div id="content-inprogress">Droped in rejected</div>
+
+
+                        </div>
+                        <div id="backdrop">
+
+                        </div>
+
+                        <form class="new-item-form" id='${boardData.id}-task'>
+
+                        </form>
         `;
         board.appendChild(header);
 

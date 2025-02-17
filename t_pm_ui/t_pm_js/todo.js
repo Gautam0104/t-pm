@@ -44,10 +44,15 @@ function fetchDataAndCreateElements() {
 
                 // Add card content
                 card.innerHTML = `
+                    
                     <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
+                    
                     <div class="item-badges">
+                    <div class=" d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
+                    
                         <div class="badge bg-label-success">${element.badge ||
                     "UX"}</div>
+                    
                     </div>
                     <div class="dropdown kanban-tasks-item-dropdown">
                         <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
@@ -243,6 +248,14 @@ fetchDataAndCreateElements()
                                                         <span class="align-middle">Comments</span>
                                                     </button>
                                                 </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link waves-effect" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-actions" aria-selected="false"
+                                                        tabindex="-1" role="tab">
+                                                        <i class="ti ti-chart-pie-2 ti-18px me-1"></i>
+                                                        <span class="align-middle">Actions</span>
+                                                    </button>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="tab-content p-0">
@@ -404,6 +417,171 @@ fetchDataAndCreateElements()
                                                     <p class="mb-0"><span>Utkarsh</span></span> Left the board.</p>
                                                     <small class="text-muted">Today 11:00 AM</small>
                                                     </div>
+                                                </div>
+                                                
+                                                </div>
+                                                </div>
+                                                <div class="tab-content p-0">
+                                                <div class="tab-pane fade text-heading" id="tab-actions" role="tabpanel">
+                                                      <div class="d-flex flex-column" style="width: 100%; height: 100vh;">
+                                                        <!-- Menu -->
+                                                        <ul class="nav flex-column py-2 overflow-auto">
+                                                            <!-- Menu Items -->
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-user-plus me-2"></i> Join
+                                                                </button>
+                                                            </li>
+                                                                <li class="nav-item active">
+                                                                    <button class="nav-link d-flex align-items-center border-0 w-100">
+                                                                        <i class="fas fa-user me-2"></i> Members
+                                                                    </button>
+                                                                </li>
+                                                            <li class="nav-item dropdown">
+                                                                <button class="nav-link d-flex align-items-center border-0 w-100 dropdown-toggle" id="label-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fas fa-tags me-2"></i> Labels
+                                                                </button>
+                                                                <ul class="dropdown-menu w-100" aria-labelledby="label-dropdown">
+                                                                    <li>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <input type="checkbox" class="form-check-input" onclick="addLabel('rgb(10, 82, 42)','${element.ticket_id}')">
+                                                                            </div>
+                                                                            <div class="col-7 d-flex justify-content-center align-items-center h-px-50 ">
+                                                                                <div class="color-box w-100" style="background: rgb(10, 82, 42);" onclick="addLabel('rgb(10, 82, 42)','${element.ticket_id}')"></div>
+                                                                            </div>
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <a href=""><span><i class="ti ti-pencil"></i></span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <input type="checkbox" class="form-check-input" onclick="addLabel('rgb(233, 34, 34)','${element.ticket_id}')">
+                                                                            </div>
+                                                                            <div class="col-7 d-flex justify-content-center align-items-center h-px-50 ">
+                                                                                <div class="color-box w-100" style="background: rgb(233, 34, 34);" onclick="addLabel('rgb(233, 34, 34)','${element.ticket_id}')"></div>
+                                                                            </div>
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <a href=""><span><i class="ti ti-pencil"></i></span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <input type="checkbox" class="form-check-input" onclick="addLabel('rgb(218, 110, 21)','${element.ticket_id}')">
+                                                                            </div>
+                                                                            <div class="col-7 d-flex justify-content-center align-items-center h-px-50 ">
+                                                                                <div class="color-box w-100" style="background: rgb(218, 110, 21);" onclick="addLabel('rgb(218, 110, 21)','${element.ticket_id}')"></div>
+                                                                            </div>
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <a href=""><span><i class="ti ti-pencil"></i></span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <input type="checkbox" class="form-check-input" onclick="addLabel('rgb(148, 122, 8)','${element.ticket_id}')">
+                                                                            </div>
+                                                                            <div class="col-7 d-flex justify-content-center align-items-center h-px-50 ">
+                                                                                <div class="color-box w-100" style="background: rgb(148, 122, 8);" onclick="addLabel('rgb(148, 122, 8)','${element.ticket_id}')"></div>
+                                                                            </div>
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <a href=""><span><i class="ti ti-pencil"></i></span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <input type="checkbox" class="form-check-input" onclick="addLabel('rgb(116, 128, 241)','${element.ticket_id}')">
+                                                                            </div>
+                                                                            <div class="col-7 d-flex justify-content-center align-items-center h-px-50 ">
+                                                                                <div class="color-box w-100" style="background: rgb(116, 128, 241);" onclick="addLabel('rgb(116, 128, 241)','${element.ticket_id}')"></div>
+                                                                            </div>
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <a href=""><span><i class="ti ti-pencil"></i></span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <input type="checkbox" class="form-check-input" onclick="addLabel('rgb(46, 60, 185)','${element.ticket_id}')">
+                                                                            </div>
+                                                                            <div class="col-7 d-flex justify-content-center align-items-center h-px-50 ">
+                                                                                <div class="color-box w-100" style="background: rgb(46, 60, 185);" onclick="addLabel('rgb(46, 60, 185)','${element.ticket_id}')"></div>
+                                                                            </div>
+                                                                            <div class="col-2 d-flex justify-content-center align-items-center h-px-50">
+                                                                                <a href=""><span><i class="ti ti-pencil"></i></span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+
+                                                            </li>
+                                                            <li class="nav-item dropdown">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="checklist-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fas fa-tasks me-2"></i> Checklist
+                                                                </button>
+                                                                <ul class="dropdown-menu w-75" aria-labelledby="checklist-dropdown">
+                                                                 <li>
+                                                                 <div class="row d-flex justify-content-center">
+                                                                 <div class="col-6"><p>Add checklist</p></div>
+                                                                 </div>
+                                                                 <div class="form">
+                                                                 <div class="row">
+                                                                    <div class="col mb-4">
+                                                                    <label for="nameSmall" class="form-label">Title</label>
+                                                                    <input type="text" id="copy-board-name" class="form-control" placeholder="Checklist">
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                                 <div class="col mb-4">
+                                                                    <button type="button" class="btn btn-primary waves-effect waves-light">Add</button>
+                                                                             
+                                                                    </div>
+                                                                 </div>
+                                                                 </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-calendar-alt me-2"></i> Dates
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-paperclip me-2"></i> Attachment
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-image me-2"></i> Cover
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-cog me-2"></i> Custom Fields
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-plug me-2"></i> Add Power-Ups
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                    <i class="fas fa-plus me-2"></i> Add Button
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                   
                                                 </div>
                                                 
                                                 </div>
@@ -1221,5 +1399,60 @@ document.addEventListener("DOMContentLoaded", function () {
                 watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
             }
         }
+    });
+});
+
+
+
+function addLabel(color, elementId) {
+    // Get or create the label container
+    let labelDiv = document.getElementById(`label-color-box-${elementId}`);
+    if (!labelDiv) {
+        labelDiv = document.createElement("div");
+        labelDiv.id = `label-color-box-${elementId}`;
+        document.body.appendChild(labelDiv); // Append it to the DOM
+    }
+
+    // Create the new color box
+    const labelContent = `<div class="color-box rounded" style="background:${color};height:10px;"></div>`;
+    labelDiv.innerHTML += labelContent;
+
+    // Save the updated HTML content to localStorage
+    saveLabelContent(elementId, labelDiv.innerHTML);
+}
+
+function saveLabelContent(elementId, content) {
+    // Save the HTML content of the label container to localStorage
+    localStorage.setItem(`label-content-${elementId}`, content);
+
+    // Save the elementId to track all saved elements
+    let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
+    if (!savedElements.includes(elementId)) {
+        savedElements.push(elementId);
+        localStorage.setItem("savedElements", JSON.stringify(savedElements));
+    }
+}
+
+function loadLabelContent(elementId) {
+    // Get the label container
+    let labelDiv = document.getElementById(`label-color-box-${elementId}`);
+    if (!labelDiv) {
+        labelDiv = document.createElement("div");
+        labelDiv.id = `label-color-box-${elementId}`;
+        document.body.appendChild(labelDiv); // Append it to the DOM
+    }
+
+    // Load the saved HTML content from localStorage
+    const savedContent = localStorage.getItem(`label-content-${elementId}`);
+    if (savedContent) {
+        labelDiv.innerHTML = savedContent;
+    }
+}
+
+// Automatically load all saved label content when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+    let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
+    savedElements.forEach(elementId => {
+        loadLabelContent(elementId);
     });
 });
