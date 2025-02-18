@@ -25,7 +25,7 @@
     "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "bysabi.prettier-vscode-standard"
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

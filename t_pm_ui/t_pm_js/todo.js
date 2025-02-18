@@ -7,43 +7,43 @@ var creator_id = urlParams.get("user_id");
 console.log(project_id);
 
 fetch(`${API_BASE_URL}/project/${project_id}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        const projectTitle = document.getElementById("project-title");
-        const titleContent = `<input type="text" class="form-control" value = "${data.project_name}" id="project-title-input">`;
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    const projectTitle = document.getElementById("project-title");
+    const titleContent = `<input type="text" class="form-control" value = "${data.project_name}" id="project-title-input">`;
 
-        projectTitle.innerHTML += titleContent;
-    });
+    projectTitle.innerHTML += titleContent;
+  });
 // Function to fetch and create elements
 function fetchDataAndCreateElements() {
-    return fetch(`${API_BASE_URL}/ticket/${project_id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(element => {
-                const cardItem = document.getElementById("todo-task");
-                const cardItem2 = document.getElementById("inprogress-task");
-                const cardItem3 = document.getElementById("for-approval-task");
-                const cardItem4 = document.getElementById("rejected-task");
-                const cardItem5 = document.getElementById("approved-task");
+  return fetch(`${API_BASE_URL}/ticket/${project_id}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      data.forEach(element => {
+        const cardItem = document.getElementById("todo-task");
+        const cardItem2 = document.getElementById("inprogress-task");
+        const cardItem3 = document.getElementById("for-approval-task");
+        const cardItem4 = document.getElementById("rejected-task");
+        const cardItem5 = document.getElementById("approved-task");
 
-                // Create kanban card dynamically
-                const card = document.createElement("div");
-                card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
-                card.draggable = true;
-                card.id = `${element.ticket_id}`;
+        // Create kanban card dynamically
+        const card = document.createElement("div");
+        card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
+        card.draggable = true;
+        card.id = `${element.ticket_id}`;
 
-                // Add card content
-                card.innerHTML = `
+        // Add card content
+        card.innerHTML = `
                     
                     <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
                     
@@ -51,7 +51,7 @@ function fetchDataAndCreateElements() {
                     <div class=" d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
                     
                         <div class="badge bg-label-success">${element.badge ||
-                    "UX"}</div>
+                          "UX"}</div>
                     
                     </div>
 
@@ -68,16 +68,14 @@ function fetchDataAndCreateElements() {
                 </div>
                 <img class="img-fluid rounded mb-2" id="card-img" draggable = false src="${API_BASE_URL}/uploads/${element.card_image}">
                 <span class="kanban-text">${element.title}</span>
-                    <div class="d-flex mt-2" id="checklist-box"  draggable="false" style="cursor:pointer" onclick=" checklistModal(event)" data-bs-toggle="modal" data-bs-target="#checklistModal" >
-                      <i class="ti ti-checkbox me-1"></i>
-                        <span>0/1</span>
-                    </div>
+                   <div id="checklist-container-${element.ticket_id}"></div>
+
                 <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
                     <div class="d-flex">
                         <span class="d-flex align-items-center me-2">
                             <i class="ti ti-paperclip me-1"></i>
                             <span class="attachments">${element.attachments ||
-                    "0"}</span>
+                              "0"}</span>
                         </span>
                         <span class="d-flex align-items-center ms-2">
                             <i class="ti ti-message-2 me-1"></i>
@@ -98,131 +96,128 @@ function fetchDataAndCreateElements() {
                     </div>
                 </div>
                 `;
-                // const cardImg = document.getElementById('card-img');
-                // console.log(cardImg);
+        // const cardImg = document.getElementById('card-img');
+        // console.log(cardImg);
 
-                // if (!cardImg.src) {
-                //     cardImg.style.display = "none";
-                // };
+        // if (!cardImg.src) {
+        //     cardImg.style.display = "none";
+        // };
 
-                // Append card to the container
-                switch (element.ticket_status) {
-                    case "todo":
-                        cardItem.appendChild(card);
-                        break;
-                    case "inprogress":
-                        cardItem2.appendChild(card);
-                        break;
-                    case "for-approval":
-                        cardItem3.appendChild(card);
-                        break;
-                    case "approved":
-                        cardItem5.appendChild(card);
-                        break;
-                    case "rejected":
-                        cardItem4.appendChild(card);
-                        break;
-                    default:
-                        cardItem.appendChild(card);
-                }
-            });
+        // Append card to the container
+        switch (element.ticket_status) {
+          case "todo":
+            cardItem.appendChild(card);
+            break;
+          case "inprogress":
+            cardItem2.appendChild(card);
+            break;
+          case "for-approval":
+            cardItem3.appendChild(card);
+            break;
+          case "approved":
+            cardItem5.appendChild(card);
+            break;
+          case "rejected":
+            cardItem4.appendChild(card);
+            break;
+          default:
+            cardItem.appendChild(card);
+        }
+      });
 
-            return document.querySelectorAll(".dragg-from-todo"); // Return the elements
-        });
+      return document.querySelectorAll(".dragg-from-todo"); // Return the elements
+    });
 }
 const cardImg = document.getElementById("card-img");
 console.log(cardImg);
 
 // Call the function and use the returned elements
 fetchDataAndCreateElements()
-    .then(trydraggElements => {
-        const todoTask = document.getElementById("todo-task");
-        const inprogressTask = document.getElementById("inprogress-task");
-        const forApprovalTask = document.getElementById("for-approval-task");
-        const rejectedTask = document.getElementById("rejected-task");
-        const approvedTask = document.getElementById("approved-task");
+  .then(trydraggElements => {
+    const todoTask = document.getElementById("todo-task");
+    const inprogressTask = document.getElementById("inprogress-task");
+    const forApprovalTask = document.getElementById("for-approval-task");
+    const rejectedTask = document.getElementById("rejected-task");
+    const approvedTask = document.getElementById("approved-task");
 
-        console.log("trydragg elements outside fetch:", trydraggElements);
+    console.log("trydragg elements outside fetch:", trydraggElements);
 
-        // Perform actions on the elements here
-        trydraggElements.forEach(element => {
+    // Perform actions on the elements here
+    trydraggElements.forEach(element => {
+      element.addEventListener("click", function(e) {
+        const offcanvas = document.querySelector(".offcanvas");
+        // const backdropWrapper = document.getElementById("backdrop");
+        offcanvas.classList.add("show");
 
-            element.addEventListener("click", function (e) {
-                const offcanvas = document.querySelector(".offcanvas");
-                // const backdropWrapper = document.getElementById("backdrop");
-                offcanvas.classList.add("show");
+        const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
+        // backdropWrapper.innerHTML = backdropContent;
+        let selected = e.currentTarget.id;
+        let ticket_id = selected;
+        console.log(e.currentTarget.id);
 
-                const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
-                // backdropWrapper.innerHTML = backdropContent;
-                let selected = e.currentTarget.id;
-                let ticket_id = selected;
-                console.log(e.currentTarget.id);
+        // Fetch Ticket Data from API
+        fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then(data => {
+            data.map(element => {
+              const isoDate = `${element.ticket_created_at}`;
 
-                // Fetch Ticket Data from API
-                fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(
-                                "Network response was not ok " + response.statusText
-                            );
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        data.map(element => {
+              // Convert to a Date object
+              const date = new Date(isoDate);
 
+              // Extract date components
+              const day = date.getDate().toString().padStart(2, "0");
+              const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+              const year = date.getFullYear();
 
-                            const isoDate = `${element.ticket_created_at}`;
+              // Extract time components
+              const hours = date.getHours().toString().padStart(2, "0");
+              const minutes = date.getMinutes().toString().padStart(2, "0");
+              const seconds = date.getSeconds().toString().padStart(2, "0");
 
-                            // Convert to a Date object
-                            const date = new Date(isoDate);
+              // Combine date and time
+              const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
 
-                            // Extract date components
-                            const day = date.getDate().toString().padStart(2, "0");
-                            const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
-                            const year = date.getFullYear();
+              console.log("Formatted Date and Time:", formattedDateTime);
 
-                            // Extract time components
-                            const hours = date.getHours().toString().padStart(2, "0");
-                            const minutes = date.getMinutes().toString().padStart(2, "0");
-                            const seconds = date.getSeconds().toString().padStart(2, "0");
+              const isoDateupdate = `${element.updated_at}`;
 
-                            // Combine date and time
-                            const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
+              // Convert to a Date object
+              const dateupdate = new Date(isoDateupdate);
 
-                            console.log("Formatted Date and Time:", formattedDateTime);
+              // Extract date components
+              const day1 = dateupdate.getDate().toString().padStart(2, "0");
+              const month1 = (dateupdate.getMonth() + 1)
+                .toString()
+                .padStart(2, "0"); // Months are 0-based
+              const year1 = dateupdate.getFullYear();
 
-                            const isoDateupdate = `${element.updated_at}`;
+              // Extract time components
+              const hours1 = dateupdate.getHours().toString().padStart(2, "0");
+              const minutes1 = dateupdate
+                .getMinutes()
+                .toString()
+                .padStart(2, "0");
+              const seconds1 = dateupdate
+                .getSeconds()
+                .toString()
+                .padStart(2, "0");
 
-                            // Convert to a Date object
-                            const dateupdate = new Date(isoDateupdate);
+              // Combine date and time
+              const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+              function stripTags(html) {
+                return html.replace(/<\/?[^>]+(>|$)/g, "");
+              }
 
-                            // Extract date components
-                            const day1 = dateupdate.getDate().toString().padStart(2, "0");
-                            const month1 = (dateupdate.getMonth() + 1)
-                                .toString()
-                                .padStart(2, "0"); // Months are 0-based
-                            const year1 = dateupdate.getFullYear();
-
-                            // Extract time components
-                            const hours1 = dateupdate.getHours().toString().padStart(2, "0");
-                            const minutes1 = dateupdate
-                                .getMinutes()
-                                .toString()
-                                .padStart(2, "0");
-                            const seconds1 = dateupdate
-                                .getSeconds()
-                                .toString()
-                                .padStart(2, "0");
-
-                            // Combine date and time
-                            const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
-                            function stripTags(html) {
-                                return html.replace(/<\/?[^>]+(>|$)/g, "");
-                            }
-
-                            const offcanvasDiv = document.getElementById("offcanvas-div");
-                            const offcanvasContent = `<div class="offcanvas-header border-bottom">
+              const offcanvasDiv = document.getElementById("offcanvas-div");
+              const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
                                         <button type="button" class="btn-close" id="offcanvase-close"
                                              aria-label="Close"></button>
@@ -541,12 +536,12 @@ fetchDataAndCreateElements()
                                                                  <div class="row">
                                                                     <div class="col mb-4">
                                                                     <label for="nameSmall" class="form-label">Title</label>
-                                                                    <input type="text" id="copy-board-name" class="form-control" placeholder="Checklist">
+                                                                    <input type="text" id="checklist-name" class="form-control" placeholder="Checklist">
                                                                     </div>
                                                                    
                                                                 </div>
                                                                  <div class="col mb-4">
-                                                                    <button type="button" class="btn btn-primary waves-effect waves-light">Add</button>
+                                                                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="createChecklist('${element.ticket_id}','${element.title}')">Add</button>
                                                                              
                                                                     </div>
                                                                  </div>
@@ -593,62 +588,67 @@ fetchDataAndCreateElements()
                                                 </div>
                                     </div>`;
 
-                            offcanvasDiv.innerHTML = offcanvasContent;
-                            // card image zone in modal
-                            const imageArea = document.getElementById("activity-card-image-area");
-                            const cardImage = `<img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" >`;
-                            imageArea.innerHTML = cardImage
+              offcanvasDiv.innerHTML = offcanvasContent;
+              // card image zone in modal
+              const imageArea = document.getElementById(
+                "activity-card-image-area"
+              );
+              const cardImage = `<img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" >`;
+              imageArea.innerHTML = cardImage;
 
+              flatpickr("#due-date", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i", // Format for Date and Time
+                minDate: "today" // Set minimum date to today
+              });
 
-                            flatpickr("#due-date", {
-                                enableTime: true,
-                                dateFormat: "Y-m-d H:i", // Format for Date and Time
-                                minDate: "today" // Set minimum date to today
-                            });
+              // fetch ticket history
+              fetch(`${API_BASE_URL}/users`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(
+                      "Network response was not ok " + response.statusText
+                    );
+                  }
+                  return response.json();
+                })
+                .then(users => {
+                  users.map(user => {
+                    const taskOwnerfield = document.getElementById(
+                      "ticket-owner"
+                    );
+                    const taskOwnerContent = `<option value="${user.first_name}">${user.first_name}</option>`;
 
-                            // fetch ticket history
-                            fetch(`${API_BASE_URL}/users`)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(
-                                            "Network response was not ok " + response.statusText
-                                        );
-                                    }
-                                    return response.json();
-                                })
-                                .then(users => {
-                                    users.map(user => {
-                                        const taskOwnerfield = document.getElementById("ticket-owner");
-                                        const taskOwnerContent = `<option value="${user.first_name}">${user.first_name}</option>`;
+                    taskOwnerfield.innerHTML += taskOwnerContent;
+                  });
+                });
+              // Check if the images field is null or empty
+              const imageArray =
+                element.images && element.images !== null
+                  ? Array.isArray(element.images)
+                    ? element.images
+                    : element.images.replace(/^\[|\]$/g, "").split(",")
+                  : [];
 
-                                        taskOwnerfield.innerHTML += taskOwnerContent;
-                                    })
-                                })
-                            // Check if the images field is null or empty
-                            const imageArray =
-                                element.images && element.images !== null
-                                    ? Array.isArray(element.images)
-                                        ? element.images
-                                        : element.images.replace(/^\[|\]$/g, "").split(",")
-                                    : [];
+              // If imageArray is empty, you may choose to show a default message or not display the images section at all
 
-                            // If imageArray is empty, you may choose to show a default message or not display the images section at all
+              imageArray.forEach(imagePath);
 
-                            imageArray.forEach(imagePath)
-
-
-                            function imagePath(item, index) {
-                                item = item.replace(/^"|"$/g, "").trim(); // Clean image path
-                                const attachmentDiv = document.getElementById("attachment-content");
-                                const activityImages = `<span class="badge bg-label-secondary m-2">Attachment #${index + 1}</span>
+              function imagePath(item, index) {
+                item = item.replace(/^"|"$/g, "").trim(); // Clean image path
+                const attachmentDiv = document.getElementById(
+                  "attachment-content"
+                );
+                const activityImages = `<span class="badge bg-label-secondary m-2">Attachment #${index +
+                  1}</span>
                                                            <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
 
-                                attachmentDiv.innerHTML += activityImages;
-                                const activityImageArea = document.getElementById(
-                                    "activity-image-area"
-                                );
+                attachmentDiv.innerHTML += activityImages;
+                const activityImageArea = document.getElementById(
+                  "activity-image-area"
+                );
 
-                                const imageContent = `
+                const imageContent = `
                                     
                                     
                                                             <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
@@ -658,52 +658,56 @@ fetchDataAndCreateElements()
                                                                     <button class="btn btn-primary" >Download</button>
                                                                 </div>
                                                             </div>`;
-                                activityImageArea.innerHTML = imageContent;
-                            }
+                activityImageArea.innerHTML = imageContent;
+              }
 
+              // fetch ticket history
+              fetch(`${API_BASE_URL}/ticket-history/${ticket_id}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(
+                      "Network response was not ok " + response.statusText
+                    );
+                  }
+                  return response.json();
+                })
+                .then(histories => {
+                  histories.map(history => {
+                    const ticketHistory = document.getElementById(
+                      "history-content"
+                    );
+                    // Convert to a Date object
+                    const isoHisDateupdate = `${history.updated_at}`;
+                    const historydateupdate = new Date(isoHisDateupdate);
 
+                    // Extract date components
+                    const day1 = historydateupdate
+                      .getDate()
+                      .toString()
+                      .padStart(2, "0");
+                    const month1 = (historydateupdate.getMonth() + 1)
+                      .toString()
+                      .padStart(2, "0"); // Months are 0-based
+                    const year1 = historydateupdate.getFullYear();
 
+                    // Extract time components
+                    const hours1 = historydateupdate
+                      .getHours()
+                      .toString()
+                      .padStart(2, "0");
+                    const minutes1 = historydateupdate
+                      .getMinutes()
+                      .toString()
+                      .padStart(2, "0");
+                    const seconds1 = historydateupdate
+                      .getSeconds()
+                      .toString()
+                      .padStart(2, "0");
 
-                            // fetch ticket history
-                            fetch(`${API_BASE_URL}/ticket-history/${ticket_id}`)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(
-                                            "Network response was not ok " + response.statusText
-                                        );
-                                    }
-                                    return response.json();
-                                })
-                                .then(histories => {
+                    // Combine date and time
+                    const formattedDateTimehistoryupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
 
-                                    histories.map(history => {
-                                        const ticketHistory = document.getElementById("history-content");
-                                        // Convert to a Date object
-                                        const isoHisDateupdate = `${history.updated_at}`;
-                                        const historydateupdate = new Date(isoHisDateupdate);
-
-                                        // Extract date components
-                                        const day1 = historydateupdate.getDate().toString().padStart(2, "0");
-                                        const month1 = (historydateupdate.getMonth() + 1)
-                                            .toString()
-                                            .padStart(2, "0"); // Months are 0-based
-                                        const year1 = historydateupdate.getFullYear();
-
-                                        // Extract time components
-                                        const hours1 = historydateupdate.getHours().toString().padStart(2, "0");
-                                        const minutes1 = historydateupdate
-                                            .getMinutes()
-                                            .toString()
-                                            .padStart(2, "0");
-                                        const seconds1 = historydateupdate
-                                            .getSeconds()
-                                            .toString()
-                                            .padStart(2, "0");
-
-                                        // Combine date and time
-                                        const formattedDateTimehistoryupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
-
-                                        const Content = `  <div class="card border m-2">
+                    const Content = `  <div class="card border m-2">
                                             <div class ="card-header text-center">
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary m-2 w-100">${history.previous_title}</span></span>
@@ -753,41 +757,48 @@ fetchDataAndCreateElements()
                                             </div>
                                             </div>`;
 
-                                        ticketHistory.innerHTML += Content;
-                                        // image src check
+                    ticketHistory.innerHTML += Content;
+                    // image src check
 
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            let imgElement = document.getElementById("card-image-preview-update");
+                    document.addEventListener("DOMContentLoaded", function() {
+                      let imgElement = document.getElementById(
+                        "card-image-preview-update"
+                      );
 
-                                            if (!imgElement.src || imgElement.src.includes("null")) {
-                                                imgElement.style.display = "none";  // Hide the image if src is null or invalid
-                                            }
-                                        });
-                                        // Check if the images field is null or empty
-                                        const historyimageArray =
-                                            history.previous_images && history.previous_images !== null
-                                                ? Array.isArray(history.previous_images)
-                                                    ? history.previous_images
-                                                    : history.previous_images.replace(/^\[|\]$/g, "").split(",")
-                                                : [];
+                      if (!imgElement.src || imgElement.src.includes("null")) {
+                        imgElement.style.display = "none"; // Hide the image if src is null or invalid
+                      }
+                    });
+                    // Check if the images field is null or empty
+                    const historyimageArray =
+                      history.previous_images &&
+                      history.previous_images !== null
+                        ? Array.isArray(history.previous_images)
+                          ? history.previous_images
+                          : history.previous_images
+                              .replace(/^\[|\]$/g, "")
+                              .split(",")
+                        : [];
 
-                                        // If imageArray is empty, you may choose to show a default message or not display the images section at all
-                                        historyimageArray.forEach(preimagePath)
+                    // If imageArray is empty, you may choose to show a default message or not display the images section at all
+                    historyimageArray.forEach(preimagePath);
 
-                                        function preimagePath(item, index) {
-                                            item = item.replace(/^"|"$/g, "").trim(); // Clean image path
+                    function preimagePath(item, index) {
+                      item = item.replace(/^"|"$/g, "").trim(); // Clean image path
 
-
-                                            const attachmenthistoryDiv = document.getElementById("attachment-content-history");
-                                            const activitypreImages = `<span class="badge bg-label-secondary m-2">Attachment #${index + 1}</span>
+                      const attachmenthistoryDiv = document.getElementById(
+                        "attachment-content-history"
+                      );
+                      const activitypreImages = `<span class="badge bg-label-secondary m-2">Attachment #${index +
+                        1}</span>
                                                                            <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
 
-                                            attachmenthistoryDiv.innerHTML += activitypreImages;
-                                            const activityImageArea = document.getElementById(
-                                                "activity-image-area"
-                                            );
+                      attachmenthistoryDiv.innerHTML += activitypreImages;
+                      const activityImageArea = document.getElementById(
+                        "activity-image-area"
+                      );
 
-                                            const imageContent = `
+                      const imageContent = `
                                 
                                 
                                                         <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
@@ -797,674 +808,656 @@ fetchDataAndCreateElements()
                                                                 <button class="btn btn-primary" >Download</button>
                                                             </div>
                                                         </div>`;
-                                            activityImageArea.innerHTML = imageContent;
+                      activityImageArea.innerHTML = imageContent;
+                    }
+                  });
+                });
 
-                                        }
+              const closeButton = document.getElementById("offcanvase-close");
+              const deleteButton = document.getElementById("delete-ticket");
+              //console.log(updateButton);
+              closeButton.addEventListener("click", function() {
+                selected = null;
+                console.log("selected is null now");
+                const offcanvas = document.querySelector(".offcanvas");
+                // const backdropWrapper = document.getElementById("backdrop");
+                offcanvas.classList.remove("show");
+                // backdropWrapper.innerHTML = "";
+              });
+              // Add event listener for the card-image input field
+              document
+                .getElementById("card-image")
+                .addEventListener("change", function(event) {
+                  const fileInput = event.target;
+                  const previewContainer = document.getElementById(
+                    "card-image-preview"
+                  );
+                  const previewContainerUpdate = document.getElementById(
+                    "card-image-preview-update"
+                  );
+                  const previewUpdate = document.getElementById(
+                    "image-preview-update"
+                  );
+                  const previewImage = document.getElementById(
+                    "card-image-preview-img"
+                  );
 
+                  previewContainerUpdate.style.display = "none";
+                  // Check if a file is selected
+                  if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
 
-                                    })
+                    // Validate that the file is an image
+                    if (!file.type.startsWith("image/")) {
+                      alert("Please upload a valid image file.");
+                      fileInput.value = ""; // Reset the input
+                      previewImage.style.display = "none"; // Hide preview
+                      return;
+                    }
 
-                                })
+                    // Use FileReader to display the image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                      // Set the preview image src to the loaded file data
+                      previewImage.src = e.target.result;
+                      previewImage.style.display = "block"; // Show the image
+                    };
+                    reader.readAsDataURL(file); // Read the file data as a data URL
+                  } else {
+                    // No file selected, hide the preview
+                    previewImage.style.display = "none";
+                  }
+                });
 
-                            const closeButton = document.getElementById("offcanvase-close");
-                            const deleteButton = document.getElementById("delete-ticket");
-                            //console.log(updateButton);
-                            closeButton.addEventListener("click", function () {
-                                selected = null;
-                                console.log("selected is null now");
-                                const offcanvas = document.querySelector(".offcanvas");
-                                // const backdropWrapper = document.getElementById("backdrop");
-                                offcanvas.classList.remove("show");
-                                // backdropWrapper.innerHTML = "";
-                            });
-                            // Add event listener for the card-image input field
-                            document
-                                .getElementById("card-image")
-                                .addEventListener("change", function (event) {
-                                    const fileInput = event.target;
-                                    const previewContainer = document.getElementById(
-                                        "card-image-preview"
-                                    );
-                                    const previewContainerUpdate = document.getElementById(
-                                        "card-image-preview-update"
-                                    );
-                                    const previewUpdate = document.getElementById(
-                                        "image-preview-update"
-                                    );
-                                    const previewImage = document.getElementById(
-                                        "card-image-preview-img"
-                                    );
+              // update ticket form
+              document
+                .getElementById("ticketForm")
+                .addEventListener("submit", function(e) {
+                  e.preventDefault();
 
-                                    previewContainerUpdate.style.display = "none";
-                                    // Check if a file is selected
-                                    if (fileInput.files && fileInput.files[0]) {
-                                        const file = fileInput.files[0];
+                  const ticket_id = element.ticket_id;
+                  const title = document.getElementById("title").value;
+                  const description = document.getElementById("description")
+                    .innerHTML;
+                  const status = "backlog";
+                  const priority = "Medium";
+                  const due_date = document.getElementById("due-date").value;
+                  const ticket_status = element.ticket_status;
+                  const images = document.getElementById("image").files;
+                  const cardImage = document.getElementById("card-image").files;
+                  const ticket_eta = document.getElementById("ticket_eta")
+                    .value;
+                  const ticket_owner = document.getElementById("ticket-owner")
+                    .value;
 
-                                        // Validate that the file is an image
-                                        if (!file.type.startsWith("image/")) {
-                                            alert("Please upload a valid image file.");
-                                            fileInput.value = ""; // Reset the input
-                                            previewImage.style.display = "none"; // Hide preview
-                                            return;
-                                        }
+                  // Validate required fields
+                  if (
+                    !ticket_id ||
+                    !title ||
+                    !description ||
+                    !status ||
+                    !priority ||
+                    !ticket_status ||
+                    !ticket_owner
+                  ) {
+                    alert("Please fill in all required fields.");
+                    return;
+                  }
 
-                                        // Use FileReader to display the image
-                                        const reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            // Set the preview image src to the loaded file data
-                                            previewImage.src = e.target.result;
-                                            previewImage.style.display = "block"; // Show the image
-                                        };
-                                        reader.readAsDataURL(file); // Read the file data as a data URL
-                                    } else {
-                                        // No file selected, hide the preview
-                                        previewImage.style.display = "none";
-                                    }
-                                });
+                  // Create FormData
+                  const formData = new FormData();
+                  formData.append("ticket_id", ticket_id);
+                  formData.append("title", title);
+                  formData.append("description", description);
+                  formData.append("status", status);
+                  formData.append("priority", priority);
+                  formData.append("due_date", due_date);
+                  formData.append("ticket_status", ticket_status);
+                  formData.append("ticket_eta", ticket_eta);
+                  formData.append("ticket_owner", ticket_owner);
 
-                            // update ticket form
-                            document
-                                .getElementById("ticketForm")
-                                .addEventListener("submit", function (e) {
-                                    e.preventDefault();
+                  // Append multiple images
+                  if (images.length > 0) {
+                    for (let i = 0; i < images.length; i++) {
+                      formData.append("images", images[i]);
+                    }
+                  }
+                  // Append single cardImage
+                  if (cardImage.length > 0) {
+                    formData.append("card_image", cardImage[0]); // Correctly append the first cardImage file
+                  }
 
-                                    const ticket_id = element.ticket_id;
-                                    const title = document.getElementById("title").value;
-                                    const description = document.getElementById("description")
-                                        .innerHTML;
-                                    const status = "backlog";
-                                    const priority = "Medium";
-                                    const due_date = document.getElementById("due-date").value;
-                                    const ticket_status = element.ticket_status;
-                                    const images = document.getElementById("image").files;
-                                    const cardImage = document.getElementById("card-image").files;
-                                    const ticket_eta = document.getElementById("ticket_eta")
-                                        .value;
-                                    const ticket_owner = document.getElementById("ticket-owner")
-                                        .value;
+                  // Display a loading message
+                  const messageElement = document.getElementById("message");
+                  messageElement.textContent = "Updating ticket...";
 
-                                    // Validate required fields
-                                    if (
-                                        !ticket_id ||
-                                        !title ||
-                                        !description ||
-                                        !status ||
-                                        !priority ||
-                                        !ticket_status ||
-                                        !ticket_owner
-                                    ) {
-                                        alert("Please fill in all required fields.");
-                                        return;
-                                    }
+                  // Send update request
+                  fetch(`${API_BASE_URL}/updateticket`, {
+                    method: "PUT",
+                    body: formData
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      if (data.message) {
+                        // Ticket successfully updated
+                        selected = null;
+                        const offcanvas = document.querySelector(".offcanvas");
+                        offcanvas.classList.remove("show");
+                        // Log activity
+                        const userName = localStorage.getItem(
+                          "logged-username"
+                        );
+                        logActivity(
+                          `${userName} updated ticket ID ${ticket_id} with title: "${title}"`
+                        );
 
-                                    // Create FormData
-                                    const formData = new FormData();
-                                    formData.append("ticket_id", ticket_id);
-                                    formData.append("title", title);
-                                    formData.append("description", description);
-                                    formData.append("status", status);
-                                    formData.append("priority", priority);
-                                    formData.append("due_date", due_date);
-                                    formData.append("ticket_status", ticket_status);
-                                    formData.append("ticket_eta", ticket_eta);
-                                    formData.append("ticket_owner", ticket_owner);
-
-                                    // Append multiple images
-                                    if (images.length > 0) {
-                                        for (let i = 0; i < images.length; i++) {
-                                            formData.append("images", images[i]);
-                                        }
-                                    }
-                                    // Append single cardImage
-                                    if (cardImage.length > 0) {
-                                        formData.append("card_image", cardImage[0]); // Correctly append the first cardImage file
-                                    }
-
-                                    // Display a loading message
-                                    const messageElement = document.getElementById("message");
-                                    messageElement.textContent = "Updating ticket...";
-
-                                    // Send update request
-                                    fetch(`${API_BASE_URL}/updateticket`, {
-                                        method: "PUT",
-                                        body: formData
-                                    })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.message) {
-                                                // Ticket successfully updated
-                                                selected = null;
-                                                const offcanvas = document.querySelector(".offcanvas");
-                                                offcanvas.classList.remove("show");
-                                                // Log activity
-                                                const userName = localStorage.getItem("logged-username")
-                                                logActivity(`${userName} updated ticket ID ${ticket_id} with title: "${title}"`);
-
-                                                // Show success message
-                                                Swal.fire({
-                                                    title: "Ticket Updated Successfully",
-                                                    text: "The ticket has been updated successfully.",
-                                                    icon: "success",
-                                                    confirmButtonText: "Ok!"
-                                                }).then(() => {
-                                                    window.location.reload();
-                                                });
-                                            } else if (data.error) {
-                                                messageElement.textContent = data.error;
-                                                messageElement.style.color = "red";
-                                            }
-                                        })
-                                        .catch(error => {
-                                            messageElement.textContent = "An error occurred.";
-                                            messageElement.style.color = "red";
-                                            console.error("Error:", error);
-                                        });
-                                });
-
-                            console.log(deleteButton);
-
-                            deleteButton.addEventListener("click", async function () {
-                                // console.log("deleteButtonworking");
-                                const ticket_id = element.ticket_id;
-                                console.log("Project id is : " + ticket_id);
-                                // if (!recordId) {
-                                //     messageDiv.textContent = 'Please enter a valid ID.';
-                                //     messageDiv.className = 'message error';
-                                //     return;
-                                // }
-
-                                try {
-                                    // Send DELETE request to the API
-                                    const response = await fetch(
-                                        `${API_BASE_URL}/clearHistory/${ticket_id}`,
-                                        {
-                                            method: "DELETE"
-                                        }
-                                    );
-
-                                    // Parse the response
-                                    // const data = await response.json();
-
-                                    if (response.ok) {
-                                        console.log("ticket history clear");
-                                    } else {
-                                        console.log("something went wrong");
-                                    }
-                                } catch (error) {
-                                    console.error(error);
-                                    // messageDiv.textContent = 'Could not connect to the server.';
-                                    // messageDiv.className = 'message error';
-                                }
-
-                                try {
-                                    // Send DELETE request to the API
-                                    const response = await fetch(
-                                        `${API_BASE_URL}/deleteticket/${ticket_id}`,
-                                        {
-                                            method: "DELETE"
-                                        }
-                                    );
-
-                                    // Parse the response
-                                    // const data = await response.json();
-
-                                    if (response.ok) {
-                                        Swal.fire({
-                                            title: "Ticket Deleted Successfully",
-                                            text: "A Ticket is delete from your tickets",
-                                            icon: "success",
-                                            confirmButtonText: "Ok!"
-                                        }).then(function () {
-                                            window.location.reload();
-                                        });
-                                    } else {
-                                        Swal.fire({
-                                            title: "Oops!",
-                                            text: "something went wrong. Try again!",
-                                            icon: "error",
-                                            confirmButtonText: "Retry!"
-                                        });
-                                    }
-                                } catch (error) {
-                                    console.error(error);
-                                    // messageDiv.textContent = 'Could not connect to the server.';
-                                    // messageDiv.className = 'message error';
-                                }
-                            });
+                        // Show success message
+                        Swal.fire({
+                          title: "Ticket Updated Successfully",
+                          text: "The ticket has been updated successfully.",
+                          icon: "success",
+                          confirmButtonText: "Ok!"
+                        }).then(() => {
+                          window.location.reload();
                         });
+                      } else if (data.error) {
+                        messageElement.textContent = data.error;
+                        messageElement.style.color = "red";
+                      }
+                    })
+                    .catch(error => {
+                      messageElement.textContent = "An error occurred.";
+                      messageElement.style.color = "red";
+                      console.error("Error:", error);
                     });
-            });
+                });
 
-            element.addEventListener("dragstart", e => {
-                let selected = e.target;
-                let ticket_id = selected.classList[2];
-                function fetchselectedData() {
-                    return fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(
-                                    "Network response was not ok " + response.statusText
-                                );
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            let selectedData = data[0];
-                            return selectedData;
-                        });
+              console.log(deleteButton);
+
+              deleteButton.addEventListener("click", async function() {
+                // console.log("deleteButtonworking");
+                const ticket_id = element.ticket_id;
+                console.log("Project id is : " + ticket_id);
+                // if (!recordId) {
+                //     messageDiv.textContent = 'Please enter a valid ID.';
+                //     messageDiv.className = 'message error';
+                //     return;
+                // }
+
+                try {
+                  // Send DELETE request to the API
+                  const response = await fetch(
+                    `${API_BASE_URL}/clearHistory/${ticket_id}`,
+                    {
+                      method: "DELETE"
+                    }
+                  );
+
+                  // Parse the response
+                  // const data = await response.json();
+
+                  if (response.ok) {
+                    console.log("ticket history clear");
+                  } else {
+                    console.log("something went wrong");
+                  }
+                } catch (error) {
+                  console.error(error);
+                  // messageDiv.textContent = 'Could not connect to the server.';
+                  // messageDiv.className = 'message error';
                 }
 
-                inprogressTask.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-                    const contentInprogress = document.getElementById(
-                        "content-inprogress"
-                    );
-                    contentDiv.style.opacity = "1";
-                });
-                forApprovalTask.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-                });
-                rejectedTask.addEventListener("dragover", function (e) {
-                    e.preventDefault();
+                try {
+                  // Send DELETE request to the API
+                  const response = await fetch(
+                    `${API_BASE_URL}/deleteticket/${ticket_id}`,
+                    {
+                      method: "DELETE"
+                    }
+                  );
 
-                });
-                approvedTask.addEventListener("dragover", function (e) {
-                    e.preventDefault();
+                  // Parse the response
+                  // const data = await response.json();
 
-                });
-                todoTask.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-
-                });
-                inprogressTask.addEventListener("drop", function (e) {
-                    e.preventDefault();
-                    inprogressTask.appendChild(selected);
-                    selected.classList.remove("dragg-from-todo");
-                    selected.classList.add("dragg-from-inprogress");
-                    fetchselectedData()
-                        .then(selectedData => {
-                            const ticketId = selectedData.ticket_id;
-                            const ticketStatus = "inprogress";
-
-                            // Check for undefined or empty values before sending the request
-                            if (!ticketId || !ticketStatus) {
-                                console.log("Ticket ID or Status is missing");
-                                return; // You could show an alert or handle the error here
-                            }
-
-                            fetch(`${API_BASE_URL}/updateticketStatus`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    ticket_id: ticketId,
-                                    ticket_status: ticketStatus
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => console.log("Success:", data))
-                                .catch(error => console.error("Error:", error));
-                        })
-                        .catch(error => console.error("Error:", error));
-
-                    selected = null;
-
-                });
-                todoTask.addEventListener("drop", function (e) {
-                    e.preventDefault();
-                    todoTask.appendChild(selected);
-                    selected.classList.remove("dragg-from-inprogress");
-                    selected.classList.add("dragg-from-todo");
-                    fetchselectedData()
-                        .then(selectedData => {
-                            const ticketId = selectedData.ticket_id;
-                            const ticketStatus = "todo";
-
-                            // Check for undefined or empty values before sending the request
-                            if (!ticketId || !ticketStatus) {
-                                console.log("Ticket ID or Status is missing");
-                                return; // You could show an alert or handle the error here
-                            }
-
-                            fetch(`${API_BASE_URL}/updateticketStatus`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    ticket_id: ticketId,
-                                    ticket_status: ticketStatus
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => console.log("Success:", data))
-                                .catch(error => console.error("Error:", error));
-                        })
-                        .catch(error => console.error("Error:", error));
-
-                    selected = null;
-
-                });
-                forApprovalTask.addEventListener("drop", function (e) {
-                    e.preventDefault();
-                    forApprovalTask.appendChild(selected);
-                    fetchselectedData()
-                        .then(selectedData => {
-                            const ticketId = selectedData.ticket_id;
-                            const ticketStatus = "for-approval";
-
-                            // Check for undefined or empty values before sending the request
-                            if (!ticketId || !ticketStatus) {
-                                console.log("Ticket ID or Status is missing");
-                                return; // You could show an alert or handle the error here
-                            }
-
-                            fetch(`${API_BASE_URL}/updateticketStatus`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    ticket_id: ticketId,
-                                    ticket_status: ticketStatus
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => console.log("Success:", data))
-                                .catch(error => console.error("Error:", error));
-                        })
-                        .catch(error => console.error("Error:", error));
-                    selected = null;
-
-                });
-                rejectedTask.addEventListener("drop", function (e) {
-                    e.preventDefault();
-                    rejectedTask.appendChild(selected);
-                    fetchselectedData()
-                        .then(selectedData => {
-                            const ticketId = selectedData.ticket_id;
-                            const ticketStatus = "rejected";
-
-                            // Check for undefined or empty values before sending the request
-                            if (!ticketId || !ticketStatus) {
-                                console.log("Ticket ID or Status is missing");
-                                return; // You could show an alert or handle the error here
-                            }
-
-                            fetch(`${API_BASE_URL}/updateticketStatus`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    ticket_id: ticketId,
-                                    ticket_status: ticketStatus
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => console.log("Success:", data))
-                                .catch(error => console.error("Error:", error));
-                        })
-                        .catch(error => console.error("Error:", error));
-                    selected = null;
-
-                });
-                approvedTask.addEventListener("drop", function (e) {
-                    e.preventDefault();
-                    approvedTask.appendChild(selected);
-                    fetchselectedData()
-                        .then(selectedData => {
-                            const ticketId = selectedData.ticket_id;
-                            const ticketStatus = "approved";
-
-                            // Check for undefined or empty values before sending the request
-                            if (!ticketId || !ticketStatus) {
-                                console.log("Ticket ID or Status is missing");
-                                return; // You could show an alert or handle the error here
-                            }
-
-                            fetch(`${API_BASE_URL}/updateticketStatus`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    ticket_id: ticketId,
-                                    ticket_status: ticketStatus
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => console.log("Success:", data))
-                                .catch(error => console.error("Error:", error));
-                        })
-                        .catch(error => console.error("Error:", error));
-                    selected = null;
-
-                });
+                  if (response.ok) {
+                    Swal.fire({
+                      title: "Ticket Deleted Successfully",
+                      text: "A Ticket is delete from your tickets",
+                      icon: "success",
+                      confirmButtonText: "Ok!"
+                    }).then(function() {
+                      window.location.reload();
+                    });
+                  } else {
+                    Swal.fire({
+                      title: "Oops!",
+                      text: "something went wrong. Try again!",
+                      icon: "error",
+                      confirmButtonText: "Retry!"
+                    });
+                  }
+                } catch (error) {
+                  console.error(error);
+                  // messageDiv.textContent = 'Could not connect to the server.';
+                  // messageDiv.className = 'message error';
+                }
+              });
             });
+          });
+      });
+
+      element.addEventListener("dragstart", e => {
+        let selected = e.target;
+        let ticket_id = selected.classList[2];
+        function fetchselectedData() {
+          return fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(
+                  "Network response was not ok " + response.statusText
+                );
+              }
+              return response.json();
+            })
+            .then(data => {
+              let selectedData = data[0];
+              return selectedData;
+            });
+        }
+
+        inprogressTask.addEventListener("dragover", function(e) {
+          e.preventDefault();
+          const contentInprogress = document.getElementById(
+            "content-inprogress"
+          );
+          contentDiv.style.opacity = "1";
         });
-    })
-    .catch(error => console.error("Error:", error));
+        forApprovalTask.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        });
+        rejectedTask.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        });
+        approvedTask.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        });
+        todoTask.addEventListener("dragover", function(e) {
+          e.preventDefault();
+        });
+        inprogressTask.addEventListener("drop", function(e) {
+          e.preventDefault();
+          inprogressTask.appendChild(selected);
+          selected.classList.remove("dragg-from-todo");
+          selected.classList.add("dragg-from-inprogress");
+          fetchselectedData()
+            .then(selectedData => {
+              const ticketId = selectedData.ticket_id;
+              const ticketStatus = "inprogress";
 
+              // Check for undefined or empty values before sending the request
+              if (!ticketId || !ticketStatus) {
+                console.log("Ticket ID or Status is missing");
+                return; // You could show an alert or handle the error here
+              }
 
+              fetch(`${API_BASE_URL}/updateticketStatus`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  ticket_id: ticketId,
+                  ticket_status: ticketStatus
+                })
+              })
+                .then(response => response.json())
+                .then(data => console.log("Success:", data))
+                .catch(error => console.error("Error:", error));
+            })
+            .catch(error => console.error("Error:", error));
 
+          selected = null;
+        });
+        todoTask.addEventListener("drop", function(e) {
+          e.preventDefault();
+          todoTask.appendChild(selected);
+          selected.classList.remove("dragg-from-inprogress");
+          selected.classList.add("dragg-from-todo");
+          fetchselectedData()
+            .then(selectedData => {
+              const ticketId = selectedData.ticket_id;
+              const ticketStatus = "todo";
 
+              // Check for undefined or empty values before sending the request
+              if (!ticketId || !ticketStatus) {
+                console.log("Ticket ID or Status is missing");
+                return; // You could show an alert or handle the error here
+              }
+
+              fetch(`${API_BASE_URL}/updateticketStatus`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  ticket_id: ticketId,
+                  ticket_status: ticketStatus
+                })
+              })
+                .then(response => response.json())
+                .then(data => console.log("Success:", data))
+                .catch(error => console.error("Error:", error));
+            })
+            .catch(error => console.error("Error:", error));
+
+          selected = null;
+        });
+        forApprovalTask.addEventListener("drop", function(e) {
+          e.preventDefault();
+          forApprovalTask.appendChild(selected);
+          fetchselectedData()
+            .then(selectedData => {
+              const ticketId = selectedData.ticket_id;
+              const ticketStatus = "for-approval";
+
+              // Check for undefined or empty values before sending the request
+              if (!ticketId || !ticketStatus) {
+                console.log("Ticket ID or Status is missing");
+                return; // You could show an alert or handle the error here
+              }
+
+              fetch(`${API_BASE_URL}/updateticketStatus`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  ticket_id: ticketId,
+                  ticket_status: ticketStatus
+                })
+              })
+                .then(response => response.json())
+                .then(data => console.log("Success:", data))
+                .catch(error => console.error("Error:", error));
+            })
+            .catch(error => console.error("Error:", error));
+          selected = null;
+        });
+        rejectedTask.addEventListener("drop", function(e) {
+          e.preventDefault();
+          rejectedTask.appendChild(selected);
+          fetchselectedData()
+            .then(selectedData => {
+              const ticketId = selectedData.ticket_id;
+              const ticketStatus = "rejected";
+
+              // Check for undefined or empty values before sending the request
+              if (!ticketId || !ticketStatus) {
+                console.log("Ticket ID or Status is missing");
+                return; // You could show an alert or handle the error here
+              }
+
+              fetch(`${API_BASE_URL}/updateticketStatus`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  ticket_id: ticketId,
+                  ticket_status: ticketStatus
+                })
+              })
+                .then(response => response.json())
+                .then(data => console.log("Success:", data))
+                .catch(error => console.error("Error:", error));
+            })
+            .catch(error => console.error("Error:", error));
+          selected = null;
+        });
+        approvedTask.addEventListener("drop", function(e) {
+          e.preventDefault();
+          approvedTask.appendChild(selected);
+          fetchselectedData()
+            .then(selectedData => {
+              const ticketId = selectedData.ticket_id;
+              const ticketStatus = "approved";
+
+              // Check for undefined or empty values before sending the request
+              if (!ticketId || !ticketStatus) {
+                console.log("Ticket ID or Status is missing");
+                return; // You could show an alert or handle the error here
+              }
+
+              fetch(`${API_BASE_URL}/updateticketStatus`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  ticket_id: ticketId,
+                  ticket_status: ticketStatus
+                })
+              })
+                .then(response => response.json())
+                .then(data => console.log("Success:", data))
+                .catch(error => console.error("Error:", error));
+            })
+            .catch(error => console.error("Error:", error));
+          selected = null;
+        });
+      });
+    });
+  })
+  .catch(error => console.error("Error:", error));
 
 const closeCanvase = () => {
-    const offcanvas = document.querySelector(".offcanvas");
-    // const backdropWrapper = document.getElementById("backdrop");
-    offcanvas.classList.remove("show");
-    // backdropWrapper.innerHTML = "";
+  const offcanvas = document.querySelector(".offcanvas");
+  // const backdropWrapper = document.getElementById("backdrop");
+  offcanvas.classList.remove("show");
+  // backdropWrapper.innerHTML = "";
 };
-
 
 // textarea js
 
 function applyStyle(style) {
-    document.execCommand(style, false, null);
+  document.execCommand(style, false, null);
 }
 
 function addLink() {
-    const url = prompt('Enter the URL:');
-    if (url) {
-        const selection = document.getSelection();
-        if (selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            const anchor = document.createElement('a');
-            anchor.href = url;
-            anchor.textContent = range.toString();
-            range.deleteContents();
-            range.insertNode(anchor);
-        }
+  const url = prompt("Enter the URL:");
+  if (url) {
+    const selection = document.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.textContent = range.toString();
+      range.deleteContents();
+      range.insertNode(anchor);
     }
+  }
 }
 
 function addImage() {
-    const imageUrl = prompt('Enter the image URL:');
-    if (imageUrl) {
-        const img = document.createElement('img');
-        img.src = imageUrl;
-        img.style.maxWidth = '100%';
-        const selection = document.getSelection();
-        if (selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            range.insertNode(img);
-        }
+  const imageUrl = prompt("Enter the image URL:");
+  if (imageUrl) {
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.style.maxWidth = "100%";
+    const selection = document.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      range.insertNode(img);
     }
+  }
 }
-
-
 
 function changecardGB(element) {
-    element.style.backgroundColor = "red";
+  element.style.backgroundColor = "red";
 }
-
-
 
 let isAscending = true; // Track sorting order
 
 function toggleTicketSortByName(elementId) {
-    let todoTask = document.getElementById(elementId);
-    let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
+  let todoTask = document.getElementById(elementId);
+  let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
 
-    kanbanItems.sort((a, b) => {
-        let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
-        let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
+  kanbanItems.sort((a, b) => {
+    let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+    let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
 
-        return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-    });
+    return isAscending
+      ? nameA.localeCompare(nameB)
+      : nameB.localeCompare(nameA);
+  });
 
-    kanbanItems.forEach(item => todoTask.appendChild(item));
+  kanbanItems.forEach(item => todoTask.appendChild(item));
 
-    isAscending = !isAscending; // Toggle sorting order for next call
+  isAscending = !isAscending; // Toggle sorting order for next call
 }
 
 let isDateAscending = true; // Track sorting order for date
 
 function toggleTicketSortByDate(elementId) {
-    let todoTask = document.getElementById(elementId);
-    let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
+  let todoTask = document.getElementById(elementId);
+  let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
 
-    kanbanItems.sort((a, b) => {
-        let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
-        let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
+  kanbanItems.sort((a, b) => {
+    let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+    let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
 
-        return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-    });
+    return isAscending
+      ? nameA.localeCompare(nameB)
+      : nameB.localeCompare(nameA);
+  });
 
-    kanbanItems.forEach(item => todoTask.appendChild(item));
+  kanbanItems.forEach(item => todoTask.appendChild(item));
 
-    isAscending = !isAscending; // Toggle sorting order for next call
+  isAscending = !isAscending; // Toggle sorting order for next call
 }
 
-
-//  Move all card in this list 
+//  Move all card in this list
 async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
-    let todoContainer = document.getElementById(moveFrom);
-    let inProgressContainer = document.getElementById(moveTo);
+  let todoContainer = document.getElementById(moveFrom);
+  let inProgressContainer = document.getElementById(moveTo);
 
-    // Select all tasks inside the To-Do container
-    let tasks = todoContainer.querySelectorAll(".kanban-item");
+  // Select all tasks inside the To-Do container
+  let tasks = todoContainer.querySelectorAll(".kanban-item");
 
-    // Move each task to the In-Progress container
-    tasks.forEach(task => {
-        inProgressContainer.appendChild(task);
-    });
+  // Move each task to the In-Progress container
+  tasks.forEach(task => {
+    inProgressContainer.appendChild(task);
+  });
 
-    const payload = { newStatus };
-    try {
-        const response = await fetch(`${API_BASE_URL}/updateticketstatus/${currentStatus}/${project_id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        });
+  const payload = { newStatus };
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/updateticketstatus/${currentStatus}/${project_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
 
-        if (response.ok) {
-            console.log("Ticket Updated");
-
-        } else {
-            console.log("Something went wrong");
-
-        }
-    } catch (error) {
-        messageElement.textContent = 'Error connecting to the server.';
-        messageElement.className = 'message error';
-        console.error('Error:', error);
+    if (response.ok) {
+      console.log("Ticket Updated");
+    } else {
+      console.log("Something went wrong");
     }
-
+  } catch (error) {
+    messageElement.textContent = "Error connecting to the server.";
+    messageElement.className = "message error";
+    console.error("Error:", error);
+  }
 }
 
 function watchedCard(watched) {
-    let checkedCard = document.getElementById(watched);
-    let watchedAnchor = document.getElementById(`${watched}-anchor`);
-    let isWatched = localStorage.getItem(`watched-${watched}`);
+  let checkedCard = document.getElementById(watched);
+  let watchedAnchor = document.getElementById(`${watched}-anchor`);
+  let isWatched = localStorage.getItem(`watched-${watched}`);
 
-    if (isWatched) {
-        checkedCard.innerHTML = "";
-        if (watchedAnchor) watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(/<i class=\"ti ti-check ti-xs me-1\"><\/i>/g, "");
-        localStorage.removeItem(`watched-${watched}`);
-    } else {
-        checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
-        if (watchedAnchor) watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
-        localStorage.setItem(`watched-${watched}`, true);
-    }
+  if (isWatched) {
+    checkedCard.innerHTML = "";
+    if (watchedAnchor)
+      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(
+        /<i class=\"ti ti-check ti-xs me-1\"><\/i>/g,
+        ""
+      );
+    localStorage.removeItem(`watched-${watched}`);
+  } else {
+    checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+    if (watchedAnchor)
+      watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
+    localStorage.setItem(`watched-${watched}`, true);
+  }
 }
 
 // Restore state on page load
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("[id]").forEach((element) => {
-        let watchedId = element.id;
-        let watchedAnchor = document.getElementById(`${watchedId}-anchor`);
-        if (localStorage.getItem(`watched-${watchedId}`)) {
-            element.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
-            if (watchedAnchor && !watchedAnchor.innerHTML.includes("ti-check")) {
-                watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
-            }
-        }
-    });
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll("[id]").forEach(element => {
+    let watchedId = element.id;
+    let watchedAnchor = document.getElementById(`${watchedId}-anchor`);
+    if (localStorage.getItem(`watched-${watchedId}`)) {
+      element.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+      if (watchedAnchor && !watchedAnchor.innerHTML.includes("ti-check")) {
+        watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
+      }
+    }
+  });
 });
 
-
-
 function addLabel(color, elementId) {
-    // Get or create the label container
-    let labelDiv = document.getElementById(`label-color-box-${elementId}`);
-    if (!labelDiv) {
-        labelDiv = document.createElement("div");
-        labelDiv.id = `label-color-box-${elementId}`;
-        document.body.appendChild(labelDiv); // Append it to the DOM
-    }
+  // Get or create the label container
+  let labelDiv = document.getElementById(`label-color-box-${elementId}`);
+  if (!labelDiv) {
+    labelDiv = document.createElement("div");
+    labelDiv.id = `label-color-box-${elementId}`;
+    document.body.appendChild(labelDiv); // Append it to the DOM
+  }
 
-    // Create the new color box
-    const labelContent = `<div class="color-box rounded" style="background:${color};height:10px;"></div>`;
-    labelDiv.innerHTML += labelContent;
+  // Create the new color box
+  const labelContent = `<div class="color-box rounded" style="background:${color};height:10px;"></div>`;
+  labelDiv.innerHTML += labelContent;
 
-    // Save the updated HTML content to localStorage
-    saveLabelContent(elementId, labelDiv.innerHTML);
+  // Save the updated HTML content to localStorage
+  saveLabelContent(elementId, labelDiv.innerHTML);
 }
 
 function saveLabelContent(elementId, content) {
-    // Save the HTML content of the label container to localStorage
-    localStorage.setItem(`label-content-${elementId}`, content);
+  // Save the HTML content of the label container to localStorage
+  localStorage.setItem(`label-content-${elementId}`, content);
 
-    // Save the elementId to track all saved elements
-    let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
-    if (!savedElements.includes(elementId)) {
-        savedElements.push(elementId);
-        localStorage.setItem("savedElements", JSON.stringify(savedElements));
-    }
+  // Save the elementId to track all saved elements
+  let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
+  if (!savedElements.includes(elementId)) {
+    savedElements.push(elementId);
+    localStorage.setItem("savedElements", JSON.stringify(savedElements));
+  }
 }
 
 function loadLabelContent(elementId) {
-    // Get the label container
-    let labelDiv = document.getElementById(`label-color-box-${elementId}`);
-    if (!labelDiv) {
-        labelDiv = document.createElement("div");
-        labelDiv.id = `label-color-box-${elementId}`;
-        document.body.appendChild(labelDiv); // Append it to the DOM
-    }
+  // Get the label container
+  let labelDiv = document.getElementById(`label-color-box-${elementId}`);
+  if (!labelDiv) {
+    labelDiv = document.createElement("div");
+    labelDiv.id = `label-color-box-${elementId}`;
+    document.body.appendChild(labelDiv); // Append it to the DOM
+  }
 
-    // Load the saved HTML content from localStorage
-    const savedContent = localStorage.getItem(`label-content-${elementId}`);
-    if (savedContent) {
-        labelDiv.innerHTML = savedContent;
-    }
+  // Load the saved HTML content from localStorage
+  const savedContent = localStorage.getItem(`label-content-${elementId}`);
+  if (savedContent) {
+    labelDiv.innerHTML = savedContent;
+  }
 }
 
 // Automatically load all saved label content when the page loads
-document.addEventListener("DOMContentLoaded", function () {
-    let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
-    savedElements.forEach(elementId => {
-        loadLabelContent(elementId);
-    });
+document.addEventListener("DOMContentLoaded", function() {
+  let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
+  savedElements.forEach(elementId => {
+    loadLabelContent(elementId);
+  });
 });
-
-
-
-function checklistModal(event) {
-    event.stopPropagation();  // Prevent the event from bubbling up to the parent
-
-}
