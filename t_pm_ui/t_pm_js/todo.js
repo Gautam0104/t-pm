@@ -541,7 +541,7 @@ fetchDataAndCreateElements()
                                                                  <div class="row">
                                                                     <div class="col mb-4">
                                                                     <label for="nameSmall" class="form-label">Title</label>
-                                                                    <input type="text" id="copy-board-name" class="form-control" placeholder="Checklist">
+                                                                    <input type="text" id="checklist-name" class="form-control" placeholder="Checklist">
                                                                     </div>
                                                                    
                                                                 </div>
