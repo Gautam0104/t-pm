@@ -1803,7 +1803,7 @@
                 <h5 class="modal-title" id="exampleModalLabel1">Ticket Title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="height: 50vh;">
                 <div class="row align-items-center">
                   <div class="col-6">
                     <i class="ti ti-checkbox me-2"></i>
@@ -1829,7 +1829,7 @@
                   <div class="col-1">
                     <input type="checkbox" class="form-check-input">
                   </div>
-                  <div class="col-10 d-flex justify-content-end ">
+                  <div class="col-10 d-flex justify-content-end rounded p-2" id="new-checklist-title-box">
                     <div class="row w-100  justify-content-end">
                       <div class="col-6 d-flex justify-content-start ">
                         <span>new check list</span>
@@ -1838,23 +1838,58 @@
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                           <li class="nav-item dropdown-language dropdow me-2">
                             <a href="">
-                              <i class="ti ti-sun"></i>
+                              <div class="d-flex align-items-center justify-content-center bg-secondary rounded-circle"
+                                style="width: 30px; height: 30px;">
+                                <i class="ti ti-dots text-white"></i>
+                              </div>
                             </a>
                           </li>
                           <li class="nav-item dropdown-language dropdow me-2">
                             <a href="">
-                              <i class="ti ti-wand"></i>
+                              <div class="d-flex align-items-center justify-content-center bg-secondary rounded-circle"
+                                style="width: 30px; height: 30px;">
+                                <i class="ti ti-user-plus text-white"></i>
+                              </div>
                             </a>
                           </li>
                           <li class="nav-item dropdown-language dropdow me-2">
                             <a href="">
-                              <i class="ti ti-bell"></i>
+                              <div class="d-flex align-items-center justify-content-center bg-secondary rounded-circle"
+                                style="width: 30px; height: 30px;">
+                                <i class="ti ti-dots text-white"></i>
+                              </div>
                             </a>
                           </li>
                         </ul>
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="row align-items-center mt-4">
+                  <div class="row align-items-center mt-4">
+                    <div class="col-6 d-flex justify-content-center dropdown">
+                      <button class="btn btn-primary" id="add-checklist-item-dropdown" data-bs-toggle="dropdown"
+                        data-bs-display="static" aria-haspopup="true" aria-expanded="false">
+                        Add an item
+                      </button>
+                      <div class="dropdown-menu w-100 mt-2" aria-labelledby="add-checklist-item-dropdown"
+                        style="margin-left: 50px;">
+                        <form>
+                          <div class="mb-4"><textarea class="form-control" rows="2" id="" placeholder="Add Content"
+                              required=""></textarea>
+                          </div>
+                          <div class="mb-4"><button type="submit"
+                              class="btn btn-primary btn-sm me-4">Add</button><button type="button"
+                              class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
+                              id="cancel-form-4">Cancel</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+
+
                 </div>
               </div>
               <div class="modal-footer">
@@ -2171,7 +2206,7 @@
                 <span class="align-middle">Card Bg</span>
                 <div class="d-flex flex-wrap mt-2" style="width: 140px;">
                     ${['#ff5733', '#33ff57', '#3357ff', '#f4d03f', '#8e44ad', '#1abc9c', '#e74c3c', '#2c3e50', '#d35400', '#16a085', '#ed0cf5', '#f9fafa']
-                        .map(color => `
+            .map(color => `
                             <div class="color-box" style="background: ${color};"
                                 onclick="changeBgColor('${color}','${boardData.id}-task')">
                             </div>
@@ -2201,12 +2236,12 @@
 
         // Append Existing Tasks
         if (boardData.tasks && Array.isArray(boardData.tasks)) {
-            boardData.tasks.forEach(taskHTML => {
-                const task = document.createElement('div');
-                task.classList.add('kanban-item');
-                task.innerHTML = taskHTML;
-                taskContainer.appendChild(task);
-            });
+          boardData.tasks.forEach(taskHTML => {
+            const task = document.createElement('div');
+            task.classList.add('kanban-item');
+            task.innerHTML = taskHTML;
+            taskContainer.appendChild(task);
+          });
         }
 
         // Append Task Container
@@ -2229,16 +2264,16 @@
       });
     }
 
-// Event Listeners
-document.addEventListener("DOMContentLoaded", function () {
-    loadBoardsFromLocalStorage();
+    // Event Listeners
+    document.addEventListener("DOMContentLoaded", function () {
+      loadBoardsFromLocalStorage();
 
       document.querySelectorAll(".move-board-trigger").forEach(button => {
         button.addEventListener("mouseenter", function () {
           showMoveBoardDropdown(this);
         });
+      });
     });
-});
 
 
 
@@ -2332,7 +2367,40 @@ document.addEventListener("DOMContentLoaded", function () {
       board.remove();
     }
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const checkbox = document.querySelector(".form-check-input");
+      const progressBar = document.querySelector(".progress-bar");
+      const checklistTitle = document.querySelector("#new-checklist-title-box span");
+      const progressText = document.querySelector(".col-1 span"); // Selecting the span showing progress percentage
 
+      checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          animateProgress(0, 100);
+          progressBar.style.width = "100%";
+          progressBar.setAttribute("aria-valuenow", "100");
+          checklistTitle.style.textDecoration = "line-through";
+        } else {
+          animateProgress(100, 0);
+          progressBar.style.width = "0%";
+          progressBar.setAttribute("aria-valuenow", "0");
+          checklistTitle.style.textDecoration = "none";
+        }
+      });
+
+      function animateProgress(start, end) {
+        let current = start;
+        const step = start < end ? 1 : -1; // Determines the increment or decrement direction
+        const interval = setInterval(() => {
+          current += step;
+          progressText.textContent = `${current}%`;
+          if (current === end) {
+            clearInterval(interval);
+          }
+        }, 5); // Smooth transition effect
+      }
+    });
+  </script>
   <script src="./t_pm_js/moveList.js"></script>
 </body>
 
