@@ -2274,6 +2274,208 @@
         });
       });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+    loadBoardsFromLocalStorage();
+    enableDragAndDrop();
+});
+
+function enableDragAndDrop() {
+    const taskContainers = document.querySelectorAll(".kanban-drag");
+
+    taskContainers.forEach(container => {
+        container.addEventListener("dragover", function (e) {
+            e.preventDefault(); // Allow dropping
+        });
+
+        container.addEventListener("drop", function (e) {
+            e.preventDefault();
+            const draggedCard = document.querySelector(".dragging");
+
+            if (draggedCard) {
+                const oldBoard = draggedCard.closest(".kanban-board").getAttribute("data-id");
+                const newBoard = container.closest(".kanban-board").getAttribute("data-id");
+
+                if (oldBoard !== newBoard) {
+                    console.log(`Moved task from ${oldBoard} to ${newBoard}`);
+                }
+
+                // Move card visually
+                container.appendChild(draggedCard);
+                draggedCard.classList.remove("dragging");
+
+                // Update the task's board ID
+                draggedCard.setAttribute("data-board-id", newBoard);
+
+                // 🔥 Save board state after task move
+                saveBoardsState();
+            }
+        });
+    });
+
+    document.querySelectorAll(".kanban-item").forEach(card => {
+        card.setAttribute("draggable", "true");
+
+        card.addEventListener("dragstart", function () {
+            this.classList.add("dragging");
+        });
+
+        card.addEventListener("dragend", function () {
+            this.classList.remove("dragging");
+        });
+    });
+}
+
+
+// 🔹 Function to Copy a Board and Assign Unique Card IDs
+function copyBoard(element) {
+    const board = element.closest(".kanban-board");
+    const container = document.getElementById("kanban-wrapper-container");
+
+    let newBoardName = prompt("Enter a name for the copied board:");
+    if (!newBoardName) return;
+
+    const clonedBoard = board.cloneNode(true);
+    const newBoardId = `board-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    clonedBoard.setAttribute("data-id", newBoardId);
+    clonedBoard.id = newBoardId;
+
+    clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
+
+    let taskContainer = clonedBoard.querySelector(".kanban-drag");
+    taskContainer.innerHTML = '';
+
+    const tasks = board.querySelectorAll(".kanban-item");
+    let newTasks = [];
+    tasks.forEach(task => {
+        const clonedTask = task.cloneNode(true);
+        const newTaskId = `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        clonedTask.setAttribute("data-id", newTaskId);
+        clonedTask.id = newTaskId;
+        taskContainer.appendChild(clonedTask);
+        newTasks.push({ id: newTaskId, content: clonedTask.innerHTML });
+    });
+
+    if (board.nextElementSibling) {
+        container.insertBefore(clonedBoard, board.nextElementSibling);
+    } else {
+        container.appendChild(clonedBoard);
+    }
+
+    saveBoardToLocalStorage(newBoardId, newBoardName, newTasks);
+}
+
+// 🔹 Function to Save Board State Including Unique Task IDs
+function saveBoardToLocalStorage(boardId, boardName, tasks) {
+    const boardData = {
+        id: boardId,
+        title: boardName,
+        tasks: tasks
+    };
+
+    let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
+    savedBoards.push(boardData);
+    localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
+}
+
+// 🔹 Save all board states including task positions
+function saveBoardsState() {
+    let savedBoards = [];
+    
+    document.querySelectorAll(".kanban-board").forEach(board => {
+        const boardId = board.getAttribute("data-id");
+        const boardName = board.querySelector(".kanban-title-board").textContent;
+
+        const tasks = Array.from(board.querySelectorAll(".kanban-item")).map(task => {
+            let taskId = task.getAttribute("data-id") || `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            task.setAttribute("data-id", taskId);
+
+            return { id: taskId, boardId: boardId, content: task.innerHTML };
+        });
+
+        savedBoards.push({ id: boardId, title: boardName, tasks });
+    });
+
+    localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
+}
+
+
+
+
+// 🔹 Load boards while keeping unique task IDs and appending cards
+function loadBoardsFromLocalStorage() {
+    const container = document.getElementById("kanban-wrapper-container");
+    let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
+
+    savedBoards.forEach(boardData => {
+        let existingBoard = document.querySelector(`.kanban-board[data-id="${boardData.id}"]`);
+
+        if (!existingBoard) {
+            existingBoard = document.createElement("div");
+            existingBoard.classList.add("kanban-board");
+            existingBoard.setAttribute("data-id", boardData.id);
+            existingBoard.id = boardData.id;
+
+            const header = document.createElement("header");
+            header.classList.add("kanban-board-header");
+            header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
+            existingBoard.appendChild(header);
+
+            const main = document.createElement("main");
+            main.classList.add("kanban-drag");
+            existingBoard.appendChild(main);
+
+            container.appendChild(existingBoard);
+        }
+
+        const taskContainer = existingBoard.querySelector(".kanban-drag");
+
+        let existingTasks = new Set([...taskContainer.querySelectorAll(".kanban-item")].map(task => task.getAttribute("data-id")));
+
+        boardData.tasks.forEach(taskData => {
+            if (!existingTasks.has(taskData.id)) {
+                const task = document.createElement("div");
+                task.classList.add("kanban-item");
+                task.setAttribute("draggable", "true");
+                task.setAttribute("data-id", taskData.id);
+                task.innerHTML = taskData.content;
+                taskContainer.appendChild(task);
+            }
+        });
+    });
+
+    enableDragAndDrop();
+}
+
+
+// 🔹 Function to Append a Board Without Clearing Others
+function appendBoardToPage(boardData, container) {
+    const board = document.createElement("div");
+    board.classList.add("kanban-board");
+    board.setAttribute("data-id", boardData.id);
+    board.id = boardData.id;
+
+    const header = document.createElement("header");
+    header.classList.add("kanban-board-header");
+    header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
+
+    board.appendChild(header);
+
+    const main = document.createElement("main");
+    main.classList.add("kanban-drag");
+
+    boardData.tasks.forEach(taskData => {
+        const task = document.createElement("div");
+        task.classList.add("kanban-item");
+        task.setAttribute("draggable", "true");
+        task.setAttribute("data-id", taskData.id);
+        task.innerHTML = taskData.content;
+        main.appendChild(task);
+    });
+
+    board.appendChild(main);
+    container.appendChild(board);
+}
+
 
 
 
@@ -2402,6 +2604,3 @@
     });
   </script>
   <script src="./t_pm_js/moveList.js"></script>
-</body>
-
-</html>
