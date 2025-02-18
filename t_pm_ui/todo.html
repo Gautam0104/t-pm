@@ -2032,75 +2032,121 @@ function loadBoardsFromLocalStorage() {
         const header = document.createElement('header');
         header.classList.add('kanban-board-header');
         header.innerHTML = `
-          
-            <div class="kanban-title-board">${boardData.title}</div>
-            <div class="dropdown">
-                <i class="ti ti-arrows-horizontal" onclick="toggleTodo('${boardData.id}-task','${boardData.id}-header')"></i>
-                <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-                    <!-- Delete -->
-                    <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
-                        <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+    <div class="kanban-title-board">${boardData.title}</div>
+    <div class="dropdown">
+        <i class="ti ti-arrows-horizontal" onclick="toggleTodo('${boardData.id}-task','${boardData.id}-header')"></i>
+        <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+            <!-- Delete -->
+            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
+                <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+            </a>
+            <!-- Rename -->
+            <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+            </a>
+            <!-- Archive -->
+            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
+                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+            </a>
+            <!-- Archive All Cards -->
+            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
+                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
+            </a>
+            <!-- Move Board -->
+            <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)" onclick="moveBoard(this)">
+                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
+            </a>
+            <!-- Copy Board -->
+            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="copyBoard(this)">
+                <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
+            </a>
+            <!-- Sort By -->
+            <div class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                    <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort by...</span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="toggleTicketSortByName('${boardData.id}-task')">
+                        <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by Name</span>
                     </a>
-                    <!-- Rename -->
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)">
-                        <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="toggleTicketSortByDate('${boardData.id}-task')">
+                        <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by Date (Newest first)</span>
                     </a>
-                    <!-- Archive -->
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
-                        <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                    </a>
-                    <!-- New button to archive all cards -->
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-                        <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-                    </a>
-                    <!-- Move Board -->
-                    <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)" onclick="moveBoard(this)">
-                        <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
-                    </a>
-                    <!-- Copy Board -->
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="copyBoard(this)">
-                        <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
+                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="toggleTicketSortByDate('${boardData.id}-task')">
+                        <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by Date (Oldest first)</span>
                     </a>
                 </div>
             </div>
-            <button class="kanban-title-button btn" id='${boardData.id}-task'>+
-                          Add
-                          New Item</button>
-                      </header>
-                      <main class="kanban-drag">
-                        <div id="rejected-task">
-                          <div id="content-inprogress">Droped in rejected</div>
-
-
-                        </div>
-                        <div id="backdrop">
-
-                        </div>
-
-                        <form class="new-item-form" id='${boardData.id}-task'>
-
-                        </form>
-        `;
+            <!-- Watch -->
+            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="watchedCard('watched-${boardData.id}-card')" id="watched-${boardData.id}-card-anchor">
+                <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
+            </a>
+            <!-- Color Picker -->
+            <div class="dropdown-item">
+                <i class="ti ti-palette ti-xs"></i>
+                <span class="align-middle">Card Bg</span>
+                <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                    ${['#ff5733', '#33ff57', '#3357ff', '#f4d03f', '#8e44ad', '#1abc9c', '#e74c3c', '#2c3e50', '#d35400', '#16a085', '#ed0cf5', '#f9fafa']
+                        .map(color => `
+                            <div class="color-box" style="background: ${color};"
+                                onclick="changeBgColor('${color}','${boardData.id}-task')">
+                            </div>
+                        `).join('')}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add New Item Button -->
+    <button class="kanban-title-button btn" id="add-new-${boardData.id}">+ Add New Item</button>
+`;
         board.appendChild(header);
 
+        // Create Main Kanban Section
         const main = document.createElement('main');
         main.classList.add('kanban-drag');
+
+        // Create Task Container
         const taskContainer = document.createElement('div');
         taskContainer.id = `${boardData.id}-task`;
-        boardData.tasks.forEach(taskHTML => {
-            const task = document.createElement('div');
-            task.classList.add('kanban-item');
-            task.innerHTML = taskHTML;
-            taskContainer.appendChild(task);
-        });
-        main.appendChild(taskContainer);
-        board.appendChild(main);
 
+        // Add "Dropped in" Message
+        const contentMessage = document.createElement('div');
+        contentMessage.id = `content-${boardData.id}`;
+        contentMessage.textContent = `Dropped in ${boardData.title}`;
+        taskContainer.appendChild(contentMessage);
+
+        // Append Existing Tasks
+        if (boardData.tasks && Array.isArray(boardData.tasks)) {
+            boardData.tasks.forEach(taskHTML => {
+                const task = document.createElement('div');
+                task.classList.add('kanban-item');
+                task.innerHTML = taskHTML;
+                taskContainer.appendChild(task);
+            });
+        }
+
+        // Append Task Container
+        main.appendChild(taskContainer);
+
+        // Add Form for New Items
+        const newItemForm = document.createElement('form');
+        newItemForm.classList.add('new-item-form');
+        newItemForm.id = `add-new-${boardData.id}-form`;
+        main.appendChild(newItemForm);
+
+        // Add Backdrop
+        const backdrop = document.createElement('div');
+        backdrop.id = "backdrop";
+        main.appendChild(backdrop);
+
+        // Append Main Section to Board
+        board.appendChild(main);
         container.appendChild(board);
     });
 }
 
+// Event Listeners
 document.addEventListener("DOMContentLoaded", function () {
     loadBoardsFromLocalStorage();
 
@@ -2110,6 +2156,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
 
 function showMoveBoardDropdown(element) {
     const board = element.closest(".kanban-board");
