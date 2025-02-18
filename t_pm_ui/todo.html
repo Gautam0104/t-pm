@@ -698,13 +698,16 @@
                             </a>
 
                             <!-- Archive -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveBoard(this)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                          </a>
-                           <!-- New button to archive all cards -->
-    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-      <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-  </a>
+                            </a>
+                            <!-- New button to archive all cards -->
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveAllCards(this)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
+                                Cards</span>
+                            </a>
                             <!-- Move Board -->
                             <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)"
                               onclick="moveBoard(this)">
@@ -852,12 +855,15 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
                             </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveBoard(this)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-                          </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveAllCards(this)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
+                                Cards</span>
+                            </a>
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
@@ -1005,11 +1011,14 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
                             </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveBoard(this)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                              <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-                                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-                            </a>
+                              <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                onclick="archiveAllCards(this)">
+                                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
+                                  Cards</span>
+                              </a>
                             </a>
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
@@ -1155,11 +1164,14 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
                             </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveBoard(this)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                              <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-                                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-                            </a>
+                              <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                                onclick="archiveAllCards(this)">
+                                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
+                                  Cards</span>
+                              </a>
                             </a>
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
@@ -1308,12 +1320,15 @@
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">
                               <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
                             </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveBoard(this)">
                               <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
                             </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-                          </a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                              onclick="archiveAllCards(this)">
+                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
+                                Cards</span>
+                            </a>
                             <!-- Move all card in this list -->
                             <div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
@@ -1780,7 +1795,75 @@
           </div>
         </div>
         <!-- / Content -->
+        <!-- checklist modal -->
+        <div class="modal fade" id="checklistModal" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Ticket Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row align-items-center">
+                  <div class="col-6">
+                    <i class="ti ti-checkbox me-2"></i>
+                    <span>Checklist</span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-end">
+                    <button class="btn btn-primary">Delete</button>
+                  </div>
+                </div>
+                <div class="row align-items-center mt-4">
+                  <div class="col-1 d-flex justify-content-center" style="margin-left: 4px;">
+                    <span>0%</span>
+                  </div>
+                  <div class="col-10">
 
+                    <div class="progress">
+                      <div class="progress-bar bg-primary" role="progressbar" style="width: 2%" aria-valuenow="20"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-center mt-3">
+                  <div class="col-1">
+                    <input type="checkbox" class="form-check-input">
+                  </div>
+                  <div class="col-10 d-flex justify-content-end ">
+                    <div class="row w-100  justify-content-end">
+                      <div class="col-6 d-flex justify-content-start ">
+                        <span>new check list</span>
+                      </div>
+                      <div class="col-6 d-flex justify-content-end">
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                          <li class="nav-item dropdown-language dropdow me-2">
+                            <a href="">
+                              <i class="ti ti-sun"></i>
+                            </a>
+                          </li>
+                          <li class="nav-item dropdown-language dropdow me-2">
+                            <a href="">
+                              <i class="ti ti-wand"></i>
+                            </a>
+                          </li>
+                          <li class="nav-item dropdown-language dropdow me-2">
+                            <a href="">
+                              <i class="ti ti-bell"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /checklist modal -->
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme" id="footer">
           <div class="container-xxl">
@@ -1967,63 +2050,63 @@
 
     // copy board
     function copyBoard(element) {
-    const board = element.closest(".kanban-board");
-    const container = document.getElementById("kanban-wrapper-container");
+      const board = element.closest(".kanban-board");
+      const container = document.getElementById("kanban-wrapper-container");
 
-    // Ask user for new board name
-    let newBoardName = prompt("Enter a name for the copied board:");
-    if (!newBoardName) return; // Exit if user cancels
+      // Ask user for new board name
+      let newBoardName = prompt("Enter a name for the copied board:");
+      if (!newBoardName) return; // Exit if user cancels
 
-    // Clone the board
-    const clonedBoard = board.cloneNode(true);
+      // Clone the board
+      const clonedBoard = board.cloneNode(true);
 
-    // Generate a unique ID for the cloned board
-    const newBoardId = `board-${Date.now()}`;
-    clonedBoard.setAttribute("data-id", newBoardId);
-    clonedBoard.id = newBoardId;
+      // Generate a unique ID for the cloned board
+      const newBoardId = `board-${Date.now()}`;
+      clonedBoard.setAttribute("data-id", newBoardId);
+      clonedBoard.id = newBoardId;
 
-    // Update header title
-    clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
+      // Update header title
+      clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
 
-    // Clear the task container in the cloned board
-    let taskContainer = clonedBoard.querySelector(".kanban-drag");
-    taskContainer.innerHTML = '';
+      // Clear the task container in the cloned board
+      let taskContainer = clonedBoard.querySelector(".kanban-drag");
+      taskContainer.innerHTML = '';
 
-    // Clone and update tasks
-    const tasks = board.querySelectorAll(".kanban-item");
-    tasks.forEach(task => {
+      // Clone and update tasks
+      const tasks = board.querySelectorAll(".kanban-item");
+      tasks.forEach(task => {
         const clonedTask = task.cloneNode(true);
         taskContainer.appendChild(clonedTask);
-    });
+      });
 
-    // Insert the copied board right after the original
-    if (board.nextElementSibling) {
+      // Insert the copied board right after the original
+      if (board.nextElementSibling) {
         container.insertBefore(clonedBoard, board.nextElementSibling);
-    } else {
+      } else {
         container.appendChild(clonedBoard); // If last board, add it at the end
+      }
+
+      // Save the new board to localStorage
+      saveBoardToLocalStorage(newBoardId, newBoardName, taskContainer);
     }
 
-    // Save the new board to localStorage
-    saveBoardToLocalStorage(newBoardId, newBoardName, taskContainer);
-}
-
-function saveBoardToLocalStorage(boardId, boardName, taskContainer) {
-    const boardData = {
+    function saveBoardToLocalStorage(boardId, boardName, taskContainer) {
+      const boardData = {
         id: boardId,
         title: boardName,
         tasks: Array.from(taskContainer.children).map(task => task.innerHTML)
-    };
+      };
 
-    let savedBoards = JSON.parse(localStorage.getItem('kanbanBoards')) || [];
-    savedBoards.push(boardData);
-    localStorage.setItem('kanbanBoards', JSON.stringify(savedBoards));
-}
+      let savedBoards = JSON.parse(localStorage.getItem('kanbanBoards')) || [];
+      savedBoards.push(boardData);
+      localStorage.setItem('kanbanBoards', JSON.stringify(savedBoards));
+    }
 
-function loadBoardsFromLocalStorage() {
-    const container = document.getElementById("kanban-wrapper-container");
-    const savedBoards = JSON.parse(localStorage.getItem('kanbanBoards')) || [];
+    function loadBoardsFromLocalStorage() {
+      const container = document.getElementById("kanban-wrapper-container");
+      const savedBoards = JSON.parse(localStorage.getItem('kanbanBoards')) || [];
 
-    savedBoards.forEach(boardData => {
+      savedBoards.forEach(boardData => {
         const board = document.createElement('div');
         board.classList.add('kanban-board');
         board.setAttribute('data-id', boardData.id);
@@ -2143,111 +2226,111 @@ function loadBoardsFromLocalStorage() {
         // Append Main Section to Board
         board.appendChild(main);
         container.appendChild(board);
-    });
-}
+      });
+    }
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", function () {
     loadBoardsFromLocalStorage();
 
-    document.querySelectorAll(".move-board-trigger").forEach(button => {
+      document.querySelectorAll(".move-board-trigger").forEach(button => {
         button.addEventListener("mouseenter", function () {
-            showMoveBoardDropdown(this);
+          showMoveBoardDropdown(this);
         });
     });
 });
 
 
 
-function showMoveBoardDropdown(element) {
-    const board = element.closest(".kanban-board");
-    const container = document.getElementById("kanban-wrapper-container");
-    const boards = Array.from(container.children);
+    function showMoveBoardDropdown(element) {
+      const board = element.closest(".kanban-board");
+      const container = document.getElementById("kanban-wrapper-container");
+      const boards = Array.from(container.children);
 
-    // Remove any existing dropdown before adding a new one
-    document.querySelectorAll(".move-board-dropdown").forEach(el => el.remove());
+      // Remove any existing dropdown before adding a new one
+      document.querySelectorAll(".move-board-dropdown").forEach(el => el.remove());
 
-    // Create a new dropdown menu dynamically
-    let dropdown = document.createElement("div");
-    dropdown.classList.add("dropdown-menu", "move-board-dropdown", "show");
-    dropdown.style.position = "absolute";
-    dropdown.style.left = "100%";
-    dropdown.style.top = "0";
-    dropdown.style.zIndex = "1050";
-    dropdown.style.minWidth = "150px";
+      // Create a new dropdown menu dynamically
+      let dropdown = document.createElement("div");
+      dropdown.classList.add("dropdown-menu", "move-board-dropdown", "show");
+      dropdown.style.position = "absolute";
+      dropdown.style.left = "100%";
+      dropdown.style.top = "0";
+      dropdown.style.zIndex = "1050";
+      dropdown.style.minWidth = "150px";
 
-    // Populate dropdown with board positions
-    boards.forEach((_, index) => {
+      // Populate dropdown with board positions
+      boards.forEach((_, index) => {
         let option = document.createElement("a");
         option.classList.add("dropdown-item");
         option.href = "javascript:void(0)";
         option.textContent = `Move to position ${index + 1}`;
         option.onclick = function () {
-            moveToPosition(board, index);
-            dropdown.remove(); // Remove dropdown after selection
+          moveToPosition(board, index);
+          dropdown.remove(); // Remove dropdown after selection
         };
         dropdown.appendChild(option);
-    });
+      });
 
-    // Append dropdown next to the hovered element
-    element.parentElement.appendChild(dropdown);
+      // Append dropdown next to the hovered element
+      element.parentElement.appendChild(dropdown);
 
-    // Hide dropdown when mouse leaves
-    dropdown.addEventListener("mouseleave", function () {
+      // Hide dropdown when mouse leaves
+      dropdown.addEventListener("mouseleave", function () {
         dropdown.remove();
-    });
-}
-
-// Move board to selected position
-function moveToPosition(board, newIndex) {
-    const container = document.getElementById("kanban-wrapper-container");
-    const boards = Array.from(container.children);
-    boards.splice(boards.indexOf(board), 1); // Remove board from its current position
-
-    if (newIndex >= 0 && newIndex <= boards.length) {
-        container.insertBefore(board, boards[newIndex]);
+      });
     }
-}
 
-function archiveAllCards(element) {
-    const board = element.closest(".kanban-board");
-    if (!board) return;
+    // Move board to selected position
+    function moveToPosition(board, newIndex) {
+      const container = document.getElementById("kanban-wrapper-container");
+      const boards = Array.from(container.children);
+      boards.splice(boards.indexOf(board), 1); // Remove board from its current position
 
-    const cards = board.querySelectorAll(".kanban-item");
-    cards.forEach(card => {
+      if (newIndex >= 0 && newIndex <= boards.length) {
+        container.insertBefore(board, boards[newIndex]);
+      }
+    }
+
+    function archiveAllCards(element) {
+      const board = element.closest(".kanban-board");
+      if (!board) return;
+
+      const cards = board.querySelectorAll(".kanban-item");
+      cards.forEach(card => {
         archiveCard(card);
-    });
-}
+      });
+    }
 
-function archiveCard(card) {
-    if (!card) return;
+    function archiveCard(card) {
+      if (!card) return;
 
-    // Optionally, save the archived state to the backend or local storage
-    const cardId = card.getAttribute('id');
-    let archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
-    archivedCards.push(cardId);
-    localStorage.setItem('archivedCards', JSON.stringify(archivedCards));
+      // Optionally, save the archived state to the backend or local storage
+      const cardId = card.getAttribute('id');
+      let archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
+      archivedCards.push(cardId);
+      localStorage.setItem('archivedCards', JSON.stringify(archivedCards));
 
-    // Remove the card from the DOM
-    card.remove();
-}
+      // Remove the card from the DOM
+      card.remove();
+    }
 
-function archiveBoard(element) {
-    const board = element.closest(".kanban-board");
-    if (!board) return;
+    function archiveBoard(element) {
+      const board = element.closest(".kanban-board");
+      if (!board) return;
 
-    // Archive all cards within the board
-    archiveAllCards(board);
+      // Archive all cards within the board
+      archiveAllCards(board);
 
-    // Optionally, save the archived state to the backend or local storage
-    const boardId = board.getAttribute('data-id');
-    let archivedBoards = JSON.parse(localStorage.getItem('archivedBoards')) || [];
-    archivedBoards.push(boardId);
-    localStorage.setItem('archivedBoards', JSON.stringify(archivedBoards));
+      // Optionally, save the archived state to the backend or local storage
+      const boardId = board.getAttribute('data-id');
+      let archivedBoards = JSON.parse(localStorage.getItem('archivedBoards')) || [];
+      archivedBoards.push(boardId);
+      localStorage.setItem('archivedBoards', JSON.stringify(archivedBoards));
 
-    // Remove the board from the DOM
-    board.remove();
-}
+      // Remove the board from the DOM
+      board.remove();
+    }
   </script>
 
   <script src="./t_pm_js/moveList.js"></script>

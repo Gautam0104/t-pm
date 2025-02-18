@@ -54,6 +54,7 @@ function fetchDataAndCreateElements() {
                     "UX"}</div>
                     
                     </div>
+
                     <div class="dropdown kanban-tasks-item-dropdown">
                         <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -66,7 +67,11 @@ function fetchDataAndCreateElements() {
                     </div>
                 </div>
                 <img class="img-fluid rounded mb-2" id="card-img" draggable = false src="${API_BASE_URL}/uploads/${element.card_image}">
-                <span class="kanban-text" >${element.title}</span>
+                <span class="kanban-text">${element.title}</span>
+                    <div class="d-flex mt-2" id="checklist-box"  draggable="false" style="cursor:pointer" onclick=" checklistModal(event)" data-bs-toggle="modal" data-bs-target="#checklistModal" >
+                      <i class="ti ti-checkbox me-1"></i>
+                        <span>0/1</span>
+                    </div>
                 <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
                     <div class="d-flex">
                         <span class="d-flex align-items-center me-2">
@@ -1456,3 +1461,10 @@ document.addEventListener("DOMContentLoaded", function () {
         loadLabelContent(elementId);
     });
 });
+
+
+
+function checklistModal(event) {
+    event.stopPropagation();  // Prevent the event from bubbling up to the parent
+
+}
