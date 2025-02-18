@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   const checkbox = document.querySelector(".form-check-input");
   const progressBar = document.querySelector(".progress-bar");
-  const checklistTitle = document.querySelector(
-    "#new-checklist-title-box span"
-  );
+  const checklistTitle = document.querySelector("#checklist-title");
   const progressText = document.querySelector(".col-1 span"); // Selecting the span showing progress percentage
 
   checkbox.addEventListener("change", function() {
