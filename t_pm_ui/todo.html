@@ -225,6 +225,46 @@
       display: block;
     }
   </style>
+  <style>
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .content {
+      display: none;
+      text-align: center;
+      padding: 20px;
+
+    }
+  </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -651,7 +691,7 @@
         <div class="content-wrapper ">
           <!-- Content -->
 
-          <div class="container-xxl flex-grow-1 container-p-y ">
+          <div class="container-xxl flex-grow-1 container-p-y container-p-x ">
             <div>
               <div class="app-kanban" style=" height: auto; ">
                 <!-- Add new board -->
@@ -667,823 +707,37 @@
                   </div>
                 </div>
                 <!-- Kanban Wrapper -->
-                <div class="kanban-wrapper ps ps--active-x" style="height: auto; width: 1920px; overflow: hidden; ">
-
-                  <div class=" kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
-                    <div data-id="board-in-progress" data-order="1" class="kanban-board" id="board-1"
-                      style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header" id="todo-header">
-                        <div class="kanban-title-board">Todo</div>
-
-
-                        <div class="dropdown">
-
-                          <span id="watched-todo-card"></span>
-
-                          <i class="ti ti-arrows-horizontal"
-                            onclick="toggleTodo('todo-task','todo-header', 'new-todo-item')"></i>
-
-                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-                            <!-- Delete -->
-                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
-                            </a>
-
-                            <!-- Rename -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
-                            </a>
-
-                            <!-- Archive -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveBoard(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                            </a>
-                            <!-- New button to archive all cards -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveAllCards(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
-                                Cards</span>
-                            </a>
-                            <!-- Move Board -->
-                            <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)"
-                              onclick="moveBoard(this)">
-                              <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
-                            </a>
-
-                            <!-- Copy Board -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="copyBoard(this)">
-                              <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
-                            </a>
-
-                            <!-- Move all card in this list -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
-                                  list</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
-
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('todo-task', 'inprogress-task', 'todo', 'inprogress')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('todo-task', 'for-approval-task', 'todo', 'for-approval')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('todo-task', 'rejected-task', 'todo', 'rejected')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('todo-task', 'approved-task', 'todo', 'approved')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Sort By (Nested Dropdown) -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
-                                  by...</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName('todo-task')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    Name</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('todo-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    created date (newest first)</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('todo-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
-                                    date (oldest first)</span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-todo-card')" id="watched-todo-card-anchor">
-                              <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
-                            </a>
-                            <!-- Color Picker -->
-                            <div class="dropdown-item">
-                              <i class="ti ti-palette ti-xs"></i>
-                              <span class="align-middle">Card Bg</span>
-                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
-                                <div class="color-box" style="background: #ff5733;"
-                                  onclick="changeBgColor('#ff5733','todo-task')"></div>
-                                <div class="color-box" style="background: #33ff57;"
-                                  onclick="changeBgColor('#33ff57','todo-task')"></div>
-                                <div class="color-box" style="background: #3357ff;"
-                                  onclick="changeBgColor('#3357ff','todo-task')"></div>
-                                <div class="color-box" style="background: #f4d03f;"
-                                  onclick="changeBgColor('#f4d03f','todo-task')"></div>
-                                <div class="color-box" style="background: #8e44ad;"
-                                  onclick="changeBgColor('#8e44ad','todo-task')"></div>
-                                <div class="color-box" style="background: #1abc9c;"
-                                  onclick="changeBgColor('#1abc9c','todo-task')"></div>
-                                <div class="color-box" style="background: #e74c3c;"
-                                  onclick="changeBgColor('#e74c3c','todo-task')"></div>
-                                <div class="color-box" style="background: #2c3e50;"
-                                  onclick="changeBgColor('#2c3e50','todo-task')"></div>
-                                <div class="color-box" style="background: #d35400;"
-                                  onclick="changeBgColor('#d35400','todo-task')"></div>
-                                <div class="color-box" style="background: #16a085;"
-                                  onclick="changeBgColor('#16a085','todo-task')"></div>
-                                <div class="color-box" style="background: #ed0cf5;"
-                                  onclick="changeBgColor('#ed0cf5','todo-task')"></div>
-                                <div class="color-box" style="background: #f9fafa;" onclick="makeDefault('todo-task')">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <button class="kanban-title-button btn" id="add-todo-item">+ Add
-                          New
-                          Item</button>
+                <div class="kanban-wrapper " style="height: auto; width: 100%; overflow-x: auto; overflow-y: auto;  ">
+                  <div id="loading" class="loading-container">
+                    <div class="loader"></div>
+                  </div>
+                  <div class="kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
+                    <!-- Dynamically added content will go here -->
 
 
-                      </header>
-                      <main class="kanban-drag">
 
-                        <div id="todo-task" style="display: block;">
-                          <div id="content-inprogress">Droped in todo</div>
-
-                        </div>
-                        <form class="new-item-form" id="add-new-todo-form">
-
-                        </form>
-                        <div id="backdrop">
-
-                        </div>
-                      </main>
-                      <!-- <footer></footer> -->
-                    </div>
-                    <div data-id="board-in-progress" data-order="2" class="kanban-board" id="board-2"
-                      style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header" id="inprogress-header">
-                        <div class="kanban-title-board">In Progress</div>
-                        <div class="dropdown">
-                          <span id="watched-inprogress-card"></span>
-                          <i class="ti ti-arrows-horizontal"
-                            onclick="toggleTodo('inprogress-task','inprogress-header')"></i>
-                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveBoard(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveAllCards(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
-                                Cards</span>
-                            </a>
-                            <!-- Move all card in this list -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
-                                  list</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('inprogress-task', 'todo-task', 'inprogress', 'todo')">
-
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('inprogress-task', 'for-approval-task', 'inprogress', 'for-approval')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('inprogress-task', 'rejected-task', 'inprogress', 'rejected')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('inprogress-task', 'approved-task', 'inprogress', 'approved')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Sort By (Nested Dropdown) -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
-                                  by...</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName('inprogress-task')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    Name</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('inprogress-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    created date (newest first)</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('inprogress-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
-                                    date (oldest first)</span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-inprogress-card')" id="watched-inprogress-card-anchor">
-                              <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
-                            </a>
-                            <!-- Color Picker Section -->
-                            <div class="dropdown-item">
-                              <i class="ti ti-palette ti-xs"></i>
-                              <span class="align-middle">Card Bg</span>
-                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
-                                <div class="color-box" style="background: #ff5733;"
-                                  onclick="changeBgColor('#ff5733','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #33ff57;"
-                                  onclick="changeBgColor('#33ff57','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #3357ff;"
-                                  onclick="changeBgColor('#3357ff','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #f4d03f;"
-                                  onclick="changeBgColor('#f4d03f','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #8e44ad;"
-                                  onclick="changeBgColor('#8e44ad','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #1abc9c;"
-                                  onclick="changeBgColor('#1abc9c','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #e74c3c;"
-                                  onclick="changeBgColor('#e74c3c','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #2c3e50;"
-                                  onclick="changeBgColor('#2c3e50','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #d35400;"
-                                  onclick="changeBgColor('#d35400','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #16a085;"
-                                  onclick="changeBgColor('#16a085','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #ed0cf5;"
-                                  onclick="changeBgColor('#ed0cf5','inprogress-task')">
-                                </div>
-                                <div class="color-box" style="background: #f9fafa;"
-                                  onclick="makeDefault('inprogress-task')">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <button class="kanban-title-button btn" id="add-new-inprogress">+
-                          Add
-                          New Item</button>
-
-                      </header>
-                      <main class="kanban-drag">
-                        <div id="inprogress-task">
-                          <div id="content-inprogress">Droped in inprogress</div>
-
-                        </div>
-                        <form class="new-item-form" id="add-new-inprogress-form">
-
-                        </form>
-                        <div id="backdrop">
-
-                        </div>
-                      </main>
-
-                      <!-- <footer></footer> -->
-                    </div>
-                    <div data-id="board-in-progress" data-order="3" class="kanban-board" id="board-3"
-                      style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header" id="for-approval-header">
-                        <div class="kanban-title-board">For Approval</div>
-                        <div class="dropdown">
-                          <span id="watched-for-approval-card"></span>
-                          <i class="ti ti-arrows-horizontal"
-                            onclick="toggleTodo('for-approval-task','for-approval-header')"></i>
-                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveBoard(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                              <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                onclick="archiveAllCards(this)">
-                                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
-                                  Cards</span>
-                              </a>
-                            </a>
-                            <!-- Move all card in this list -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
-                                  list</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('for-approval-task', 'todo-task', 'for-approval', 'todo')">
-
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('for-approval-task', 'inprogress-task', 'for-approval', 'inprogress')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('for-approval-task', 'rejected-task', 'for-approval', 'rejected')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('for-approval-task', 'approved-task', 'for-approval', 'approved')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Sort By (Nested Dropdown) -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
-                                  by...</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName('for-approval-task')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    Name</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('for-approval-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    created date (newest first)</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('for-approval-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
-                                    date (oldest first)</span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-for-approval-card')" id="watched-for-approval-card-anchor">
-                              <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
-                            </a>
-                            <!-- Color Picker Section -->
-                            <div class="dropdown-item">
-                              <i class="ti ti-palette ti-xs"></i>
-                              <span class="align-middle">Card Bg</span>
-                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
-                                <div class="color-box" style="background: #ff5733;"
-                                  onclick="changeBgColor('#ff5733','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #33ff57;"
-                                  onclick="changeBgColor('#33ff57','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #3357ff;"
-                                  onclick="changeBgColor('#3357ff','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #f4d03f;"
-                                  onclick="changeBgColorr('#f4d03f','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #8e44ad;"
-                                  onclick="changeBgColor('#8e44ad','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #1abc9c;"
-                                  onclick="changeBgColor('#1abc9c','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #e74c3c;"
-                                  onclick="changeBgColor('#e74c3c','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #2c3e50;"
-                                  onclick="changeBgColorr('#2c3e50','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #d35400;"
-                                  onclick="changeBgColor('#d35400','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #16a085;"
-                                  onclick="changeBgColor('#16a085','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #ed0cf5;"
-                                  onclick="changeBgColor('#ed0cf5','for-approval-task')">
-                                </div>
-                                <div class="color-box" style="background: #f9fafa;"
-                                  onclick="makeDefault('for-approval-task','for-approval-task')">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div><button class="kanban-title-button btn" id="add-new-for-approval">+
-                          Add New Item</button>
-                      </header>
-                      <main class="kanban-drag">
-                        <div id="for-approval-task">
-                          <div id="content-inprogress">Droped in for-approval</div>
-
-
-                        </div>
-                        <form class="new-item-form" id="add-new-for-approval-form">
-
-                        </form>
-                        <div id="backdrop">
-
-                        </div>
-                      </main>
-
-                      <!-- <footer></footer> -->
-                    </div>
-                    <div data-id="board-in-progress" data-order="4" class="kanban-board" id="board-4"
-                      style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header" id="rejected-header">
-                        <div class="kanban-title-board">Rejected</div>
-                        <div class="dropdown">
-                          <span id="watched-rejected-card"></span>
-                          <i class="ti ti-arrows-horizontal"
-                            onclick="toggleTodo('rejected-task','rejected-header')"></i>
-                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveBoard(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                              <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                onclick="archiveAllCards(this)">
-                                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
-                                  Cards</span>
-                              </a>
-                            </a>
-                            <!-- Move all card in this list -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
-                                  list</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('rejected-task', 'todo-task', 'rejected', 'todo')">
-
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('rejected-task', 'inprogress-task', 'rejected', 'inprogress')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('rejected-task', 'for-approval-task', 'rejected', 'for-approval')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('rejected-task', 'approved-task', 'rejected', 'approved')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Sort By (Nested Dropdown) -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
-                                  by...</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName('rejected-task')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    Name</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('rejected-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    created date (newest first)</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('rejected-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
-                                    date (oldest first)</span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-rejected-card')" id="watched-rejected-card-anchor">
-                              <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
-                            </a>
-                            <!-- Color Picker Section -->
-                            <div class="dropdown-item">
-                              <i class="ti ti-palette ti-xs"></i>
-                              <span class="align-middle">Card Bg</span>
-                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
-                                <div class="color-box" style="background: #ff5733;"
-                                  onclick="changeBgColor('#ff5733','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #33ff57;"
-                                  onclick="changeBgColor('#33ff57','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #3357ff;"
-                                  onclick="changeBgColor('#3357ff','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #f4d03f;"
-                                  onclick="changeBgColor('#f4d03f','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #8e44ad;"
-                                  onclick="changeBgColor('#8e44ad','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #1abc9c;"
-                                  onclick="changeBgColor('#1abc9c','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #e74c3c;"
-                                  onclick="changeBgColor('#e74c3c','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #2c3e50;"
-                                  onclick="changeBgColor('#2c3e50','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #d35400;"
-                                  onclick="changeBgColor('#d35400','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #16a085;"
-                                  onclick="changeBgColor('#16a085','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #ed0cf5;"
-                                  onclick="changeBgColor('#ed0cf5','rejected-task')">
-                                </div>
-                                <div class="color-box" style="background: #f9fafa;"
-                                  onclick="makeDefault('rejected-task')">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <button class="kanban-title-button btn" id="add-new-rejected">+
-                          Add
-                          New Item</button>
-                      </header>
-                      <main class="kanban-drag">
-                        <div id="rejected-task">
-                          <div id="content-inprogress">Droped in rejected</div>
-
-
-                        </div>
-                        <div id="backdrop">
-
-                        </div>
-
-                        <form class="new-item-form" id="add-new-rejected-form">
-
-                        </form>
-                      </main>
-                      <!-- <footer></footer> -->
-
-                    </div>
-                    <div data-id="board-in-review" data-order="5" class="kanban-board" id="board-5"
-                      style="width: 250px; margin-left: 12px; margin-right: 12px;">
-                      <header class="kanban-board-header" id="approved-header">
-                        <div class="kanban-title-board">Approved</div>
-                        <div class="dropdown">
-                          <span id="watched-approved-card"></span>
-                          <i class="ti ti-arrows-horizontal"
-                            onclick="toggleTodo('approved-task','approved-header')"></i>
-                          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-                            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">
-                              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveBoard(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-                            </a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="archiveAllCards(this)">
-                              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
-                                Cards</span>
-                            </a>
-                            <!-- Move all card in this list -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
-                                  list</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('approved-task', 'todo-task', 'approved', 'todo')">
-
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('approved-task', 'inprogress-task', 'approved', 'inprogress')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('approved-task', 'for-approval-task', 'approved', 'for-approval')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="moveAllTask('approved-task', 'rejected-task', 'approved', 'rejected')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
-                                  </span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                                  style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-
-                            <!-- Sort By (Nested Dropdown) -->
-                            <div class="dropdown-submenu">
-                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                                <i class="ti ti-arrows-sort ti-xs me-1"></i> <span class="align-middle">Sort
-                                  by...</span>
-                              </a>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByName('approved-task')">
-                                  <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    Name</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('approved-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by
-                                    created date (newest first)</span>
-                                </a>
-                                <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                                  onclick="toggleTicketSortByDate('approved-task')">
-                                  <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Sort by created
-                                    date (oldest first)</span>
-                                </a>
-                              </div>
-                            </div>
-                            <!-- Watch -->
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                              onclick="watchedCard('watched-approved-card')" id="watched-approved-card-anchor">
-                              <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
-                            </a>
-                            <!-- Color Picker Section -->
-                            <div class="dropdown-item">
-                              <i class="ti ti-palette ti-xs"></i>
-                              <span class="align-middle">Card Bg</span>
-                              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
-                                <div class="color-box" style="background: #ff5733;"
-                                  onclick="changeBgColor('#ff5733','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #33ff57;"
-                                  onclick="changeBgColor('#33ff57','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #3357ff;"
-                                  onclick="changeBgColor('#3357ff','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #f4d03f;"
-                                  onclick="changeBgColor('#f4d03f','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #8e44ad;"
-                                  onclick="changeBgColor('#8e44ad','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #1abc9c;"
-                                  onclick="changeBgColor('#1abc9c','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #e74c3c;"
-                                  onclick="changeBgColor('#e74c3c','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #2c3e50;"
-                                  onclick="changeBgColor('#2c3e50','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #d35400;"
-                                  onclick="changeBgColor('#d35400','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #16a085;"
-                                  onclick="changeBgColor('#16a085','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #ed0cf5;"
-                                  onclick="changeBgColor('#ed0cf5','approved-task')">
-                                </div>
-                                <div class="color-box" style="background: #f9fafa;"
-                                  onclick="makeDefault('approved-task')">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <button class="kanban-title-button btn" id="add-new-approved">+
-                          Add
-                          New Item</button>
-                        <form class="new-item-form" id="add-new-todo">
-
-                        </form>
-                      </header>
-                      <main class="kanban-drag">
-                        <div id="approved-task" draggable="true">
-                          <div id="content-inprogress">Droped in approved</div>
-
-
-                        </div>
-
-
-                        <form class="new-item-form" id="add-new-approved-form">
-
-                        </form>
-                        <div id="backdrop">
-
-                        </div>
-                      </main>
-
-                      <!-- <footer></footer> -->
-                    </div>
-                    <!-- <form class="kanban-add-new-board">
-                      <label class="kanban-add-board-btn" for="kanban-add-board-input" id="form-show">
-                        <i class="ti ti-plus"></i>
-                        <span class="align-middle">Add new</span>
-                      </label>
-                      <input type="text" class="form-control w-px-250 kanban-add-board-input mb-4 d-none"
-                        placeholder="Add Board Title" id="kanban-add-board-input" required="">
-                      <div class="mb-4 kanban-add-board-input d-none" id="kanban-add-board-div">
-                        <button type="button" id="create-new-board"
-                          class="btn btn-primary btn-sm me-4 waves-effect waves-light">Add</button>
-                        <button type="button"
-                          class="btn btn-label-secondary btn-sm kanban-add-board-cancel-btn waves-effect"
-                          id="form-hide">
-                          Cancel
-                        </button>
-                      </div>
-                    </form> -->
                   </div>
 
+                  <!-- The form is placed at the bottom of the parent container -->
+                  <form class="kanban-add-new-board" id="board-8">
+                    <label class="kanban-add-board-btn" for="kanban-add-board-input" id="form-show">
+                      <i class="ti ti-plus"></i>
+                      <span class="" style="text-transform: capitalize;">Add new</span>
+                    </label>
+                    <input type="text" class="form-control w-px-250 kanban-add-board-input mb-4 d-none"
+                      placeholder="Add Board Title" id="kanban-add-board-input" required="">
+                    <div class="mb-4 kanban-add-board-input d-none" id="kanban-add-board-div">
+                      <button type="button" id="create-new-board"
+                        class="btn btn-primary btn-sm me-4 waves-effect waves-light">Add</button>
+                      <button type="button"
+                        class="btn btn-label-secondary btn-sm kanban-add-board-cancel-btn waves-effect" id="form-hide">
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+
                 </div>
+
 
                 <!-- Edit Task/Task & Activities -->
                 <div class="offcanvas offcanvas-end kanban-update-item-sidebar" id="offcanvas-div">
@@ -1982,6 +1236,7 @@
 
   <script src="../config.js"></script>
   <script src="./t_pm_js/logout.js"></script>
+  <script src="./t_pm_js/kanban-board.js"></script>
   <script src="./t_pm_js/kanban.js"></script>
   <script src="./t_pm_js/createNewArea.js"></script>
   <script src="./t_pm_js/todo.js"></script>
@@ -2275,156 +1530,156 @@
       });
     });
     document.addEventListener("DOMContentLoaded", function () {
-    loadBoardsFromLocalStorage();
-    enableDragAndDrop();
-});
+      loadBoardsFromLocalStorage();
+      enableDragAndDrop();
+    });
 
-function enableDragAndDrop() {
-    const taskContainers = document.querySelectorAll(".kanban-drag");
+    function enableDragAndDrop() {
+      const taskContainers = document.querySelectorAll(".kanban-drag");
 
-    taskContainers.forEach(container => {
+      taskContainers.forEach(container => {
         container.addEventListener("dragover", function (e) {
-            e.preventDefault(); // Allow dropping
+          e.preventDefault(); // Allow dropping
         });
 
         container.addEventListener("drop", function (e) {
-            e.preventDefault();
-            const draggedCard = document.querySelector(".dragging");
+          e.preventDefault();
+          const draggedCard = document.querySelector(".dragging");
 
-            if (draggedCard) {
-                const oldBoard = draggedCard.closest(".kanban-board").getAttribute("data-id");
-                const newBoard = container.closest(".kanban-board").getAttribute("data-id");
+          if (draggedCard) {
+            const oldBoard = draggedCard.closest(".kanban-board").getAttribute("data-id");
+            const newBoard = container.closest(".kanban-board").getAttribute("data-id");
 
-                if (oldBoard !== newBoard) {
-                    console.log(`Moved task from ${oldBoard} to ${newBoard}`);
-                }
-
-                // Move card visually
-                container.appendChild(draggedCard);
-                draggedCard.classList.remove("dragging");
-
-                // Update the task's board ID
-                draggedCard.setAttribute("data-board-id", newBoard);
-
-                // 🔥 Save board state after task move
-                saveBoardsState();
+            if (oldBoard !== newBoard) {
+              console.log(`Moved task from ${oldBoard} to ${newBoard}`);
             }
-        });
-    });
 
-    document.querySelectorAll(".kanban-item").forEach(card => {
+            // Move card visually
+            container.appendChild(draggedCard);
+            draggedCard.classList.remove("dragging");
+
+            // Update the task's board ID
+            draggedCard.setAttribute("data-board-id", newBoard);
+
+            // 🔥 Save board state after task move
+            saveBoardsState();
+          }
+        });
+      });
+
+      document.querySelectorAll(".kanban-item").forEach(card => {
         card.setAttribute("draggable", "true");
 
         card.addEventListener("dragstart", function () {
-            this.classList.add("dragging");
+          this.classList.add("dragging");
         });
 
         card.addEventListener("dragend", function () {
-            this.classList.remove("dragging");
+          this.classList.remove("dragging");
         });
-    });
-}
+      });
+    }
 
 
-// 🔹 Function to Copy a Board and Assign Unique Card IDs
-function copyBoard(element) {
-    const board = element.closest(".kanban-board");
-    const container = document.getElementById("kanban-wrapper-container");
+    // 🔹 Function to Copy a Board and Assign Unique Card IDs
+    function copyBoard(element) {
+      const board = element.closest(".kanban-board");
+      const container = document.getElementById("kanban-wrapper-container");
 
-    let newBoardName = prompt("Enter a name for the copied board:");
-    if (!newBoardName) return;
+      let newBoardName = prompt("Enter a name for the copied board:");
+      if (!newBoardName) return;
 
-    const clonedBoard = board.cloneNode(true);
-    const newBoardId = `board-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    clonedBoard.setAttribute("data-id", newBoardId);
-    clonedBoard.id = newBoardId;
+      const clonedBoard = board.cloneNode(true);
+      const newBoardId = `board-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      clonedBoard.setAttribute("data-id", newBoardId);
+      clonedBoard.id = newBoardId;
 
-    clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
+      clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
 
-    let taskContainer = clonedBoard.querySelector(".kanban-drag");
-    taskContainer.innerHTML = '';
+      let taskContainer = clonedBoard.querySelector(".kanban-drag");
+      taskContainer.innerHTML = '';
 
-    const tasks = board.querySelectorAll(".kanban-item");
-    let newTasks = [];
-    tasks.forEach(task => {
+      const tasks = board.querySelectorAll(".kanban-item");
+      let newTasks = [];
+      tasks.forEach(task => {
         const clonedTask = task.cloneNode(true);
         const newTaskId = `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         clonedTask.setAttribute("data-id", newTaskId);
         clonedTask.id = newTaskId;
         taskContainer.appendChild(clonedTask);
         newTasks.push({ id: newTaskId, content: clonedTask.innerHTML });
-    });
+      });
 
-    if (board.nextElementSibling) {
+      if (board.nextElementSibling) {
         container.insertBefore(clonedBoard, board.nextElementSibling);
-    } else {
+      } else {
         container.appendChild(clonedBoard);
+      }
+
+      saveBoardToLocalStorage(newBoardId, newBoardName, newTasks);
     }
 
-    saveBoardToLocalStorage(newBoardId, newBoardName, newTasks);
-}
-
-// 🔹 Function to Save Board State Including Unique Task IDs
-function saveBoardToLocalStorage(boardId, boardName, tasks) {
-    const boardData = {
+    // 🔹 Function to Save Board State Including Unique Task IDs
+    function saveBoardToLocalStorage(boardId, boardName, tasks) {
+      const boardData = {
         id: boardId,
         title: boardName,
         tasks: tasks
-    };
+      };
 
-    let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
-    savedBoards.push(boardData);
-    localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
-}
+      let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
+      savedBoards.push(boardData);
+      localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
+    }
 
-// 🔹 Save all board states including task positions
-function saveBoardsState() {
-    let savedBoards = [];
-    
-    document.querySelectorAll(".kanban-board").forEach(board => {
+    // 🔹 Save all board states including task positions
+    function saveBoardsState() {
+      let savedBoards = [];
+
+      document.querySelectorAll(".kanban-board").forEach(board => {
         const boardId = board.getAttribute("data-id");
         const boardName = board.querySelector(".kanban-title-board").textContent;
 
         const tasks = Array.from(board.querySelectorAll(".kanban-item")).map(task => {
-            let taskId = task.getAttribute("data-id") || `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-            task.setAttribute("data-id", taskId);
+          let taskId = task.getAttribute("data-id") || `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          task.setAttribute("data-id", taskId);
 
-            return { id: taskId, boardId: boardId, content: task.innerHTML };
+          return { id: taskId, boardId: boardId, content: task.innerHTML };
         });
 
         savedBoards.push({ id: boardId, title: boardName, tasks });
-    });
+      });
 
-    localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
-}
-
-
+      localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
+    }
 
 
-// 🔹 Load boards while keeping unique task IDs and appending cards
-function loadBoardsFromLocalStorage() {
-    const container = document.getElementById("kanban-wrapper-container");
-    let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
 
-    savedBoards.forEach(boardData => {
+
+    // 🔹 Load boards while keeping unique task IDs and appending cards
+    function loadBoardsFromLocalStorage() {
+      const container = document.getElementById("kanban-wrapper-container");
+      let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
+
+      savedBoards.forEach(boardData => {
         let existingBoard = document.querySelector(`.kanban-board[data-id="${boardData.id}"]`);
 
         if (!existingBoard) {
-            existingBoard = document.createElement("div");
-            existingBoard.classList.add("kanban-board");
-            existingBoard.setAttribute("data-id", boardData.id);
-            existingBoard.id = boardData.id;
+          existingBoard = document.createElement("div");
+          existingBoard.classList.add("kanban-board");
+          existingBoard.setAttribute("data-id", boardData.id);
+          existingBoard.id = boardData.id;
 
-            const header = document.createElement("header");
-            header.classList.add("kanban-board-header");
-            header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
-            existingBoard.appendChild(header);
+          const header = document.createElement("header");
+          header.classList.add("kanban-board-header");
+          header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
+          existingBoard.appendChild(header);
 
-            const main = document.createElement("main");
-            main.classList.add("kanban-drag");
-            existingBoard.appendChild(main);
+          const main = document.createElement("main");
+          main.classList.add("kanban-drag");
+          existingBoard.appendChild(main);
 
-            container.appendChild(existingBoard);
+          container.appendChild(existingBoard);
         }
 
         const taskContainer = existingBoard.querySelector(".kanban-drag");
@@ -2432,49 +1687,49 @@ function loadBoardsFromLocalStorage() {
         let existingTasks = new Set([...taskContainer.querySelectorAll(".kanban-item")].map(task => task.getAttribute("data-id")));
 
         boardData.tasks.forEach(taskData => {
-            if (!existingTasks.has(taskData.id)) {
-                const task = document.createElement("div");
-                task.classList.add("kanban-item");
-                task.setAttribute("draggable", "true");
-                task.setAttribute("data-id", taskData.id);
-                task.innerHTML = taskData.content;
-                taskContainer.appendChild(task);
-            }
+          if (!existingTasks.has(taskData.id)) {
+            const task = document.createElement("div");
+            task.classList.add("kanban-item");
+            task.setAttribute("draggable", "true");
+            task.setAttribute("data-id", taskData.id);
+            task.innerHTML = taskData.content;
+            taskContainer.appendChild(task);
+          }
         });
-    });
+      });
 
-    enableDragAndDrop();
-}
+      enableDragAndDrop();
+    }
 
 
-// 🔹 Function to Append a Board Without Clearing Others
-function appendBoardToPage(boardData, container) {
-    const board = document.createElement("div");
-    board.classList.add("kanban-board");
-    board.setAttribute("data-id", boardData.id);
-    board.id = boardData.id;
+    // 🔹 Function to Append a Board Without Clearing Others
+    function appendBoardToPage(boardData, container) {
+      const board = document.createElement("div");
+      board.classList.add("kanban-board");
+      board.setAttribute("data-id", boardData.id);
+      board.id = boardData.id;
 
-    const header = document.createElement("header");
-    header.classList.add("kanban-board-header");
-    header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
+      const header = document.createElement("header");
+      header.classList.add("kanban-board-header");
+      header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
 
-    board.appendChild(header);
+      board.appendChild(header);
 
-    const main = document.createElement("main");
-    main.classList.add("kanban-drag");
+      const main = document.createElement("main");
+      main.classList.add("kanban-drag");
 
-    boardData.tasks.forEach(taskData => {
+      boardData.tasks.forEach(taskData => {
         const task = document.createElement("div");
         task.classList.add("kanban-item");
         task.setAttribute("draggable", "true");
         task.setAttribute("data-id", taskData.id);
         task.innerHTML = taskData.content;
         main.appendChild(task);
-    });
+      });
 
-    board.appendChild(main);
-    container.appendChild(board);
-}
+      board.appendChild(main);
+      container.appendChild(board);
+    }
 
 
 
@@ -2568,7 +1823,29 @@ function appendBoardToPage(boardData, container) {
       // Remove the board from the DOM
       board.remove();
     }
-  </script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector(".kanban-add-new-board"); // Select the form
+      const parentDiv = form.parentElement; // Get its parent div
 
-  <script src="./t_pm_js/moveList.js"></script>
+      if (parentDiv) {
+        parentDiv.appendChild(form); // Move the form to the end of the div
+      }
+    });
+  </script>
+  <script>
+    document.getElementById("form-show").addEventListener("click", function () {
+      document.getElementById("kanban-add-board-input").classList.remove("d-none");
+      document.getElementById("kanban-add-board-div").classList.remove("d-none");
+    });
+
+    document.getElementById("form-hide").addEventListener("click", function () {
+      document.getElementById("kanban-add-board-input").classList.add("d-none");
+      document.getElementById("kanban-add-board-div").classList.add("d-none");
+    });
+  </script>
   <script src="./t_pm_js/checklist.js"></script>
+  <script src="./t_pm_js/moveList.js"></script>
+
+</body>
+
+</html>

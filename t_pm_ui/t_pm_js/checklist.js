@@ -69,7 +69,7 @@ const getChecklist = async ticket_id => {
   await fetch(`${API_BASE_URL}/get-checklist/${ticket_id}`)
     .then(response => {
       if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
+        throw new Error("Network response was not ok ");
       }
       return response.json();
     })
@@ -92,18 +92,20 @@ const getChecklist = async ticket_id => {
     });
 };
 
-fetch(`${API_BASE_URL}/tickets`)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok ");
-    }
-    return response.json();
-  })
-  .then(data => {
-    data.map(item => {
-      getChecklist(item.ticket_id);
+setTimeout(function() {
+  fetch(`${API_BASE_URL}/tickets`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok ");
+      }
+      return response.json();
+    })
+    .then(data => {
+      data.map(item => {
+        getChecklist(item.ticket_id);
+      });
     });
-  });
+}, 1000);
 
 function checklistModal(event) {
   event.stopPropagation(); // Prevent the event from bubbling up to the parent
