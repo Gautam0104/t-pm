@@ -1153,6 +1153,55 @@
           </div>
         </div>
         <!-- /checklist modal -->
+        <!-- copy card modal -->
+        <div class="modal fade" id="copycardModal" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Copy Card</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <label class="form-check-label" for="">Title</label>
+                  <div class="mb-4"><textarea class="form-control" rows="2" id="" placeholder="Add Content"
+                      required=""></textarea>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">Main Board</label>
+                    <select class="form-control form-select" name="" id="">
+                      <option value="todo">Todo</option>
+                      <option value="inprogress">Inprogress</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="for-approval">For-approval</option>
+                      <option value="approved">Approved</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">List</label>
+                    <select class="form-control form-select" name="" id="">
+                      <option value="todo">Todo</option>
+                      <option value="inprogress">Inprogress</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="for-approval">For-approval</option>
+                      <option value="approved">Approved</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Create
+                      Card</button><button type="button"
+                      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
+                      id="cancel-form-4">Cancel</button>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- copy modal -->
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme" id="footer">
           <div class="container-xxl">

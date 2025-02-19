@@ -586,6 +586,11 @@ setTimeout(function() {
                                                                     <i class="fas fa-plus me-2"></i> Add Button
                                                                 </button>
                                                             </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal">
+                                                                    <i class="fas fa-copy me-2"></i> Copy Card
+                                                                </button>
+                                                            </li>
                                                         </ul>
                                                     </div>
 
