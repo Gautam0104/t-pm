@@ -591,6 +591,59 @@ setTimeout(function() {
                                                                     <i class="fas fa-copy me-2"></i> Copy Card
                                                                 </button>
                                                             </li>
+                                                           <li class="nav-item dropdown">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="cover-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fas fa-box me-2"></i> Cover
+                                                                </button>
+                                                                <ul class="dropdown-menu w-100" aria-labelledby="cover-dropdown">
+                                                                 <li>
+                                                                 <div class="row d-flex justify-content-center">
+                                                                 <div class="col-6"><p>Add Color</p></div>
+                                                                 </div>
+                                                                 
+                                                                 <div class="row">
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:red;"></div>
+                                                                    </div>
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:blue;"></div>
+                                                                    </div>
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:green;"></div>
+                                                                    </div>
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:pink;"></div>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                                 <div class="row">
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:skyblue;"></div>
+                                                                    </div>
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:orange;"></div>
+                                                                    </div>
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:voilet;"></div>
+                                                                    </div>
+                                                                    <div class="col mb-3">
+                                                                    <div class="color-box w-100 rounded" style="background-color:purple;"></div>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                                
+                                                                 <div class="row">
+                                                                    <div class="col mb-3">
+                                                                    <button type="button" class="btn btn-primary btn-large waves-effect waves-light w-100">Add</button>
+                                                                    </div>
+                                                                    
+                                                                   
+                                                                </div>
+                                                                
+                                                                 </div>
+                                                                 </li>
+                                                                </ul>
+                                                            </li>
                                                         </ul>
                                                     </div>
 
