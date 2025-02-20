@@ -62,12 +62,12 @@ setTimeout(function() {
 
                     <div class="dropdown kanban-tasks-item-dropdown">
                         <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="cardDropdown(event)"></i>
                         <div class="dropdown-menu dropdown-menu-end" 
                             aria-labelledby="kanban-tasks-item-dropdown">
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">Copy task link</a>
                             <a class="dropdown-item waves-effect" href="javascript:void(0)">Duplicate task</a>
-                            <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)">Delete</a>
+                            <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)" onclick="deleteCard(event,'${element.ticket_id}')">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -587,7 +587,7 @@ setTimeout(function() {
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal" onclick="openCopyCardModal('${element.title}','${element.ticket_id}')">
                                                                     <i class="fas fa-copy me-2"></i> Copy Card
                                                                 </button>
                                                             </li>
@@ -1530,3 +1530,122 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 5); // Smooth transition effect
   }
 });
+
+function openCopyCardModal(title, ticketId) {
+  const copycardForm = document.getElementById("copy-card-form");
+  copycardForm.innerHTML = `                  <div class="mb-4">
+                    <label class="form-check-label" for="">Title</label>
+                    <textarea class="form-control" rows="2" id="copied-card-title"
+                      placeholder="Add Content" required="">${title}</textarea>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">Main Board</label>
+                    <select class="form-control form-select" name="" id="">
+                      <option value="todo">Todo</option>
+                      <option value="inprogress">Inprogress</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="for-approval">For-approval</option>
+                      <option value="approved">Approved</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">List</label>
+                    <select class="form-control form-select" name="" id="copied-ticket-status">
+                      <option value="todo">Todo</option>
+                      <option value="inprogress">Inprogress</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="for-approval">For-approval</option>
+                      <option value="approved">Approved</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Create
+                      Card</button><button type="button"
+                      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
+                      id="cancel-form-4">Cancel</button>
+                  </div>`;
+  copycardForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const ticketStatus = document.getElementById("copied-ticket-status").value;
+
+    console.log("form submited", ticketStatus);
+    try {
+      const response = await fetch(`${API_BASE_URL}/copy-row/${ticketId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ticketStatus
+        })
+      });
+      if (response.ok) {
+        console.log("card copied successfully");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  });
+}
+
+function cardDropdown(event) {
+  event.stopPropagation();
+}
+
+async function deleteCard(event, ticketId) {
+  event.stopPropagation();
+
+  try {
+    // Send DELETE request to the API
+    const response = await fetch(`${API_BASE_URL}/clearHistory/${ticketId}`, {
+      method: "DELETE"
+    });
+
+    // Parse the response
+    // const data = await response.json();
+
+    if (response.ok) {
+      console.log("ticket history clear");
+    } else {
+      console.log("something went wrong");
+    }
+  } catch (error) {
+    console.error(error);
+    // messageDiv.textContent = 'Could not connect to the server.';
+    // messageDiv.className = 'message error';
+  }
+
+  try {
+    // Send DELETE request to the API
+    const response = await fetch(`${API_BASE_URL}/deleteticket/${ticketId}`, {
+      method: "DELETE"
+    });
+
+    // Parse the response
+    // const data = await response.json();
+
+    if (response.ok) {
+      Swal.fire({
+        title: "Ticket Deleted Successfully",
+        text: "A Ticket is delete from your tickets",
+        icon: "success",
+        confirmButtonText: "Ok!"
+      }).then(function() {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: "Oops!",
+        text: "something went wrong. Try again!",
+        icon: "error",
+        confirmButtonText: "Retry!"
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    // messageDiv.textContent = 'Could not connect to the server.';
+    // messageDiv.className = 'message error';
+  }
+}

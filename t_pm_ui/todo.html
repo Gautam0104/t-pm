@@ -707,11 +707,11 @@
                   </div>
                 </div>
                 <!-- Kanban Wrapper -->
-                <div class="kanban-wrapper " style="height: auto; width: 100%; overflow-x: auto; overflow-y: auto;  ">
+                <div class="kanban-wrapper " style="height: 100%; width: 100%; overflow-x: auto; overflow-y: auto;  ">
                   <div id="loading" class="loading-container">
                     <div class="loader"></div>
                   </div>
-                  <div class="kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
+                  <div class="kanban-container" id="kanban-wrapper-container">
                     <!-- Dynamically added content will go here -->
 
 
@@ -1162,37 +1162,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form>
-                  <label class="form-check-label" for="">Title</label>
-                  <div class="mb-4"><textarea class="form-control" rows="2" id="" placeholder="Add Content"
-                      required=""></textarea>
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-check-label" for="">Main Board</label>
-                    <select class="form-control form-select" name="" id="">
-                      <option value="todo">Todo</option>
-                      <option value="inprogress">Inprogress</option>
-                      <option value="rejected">Rejected</option>
-                      <option value="for-approval">For-approval</option>
-                      <option value="approved">Approved</option>
-                    </select>
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-check-label" for="">List</label>
-                    <select class="form-control form-select" name="" id="">
-                      <option value="todo">Todo</option>
-                      <option value="inprogress">Inprogress</option>
-                      <option value="rejected">Rejected</option>
-                      <option value="for-approval">For-approval</option>
-                      <option value="approved">Approved</option>
-                    </select>
-                  </div>
+                <form id="copy-card-form">
 
-                  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Create
-                      Card</button><button type="button"
-                      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
-                      id="cancel-form-4">Cancel</button>
-                  </div>
+
                 </form>
               </div>
               <div class="modal-footer">
