@@ -566,11 +566,7 @@ setTimeout(function() {
                                                                     <i class="fas fa-paperclip me-2"></i> Attachment
                                                                 </button>
                                                             </li>
-                                                            <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
-                                                                    <i class="fas fa-image me-2"></i> Cover
-                                                                </button>
-                                                            </li>
+
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100">
                                                                     <i class="fas fa-cog me-2"></i> Custom Fields
@@ -593,7 +589,7 @@ setTimeout(function() {
                                                             </li>
                                                            <li class="nav-item dropdown">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="cover-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i class="fas fa-box me-2"></i> Cover
+                                                                    <i class="fas fa-image me-2"></i> Cover
                                                                 </button>
                                                                 <ul class="dropdown-menu w-100" aria-labelledby="cover-dropdown">
                                                                  <li>
