@@ -1,14 +1,12 @@
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
-    document.getElementById("content").style.display = "block";
   }, 1000);
 };
-
+var urlParams = new URLSearchParams(window.location.search);
+var project_id = urlParams.get("id");
+var creator_id = urlParams.get("user_id");
 setTimeout(function() {
-  var urlParams = new URLSearchParams(window.location.search);
-  var project_id = urlParams.get("id");
-  var creator_id = urlParams.get("user_id");
   console.log(project_id);
 
   fetch(`${API_BASE_URL}/project/${project_id}`)
@@ -1423,46 +1421,45 @@ setTimeout(function() {
 
     isAscending = !isAscending; // Toggle sorting order for next call
   }
-
-  //  Move all card in this list
-  async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
-    let todoContainer = document.getElementById(moveFrom);
-    let inProgressContainer = document.getElementById(moveTo);
-
-    // Select all tasks inside the To-Do container
-    let tasks = todoContainer.querySelectorAll(".kanban-item");
-
-    // Move each task to the In-Progress container
-    tasks.forEach(task => {
-      inProgressContainer.appendChild(task);
-    });
-
-    const payload = { newStatus };
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/updateticketstatus/${currentStatus}/${project_id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        }
-      );
-
-      if (response.ok) {
-        console.log("Ticket Updated");
-      } else {
-        console.log("Something went wrong");
-      }
-    } catch (error) {
-      messageElement.textContent = "Error connecting to the server.";
-      messageElement.className = "message error";
-      console.error("Error:", error);
-    }
-  }
 }, 1000);
 
+//  Move all card in this list
+async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
+  let todoContainer = document.getElementById(moveFrom);
+  let inProgressContainer = document.getElementById(moveTo);
+
+  // Select all tasks inside the To-Do container
+  let tasks = todoContainer.querySelectorAll(".kanban-item");
+
+  // Move each task to the In-Progress container
+  tasks.forEach(task => {
+    inProgressContainer.appendChild(task);
+  });
+
+  const payload = { newStatus };
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/updateticketstatus/${currentStatus}/${project_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (response.ok) {
+      console.log("Ticket Updated");
+    } else {
+      console.log("Something went wrong");
+    }
+  } catch (error) {
+    messageElement.textContent = "Error connecting to the server.";
+    messageElement.className = "message error";
+    console.error("Error:", error);
+  }
+}
 function watchedCard(watched) {
   let checkedCard = document.getElementById(watched);
   let watchedAnchor = document.getElementById(`${watched}-anchor`);

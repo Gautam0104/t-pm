@@ -1,88 +1,90 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const container = document.getElementById("kanban-wrapper-container");
+  setTimeout(function() {
+    const container = document.getElementById("kanban-wrapper-container");
 
-  if (!container) {
-    console.error("Kanban container not found!");
-    return;
-  }
-
-  // Initialize Sortable.js with a callback for saving the order after any move
-  function initializeSortable() {
-    return new Sortable(container, {
-      group: "kanban-boards",
-      animation: 150,
-      handle: ".kanban-board-header",
-      ghostClass: "sortable-ghost",
-      onEnd: function() {
-        saveOrder(); // Save new order after drag and drop
-      }
-    });
-  }
-
-  // Load saved order from localStorage
-  // Frontend Code
-  function loadOrder() {
-    fetch(`${API_BASE_URL}/get-kanban-order`)
-      .then(response => response.json())
-      .then(data => {
-        const orderArray = data.order;
-        console.log("Loading order:", orderArray); // Debugging
-
-        // Reorder boards based on saved order
-        orderArray.forEach(id => {
-          const element = document.getElementById(id);
-          if (element) {
-            container.appendChild(element); // Reattach boards in the correct order
-          }
-        });
-      })
-      .catch(error => {
-        console.error("Error loading order:", error);
-      });
-  }
-
-  // Save the current board order to the server
-  function saveOrder() {
-    const orderArray = Array.from(container.children).map(el => el.id);
-    console.log("Saving order:", orderArray); // Debugging
-
-    fetch(`${API_BASE_URL}/save-kanban-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ order: orderArray })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Order saved successfully:", data);
-      })
-      .catch(error => {
-        console.error("Error saving order:", error);
-      });
-  }
-
-  // Move board to selected position and save new order
-  function moveToPosition(board, newIndex) {
-    const boards = Array.from(container.children);
-
-    if (newIndex >= 0 && newIndex < boards.length) {
-      container.insertBefore(board, boards[newIndex]); // Insert at specified index
-    } else {
-      container.appendChild(board); // Append if index is out of bounds
+    if (!container) {
+      console.error("Kanban container not found!");
+      return;
     }
 
-    saveOrder(); // Save new order in localStorage
-  }
+    // Initialize Sortable.js with a callback for saving the order after any move
+    function initializeSortable() {
+      return new Sortable(container, {
+        group: "kanban-boards",
+        animation: 150,
+        handle: ".kanban-board-header",
+        ghostClass: "sortable-ghost",
+        onEnd: function() {
+          saveOrder(); // Save new order after drag and drop
+        }
+      });
+    }
 
-  // Initialize Sortable.js
-  const sortable = initializeSortable();
+    // Load saved order from localStorage
+    // Frontend Code
+    function loadOrder() {
+      fetch(`${API_BASE_URL}/get-kanban-order`)
+        .then(response => response.json())
+        .then(data => {
+          const orderArray = data.order;
+          console.log("Loading order:", orderArray); // Debugging
 
-  // Load saved order from localStorage
-  loadOrder();
+          // Reorder boards based on saved order
+          orderArray.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+              container.appendChild(element); // Reattach boards in the correct order
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Error loading order:", error);
+        });
+    }
 
-  // Expose moveToPosition function globally for manual movement
-  window.moveToPosition = moveToPosition;
+    // Save the current board order to the server
+    function saveOrder() {
+      const orderArray = Array.from(container.children).map(el => el.id);
+      console.log("Saving order:", orderArray); // Debugging
+
+      fetch(`${API_BASE_URL}/save-kanban-order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ order: orderArray })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Order saved successfully:", data);
+        })
+        .catch(error => {
+          console.error("Error saving order:", error);
+        });
+    }
+
+    // Move board to selected position and save new order
+    function moveToPosition(board, newIndex) {
+      const boards = Array.from(container.children);
+
+      if (newIndex >= 0 && newIndex < boards.length) {
+        container.insertBefore(board, boards[newIndex]); // Insert at specified index
+      } else {
+        container.appendChild(board); // Append if index is out of bounds
+      }
+
+      saveOrder(); // Save new order in localStorage
+    }
+
+    // Initialize Sortable.js
+    const sortable = initializeSortable();
+
+    // Load saved order from localStorage
+    loadOrder();
+
+    // Expose moveToPosition function globally for manual movement
+    window.moveToPosition = moveToPosition;
+  }, 1000);
 });
 
 /**
@@ -139,9 +141,11 @@ function showMoveBoardDropdown(element) {
 
 // Attach event listeners for dropdown triggers
 document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll(".move-board-trigger").forEach(button => {
-    button.addEventListener("mouseenter", function() {
-      showMoveBoardDropdown(this);
+  setTimeout(function() {
+    document.querySelectorAll(".move-board-trigger").forEach(button => {
+      button.addEventListener("mouseenter", function() {
+        showMoveBoardDropdown(this);
+      });
     });
-  });
+  }, 1000);
 });

@@ -30,7 +30,7 @@ fetch(`${API_BASE_URL}/getboards`)
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
                 <!-- Delete -->
-                <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" onclick="deleteBoard(${item.id})">
+                <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" onclick="deleteBoard(${item.board_id})">
                 <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
                 </a>
 
@@ -69,28 +69,28 @@ fetch(`${API_BASE_URL}/getboards`)
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                    style="pointer-events: none; opacity: 0.6; cursor: not-allowed;">
+                    >
 
                     <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
                     </span>
                     </a>
                     <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('${item.board_title}-task', 'inprogress-task', '${item.board_title}', 'inprogress')">
+                    onclick="moveAllTask('todo-task', 'inprogress-task', 'todo', 'inprogress')">
                     <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
                     </span>
                     </a>
                     <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('${item.board_title}-task', 'for-approval-task', '${item.board_title}', 'for-approval')">
+                    onclick="moveAllTask('todo-task', 'for-approval-task', 'todo', 'for-approval')">
                     <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
                     </span>
                     </a>
                     <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('${item.board_title}-task', 'rejected-task', '${item.board_title}', 'rejected')">
+                    onclick="moveAllTask('todo-task', 'rejected-task', 'todo', 'rejected')">
                     <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
                     </span>
                     </a>
                     <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('${item.board_title}-task', 'approved-task', '${item.board_title}', 'approved')">
+                    onclick="moveAllTask('todo-task', 'approved-task', 'todo', 'approved')">
                     <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
                     </span>
                     </a>
