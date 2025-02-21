@@ -64,36 +64,10 @@ fetch(`${API_BASE_URL}/getboards`)
                 <!-- Move all card in this list -->
                 <div class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
-                    list</span>
+                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all cards in this list</span>
                 </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick=""
-                    >
-
-                    <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">ToDo
-                    </span>
-                    </a>
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('todo-task', 'inprogress-task', 'todo', 'inprogress')">
-                    <i class="ti ti-calendar ti-xs me-1"></i> <span class="align-middle">In-Progress
-                    </span>
-                    </a>
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('todo-task', 'for-approval-task', 'todo', 'for-approval')">
-                    <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">For-Approval
-                    </span>
-                    </a>
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('todo-task', 'rejected-task', 'todo', 'rejected')">
-                    <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Rejected
-                    </span>
-                    </a>
-                    <a class="dropdown-item waves-effect" href="javascript:void(0)"
-                    onclick="moveAllTask('todo-task', 'approved-task', 'todo', 'approved')">
-                    <i class="ti ti-clock ti-xs me-1"></i> <span class="align-middle">Approved
-                    </span>
-                    </a>
+                <div id="move-all-cards-menu-${item.order}" class="dropdown-menu">
+                  <!-- Will be populated after rendering all boards -->
                 </div>
                 </div>
                 <!-- Sort By (Nested Dropdown) -->
@@ -183,8 +157,14 @@ fetch(`${API_BASE_URL}/getboards`)
 
       kanbanboardContainer.innerHTML += kanbanboardContent;
     });
+    data.forEach(item => {
+      const menuContainer = document.getElementById(`move-all-cards-menu-${item.order}`);
+      menuContainer.innerHTML = generateMoveAllTasksMenu(item.order);
+    });
   });
 
+
+  
 const deleteBoard = async boardId => {
   try {
     // Send DELETE request to the API
@@ -200,3 +180,27 @@ const deleteBoard = async boardId => {
     console.error(error);
   }
 };
+
+// Add this function to generate dynamic dropdown menu
+function generateMoveAllTasksMenu(currentBoardId) {
+    // Get all kanban boards except the current one
+    const boards = Array.from(document.querySelectorAll('.kanban-board'))
+        .filter(board => board.id !== `board-${currentBoardId}`);
+    
+    let menuHTML = '<div class="dropdown-menu">';
+    
+    boards.forEach(board => {
+        const boardTitle = board.querySelector('.kanban-title-board').textContent.trim();
+        const boardId = board.id.replace('board-', '');
+        
+        menuHTML += `
+            <a class="dropdown-item waves-effect" href="javascript:void(0)"
+               onclick="moveAllTask('${currentBoardId}-task', '${boardTitle.toLowerCase()}-task', '${currentBoardId}', '${boardTitle.toLowerCase()}')">
+                <i class="ti ti-calendar ti-xs me-1"></i>
+                <span class="align-middle">${boardTitle}</span>
+            </a>`;
+    });
+    
+    menuHTML += '</div>';
+    return menuHTML;
+}
