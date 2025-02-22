@@ -107,6 +107,23 @@ setTimeout(function() {
           // };
 
           // Append card to the container
+          fetch(`${API_BASE_URL}/getboards`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok ");
+              }
+              return response.json();
+            })
+            .then(data => {
+              data.map(item => {
+                cardContent = document.getElementById(
+                  `${item.board_title}-task`
+                );
+                if (element.ticket_status === item.board_title) {
+                  cardContent.appendChild(card);
+                }
+              });
+            });
           switch (element.ticket_status) {
             case "todo":
               cardItem.appendChild(card);
