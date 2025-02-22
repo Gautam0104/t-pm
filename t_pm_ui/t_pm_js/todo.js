@@ -1315,6 +1315,27 @@ setTimeout(function() {
               .catch(error => console.error("Error:", error));
             selected = null;
           });
+
+          fetch(`${API_BASE_URL}/getboards`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok ");
+              }
+              return response.json();
+            })
+            .then(boardData => {
+              boardData.map(boardItem => {
+                const newTask = document.getElementById(
+                  `${boardItem.board_title}-task`
+                );
+                newTask.addEventListener("drop", function(e) {
+                  e.preventDefault();
+                  newTask.appendChild(selected);
+
+                  selected = null;
+                });
+              });
+            });
         });
       });
     })
@@ -1424,18 +1445,25 @@ setTimeout(function() {
 }, 1000);
 
 //  Move all card in this list
-async function moveAllTask(moveFrom, moveTo, currentStatus, newStatus) {
-  let todoContainer = document.getElementById(moveFrom);
-  let inProgressContainer = document.getElementById(moveTo);
+async function moveAllTask(from, currentStatus) {
+  let todoContainer = document.getElementById(from);
+  let inProgressContainer = document.getElementById("move-to").value;
+
+  let newStatus = document.getElementById("move-to").value;
+
+  console.log(newStatus);
+
+  // Remove currentStatus and newStatus as they are not used later on.
 
   // Select all tasks inside the To-Do container
   let tasks = todoContainer.querySelectorAll(".kanban-item");
 
   // Move each task to the In-Progress container
   tasks.forEach(task => {
-    inProgressContainer.appendChild(task);
+    inProgressContainer.innerHTML += task; // Now this will work correctly
   });
 
+  // only pass the new status
   const payload = { newStatus };
   try {
     const response = await fetch(

@@ -64,10 +64,25 @@ fetch(`${API_BASE_URL}/getboards`)
                 <!-- Move all card in this list -->
                 <div class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all cards in this list</span>
+                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                    list</span>
                 </a>
-                <div id="move-all-cards-menu-${item.order}" class="dropdown-menu">
-                  <!-- Will be populated after rendering all boards -->
+                <div class="dropdown-menu">
+                <form >
+
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">Move all From </label>
+                     <input type="text" class="form-control" id="move-from" placeholder="Move from ${item.board_title}" value="${item.board_title}">
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">Move all To</label>
+                     <input type="text" class="form-control" id="move-to" placeholder="Please enter board where you want to move all card">
+                  </div>
+
+                  <div class="mb-4 w-100"><button type="button" class="btn btn-primary btn-sm me-4" onclick="moveAllTask('${item.board_title}-task','${item.board_title}')">Move...</button>
+                  </div>
+
+                </form>
                 </div>
                 </div>
                 <!-- Sort By (Nested Dropdown) -->
@@ -157,14 +172,8 @@ fetch(`${API_BASE_URL}/getboards`)
 
       kanbanboardContainer.innerHTML += kanbanboardContent;
     });
-    data.forEach(item => {
-      const menuContainer = document.getElementById(`move-all-cards-menu-${item.order}`);
-      menuContainer.innerHTML = generateMoveAllTasksMenu(item.order);
-    });
   });
 
-
-  
 const deleteBoard = async boardId => {
   try {
     // Send DELETE request to the API
@@ -180,27 +189,3 @@ const deleteBoard = async boardId => {
     console.error(error);
   }
 };
-
-// Add this function to generate dynamic dropdown menu
-function generateMoveAllTasksMenu(currentBoardId) {
-    // Get all kanban boards except the current one
-    const boards = Array.from(document.querySelectorAll('.kanban-board'))
-        .filter(board => board.id !== `board-${currentBoardId}`);
-    
-    let menuHTML = '<div class="dropdown-menu">';
-    
-    boards.forEach(board => {
-        const boardTitle = board.querySelector('.kanban-title-board').textContent.trim();
-        const boardId = board.id.replace('board-', '');
-        
-        menuHTML += `
-            <a class="dropdown-item waves-effect" href="javascript:void(0)"
-               onclick="moveAllTask('${currentBoardId}-task', '${boardTitle.toLowerCase()}-task', '${currentBoardId}', '${boardTitle.toLowerCase()}')">
-                <i class="ti ti-calendar ti-xs me-1"></i>
-                <span class="align-middle">${boardTitle}</span>
-            </a>`;
-    });
-    
-    menuHTML += '</div>';
-    return menuHTML;
-}
