@@ -546,6 +546,7 @@ setTimeout(function() {
                                                                 </ul>
 
                                                             </li>
+
                                                             <li class="nav-item dropdown">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="checklist-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-tasks me-2"></i> Checklist
@@ -604,6 +605,11 @@ setTimeout(function() {
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal" onclick="openCopyCardModal('${element.title}','${element.ticket_id}')">
                                                                     <i class="fas fa-copy me-2"></i> Copy Card
+                                                                </button>
+                                                            </li>
+                                                             <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#movecardModal" onclick="openMoveCardModal('${element.title}','${element.ticket_id}')">
+                                                                    <i class="fas fa-arrow-right me-2"></i> Move Card
                                                                 </button>
                                                             </li>
                                                            <li class="nav-item dropdown">
@@ -1152,186 +1158,186 @@ setTimeout(function() {
               });
           }
 
-          inprogressTask.addEventListener("dragover", function(e) {
-            e.preventDefault();
-            const contentInprogress = document.getElementById(
-              "content-inprogress"
-            );
-            contentDiv.style.opacity = "1";
-          });
-          forApprovalTask.addEventListener("dragover", function(e) {
-            e.preventDefault();
-          });
-          rejectedTask.addEventListener("dragover", function(e) {
-            e.preventDefault();
-          });
-          approvedTask.addEventListener("dragover", function(e) {
-            e.preventDefault();
-          });
-          todoTask.addEventListener("dragover", function(e) {
-            e.preventDefault();
-          });
-          inprogressTask.addEventListener("drop", function(e) {
-            e.preventDefault();
-            inprogressTask.appendChild(selected);
-            selected.classList.remove("dragg-from-todo");
-            selected.classList.add("dragg-from-inprogress");
-            fetchselectedData()
-              .then(selectedData => {
-                const ticketId = selectedData.ticket_id;
-                const ticketStatus = "inprogress";
+          // inprogressTask.addEventListener("dragover", function(e) {
+          //   e.preventDefault();
+          //   const contentInprogress = document.getElementById(
+          //     "content-inprogress"
+          //   );
+          //   contentDiv.style.opacity = "1";
+          // });
+          // forApprovalTask.addEventListener("dragover", function(e) {
+          //   e.preventDefault();
+          // });
+          // rejectedTask.addEventListener("dragover", function(e) {
+          //   e.preventDefault();
+          // });
+          // approvedTask.addEventListener("dragover", function(e) {
+          //   e.preventDefault();
+          // });
+          // todoTask.addEventListener("dragover", function(e) {
+          //   e.preventDefault();
+          // });
+          // inprogressTask.addEventListener("drop", function(e) {
+          //   e.preventDefault();
+          //   inprogressTask.appendChild(selected);
+          //   selected.classList.remove("dragg-from-todo");
+          //   selected.classList.add("dragg-from-inprogress");
+          //   fetchselectedData()
+          //     .then(selectedData => {
+          //       const ticketId = selectedData.ticket_id;
+          //       const ticketStatus = "inprogress";
 
-                // Check for undefined or empty values before sending the request
-                if (!ticketId || !ticketStatus) {
-                  console.log("Ticket ID or Status is missing");
-                  return; // You could show an alert or handle the error here
-                }
+          //       // Check for undefined or empty values before sending the request
+          //       if (!ticketId || !ticketStatus) {
+          //         console.log("Ticket ID or Status is missing");
+          //         return; // You could show an alert or handle the error here
+          //       }
 
-                fetch(`${API_BASE_URL}/updateticketStatus`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    ticket_id: ticketId,
-                    ticket_status: ticketStatus
-                  })
-                })
-                  .then(response => response.json())
-                  .then(data => console.log("Success:", data))
-                  .catch(error => console.error("Error:", error));
-              })
-              .catch(error => console.error("Error:", error));
+          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
+          //         method: "PUT",
+          //         headers: {
+          //           "Content-Type": "application/json"
+          //         },
+          //         body: JSON.stringify({
+          //           ticket_id: ticketId,
+          //           ticket_status: ticketStatus
+          //         })
+          //       })
+          //         .then(response => response.json())
+          //         .then(data => console.log("Success:", data))
+          //         .catch(error => console.error("Error:", error));
+          //     })
+          //     .catch(error => console.error("Error:", error));
 
-            selected = null;
-          });
-          todoTask.addEventListener("drop", function(e) {
-            e.preventDefault();
-            todoTask.appendChild(selected);
-            selected.classList.remove("dragg-from-inprogress");
-            selected.classList.add("dragg-from-todo");
-            fetchselectedData()
-              .then(selectedData => {
-                const ticketId = selectedData.ticket_id;
-                const ticketStatus = "todo";
+          //   selected = null;
+          // });
+          // todoTask.addEventListener("drop", function(e) {
+          //   e.preventDefault();
+          //   todoTask.appendChild(selected);
+          //   selected.classList.remove("dragg-from-inprogress");
+          //   selected.classList.add("dragg-from-todo");
+          //   fetchselectedData()
+          //     .then(selectedData => {
+          //       const ticketId = selectedData.ticket_id;
+          //       const ticketStatus = "todo";
 
-                // Check for undefined or empty values before sending the request
-                if (!ticketId || !ticketStatus) {
-                  console.log("Ticket ID or Status is missing");
-                  return; // You could show an alert or handle the error here
-                }
+          //       // Check for undefined or empty values before sending the request
+          //       if (!ticketId || !ticketStatus) {
+          //         console.log("Ticket ID or Status is missing");
+          //         return; // You could show an alert or handle the error here
+          //       }
 
-                fetch(`${API_BASE_URL}/updateticketStatus`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    ticket_id: ticketId,
-                    ticket_status: ticketStatus
-                  })
-                })
-                  .then(response => response.json())
-                  .then(data => console.log("Success:", data))
-                  .catch(error => console.error("Error:", error));
-              })
-              .catch(error => console.error("Error:", error));
+          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
+          //         method: "PUT",
+          //         headers: {
+          //           "Content-Type": "application/json"
+          //         },
+          //         body: JSON.stringify({
+          //           ticket_id: ticketId,
+          //           ticket_status: ticketStatus
+          //         })
+          //       })
+          //         .then(response => response.json())
+          //         .then(data => console.log("Success:", data))
+          //         .catch(error => console.error("Error:", error));
+          //     })
+          //     .catch(error => console.error("Error:", error));
 
-            selected = null;
-          });
-          forApprovalTask.addEventListener("drop", function(e) {
-            e.preventDefault();
-            forApprovalTask.appendChild(selected);
-            fetchselectedData()
-              .then(selectedData => {
-                const ticketId = selectedData.ticket_id;
-                const ticketStatus = "for-approval";
+          //   selected = null;
+          // });
+          // forApprovalTask.addEventListener("drop", function(e) {
+          //   e.preventDefault();
+          //   forApprovalTask.appendChild(selected);
+          //   fetchselectedData()
+          //     .then(selectedData => {
+          //       const ticketId = selectedData.ticket_id;
+          //       const ticketStatus = "for-approval";
 
-                // Check for undefined or empty values before sending the request
-                if (!ticketId || !ticketStatus) {
-                  console.log("Ticket ID or Status is missing");
-                  return; // You could show an alert or handle the error here
-                }
+          //       // Check for undefined or empty values before sending the request
+          //       if (!ticketId || !ticketStatus) {
+          //         console.log("Ticket ID or Status is missing");
+          //         return; // You could show an alert or handle the error here
+          //       }
 
-                fetch(`${API_BASE_URL}/updateticketStatus`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    ticket_id: ticketId,
-                    ticket_status: ticketStatus
-                  })
-                })
-                  .then(response => response.json())
-                  .then(data => console.log("Success:", data))
-                  .catch(error => console.error("Error:", error));
-              })
-              .catch(error => console.error("Error:", error));
-            selected = null;
-          });
-          rejectedTask.addEventListener("drop", function(e) {
-            e.preventDefault();
-            rejectedTask.appendChild(selected);
-            fetchselectedData()
-              .then(selectedData => {
-                const ticketId = selectedData.ticket_id;
-                const ticketStatus = "rejected";
+          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
+          //         method: "PUT",
+          //         headers: {
+          //           "Content-Type": "application/json"
+          //         },
+          //         body: JSON.stringify({
+          //           ticket_id: ticketId,
+          //           ticket_status: ticketStatus
+          //         })
+          //       })
+          //         .then(response => response.json())
+          //         .then(data => console.log("Success:", data))
+          //         .catch(error => console.error("Error:", error));
+          //     })
+          //     .catch(error => console.error("Error:", error));
+          //   selected = null;
+          // });
+          // rejectedTask.addEventListener("drop", function(e) {
+          //   e.preventDefault();
+          //   rejectedTask.appendChild(selected);
+          //   fetchselectedData()
+          //     .then(selectedData => {
+          //       const ticketId = selectedData.ticket_id;
+          //       const ticketStatus = "rejected";
 
-                // Check for undefined or empty values before sending the request
-                if (!ticketId || !ticketStatus) {
-                  console.log("Ticket ID or Status is missing");
-                  return; // You could show an alert or handle the error here
-                }
+          //       // Check for undefined or empty values before sending the request
+          //       if (!ticketId || !ticketStatus) {
+          //         console.log("Ticket ID or Status is missing");
+          //         return; // You could show an alert or handle the error here
+          //       }
 
-                fetch(`${API_BASE_URL}/updateticketStatus`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    ticket_id: ticketId,
-                    ticket_status: ticketStatus
-                  })
-                })
-                  .then(response => response.json())
-                  .then(data => console.log("Success:", data))
-                  .catch(error => console.error("Error:", error));
-              })
-              .catch(error => console.error("Error:", error));
-            selected = null;
-          });
-          approvedTask.addEventListener("drop", function(e) {
-            e.preventDefault();
-            approvedTask.appendChild(selected);
-            fetchselectedData()
-              .then(selectedData => {
-                const ticketId = selectedData.ticket_id;
-                const ticketStatus = "approved";
+          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
+          //         method: "PUT",
+          //         headers: {
+          //           "Content-Type": "application/json"
+          //         },
+          //         body: JSON.stringify({
+          //           ticket_id: ticketId,
+          //           ticket_status: ticketStatus
+          //         })
+          //       })
+          //         .then(response => response.json())
+          //         .then(data => console.log("Success:", data))
+          //         .catch(error => console.error("Error:", error));
+          //     })
+          //     .catch(error => console.error("Error:", error));
+          //   selected = null;
+          // });
+          // approvedTask.addEventListener("drop", function(e) {
+          //   e.preventDefault();
+          //   approvedTask.appendChild(selected);
+          //   fetchselectedData()
+          //     .then(selectedData => {
+          //       const ticketId = selectedData.ticket_id;
+          //       const ticketStatus = "approved";
 
-                // Check for undefined or empty values before sending the request
-                if (!ticketId || !ticketStatus) {
-                  console.log("Ticket ID or Status is missing");
-                  return; // You could show an alert or handle the error here
-                }
+          //       // Check for undefined or empty values before sending the request
+          //       if (!ticketId || !ticketStatus) {
+          //         console.log("Ticket ID or Status is missing");
+          //         return; // You could show an alert or handle the error here
+          //       }
 
-                fetch(`${API_BASE_URL}/updateticketStatus`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    ticket_id: ticketId,
-                    ticket_status: ticketStatus
-                  })
-                })
-                  .then(response => response.json())
-                  .then(data => console.log("Success:", data))
-                  .catch(error => console.error("Error:", error));
-              })
-              .catch(error => console.error("Error:", error));
-            selected = null;
-          });
+          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
+          //         method: "PUT",
+          //         headers: {
+          //           "Content-Type": "application/json"
+          //         },
+          //         body: JSON.stringify({
+          //           ticket_id: ticketId,
+          //           ticket_status: ticketStatus
+          //         })
+          //       })
+          //         .then(response => response.json())
+          //         .then(data => console.log("Success:", data))
+          //         .catch(error => console.error("Error:", error));
+          //     })
+          //     .catch(error => console.error("Error:", error));
+          //   selected = null;
+          // });
 
           fetch(`${API_BASE_URL}/getboards`)
             .then(response => {
@@ -1345,10 +1351,38 @@ setTimeout(function() {
                 const newTask = document.getElementById(
                   `${boardItem.board_title}-task`
                 );
+                newTask.addEventListener("dragover", function(e) {
+                  e.preventDefault();
+                });
                 newTask.addEventListener("drop", function(e) {
                   e.preventDefault();
                   newTask.appendChild(selected);
+                  fetchselectedData()
+                    .then(selectedData => {
+                      const ticketId = selectedData.ticket_id;
+                      const ticketStatus = boardItem.board_title;
 
+                      // Check for undefined or empty values before sending the request
+                      if (!ticketId || !ticketStatus) {
+                        console.log("Ticket ID or Status is missing");
+                        return; // You could show an alert or handle the error here
+                      }
+
+                      fetch(`${API_BASE_URL}/updateticketStatus`, {
+                        method: "PUT",
+                        headers: {
+                          "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                          ticket_id: ticketId,
+                          ticket_status: ticketStatus
+                        })
+                      })
+                        .then(response => response.json())
+                        .then(data => console.log("Success:", data))
+                        .catch(error => console.error("Error:", error));
+                    })
+                    .catch(error => console.error("Error:", error));
                   selected = null;
                 });
               });
@@ -1743,4 +1777,72 @@ async function deleteCard(event, ticketId) {
     // messageDiv.textContent = 'Could not connect to the server.';
     // messageDiv.className = 'message error';
   }
+}
+
+function openMoveCardModal(title, ticketId) {
+  const movecardForm = document.getElementById("move-card-form");
+  movecardForm.innerHTML = `                  <div class="col-10">
+                    <div class="mb-4">
+                      <strong><label class="form-check-label" for="">Board</label></strong>
+                      <select class="form-control form-select" name="" id="">
+                        <option value="todo">Main Bord</option>
+                        <option value="inprogress">Main Bord</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-7">
+                      <div class="mb-4">
+                        <strong><label class="form-check-label" for="">List</label></strong>
+                        <select class="form-control form-select" name="" id="move-card-in">
+                          <option value="todo">Todo</option>
+                          <option value="inprogress">Inprogress</option>
+                          <option value="rejected">Rejected</option>
+                          <option value="for-approval">For-approval</option>
+                          <option value="approved">Approved</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="mb-4">
+                        <strong><label class="form-check-label" for="">Position</label></strong>
+                        <select class="form-control form-select" name="" id="">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="col-5 text-center">
+                    <button type="button" class="btn btn-primary me-3 btnCSwitch" id="move-card">Move</button>
+                    <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+                      Cancel
+                    </button>
+                  </div>`;
+
+  document.getElementById("move-card").addEventListener("click", function(e) {
+    e.preventDefault();
+    const ticketStatus = document.getElementById("move-card-in").value;
+    // Check for undefined or empty values before sending the request
+    if (!ticketId || !ticketStatus) {
+      console.log("Ticket ID or Status is missing");
+      return; // You could show an alert or handle the error here
+    }
+    fetch(`${API_BASE_URL}/updateticketStatus`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ticket_id: ticketId,
+        ticket_status: ticketStatus
+      })
+    });
+  });
 }

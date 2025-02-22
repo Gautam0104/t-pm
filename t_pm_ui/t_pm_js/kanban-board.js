@@ -57,7 +57,7 @@ fetch(`${API_BASE_URL}/getboards`)
                 </a>
 
                 <!-- Copy Board -->
-                <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="copyBoard(this)">
+                <a class="dropdown-item waves-effect"  data-bs-toggle="modal" data-bs-target="#copyboardModal" >
                 <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
                 </a>
 

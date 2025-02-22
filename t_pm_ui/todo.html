@@ -1153,6 +1153,27 @@
           </div>
         </div>
         <!-- /checklist modal -->
+        <!-- move card modal -->
+        <div class="modal fade" id="movecardModal" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Move Card</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Select destination</p>
+                <form id="move-card-form">
+
+                </form>
+              </div>
+              <div class="modal-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- move modal -->
         <!-- copy card modal -->
         <div class="modal fade" id="copycardModal" tabindex="-1" aria-modal="true" role="dialog">
           <div class="modal-dialog" role="document">
@@ -1169,6 +1190,30 @@
               </div>
               <div class="modal-footer">
 
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- copy modal -->
+        <!-- copy board modal -->
+        <div class="modal fade" id="copyboardModal" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Copy Board</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="boardNameForm">
+                  <div class="mb-3">
+                    <label for="boardName" class="form-label">Board Name</label>
+                    <input type="text" class="form-control" id="boardName" placeholder="Enter board name" required>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitBoardName()">Copy</button>
               </div>
             </div>
           </div>
