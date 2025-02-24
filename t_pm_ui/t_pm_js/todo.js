@@ -49,9 +49,14 @@ setTimeout(function() {
           card.innerHTML = `
                     
                     <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
-                    <div id="mark-card-${element.ticket_id}">
+                   <div class="d-flex">
+                    <div class="me-2" id="mark-card-${element.ticket_id}">
                     
                     </div>
+                    <div class="me-2" id="watch-notification-${element.ticket_id}">
+                    
+                    </div>
+                   </div>
                     <div class="item-badges">
                     <div class=" d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
                     
@@ -613,6 +618,11 @@ setTimeout(function() {
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="markCard('${element.ticket_id}')">
                                                                     <i class="fas fa-check me-2"></i> Mark Complete
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="watchNotification('${element.ticket_id}')">
+                                                                    <i class="fas fa-eye me-2"></i> Watch Notification
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
@@ -1880,4 +1890,8 @@ function joinCard(ticketId) {
 function markCard(ticketId) {
   const markTemp = document.getElementById(`mark-card-${ticketId}`);
   markTemp.innerHTML = `<i class="ti  ti-check mb-2" ></i>`;
+}
+function watchNotification(ticketId) {
+  const watchTemp = document.getElementById(`watch-notification-${ticketId}`);
+  watchTemp.innerHTML = `<i class="ti  ti-eye mb-2" ></i>`;
 }
