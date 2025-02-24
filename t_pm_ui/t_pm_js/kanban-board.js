@@ -30,7 +30,7 @@ fetch(`${API_BASE_URL}/getboards`)
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
                 <!-- Delete -->
-                <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" onclick="deleteBoard(${item.board_id})">
+                <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" onclick="deleteBoard('${item.board_id}')">
                 <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
                 </a>
 
@@ -57,7 +57,7 @@ fetch(`${API_BASE_URL}/getboards`)
                 </a>
 
                 <!-- Copy Board -->
-                <a class="dropdown-item waves-effect"  data-bs-toggle="modal" data-bs-target="#copyboardModal" >
+                <a class="dropdown-item waves-effect"  data-bs-toggle="modal" data-bs-target="#copyboardModal" onclick="CopyBardlist('${item.board_title}')">
                 <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
                 </a>
 
