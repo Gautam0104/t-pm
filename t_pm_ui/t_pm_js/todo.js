@@ -49,7 +49,9 @@ setTimeout(function() {
           card.innerHTML = `
                     
                     <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
+                    <div id="mark-card-${element.ticket_id}">
                     
+                    </div>
                     <div class="item-badges">
                     <div class=" d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
                     
@@ -59,6 +61,7 @@ setTimeout(function() {
                     </div>
 
                     <div class="dropdown kanban-tasks-item-dropdown">
+                        
                         <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="cardDropdown(event)"></i>
                         <div class="dropdown-menu dropdown-menu-end" 
@@ -605,6 +608,11 @@ setTimeout(function() {
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100">
                                                                     <i class="fas fa-plus me-2"></i> Add Button
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="markCard('${element.ticket_id}')">
+                                                                    <i class="fas fa-check me-2"></i> Mark Complete
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
@@ -1867,4 +1875,9 @@ function joinCard(ticketId) {
                                                     </div>
 </div>
 `;
+}
+
+function markCard(ticketId) {
+  const markTemp = document.getElementById(`mark-card-${ticketId}`);
+  markTemp.innerHTML = `<i class="ti  ti-check mb-2" ></i>`;
 }
