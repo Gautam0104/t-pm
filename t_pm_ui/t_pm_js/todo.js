@@ -72,7 +72,12 @@ setTimeout(function() {
                 <img class="img-fluid rounded mb-2" id="card-img" draggable = false src="${API_BASE_URL}/uploads/${element.card_image}">
                 <span class="kanban-text">${element.title}</span>
                    <div id="checklist-container-${element.ticket_id}"></div>
-
+      <div class="item-badges mt-2" id="joined-member-${element.ticket_id}">
+                    
+                    
+                        
+                    
+                    </div>
                 <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
                     <div class="d-flex">
                         <span class="d-flex align-items-center me-2">
@@ -451,7 +456,7 @@ setTimeout(function() {
                                                         <ul class="nav flex-column py-2 overflow-auto">
                                                             <!-- Menu Items -->
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
                                                                     <i class="fas fa-user-plus me-2"></i> Join
                                                                 </button>
                                                             </li>
@@ -1845,4 +1850,21 @@ function openMoveCardModal(title, ticketId) {
       })
     });
   });
+}
+
+function joinCard(ticketId) {
+  const joinCardAvtar = document.getElementById(`joined-member-${ticketId}`);
+  const memberName = localStorage.getItem("logged-username");
+
+  joinCardAvtar.innerHTML = `<div class="d-flex">
+    <div class="avatar me-1 flex-shrink-0">
+                                                    <span class="avatar-initial bg-label-primary rounded-circle">${memberName[0]}${memberName[1]}</span>
+                                                    
+                                                    </div>
+                                                    <div class="avatar me-3 flex-shrink-0">
+                                                    <span class="avatar-initial bg-label-primary rounded-circle"><i class="ti ti-plus"></i></span>
+                                                    
+                                                    </div>
+</div>
+`;
 }
