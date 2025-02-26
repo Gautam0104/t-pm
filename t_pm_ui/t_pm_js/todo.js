@@ -467,8 +467,8 @@ setTimeout(function() {
                                                         <ul class="nav flex-column py-2 overflow-auto">
                                                             <!-- Menu Items -->
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
-                                                                    <i class="fas fa-user-plus me-2"></i><span id="join-text">Join</span> <span id="leave-text" style="display:none;">Leave</span> 
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')"  id="join-text">
+                                                                    <i class="fas fa-user-plus me-2"></i><span>Join</span> <span id="leave-text" style="display:none;">Leave</span> 
                                                                 </button>
                                                             </li>
                                                                 <li class="nav-item active">
@@ -613,10 +613,17 @@ setTimeout(function() {
                                                                     <i class="fas fa-plug me-2"></i> Add Power-Ups
                                                                 </button>
                                                             </li>
-                                                            <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                            <li class="nav-item dropdown">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-plus me-2"></i> Add Button
                                                                 </button>
+                                                                 <ul class="dropdown-menu w-100" aria-labelledby="add-button-dropdown">
+                                                                 <li class="nav-item">
+                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
+                                                                    <i class="fas fa-user me-2"></i> Join Card
+                                                                </button>
+                                                                 </li>
+                                                                 </ul>
                                                             </li>
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="markCard('${element.ticket_id}')">
