@@ -1985,7 +1985,7 @@ function addLabelModal(title, ticketId) {
     </div>
   </div>
   <div class="mb-4">
-    <label class="form-check-label" for="">Add Label</label>
+    <label class="form-check-label" for="">Actions</label>
     <select class="form-control form-select" name="" id="">
       <option value="todo">Todo</option>
       <option value="inprogress">Inprogress</option>
@@ -1994,19 +1994,9 @@ function addLabelModal(title, ticketId) {
       <option value="approved">Approved</option>
     </select>
   </div>
-  <div class="mb-4">
-    <label class="form-check-label" for="">List</label>
-    <select class="form-control form-select" name="" id="copied-ticket-status">
-      <option value="todo">Todo</option>
-      <option value="inprogress">Inprogress</option>
-      <option value="rejected">Rejected</option>
-      <option value="for-approval">For-approval</option>
-      <option value="approved">Approved</option>
-    </select>
-  </div>
+  
 
-  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Create
-      Card</button><button type="button"
+  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Add action</button><button type="button"
       class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
       id="cancel-form-4">Cancel</button>
   </div>`;
