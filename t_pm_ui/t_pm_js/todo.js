@@ -619,7 +619,7 @@ setTimeout(function() {
                                                                 </button>
                                                                  <ul class="dropdown-menu w-100" aria-labelledby="add-button-dropdown">
                                                                  <li class="nav-item">
-                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
+                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#joincardModal" onclick="openjoinCardModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-user me-2"></i> Join Card
                                                                 </button>
                                                                  </li>

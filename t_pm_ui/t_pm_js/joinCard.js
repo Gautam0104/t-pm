@@ -1,3 +1,19 @@
+function openjoinCardModal(ticketTitle, ticketId) {
+  const joinCardForm = document.getElementById("join-card-form");
+  const joinCardContent = ` <div class="mb-4">
+                    <label class="form-check-label" for="">Title</label>
+                    <textarea class="form-control" rows="2" id="join-card-title"
+                      placeholder="Add Content" required="">${ticketTitle}</textarea>
+                  </div>
+                  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4" onclick="joinCard('${ticketId}')">Join
+                      Card</button><button type="button"
+                      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
+                      id="cancel-form-4">Cancel</button>
+                  </div>`;
+
+  joinCardForm.innerHTML = joinCardContent;
+}
+
 function handleJoinCard() {
   fetch(`${API_BASE_URL}/get-join-cards`)
     .then(response => {
