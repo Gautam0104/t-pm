@@ -1986,8 +1986,8 @@ function addLabelModal(title, ticketId) {
   </div>
   <div class="mb-4">
     <label class="form-check-label" for="">Actions</label>
-    <select class="form-control form-select" name="" id="">
-      <option value="todo" style="background:blue;"></option>
+    <select class="form-control form-select" name="" id="" style="width:50%;">
+      <option value="todo" style="background:blue; width:50%;"></option>
       <option value="inprogress" style="background:red;"></option>
       <option value="rejected" style="background:green;"></option>
       <option value="for-approval" style="background:yello;"></option>
