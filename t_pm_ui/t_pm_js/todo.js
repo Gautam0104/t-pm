@@ -1966,7 +1966,7 @@ function watchNotification(ticketId) {
   }
 }
 
-// function for add label 
+// function for add label
 function addLabelModal(title, ticketId) {
   const addLabelForm = document.getElementById("add-label-form");
   addLabelForm.innerHTML = `
@@ -1987,11 +1987,11 @@ function addLabelModal(title, ticketId) {
   <div class="mb-4">
     <label class="form-check-label" for="">Actions</label>
     <select class="form-control form-select" name="" id="">
-      <option value="todo">Todo</option>
-      <option value="inprogress">Inprogress</option>
-      <option value="rejected">Rejected</option>
-      <option value="for-approval">For-approval</option>
-      <option value="approved">Approved</option>
+      <option value="todo" style="background:blue;"></option>
+      <option value="inprogress" style="background:red;"></option>
+      <option value="rejected" style="background:green;"></option>
+      <option value="for-approval" style="background:yello;"></option>
+      <option value="approved" style="background:pink;"></option>
     </select>
   </div>
   
@@ -2000,7 +2000,7 @@ function addLabelModal(title, ticketId) {
       class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
       id="cancel-form-4">Cancel</button>
   </div>`;
-                  addLabelForm.addEventListener("submit", async function(e) {
+  addLabelForm.addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const ticketStatus = document.getElementById("copied-ticket-status").value;
@@ -2025,5 +2025,3 @@ function addLabelModal(title, ticketId) {
     }
   });
 }
-
-
