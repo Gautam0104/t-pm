@@ -622,6 +622,10 @@ setTimeout(function() {
                                                                  <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#joincardModal" onclick="openjoinCardModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-user me-2"></i> Join Card
                                                                 </button>
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.title}','${element.ticket_id}')" >
+                                                                    <i class="fas fa-tags me-2"></i> Add Labels
+                                                                </button>
+                                                                
                                                                  </li>
                                                                  </ul>
                                                             </li>
@@ -1743,7 +1747,7 @@ function openCopyCardModal(title, ticketId) {
         })
       });
       if (response.ok) {
-        console.log("card copied successfully");
+        console.log("label  added  successfully");
         window.location.reload();
       }
     } catch (error) {
@@ -1961,3 +1965,75 @@ function watchNotification(ticketId) {
     console.log(`Saved Watched Notification for ${ticketId}`);
   }
 }
+
+// function for add label 
+function addLabelModal(title, ticketId) {
+  const addLabelForm = document.getElementById("add-label-form");
+  addLabelForm.innerHTML = `
+
+    <div class="col-6">
+      <div class="mb-4">
+        <label class="form-check-label" for="">Label Title</label>
+        <textarea 
+          class="form-control" 
+          rows="2" 
+          id="label-card-title"
+          placeholder="Enter label name" 
+          required=""
+        ></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <label class="form-check-label" for="">Add Label</label>
+    <select class="form-control form-select" name="" id="">
+      <option value="todo">Todo</option>
+      <option value="inprogress">Inprogress</option>
+      <option value="rejected">Rejected</option>
+      <option value="for-approval">For-approval</option>
+      <option value="approved">Approved</option>
+    </select>
+  </div>
+  <div class="mb-4">
+    <label class="form-check-label" for="">List</label>
+    <select class="form-control form-select" name="" id="copied-ticket-status">
+      <option value="todo">Todo</option>
+      <option value="inprogress">Inprogress</option>
+      <option value="rejected">Rejected</option>
+      <option value="for-approval">For-approval</option>
+      <option value="approved">Approved</option>
+    </select>
+  </div>
+
+  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Create
+      Card</button><button type="button"
+      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
+      id="cancel-form-4">Cancel</button>
+  </div>`;
+                  addLabelForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const ticketStatus = document.getElementById("copied-ticket-status").value;
+
+    console.log("form submited", ticketStatus);
+    try {
+      const response = await fetch(`${API_BASE_URL}/copy-row/${ticketId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ticketStatus
+        })
+      });
+      if (response.ok) {
+        console.log("card copied successfully");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  });
+}
+
+
