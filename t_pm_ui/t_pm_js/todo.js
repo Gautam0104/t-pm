@@ -1,7 +1,7 @@
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
-  }, 1000);
+  }, 1500);
 };
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
@@ -49,13 +49,16 @@ setTimeout(function() {
           card.innerHTML = `
                     
                     <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
+
                    <div class="d-flex">
+                   
                     <div class="me-2" id="mark-card-${element.ticket_id}">
                     
                     </div>
                     <div class="me-2" id="watch-notification-${element.ticket_id}">
                     
                     </div>
+                    
                    </div>
                     <div class="item-badges">
                     <div class=" d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
@@ -465,7 +468,7 @@ setTimeout(function() {
                                                             <!-- Menu Items -->
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
-                                                                    <i class="fas fa-user-plus me-2"></i> Join
+                                                                    <i class="fas fa-user-plus me-2"></i><span id="join-text">Join</span> <span id="leave-text" style="display:none;">Leave</span> 
                                                                 </button>
                                                             </li>
                                                                 <li class="nav-item active">
@@ -1870,28 +1873,84 @@ function openMoveCardModal(title, ticketId) {
   });
 }
 
-function joinCard(ticketId) {
-  const joinCardAvtar = document.getElementById(`joined-member-${ticketId}`);
-  const memberName = localStorage.getItem("logged-username");
+// Restore state on page load
+window.addEventListener("DOMContentLoaded", function() {
+  const ticketIds = [1, 2, 3]; // Add all your ticket IDs here
+  ticketIds.forEach(ticketId => {
+    restoreCardState(ticketId);
+  });
+});
 
-  joinCardAvtar.innerHTML = `<div class="d-flex">
-    <div class="avatar me-1 flex-shrink-0">
-                                                    <span class="avatar-initial bg-label-primary rounded-circle">${memberName[0]}${memberName[1]}</span>
-                                                    
-                                                    </div>
-                                                    <div class="avatar me-3 flex-shrink-0">
-                                                    <span class="avatar-initial bg-label-primary rounded-circle"><i class="ti ti-plus"></i></span>
-                                                    
-                                                    </div>
-</div>
-`;
+function restoreCardState(ticketId) {
+  console.log(`Restoring state for Ticket ID: ${ticketId}`);
+  const joinCardAvtar = document.getElementById(`joined-member-${ticketId}`);
+  const markTemp = document.getElementById(`mark-card-${ticketId}`);
+  const watchTemp = document.getElementById(`watch-notification-${ticketId}`);
+
+  // Restore joinCard state
+  const joinedMember = localStorage.getItem(`joined-member-${ticketId}`);
+  console.log(`Joined Member for ${ticketId}: `, joinedMember);
+  if (joinedMember && joinCardAvtar) {
+    joinCardAvtar.innerHTML = joinedMember;
+  }
+
+  // Restore markCard state
+  const marked = localStorage.getItem(`mark-card-${ticketId}`);
+  console.log(`Marked Card for ${ticketId}: `, marked);
+  if (marked && markTemp) {
+    markTemp.innerHTML = marked;
+  }
+
+  // Restore watchNotification state
+  const watched = localStorage.getItem(`watch-notification-${ticketId}`);
+  console.log(`Watched Notification for ${ticketId}: `, watched);
+  if (watched && watchTemp) {
+    watchTemp.innerHTML = watched;
+  }
 }
+
+// function joinCard(ticketId) {
+//   const joinCardAvtar = document.getElementById(`joined-member-${ticketId}`);
+//   const memberName = localStorage.getItem("logged-username");
+
+//   if (joinCardAvtar && memberName) {
+//     const htmlContent = `<div class="d-flex">
+//       <div class="avatar me-1 flex-shrink-0">
+//         <span class="avatar-initial bg-label-primary rounded-circle">${memberName[0]}${memberName[1]}</span>
+//       </div>
+//       <div class="avatar me-3 flex-shrink-0">
+//         <span class="avatar-initial bg-label-primary rounded-circle"><i class="ti ti-plus"></i></span>
+//       </div>
+//     </div>`;
+
+//     joinCardAvtar.innerHTML = htmlContent;
+
+//     // Save to localStorage
+//     localStorage.setItem(`joined-member-${ticketId}`, htmlContent);
+//     console.log(`Saved Joined Member for ${ticketId}`);
+//   }
+// }
 
 function markCard(ticketId) {
   const markTemp = document.getElementById(`mark-card-${ticketId}`);
-  markTemp.innerHTML = `<i class="ti  ti-check mb-2" ></i>`;
+  if (markTemp) {
+    const htmlContent = `<i class="ti ti-check mb-2"></i>`;
+    markTemp.innerHTML = htmlContent;
+
+    // Save to localStorage
+    localStorage.setItem(`mark-card-${ticketId}`, htmlContent);
+    console.log(`Saved Marked Card for ${ticketId}`);
+  }
 }
+
 function watchNotification(ticketId) {
   const watchTemp = document.getElementById(`watch-notification-${ticketId}`);
-  watchTemp.innerHTML = `<i class="ti  ti-eye mb-2" ></i>`;
+  if (watchTemp) {
+    const htmlContent = `<i class="ti ti-eye mb-2"></i>`;
+    watchTemp.innerHTML = htmlContent;
+
+    // Save to localStorage
+    localStorage.setItem(`watch-notification-${ticketId}`, htmlContent);
+    console.log(`Saved Watched Notification for ${ticketId}`);
+  }
 }
