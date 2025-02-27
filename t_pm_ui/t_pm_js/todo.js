@@ -1967,61 +1967,65 @@ function watchNotification(ticketId) {
 }
 
 // function for add label
-function addLabelModal(title, ticketId) {
+function addLabelModal(ticketId) {
   const addLabelForm = document.getElementById("add-label-form");
   addLabelForm.innerHTML = `
-
-    <div class="col-6">
-      <div class="mb-4">
-        <label class="form-check-label" for="">Label Title</label>
-        <textarea 
-          class="form-control" 
-          rows="2" 
-          id="label-card-title"
-          placeholder="Enter label name" 
-          required=""
-        ></textarea>
-      </div>
+    <div class="modal-body">
+      <form id="label-form">
+        <div class="label-gap">
+          <label class="form-label">Icon</label>
+          <span></span>
+          <label class="form-label">Title</label>
+        </div>
+        <div class="mb-3 icon-title-container">
+          <div class="icon-placeholder">
+            <i class="fas fa-tags me-2"></i>
+          </div>
+          <input type="text" class="form-control" id="labelText" placeholder="Add label...">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Actions</label>
+          <div class="label-selection">
+            <span>Add to</span>
+            <div class="dropdown">
+              <button class="btn btn-light dropdown-toggle" type="button" id="labelDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="color-option" id="selectedColor" style="background-color: green;"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="labelDropdown">
+                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(10, 82, 42)')"><span class="color-option" style="background-color: rgb(10, 82, 42);"></span></a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(233, 34, 34)')"><span class="color-option" style="background-color: rgb(233, 34, 34);"></span></a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(218, 110, 21)')"><span class="color-option" style="background-color: rgb(218, 110, 21);"></span></a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(148, 122, 8)')"><span class="color-option" style="background-color: rgb(148, 122, 8);"></span></a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(116, 128, 241)')"><span class="color-option" style="background-color:rgb(116, 128, 241);"></span></a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(46, 60, 185)')"><span class="color-option" style="background-color: rgb(46, 60, 185);"></span></a></li>
+              </ul>
+            </div>
+            <span>label to the card</span>
+          </div>
+        </div>
+       <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
+                    + Add action
+                </button>
+      </form>
     </div>
-  </div>
-  <div class="mb-4">
-    <label class="form-check-label" for="">Actions</label>
-    <select class="form-control form-select" name="" id="">
-      <option value="todo" style="background:blue;"></option>
-      <option value="inprogress" style="background:red;"></option>
-      <option value="rejected" style="background:green;"></option>
-      <option value="for-approval" style="background:yello;"></option>
-      <option value="approved" style="background:pink;"></option>
-    </select>
-  </div>
-  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="button" id="saveLabelButton" class="btn btn-primary">Save</button>
+    </div>
+  `;
 
-  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Add action</button><button type="button"
-      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
-      id="cancel-form-4">Cancel</button>
-  </div>`;
-  addLabelForm.addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const ticketStatus = document.getElementById("copied-ticket-status").value;
-
-    console.log("form submited", ticketStatus);
-    try {
-      const response = await fetch(`${API_BASE_URL}/copy-row/${ticketId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ticketStatus
-        })
-      });
-      if (response.ok) {
-        console.log("card copied successfully");
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
+  document.getElementById("saveLabelButton").addEventListener("click", function() {
+    const selectedColor = document.getElementById("selectedColor").style.backgroundColor;
+    addLabel(selectedColor, ticketId);
   });
 }
+
+function selectColor(color) {
+  document.getElementById("selectedColor").style.backgroundColor = color;
+}
+
+function openActionModal() {
+  var actionModal = new bootstrap.Modal(document.getElementById('actionModal'), { backdrop: false });
+  actionModal.show();
+}
+

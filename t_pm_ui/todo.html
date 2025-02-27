@@ -180,6 +180,7 @@
     .toolbar-btn:hover {
       background: #d0d0d0;
     }
+    
   </style>
   <style>
     .color-box {
@@ -264,6 +265,58 @@
       padding: 20px;
 
     }
+    .color-option {
+            width: 200px;
+            height: 24px;
+            display: inline-block;
+            border-radius: 4px;
+        }
+        .dropdown-menu .dropdown-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 32px;
+            padding: 5px;
+        }
+        .dropdown-toggle {
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .icon-title-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon-placeholder {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .label-selection {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .label-gap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal.right .modal-dialog {
+        max-width: 400px; 
+    }
+    .modal.right .modal-content {
+        max-height: 400px; 
+        overflow-y: auto; 
+    }
+    
   </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -1243,6 +1296,30 @@
           </div>
         </div>
         <!-- copy modal -->
+
+         <!-- Add action Modal -->
+         <div class="modal fade right" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true" data-bs-backdrop="false">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="actionModalLabel">Add Action</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body d-grid gap-2">
+                      <button class="btn btn-light text-start">Move card to...</button>
+                      <button class="btn btn-light text-start">Copy card to...</button>
+                      <button class="btn btn-light text-start">Add label...</button>
+                      <button class="btn btn-light text-start">Join card</button>
+                      <button class="btn btn-light text-start">Set due date or start date...</button>
+                      <button class="btn btn-light text-start">Mark due date...</button>
+                      <button class="btn btn-light text-start">Remove...</button>
+                      <button class="btn btn-light text-start">Sort list...</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+<!-- Add action Modal -->
+ 
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme" id="footer">
           <div class="container-xxl">
