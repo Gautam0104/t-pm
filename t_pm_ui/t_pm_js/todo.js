@@ -466,9 +466,14 @@ setTimeout(function() {
                                                         <!-- Menu -->
                                                         <ul class="nav flex-column py-2 overflow-auto">
                                                             <!-- Menu Items -->
-                                                            <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')"  id="join-text">
-                                                                    <i class="fas fa-user-plus me-2"></i><span>Join</span> <span id="leave-text" style="display:none;">Leave</span> 
+                                                            <li class="nav-item"  id="join-button">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
+                                                                    <i class="fas fa-user-plus me-2"></i>Join  
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item" id="leave-button" style="display:none;">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100"  onclick="leaveCard('${element.ticket_id}')" >
+                                                                    <i class="fas fa-user-minus me-2"></i>Leave
                                                                 </button>
                                                             </li>
                                                                 <li class="nav-item active">
@@ -713,6 +718,8 @@ setTimeout(function() {
                                     </div>`;
 
                 offcanvasDiv.innerHTML = offcanvasContent;
+
+                cardjoinVerification(element.ticket_id);
                 // card image zone in modal
                 const imageArea = document.getElementById(
                   "activity-card-image-area"
@@ -1980,20 +1987,27 @@ function addLabelModal(title, ticketId) {
           id="label-card-title"
           placeholder="Enter label name" 
           required=""
-        ></textarea>
+        >${title}</textarea>
       </div>
     </div>
   </div>
-  <div class="mb-4">
-    <label class="form-check-label" for="">Actions</label>
-    <select class="form-control form-select" name="" id="" style="width:50%;">
-      <option value="todo" style="background:blue; width:50%;"></option>
-      <option value="inprogress" style="background:red;"></option>
-      <option value="rejected" style="background:green;"></option>
-      <option value="for-approval" style="background:yello;"></option>
-      <option value="approved" style="background:pink;"></option>
-    </select>
-  </div>
+   <div class="mb-4">
+            <label for="colorInput" class="form-label">Choose Label Color</label>
+            <div class="dropdown">
+                <input type="text" class="form-control" id="colorInput" readonly data-bs-toggle="dropdown" placeholder="Select a color">
+                <span class="input-group-text" data-bs-toggle="dropdown">
+                        <i class="bi bi-caret-down-fill"></i>
+                    </span>
+                <ul class="dropdown-menu p-2">
+                    <li class="color-box" style="background-color: #28a745; width:100px;" onclick="selectColor('#28a745')"></li>
+                    <li class="color-box" style="background-color: #ffc107; width:100px;;" onclick="selectColor('#ffc107')"></li>
+                    <li class="color-box" style="background-color: #fd7e14; width:100px;;" onclick="selectColor('#fd7e14')"></li>
+                    <li class="color-box" style="background-color: #dc3545; width:100px;;" onclick="selectColor('#dc3545')"></li>
+                    <li class="color-box" style="background-color: #6f42c1; width:100px;;" onclick="selectColor('#6f42c1')"></li>
+                    <li class="color-box" style="background-color: #007bff; width:100px;;" onclick="selectColor('#007bff')"></li>
+                </ul>
+            </div>
+        </div>
   
 
   <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Add action</button><button type="button"
