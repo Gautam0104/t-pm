@@ -466,9 +466,14 @@ setTimeout(function() {
                                                         <!-- Menu -->
                                                         <ul class="nav flex-column py-2 overflow-auto">
                                                             <!-- Menu Items -->
-                                                            <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')"  id="join-text">
-                                                                    <i class="fas fa-user-plus me-2"></i><span>Join</span> <span id="leave-text" style="display:none;">Leave</span> 
+                                                            <li class="nav-item"  id="join-button">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="joinCard('${element.ticket_id}')">
+                                                                    <i class="fas fa-user-plus me-2"></i>Join  
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item" id="leave-button" style="display:none;">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100"  onclick="leaveCard('${element.ticket_id}')" >
+                                                                    <i class="fas fa-user-minus me-2"></i>Leave
                                                                 </button>
                                                             </li>
                                                                 <li class="nav-item active">
@@ -713,6 +718,8 @@ setTimeout(function() {
                                     </div>`;
 
                 offcanvasDiv.innerHTML = offcanvasContent;
+
+                cardjoinVerification(element.ticket_id);
                 // card image zone in modal
                 const imageArea = document.getElementById(
                   "activity-card-image-area"
