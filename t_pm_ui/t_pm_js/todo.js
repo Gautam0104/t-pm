@@ -482,7 +482,7 @@ setTimeout(function() {
                                                                     </button>
                                                                 </li>
                                                             <li class="nav-item dropdown">
-                                                                <button class="nav-link d-flex align-items-center border-0 w-100 dropdown-toggle" id="label-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <button class="nav-link d-flex align-items-center border-0 w-100" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-tags me-2"></i> Labels
                                                                 </button>
                                                                 <ul class="dropdown-menu w-100" aria-labelledby="label-dropdown">
@@ -2021,10 +2021,13 @@ function addLabelModal(ticketId) {
     </div>
   `;
 
-  document.getElementById("saveLabelButton").addEventListener("click", function() {
-    const selectedColor = document.getElementById("selectedColor").style.backgroundColor;
-    addLabel(selectedColor, ticketId);
-  });
+  document
+    .getElementById("saveLabelButton")
+    .addEventListener("click", function() {
+      const selectedColor = document.getElementById("selectedColor").style
+        .backgroundColor;
+      addLabel(selectedColor, ticketId);
+    });
 }
 
 function selectColor(color) {
@@ -2032,7 +2035,9 @@ function selectColor(color) {
 }
 
 function openActionModal() {
-  var actionModal = new bootstrap.Modal(document.getElementById('actionModal'), { backdrop: false });
+  var actionModal = new bootstrap.Modal(
+    document.getElementById("actionModal"),
+    { backdrop: false }
+  );
   actionModal.show();
 }
-
