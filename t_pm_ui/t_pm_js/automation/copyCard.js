@@ -1,10 +1,10 @@
 function copyCardToModal(ticketTitle, ticketId, ticket_status) {
   console.log("ticket status is" + ticket_status + ticketTitle);
 
-  const moveCardToForm = document.getElementById(
+  const copyCardToForm = document.getElementById(
     "automation-copy-card-to-form"
   );
-  moveCardToForm.innerHTML = `
+  copyCardToForm.innerHTML = `
        <div class="modal-header">
         <h4 class="text-center">Edit Button</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -20,9 +20,9 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
           <div class="mb-3">
             <label class="form-label">Actions</label>
             <div class="border p-3">
-              <strong>Move</strong>
+              <strong>Copy</strong></strong>
               <div>
-                Move the card to the 
+                Copy the card to the 
                 <select id="positionSelect1" class="form-select d-inline w-auto">
                   <option value="">Select Position</option>
                   <option value="top">top</option>
