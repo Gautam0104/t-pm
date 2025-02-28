@@ -274,7 +274,7 @@
       border-radius: 4px;
     }
 
-    .dropdown-menu .dropdown-item {
+    /* .dropdown-menu .dropdown-item {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -325,7 +325,7 @@
     .modal.right .modal-content {
       max-height: 400px;
       overflow-y: auto;
-    }
+    } */
   </style>
   <!-- Sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -1277,12 +1277,52 @@
           </div>
         </div>
         <!-- Add label modal -->
+         <!-- Move card to modal -->
+        <div class="modal fade" id="moveCardTo" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Add Label</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="move-card-to-form">
+
+                </form>
+              </div>
+              <div class="modal-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Move Card to modal -->
+         <!-- Copy card to modal -->
+        <div class="modal fade" id="copyCardTo" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Edit button</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="copy-card-to-form">
+
+                </form>
+              </div>
+              <div class="modal-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Copy Card to modal -->
         <!-- copy card modal -->
         <div class="modal fade" id="copycardModal" tabindex="-1" aria-modal="true" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h4>Copy Card</h4>
+                <h4>Edit button</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
