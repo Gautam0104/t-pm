@@ -618,11 +618,8 @@ setTimeout(function() {
                                                                     <i class="fas fa-plug me-2"></i> Add Power-Ups
                                                                 </button>
                                                             </li>
-                                                            <li class="nav-item dropdown">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i class="fas fa-plus me-2"></i> Add Button
-                                                                </button>
-                                                                 <ul class="dropdown-menu w-100" aria-labelledby="add-button-dropdown">
+                                                            <li class="nav-item dropdown mt-4 mb-4">
+                                                            <ul class="dropdown-menu w-100" aria-labelledby="add-button-dropdown">
                                                                  <li class="nav-item">
                                                                  <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#joincardModal" onclick="openjoinCardModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-user me-2"></i> Join Card
@@ -633,6 +630,20 @@ setTimeout(function() {
                                                                 
                                                                  </li>
                                                                  </ul>
+
+                                                                  <ul class="nav flex-column  overflow-auto" id="automation-button-ul-${element.ticket_id}" style="display:none;">
+                                                                  <li class="nav-item">
+                                                             <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" >
+                                                                    <i class="fas fa-pencil me-2"></i> Automation
+                                                                </button>
+                                                             </li>
+                                                             
+                                                            </ul>
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100 mt-2" id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fas fa-plus me-2"></i> Add Button
+                                                                </button>
+
+                                                                
                                                             </li>
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="markCard('${element.ticket_id}')">
@@ -720,6 +731,8 @@ setTimeout(function() {
                 offcanvasDiv.innerHTML = offcanvasContent;
 
                 cardjoinVerification(element.ticket_id);
+
+                retrieveAutomation(element.ticket_id);
                 // card image zone in modal
                 const imageArea = document.getElementById(
                   "activity-card-image-area"
