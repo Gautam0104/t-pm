@@ -624,7 +624,7 @@ setTimeout(function() {
                                                                  <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#moveCardTo" onclick="moveCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
                                                                     <i class="fas fa-user me-2"></i> Move card to..
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copyCardTo" onclick="copyCardToModal('${element.title}','${element.ticket_id}')" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copyCardTo" onclick="copyCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
                                                                     <i class="fas fa-user me-2"></i> Copy card to..
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.title}','${element.ticket_id}')" >
@@ -2070,81 +2070,4 @@ function openActionModal() {
     { backdrop: false }
   );
   actionModal.show();
-}
-
-function saveChanges() {
-  let title = document.getElementById("titleInput").value;
-  let position = document.getElementById("positionSelect1").value;
-  let list = document.getElementById("listSelect").value;
-  let board = document.getElementById("boardSelect").value;
-
-  alert(
-    `Card will be copied to ${position} of list "${list}" on board "${board}"`
-  );
-}
-
-function copyCardToModal(ticketId) {
-  const moveCardToForm = document.getElementById("copy-card-to-form");
-
-  moveCardToForm.innerHTML = `
-          <div class="modal-body">
-            <!-- Title Input -->
-            <div class="mb-3">
-              <label class="form-label">Title</label>
-              <input type="text" class="form-control" id="titleInput" placeholder="Copy card to...">
-            </div>
-
-            <!-- Actions -->
-            <div class="mb-3">
-              <label class="form-label">Actions</label>
-              <div class="border p-3">
-                <strong>Copy</strong>
-                <div>
-                  Copy the card to the 
-                  <select id="positionSelect1" class="form-select d-inline w-auto">
-                    <option value="top">top</option>
-                    <option value="bottom">bottom</option>
-                  </select>
-                  of the list 
-                  <select id="listSelect" class="form-select d-inline w-auto">
-                    <option value="list1">List 1</option>
-                    <option value="list2">List 2</option>
-                  </select>
-                  on
-                  <select id="boardSelect" class="form-select d-inline w-auto">
-                    <option value="board1">Main Board</option>
-                    <option value="board2">Secondary Board</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Add Action Button -->
-            <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
-                    + Add action
-                </button>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="saveChanges()">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Initialize and show the Bootstrap modal dynamically
-  let modal = new bootstrap.Modal(document.getElementById("moveCardToModal"));
-  modal.show();
-}
-
-function saveChanges() {
-  let title = document.getElementById("titleInput").value;
-  let position = document.getElementById("positionSelect1").value;
-  let list = document.getElementById("listSelect").value;
-  let board = document.getElementById("boardSelect").value;
-
-  alert(
-    `Card will be copied to ${position} of list "${list}" on board "${board}"`
-  );
 }
