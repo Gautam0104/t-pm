@@ -645,6 +645,9 @@ setTimeout(function() {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
                                                                     <i class="fas fa-user me-2"></i> Sort list
                                                                 </button>
+                                                                <button type="button" class="btn btn-light w-100" onclick="">
+                                                                 Create a custom button
+                                                                 </button>
                                                                  </li>
                                                                  </ul>
 

@@ -1,6 +1,4 @@
 function copyCardToModal(ticketTitle, ticketId, ticket_status) {
-  console.log("ticket status is" + ticket_status + ticketTitle);
-
   const copyCardToForm = document.getElementById(
     "automation-copy-card-to-form"
   );
@@ -71,15 +69,7 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
   const saveButton = document.getElementById("saveButton");
 
   function checkInputs() {
-    // Debugging: Log input values to check if they're being read
-    // console.log({
-    //   title: titleInput.value.trim(),
-    //   position: positionSelect.value,
-    //   list: listSelect.value,
-    //   board: boardSelect.value
-    // });
-
-    // Check if all inputs have non-empty values
+   
     if (
       titleInput.value.trim() !== "" &&
       positionSelect.value !== "" &&
