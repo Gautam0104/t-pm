@@ -27,7 +27,7 @@ function retrieveAutomation(ticketId) {
 }
 
 function moveCardToModal(ticketTitle, ticketId, ticket_status) {
-  console.log("ticket status is" + ticket_status);
+  console.log("ticket status is" + ticket_status + ticketTitle);
 
   const moveCardToForm = document.getElementById("move-card-to-form");
   moveCardToForm.innerHTML = `
@@ -80,7 +80,7 @@ function moveCardToModal(ticketTitle, ticketId, ticket_status) {
       </div>
   
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary w-100" id="saveButton" disabled onclick="addautomationButton('${ticketId}','${current_ticket_status}','${ticket_status}')">Add Button</button>
+        <button type="button" class="btn btn-primary w-100" id="saveButton" disabled onclick="addautomationButton('${ticketId}','${ticket_status}')">Add Button</button>
       </div>
     `;
 
@@ -149,6 +149,7 @@ async function addautomationButton(ticketId, ticket_status) {
     });
     if (response.ok) {
       console.log("move card automation button added successfully");
+      location.reload();
     }
   } catch (error) {
     console.log("error", error);
