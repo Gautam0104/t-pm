@@ -110,6 +110,7 @@ function moveCardToModal(ticketTitle, ticketId, ticket_status) {
 
   // Initial check (in case inputs are cached)
   checkInputs();
+  fetchLists();
 }
 
 async function addautomationButton(ticketId, ticket_status) {
@@ -167,3 +168,23 @@ async function movecardAutomation(ticketId, currentTicketStatus, ticketStatus) {
     console.error("Error:", error);
   }
 }
+
+async function fetchLists() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/getboards`); 
+    const lists = await response.json();
+
+    const select = document.getElementById("listSelect");
+    select.innerHTML = '<option value="">Select List</option>'; 
+
+    lists.forEach(list => {
+      const option = document.createElement("option");
+      option.value = list.board_id;  
+      option.textContent = list.board_title; 
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error fetching lists:", error);
+  }
+}
+

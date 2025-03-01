@@ -11,6 +11,7 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
           <!-- Label Row -->
 <div class="d-flex align-items-center mb-2">
   <label class="form-label">Icon</label>
+  <span></span>
   <label class="form-label">Title</label>
 </div>
 
@@ -40,12 +41,7 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
                 </select>
                 of the list 
                 <select id="listSelect" class="form-select d-inline w-auto">
-                  <option value="">Select List</option>
-                  <option value="todo">Todo</option>
-                  <option value="inprogress">InProgress</option>
-                  <option value="for-approval">For-Approval</option>
-                  <option value="rejected">Rejected</option>
-                  <option value="approved">Approved</option>
+                  
                 </select>
                 on
                 <select id="boardSelect" class="form-select d-inline w-auto">
@@ -72,6 +68,7 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
   let modalElementauto = document.getElementById("automationcopyCardToModal");
   let modal = new bootstrap.Modal(modalElementauto);
   modal.show();
+  fetchLists();
 
   // Attach event listeners directly after injecting HTML
   const titleInput = document.getElementById("titleInput");
@@ -159,3 +156,29 @@ async function copycardAutomation(ticketId, currentTicketStatus, ticketStatus) {
     console.error("Error:", error);
   }
 }
+
+  // function to fetch list 
+  async function fetchLists() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/getboards`); 
+      const lists = await response.json();
+
+      const select = document.getElementById("listSelect");
+      select.innerHTML = '<option value="">Select List</option>'; 
+
+      lists.forEach(list => {
+        const option = document.createElement("option");
+        option.value = list.board_id;  
+        option.textContent = list.board_title; 
+        select.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error fetching lists:", error);
+    }
+  }
+ 
+
+  
+ 
+
+

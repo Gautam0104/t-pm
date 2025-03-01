@@ -622,10 +622,10 @@ setTimeout(function() {
                                                             <ul class="dropdown-menu w-100" aria-labelledby="add-button-dropdown">
                                                                  <li class="nav-item">
                                                                  <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#moveCardTo" onclick="moveCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
-                                                                    <i class="fas fa-user me-2"></i> Move card to..
+                                                                    <i class="fas fa-arrow-right me-2"></i> Move card to..
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copyCardTo" onclick="copyCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
-                                                                    <i class="fas fa-user me-2"></i> Copy card to..
+                                                                    <i class="fas fa-copy me-2"></i> Copy card to..
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-tags me-2"></i> Add Labels
@@ -634,16 +634,16 @@ setTimeout(function() {
                                                                     <i class="fas fa-user me-2"></i> Join Card
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="" >
-                                                                    <i class="fas fa-user me-2"></i> Set due date or start date
+                                                                    <i class="fas fa-clock me-2"></i> Set due date or start date
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
-                                                                    <i class="fas fa-user me-2"></i> Mark due date
+                                                                    <i class="fas fa-clock me-2"></i> Mark due date
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
-                                                                    <i class="fas fa-user me-2"></i> Remove 
+                                                                    <i class="fas fa-minus me-2"></i> Remove 
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
-                                                                    <i class="fas fa-user me-2"></i> Sort list
+                                                                    <i class="fas fa-sort-amount-down me-2"></i> Sort list
                                                                 </button>
                                                                 <button type="button" class="btn btn-light w-100" onclick="">
                                                                  Create a custom button
