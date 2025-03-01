@@ -41,11 +41,7 @@ function moveCardToModal(ticketTitle, ticketId, ticket_status) {
               of the list 
               <select id="listSelect" class="form-select d-inline w-auto m-3">
                 <option value="">Select List</option>
-                <option value="todo">Todo</option>
-                <option value="inprogress">InProgress</option>
-                <option value="for-approval">For-Approval</option>
-                <option value="rejected">Rejected</option>
-                <option value="approved">Approved</option>
+  
               </select>
               on
               <select id="boardSelect" class="form-select d-inline w-auto m-3">
