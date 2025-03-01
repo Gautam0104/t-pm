@@ -10,9 +10,9 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
         <div class="modal-body">
           <!-- Label Row -->
 <div class="d-flex align-items-center mb-2">
-  <label class="form-label">Icon</label>
+  <label class="form-label me-3">Icon</label>
   <span></span>
-  <label class="form-label">Title</label>
+  <label class="form-label me-3">Title</label>
 </div>
 
 <!-- Input Row -->
@@ -34,17 +34,16 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
               <strong>Copy</strong></strong>
               <div>
                 Copy the card to the 
-                <select id="positionSelect1" class="form-select d-inline w-auto">
+                <select id="positionSelect1" class="form-select d-inline w-auto m-3">
                   <option value="">Select Position</option>
                   <option value="top">top</option>
                   <option value="bottom">bottom</option>
                 </select>
                 of the list 
-                <select id="listSelect" class="form-select d-inline w-auto">
-                  
+                <select id="listSelect" class="form-select d-inline w-auto m-3">
                 </select>
                 on
-                <select id="boardSelect" class="form-select d-inline w-auto">
+                <select id="boardSelect" class="form-select d-inline w-auto m-3">
                   <option value="">Select Board</option>
                   <option value="board1">Main Board</option>
                   <option value="board2">Secondary Board</option>

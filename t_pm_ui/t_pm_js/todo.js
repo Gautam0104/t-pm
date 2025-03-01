@@ -659,7 +659,7 @@ setTimeout(function() {
                                                              </li>
                                                              
                                                             </ul>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100 mt-2" id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100 " id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-plus me-2"></i> Add Button
                                                                 </button>
 
