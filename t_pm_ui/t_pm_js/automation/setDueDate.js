@@ -1,6 +1,8 @@
 function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
-  const copyCardToForm = document.getElementById("set-duedate-card-to-form");
-  copyCardToForm.innerHTML = `
+  const setduedateCardToForm = document.getElementById(
+    "set-duedate-card-to-form"
+  );
+  setduedateCardToForm.innerHTML = `
          <div class="modal-header">
           <h4 class="text-center">Edit Button</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
