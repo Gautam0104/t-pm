@@ -8,11 +8,23 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
         <div class="modal-body">
-          <!-- Title Input -->
-          <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" id="titleInput" placeholder="copy card to...">
-          </div>
+          <!-- Label Row -->
+<div class="d-flex align-items-center mb-2">
+  <label class="form-label">Icon</label>
+  <label class="form-label">Title</label>
+</div>
+
+<!-- Input Row -->
+<div class="d-flex align-items-center">
+  <!-- Icon -->
+  <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
+    <i class="fas fa-copy"></i>
+  </div>
+
+  <!-- Input Field -->
+  <input type="text" class="form-control" id="titleInput" placeholder="Copy card to...">
+</div>
+
     
           <!-- Actions -->
           <div class="mb-3">
