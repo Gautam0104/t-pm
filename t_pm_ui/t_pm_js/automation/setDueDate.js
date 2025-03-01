@@ -42,11 +42,11 @@ function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
                   
                   <select id="boardSelect" class="form-select d-inline w-auto">
                     <option value="minutes">minutes</option>
-                    <option value="hours"">hours/option>
+                    <option value="hours">hours</option>
                     <option value="days">days</option>
                     <option value="working days" selected>working days</option>
-                    <option value="days">days</option>
-                    <option value="days">days</option>
+                    <option value="weeks">weeks</option>
+                    <option value="months">months</option>
                   </select>
                   later
                 </div>
