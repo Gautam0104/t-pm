@@ -633,7 +633,7 @@ setTimeout(function() {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#joincardModal" onclick="openjoinCardModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-user me-2"></i> Join Card
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="setDuedateCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
                                                                     <i class="fas fa-clock me-2"></i> Set due date or start date
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
