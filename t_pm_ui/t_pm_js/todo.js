@@ -653,7 +653,7 @@ setTimeout(function() {
 
                                                                   <ul class="nav flex-column  overflow-auto" id="automation-button-ul-${element.ticket_id}" style="display:none;">
                                                                   <li class="nav-item">
-                                                             <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" >
+                                                             <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" onclick="editAutomation('${element.ticket_id}')">
                                                                     <i class="fas fa-pencil me-2"></i> Automation
                                                                 </button>
                                                              </li>
