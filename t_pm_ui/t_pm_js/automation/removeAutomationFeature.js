@@ -1,5 +1,5 @@
 function removeCardToModal(ticketTitle, ticketId, ticket_status) {
-  const removeCardToForm = document.getElementById('remove-card-to-form');
+  const removeCardToForm = document.getElementById("remove-card-to-form");
   removeCardToForm.innerHTML = `
            <div class="modal-header">
             <h4 class="text-center">Edit Button</h4>
@@ -32,16 +32,16 @@ function removeCardToModal(ticketTitle, ticketId, ticket_status) {
                   <strong>Remove</strong></strong>
                   <div>
                     Remove
-                    <select id="positionSelect1" class="form-select d-inline w-auto m-2" onchange="toggleLabelDropdown()">
+                    <select id="selectremoveAutomation" class="form-select d-inline w-auto m-2" onchange="toggleLabelDropdown()">
                       <option value="">Select</option>
-                      <option value="the-label">the label</option>
-                      <option value="all-labels">all labels</option>
-                      <option value="the-due-date">the due date</option>
-                      <option value="the-start-date">the start date</option>
-                      <option value="all-checklist">all checklists</option>
-                      <option value="all-members">all members</option>
-                      <option value="the-stickers">the stickers</option>
-                      <option value="start-cover">start cover</option>
+                      <option value="removeLabel">the label</option>
+                      <option value="removeAllLabels">all labels</option>
+                      <option value="removeDuedate">the due date</option>
+                      <option value="removeStartdate">the start date</option>
+                      <option value="removeAllChecklists">all checklists</option>
+                      <option value="removeAllMembers">all members</option>
+                      <option value="removeStickers">the stickers</option>
+                      <option value="removeStartCover">start cover</option>
                     </select>
                     <div id="labelDropdownContainer" style="display:none;" class="mt-2">
                    <div class="dropdown">
@@ -70,61 +70,30 @@ function removeCardToModal(ticketTitle, ticketId, ticket_status) {
             </div>
         
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary w-100" id="saveButton" disabled onclick="addduedateautomationButton('${ticketId}','${ticket_status}')">Add Button</button>
+              <button type="button" class="btn btn-primary w-100" id="saveButton" onclick="addremoveautomationButton('${ticketId}')">Add Button</button>
             </div>
             <p class="message" id="message"></p>
   
           `;
 
   // Initialize and show the Bootstrap modal dynamically
-  let modalElementauto = document.getElementById('removeCardToModal');
+  let modalElementauto = document.getElementById("removeCardToModal");
   let modal = new bootstrap.Modal(modalElementauto);
   modal.show();
-  fetchLists();
-
-  // Attach event listeners directly after injecting HTML
-  const titleInput = document.getElementById('titleInput');
-  const positionSelect = document.getElementById('positionSelect1');
-  const listSelect = document.getElementById('listSelect');
-  const boardSelect = document.getElementById('boardSelect');
-  const saveButton = document.getElementById('saveButton');
-
-  function checkInputs() {
-    if (
-      titleInput.value.trim() !== '' &&
-      positionSelect.value !== '' &&
-      listSelect.value !== '' &&
-      boardSelect.value !== ''
-    ) {
-      saveButton.disabled = false;
-    } else {
-      saveButton.disabled = true;
-    }
-  }
-
-  // Attach event listeners
-  titleInput.addEventListener('input', checkInputs);
-  positionSelect.addEventListener('change', checkInputs);
-  listSelect.addEventListener('change', checkInputs);
-  boardSelect.addEventListener('change', checkInputs);
-
-  // Initial check (in case inputs are cached)
-  checkInputs();
 }
 
-async function addduedateautomationButton(ticketId, ticket_status) {
-  const buttonTitle = document.getElementById('titleInput').value; // Get the value of the input field
-  const listSelect = document.getElementById('listSelect').value;
-  const boardSelect = document.getElementById('boardSelect').value;
-  const buttonAction = `addduedateAutomation('${ticketId}', '${listSelect}' , '${boardSelect}',)`;
+async function addremoveautomationButton(ticketId) {
+  const removeFeature = document.getElementById("selectremoveAutomation").value;
+  const buttonTitle = document.getElementById("titleInput").value;
+  const buttonAction = `${removeFeature}('${ticketId}')`;
 
-  console.log(ticketId + ticket_status);
+  console.log(removeFeature);
 
   try {
     const response = await fetch(`${API_BASE_URL}/automation-data`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         ticketId,
@@ -133,73 +102,73 @@ async function addduedateautomationButton(ticketId, ticket_status) {
       })
     });
     if (response.ok) {
-      console.log('set due date card automation button added successfully');
+      console.log("set due date card automation button added successfully");
       location.reload();
     }
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
 }
 
-async function addduedateAutomation(ticket_id, listSelect, boardSelect) {
-  const ticket_eta = listSelect + boardSelect;
-  const messageBox = document.getElementById('message');
+function removeDuedate(ticket_id) {
+  const ticket_eta = "";
+  const messageBox = document.getElementById("message");
 
-  if (!ticket_id || !ticket_eta) {
-    messageBox.textContent = 'Please fill in both fields.';
-    messageBox.style.color = 'red';
+  if (!ticket_id) {
+    messageBox.textContent = "Please fill in both fields.";
+    messageBox.style.color = "red";
     return;
   }
 
   fetch(`${API_BASE_URL}/automation-ticket-eta`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ticket_id, ticket_eta })
   })
     .then(response => response.json())
     .then(data => {
       if (data.error) {
-        messageBox.textContent = 'Error: ' + data.error;
-        messageBox.style.color = 'red';
+        messageBox.textContent = "Error: " + data.error;
+        messageBox.style.color = "red";
       } else {
-        messageBox.textContent = 'Success: ' + data.message;
-        messageBox.style.color = 'green';
+        messageBox.textContent = "Success: " + data.message;
+        messageBox.style.color = "green";
         window.location.reload();
       }
     })
     .catch(error => {
-      messageBox.textContent = 'Failed to connect to API.';
-      messageBox.style.color = 'red';
-      console.error('Request Error:', error);
+      messageBox.textContent = "Failed to connect to API.";
+      messageBox.style.color = "red";
+      console.error("Request Error:", error);
     });
 }
-
-// function to fetch list
-async function fetchLists() {
+async function removeAllChecklists(id) {
   try {
-    const response = await fetch(`${API_BASE_URL}/getboards`);
-    const lists = await response.json();
-
-    const select = document.getElementById('listSelect');
-    select.innerHTML = '<option value="">Select List</option>';
-
-    lists.forEach(list => {
-      const option = document.createElement('option');
-      option.value = list.board_id;
-      option.textContent = list.board_title;
-      select.appendChild(option);
+    // Send DELETE request to the API
+    const response = await fetch(`${API_BASE_URL}/remove-checklist/${id}`, {
+      method: "DELETE"
     });
-  } catch (error) {
-    console.error('Error fetching lists:', error);
-  }
-}
-function toggleLabelDropdown() {
-  const positionSelect = document.getElementById('positionSelect1');
-  const labelDropdownContainer = document.getElementById('labelDropdownContainer');
 
-  if (positionSelect.value === 'the-label') {
-    labelDropdownContainer.style.display = 'block';
-  } else {
-    labelDropdownContainer.style.display = 'none';
+    if (response.ok) {
+      console.log("You successfully removed all checklist of given id's card");
+      window.location.reload(); // Refresh the page after successful delete
+    } else {
+      console.log("Oops, something went wrong");
+      window.location.reload();
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
+// function toggleLabelDropdown() {
+//   const positionSelect = document.getElementById("positionSelect1");
+//   const labelDropdownContainer = document.getElementById(
+//     "labelDropdownContainer"
+//   );
+
+//   if (positionSelect.value === "the-label") {
+//     labelDropdownContainer.style.display = "block";
+//   } else {
+//     labelDropdownContainer.style.display = "none";
+//   }
+// }
