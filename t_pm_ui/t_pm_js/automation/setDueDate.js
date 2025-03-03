@@ -1,7 +1,5 @@
 function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
-  const setduedateCardToForm = document.getElementById(
-    "set-duedate-card-to-form"
-  );
+  const setduedateCardToForm = document.getElementById('set-duedate-card-to-form');
   setduedateCardToForm.innerHTML = `
          <div class="modal-header">
           <h4 class="text-center">Edit Button</h4>
@@ -69,24 +67,24 @@ function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
         `;
 
   // Initialize and show the Bootstrap modal dynamically
-  let modalElementauto = document.getElementById("setdueDateCardToModal");
+  let modalElementauto = document.getElementById('setdueDateCardToModal');
   let modal = new bootstrap.Modal(modalElementauto);
   modal.show();
   fetchLists();
 
   // Attach event listeners directly after injecting HTML
-  const titleInput = document.getElementById("titleInput");
-  const positionSelect = document.getElementById("positionSelect1");
-  const listSelect = document.getElementById("listSelect");
-  const boardSelect = document.getElementById("boardSelect");
-  const saveButton = document.getElementById("saveButton");
+  const titleInput = document.getElementById('titleInput');
+  const positionSelect = document.getElementById('positionSelect1');
+  const listSelect = document.getElementById('listSelect');
+  const boardSelect = document.getElementById('boardSelect');
+  const saveButton = document.getElementById('saveButton');
 
   function checkInputs() {
     if (
-      titleInput.value.trim() !== "" &&
-      positionSelect.value !== "" &&
-      listSelect.value !== "" &&
-      boardSelect.value !== ""
+      titleInput.value.trim() !== '' &&
+      positionSelect.value !== '' &&
+      listSelect.value !== '' &&
+      boardSelect.value !== ''
     ) {
       saveButton.disabled = false;
     } else {
@@ -95,28 +93,28 @@ function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
   }
 
   // Attach event listeners
-  titleInput.addEventListener("input", checkInputs);
-  positionSelect.addEventListener("change", checkInputs);
-  listSelect.addEventListener("change", checkInputs);
-  boardSelect.addEventListener("change", checkInputs);
+  titleInput.addEventListener('input', checkInputs);
+  positionSelect.addEventListener('change', checkInputs);
+  listSelect.addEventListener('change', checkInputs);
+  boardSelect.addEventListener('change', checkInputs);
 
   // Initial check (in case inputs are cached)
   checkInputs();
 }
 
 async function addduedateautomationButton(ticketId, ticket_status) {
-  const buttonTitle = document.getElementById("titleInput").value; // Get the value of the input field
-  const listSelect = document.getElementById("listSelect").value;
-  const boardSelect = document.getElementById("boardSelect").value;
+  const buttonTitle = document.getElementById('titleInput').value; // Get the value of the input field
+  const listSelect = document.getElementById('listSelect').value;
+  const boardSelect = document.getElementById('boardSelect').value;
   const buttonAction = `addduedateAutomation('${ticketId}', '${listSelect}' , '${boardSelect}',)`;
 
   console.log(ticketId + ticket_status);
 
   try {
     const response = await fetch(`${API_BASE_URL}/automation-data`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         ticketId,
@@ -125,44 +123,44 @@ async function addduedateautomationButton(ticketId, ticket_status) {
       })
     });
     if (response.ok) {
-      console.log("set due date card automation button added successfully");
+      console.log('set due date card automation button added successfully');
       location.reload();
     }
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
   }
 }
 
 async function addduedateAutomation(ticket_id, listSelect, boardSelect) {
   const ticket_eta = listSelect + boardSelect;
-  const messageBox = document.getElementById("message");
+  const messageBox = document.getElementById('message');
 
   if (!ticket_id || !ticket_eta) {
-    messageBox.textContent = "Please fill in both fields.";
-    messageBox.style.color = "red";
+    messageBox.textContent = 'Please fill in both fields.';
+    messageBox.style.color = 'red';
     return;
   }
 
   fetch(`${API_BASE_URL}/automation-ticket-eta`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ticket_id, ticket_eta })
   })
     .then(response => response.json())
     .then(data => {
       if (data.error) {
-        messageBox.textContent = "Error: " + data.error;
-        messageBox.style.color = "red";
+        messageBox.textContent = 'Error: ' + data.error;
+        messageBox.style.color = 'red';
       } else {
-        messageBox.textContent = "Success: " + data.message;
-        messageBox.style.color = "green";
+        messageBox.textContent = 'Success: ' + data.message;
+        messageBox.style.color = 'green';
         window.location.reload();
       }
     })
     .catch(error => {
-      messageBox.textContent = "Failed to connect to API.";
-      messageBox.style.color = "red";
-      console.error("Request Error:", error);
+      messageBox.textContent = 'Failed to connect to API.';
+      messageBox.style.color = 'red';
+      console.error('Request Error:', error);
     });
 }
 
@@ -172,16 +170,16 @@ async function fetchLists() {
     const response = await fetch(`${API_BASE_URL}/getboards`);
     const lists = await response.json();
 
-    const select = document.getElementById("listSelect");
+    const select = document.getElementById('listSelect');
     select.innerHTML = '<option value="">Select List</option>';
 
     lists.forEach(list => {
-      const option = document.createElement("option");
+      const option = document.createElement('option');
       option.value = list.board_id;
       option.textContent = list.board_title;
       select.appendChild(option);
     });
   } catch (error) {
-    console.error("Error fetching lists:", error);
+    console.error('Error fetching lists:', error);
   }
 }
