@@ -639,7 +639,7 @@ setTimeout(function() {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
                                                                     <i class="fas fa-clock me-2"></i> Mark due date
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="removeCardToModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-minus me-2"></i> Remove 
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
