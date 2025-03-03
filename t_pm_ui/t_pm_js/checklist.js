@@ -54,6 +54,7 @@ const createChecklist = async (ticketId, ticketTitle) => {
     });
     if (response.ok) {
       console.log("Checklist created successfully");
+      location.reload();
     } else {
       console.error("Failed to create checklist:", response.status);
     }
