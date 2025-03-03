@@ -1,6 +1,8 @@
 function joinCardToModal(ticketTitle, ticketId) {
-    const joinCardToForm = document.getElementById("automation-join-card-to-form");
-    joinCardToForm.innerHTML = `
+  const joinCardToForm = document.getElementById(
+    "automation-join-card-to-form"
+  );
+  joinCardToForm.innerHTML = `
            <div class="modal-header">
             <h4 class="text-center">Edit Button</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -46,88 +48,51 @@ function joinCardToModal(ticketTitle, ticketId) {
             <p class="message" id="message"></p>
   
           `;
-  
-    // Initialize and show the Bootstrap modal dynamically
-    let modalElementauto = document.getElementById("automationjoinCardToModal");
-    let modal = new bootstrap.Modal(modalElementauto);
-    modal.show();
-  
-    // Attach event listeners directly after injecting HTML
-    const titleInput = document.getElementById("titleInput");
-    const saveButton = document.getElementById("saveButton");
-  
-    function checkInputs() {
-      if (
-        titleInput.value.trim() !== "" 
-      ) {
-        saveButton.disabled = false;
-      } else {
-        saveButton.disabled = true;
-      }
-    }
-  
-    // Attach event listeners
-    titleInput.addEventListener("input", checkInputs);
-  
-    // Initial check (in case inputs are cached)
-    checkInputs();
-  }
-  
-  async function joinAutomationButton(ticketId) {
-    const buttonTitle = document.getElementById("titleInput").value; // Get the value of the input field
-    const buttonAction = `joinCardAutomation('${ticketId}')`;
-    try {
-      const response = await fetch(`${API_BASE_URL}/automation-data`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ticketId,
-          buttonTitle, // Now passing the value of the input field
-          buttonAction
-        })
-      });
-      if (response.ok) {
-        console.log("join card automation button added successfully");
-        location.reload();
-      }
-    } catch (error) {
-      console.log("error", error);
+
+  // Initialize and show the Bootstrap modal dynamically
+  let modalElementauto = document.getElementById("automationjoinCardToModal");
+  let modal = new bootstrap.Modal(modalElementauto);
+  modal.show();
+
+  // Attach event listeners directly after injecting HTML
+  const titleInput = document.getElementById("titleInput");
+  const saveButton = document.getElementById("saveButton");
+
+  function checkInputs() {
+    if (titleInput.value.trim() !== "") {
+      saveButton.disabled = false;
+    } else {
+      saveButton.disabled = true;
     }
   }
-  
-  async function addduedateAutomation(ticket_id) {
-    const messageBox = document.getElementById("message");
-  
-    if (!ticket_id || !ticket_eta) {
-      messageBox.textContent = "Please fill in both fields.";
-      messageBox.style.color = "red";
-      return;
-    }
-  
-    fetch(`${API_BASE_URL}/automation-ticket-join`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticket_id})
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          messageBox.textContent = "Error: " + data.error;
-          messageBox.style.color = "red";
-        } else {
-          messageBox.textContent = "Success: " + data.message;
-          messageBox.style.color = "green";
-          window.location.reload();
-        }
+
+  // Attach event listeners
+  titleInput.addEventListener("input", checkInputs);
+
+  // Initial check (in case inputs are cached)
+  checkInputs();
+}
+
+async function joinAutomationButton(ticketId) {
+  const buttonTitle = document.getElementById("titleInput").value; // Get the value of the input field
+  const buttonAction = `joinCard('${ticketId}')`;
+  try {
+    const response = await fetch(`${API_BASE_URL}/automation-data`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ticketId,
+        buttonTitle, // Now passing the value of the input field
+        buttonAction
       })
-      .catch(error => {
-        messageBox.textContent = "Failed to connect to API.";
-        messageBox.style.color = "red";
-        console.error("Request Error:", error);
-      });
+    });
+    if (response.ok) {
+      console.log("join card automation button added successfully");
+      location.reload();
+    }
+  } catch (error) {
+    console.log("error", error);
   }
-  
- 
-  
+}
