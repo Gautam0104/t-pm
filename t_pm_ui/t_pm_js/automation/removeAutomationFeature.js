@@ -17,7 +17,7 @@ function removeCardToModal(ticketTitle, ticketId, ticket_status) {
     <div class="d-flex align-items-center">
       <!-- Icon -->
       <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
-        <i class="fas fa-minus me-2"></i>
+        <i class="fas fa-minus "></i>
       </div>
     
       <!-- Input Field -->

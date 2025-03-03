@@ -19,7 +19,7 @@ function joinCardToModal(ticketTitle, ticketId) {
     <div class="d-flex align-items-center">
       <!-- Icon -->
       <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
-        <i class="fas fa-user me-2"></i>
+        <i class="fas fa-user"></i>
       </div>
     
       <!-- Input Field -->
