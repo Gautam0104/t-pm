@@ -1,5 +1,7 @@
 function markDueDateModal(ticketTitle, ticketId) {
-  const markDueDateForm = document.getElementById('automation-mark-due-date-form');
+  const markDueDateForm = document.getElementById(
+    "automation-mark-due-date-form"
+  );
   markDueDateForm.innerHTML = `
              <div class="modal-header">
               <h4 class="text-center">Edit Button</h4>
@@ -52,17 +54,17 @@ function markDueDateModal(ticketTitle, ticketId) {
             `;
 
   // Initialize and show the Bootstrap modal dynamically
-  let modalElementauto = document.getElementById('markDueDateModal');
+  let modalElementauto = document.getElementById("markDueDateModal");
   let modal = new bootstrap.Modal(modalElementauto);
   modal.show();
 
   // Attach event listeners directly after injecting HTML
-  const titleInput = document.getElementById('titleInput');
-  const duedate = document.getElementById('duedate');
-  const saveButton = document.getElementById('saveButton');
+  const titleInput = document.getElementById("titleInput");
+  const duedate = document.getElementById("duedate");
+  const saveButton = document.getElementById("saveButton");
 
   function checkInputs() {
-    if (titleInput.value.trim() !== '') {
+    if (titleInput.value.trim() !== "") {
       saveButton.disabled = false;
     } else {
       saveButton.disabled = true;
@@ -70,21 +72,22 @@ function markDueDateModal(ticketTitle, ticketId) {
   }
 
   // Attach event listeners
-  titleInput.addEventListener('input', checkInputs);
-  duedate.addEventListener('change', checkInputs);
+  titleInput.addEventListener("input", checkInputs);
+  duedate.addEventListener("change", checkInputs);
 
   // Initial check (in case inputs are cached)
   checkInputs();
 }
 
 async function markDueDateAutomationButton(ticketId) {
-  const buttonTitle = document.getElementById('titleInput').value; // Get the value of the input field
-  const buttonAction = `joinCard('${ticketId}')`;
+  const buttonTitle = document.getElementById("titleInput").value; // Get the value of the input field
+  const duedateStatus = document.getElementById("duedate").value;
+  const buttonAction = `markduedate('${ticketId}','${duedateStatus}')`;
   try {
     const response = await fetch(`${API_BASE_URL}/automation-data`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         ticketId,
@@ -93,10 +96,48 @@ async function markDueDateAutomationButton(ticketId) {
       })
     });
     if (response.ok) {
-      console.log('join card automation button added successfully');
+      console.log("join card automation button added successfully");
       location.reload();
     }
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
+}
+
+function markduedate(ticket_id, duedate) {
+  const ticket_eta = duedate;
+  const messageBox = document.getElementById("message");
+
+  if (!ticket_id || !ticket_eta) {
+    messageBox.textContent = "Please fill in both fields.";
+    messageBox.style.color = "red";
+    return;
+  }
+
+  fetch(`${API_BASE_URL}/automation-ticket-eta`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ticket_id, ticket_eta })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        messageBox.textContent = "Error: " + data.error;
+        messageBox.style.color = "red";
+      } else {
+        Swal.fire({
+          title: "Due date marked",
+          text: "card due date mark successfully",
+          icon: "success",
+          confirmButtonText: "Ok!"
+        }).then(function() {
+          location.reload();
+        });
+      }
+    })
+    .catch(error => {
+      messageBox.textContent = "Failed to connect to API.";
+      messageBox.style.color = "red";
+      console.error("Request Error:", error);
+    });
 }
