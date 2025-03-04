@@ -1,185 +1,123 @@
-function moveCardToModal(ticketTitle, ticketId, ticket_status) {
-  console.log("ticket status is" + ticket_status + ticketTitle);
+import { sendAutomationData } from "./createAutomationButton.js";
+import { fetchLists } from "./boardList.js";
 
-  const moveCardToForm = document.getElementById("move-card-to-form");
-  moveCardToForm.innerHTML = `
-     <div class="modal-header">
-      <h4 class="text-center">Edit Button</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+export function moveCardToModal(ticketTitle, ticketId, ticketStatus) {
+  console.log("Ticket status: " + ticketStatus + ", Title: " + ticketTitle);
+
+  let modalContainer = document.getElementById("moveCardToModal");
+
+  if (!modalContainer) {
+    console.error("Modal container 'moveCardToModal' not found.");
+    return;
+  }
+
+  // Inject modal content dynamically
+  modalContainer.innerHTML = `
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="text-center">Edit Button</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      <div class="modal-body">
-         <!-- Label Row -->
-<div class="d-flex align-items-center mb-2">
-  <label class="form-label me-3">Icon</label>
-  <label class="form-label me-3">Title</label>
-</div>
-
-<!-- Input Row -->
-<div class="d-flex align-items-center">
-  <!-- Icon -->
-  <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
-    <i class="fas fa-arrow-right "></i>
-  </div>
-
-  <!-- Input Field -->
-  <input type="text" class="form-control" id="titleInput" placeholder="Move card to...">
-</div>
-
-  
-        <!-- Actions -->
-        <div class="mb-3">
-          <label class="form-label">Actions</label>
-          <div class="border p-3">
-            <strong>Move</strong>
-            <div>
-              Move the card to the 
-              <select id="positionSelect1" class="form-select d-inline w-auto m-3">
-                <option value="">Select Position</option>
-                <option value="top">top</option>
-                <option value="bottom">bottom</option>
-              </select>
-              of the list 
-              <select id="listSelect" class="form-select d-inline w-auto m-3">
-                <option value="">Select List</option>
-  
-              </select>
-              on
-              <select id="boardSelect" class="form-select d-inline w-auto m-3">
-                <option value="">Select Board</option>
-                <option value="board1">Main Board</option>
-                <option value="board2">Secondary Board</option>
-              </select>
+        <div class="modal-body">
+          <div class="d-flex align-items-center mb-2">
+            <label class="form-label me-3">Icon</label>
+            <label class="form-label me-3">Title</label>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+            <input type="text" class="form-control" id="titleInput" placeholder="Move card to...">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Actions</label>
+            <div class="border p-3">
+              <strong>Move</strong>
+              <div>
+                Move the card to 
+                <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                  <option value="">Select Position</option>
+                  <option value="top">Top</option>
+                  <option value="bottom">Bottom</option>
+                </select>
+                of the list 
+                <select id="listSelect" class="form-select d-inline w-auto m-3">
+                  <option value="">Select List</option>
+                </select>
+                on
+                <select id="boardSelect" class="form-select d-inline w-auto m-3">
+                  <option value="">Select Board</option>
+                  <option value="board1">Main Board</option>
+                  <option value="board2">Secondary Board</option>
+                </select>
+              </div>
             </div>
           </div>
+          <button type="button" class="btn btn-light w-100" id="addActionButton">+ Add action</button>
         </div>
-  
-        <!-- Add Action Button -->
-        <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
-          + Add action
-        </button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary w-100" id="saveButton" disabled>Add Button</button>
+        </div>
+        <p class="message" id="message"></p>
       </div>
-  
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary w-100" id="saveButton" disabled onclick="addautomationButton('${ticketId}','${ticket_status}')">Add Button</button>
-      </div>
-    `;
+    </div>
+  `;
 
-  // Initialize and show the Bootstrap modal dynamically
-  let modalElement = document.getElementById("moveCardToModal");
-  let modal = new bootstrap.Modal(modalElement);
+  // Initialize Bootstrap Modal properly
+  let modal = new bootstrap.Modal(modalContainer);
   modal.show();
 
-  // Attach event listeners directly after injecting HTML
-  const titleInput = document.getElementById("titleInput");
-  const positionSelect = document.getElementById("positionSelect1");
-  const listSelect = document.getElementById("listSelect");
-  const boardSelect = document.getElementById("boardSelect");
-  const saveButton = document.getElementById("saveButton");
+  // Attach event listeners
+  const titleInput = modalContainer.querySelector("#titleInput");
+  const positionSelect = modalContainer.querySelector("#positionSelect1");
+  const listSelect = modalContainer.querySelector("#listSelect");
+  const boardSelect = modalContainer.querySelector("#boardSelect");
+  const saveButton = modalContainer.querySelector("#saveButton");
+  const addActionButton = modalContainer.querySelector("#addActionButton");
 
   function checkInputs() {
-    // Debugging: Log input values to check if they're being read
-    // console.log({
-    //   title: titleInput.value.trim(),
-    //   position: positionSelect.value,
-    //   list: listSelect.value,
-    //   board: boardSelect.value
-    // });
-
     // Check if all inputs have non-empty values
-    if (
+    const isValid =
       titleInput.value.trim() !== "" &&
       positionSelect.value !== "" &&
       listSelect.value !== "" &&
-      boardSelect.value !== ""
-    ) {
-      saveButton.disabled = false;
-    } else {
-      saveButton.disabled = true;
-    }
+      boardSelect.value !== "";
+
+    saveButton.disabled = !isValid;
   }
 
-  // Attach event listeners
+  // Attach event listeners to inputs
   titleInput.addEventListener("input", checkInputs);
   positionSelect.addEventListener("change", checkInputs);
   listSelect.addEventListener("change", checkInputs);
   boardSelect.addEventListener("change", checkInputs);
 
+  // Add event listener for "Add action" button
+  // addActionButton.addEventListener("click", openActionModal);
+
+  // Add event listener for "Save" button
+  saveButton.addEventListener("click", () =>
+    addAutomationButton(ticketId, ticketStatus)
+  );
+
   // Initial check (in case inputs are cached)
   checkInputs();
+
+  // Fetch lists for dynamic list options
   fetchLists();
+  console.log("list is not working");
 }
 
-async function addautomationButton(ticketId, ticket_status) {
-  const buttonTitle = document.getElementById("titleInput").value; // Get the value of the input field
+async function addAutomationButton(ticketId, ticketStatus) {
   const listSelect = document.getElementById("listSelect").value;
-  const buttonAction = `movecardAutomation('${ticketId}', '${ticket_status}', '${listSelect}')`;
+  const buttonAction = `moveCardAutomation('${ticketId}', '${ticketStatus}', '${listSelect}')`;
 
-  console.log(ticketId + ticket_status);
-
-  try {
-    const response = await fetch(`${API_BASE_URL}/automation-data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        ticketId,
-        buttonTitle, // Now passing the value of the input field
-        buttonAction
-      })
-    });
-    if (response.ok) {
-      console.log("move card automation button added successfully");
-      location.reload();
-    }
-  } catch (error) {
-    console.log("error", error);
+  const titleInput = document.getElementById("titleInput").value.trim();
+  if (!titleInput) {
+    console.error("Button title cannot be empty.");
+    return;
   }
-}
 
-async function movecardAutomation(ticketId, currentTicketStatus, ticketStatus) {
-  // only pass the new status
-  const payload = { ticketId, ticketStatus };
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/update-ticket-status-automation`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      }
-    );
-
-    if (response.ok) {
-      console.log("Ticket Updated");
-      location.reload();
-    } else {
-      console.log("Something went wrong");
-    }
-  } catch (error) {
-    messageElement.textContent = "Error connecting to the server.";
-    messageElement.className = "message error";
-    console.error("Error:", error);
-  }
-}
-
-async function fetchLists() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/getboards`);
-    const lists = await response.json();
-
-    const select = document.getElementById("listSelect");
-    select.innerHTML = '<option value="">Select List</option>';
-
-    lists.forEach(list => {
-      const option = document.createElement("option");
-      option.value = list.board_id;
-      option.textContent = list.board_title;
-      select.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Error fetching lists:", error);
-  }
+  await sendAutomationData(ticketId, titleInput, buttonAction);
 }

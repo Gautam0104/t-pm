@@ -1,4 +1,4 @@
-import { sendAutomationData } from "./createAutomationButton.js"; // Ensure correct path
+import { sendAutomationData } from "./createAutomationButton.js";
 
 // Function to open modal and inject content
 export function joinCardToModal(ticketTitle, ticketId) {

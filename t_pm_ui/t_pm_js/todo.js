@@ -1,5 +1,7 @@
 import { joinCardToModal } from "./automation/joinCard.js";
-
+import { moveCardToModal } from "./automation/moveCard.js";
+import { copyCardToModal } from "./automation/copyCard.js";
+//import { markDueDateModal } from "./automation/markDueDate.js";
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
@@ -624,10 +626,10 @@ setTimeout(function() {
                                                             <li class="nav-item dropdown mt-4 mb-4">
                                                             <ul class="dropdown-menu w-100" aria-labelledby="add-button-dropdown">
                                                                  <li class="nav-item">
-                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#moveCardTo" onclick="moveCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
+                                                                 <button class="nav-link  d-flex align-items-center border-0 " id="moveAutomation" >
                                                                     <i class="fas fa-arrow-right me-2"></i> Move card to..
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copyCardTo" onclick="copyCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
+                                                                <button class="nav-link d-flex align-items-center border-0 w-100" id="copyAutomation" >
                                                                     <i class="fas fa-copy me-2"></i> Copy card to..
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.title}','${element.ticket_id}')" >
@@ -639,7 +641,7 @@ setTimeout(function() {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="setDuedateCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
                                                                     <i class="fas fa-clock me-2"></i> Set due date or start date
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="markDueDateModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="markduedateAutomation" >
                                                                     <i class="fas fa-clock me-2"></i> Mark due date
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="removeCardToModal('${element.title}','${element.ticket_id}')" >
@@ -756,8 +758,35 @@ setTimeout(function() {
                 const joinAutomationButton = document.getElementById(
                   "joinAutomation"
                 );
+                const moveAutomationButton = document.getElementById(
+                  "moveAutomation"
+                );
 
-                console.log("joinAutomation ", joinAutomationButton);
+                const copyAutomationButton = document.getElementById(
+                  "copyAutomation"
+                );
+                const markduedateAutomationButton = document.getElementById(
+                  "markduedateAutomation"
+                );
+
+                markduedateAutomationButton.addEventListener("click", () => {
+                  markDueDateModal(element.title, element.ticket_id);
+                });
+                copyAutomationButton.addEventListener("click", () => {
+                  copyCardToModal(
+                    element.title,
+                    element.ticket_id,
+                    element.ticket_status
+                  );
+                });
+
+                moveAutomationButton.addEventListener("click", () => {
+                  moveCardToModal(
+                    element.title,
+                    element.ticket_id,
+                    element.ticket_status
+                  );
+                });
                 joinAutomationButton.addEventListener("click", () => {
                   joinCardToModal(element.title, element.ticket_id);
                 });
