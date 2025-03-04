@@ -1,8 +1,7 @@
-import { sendAutomationData } from "./createAutomationButton.js"; // Ensure correct path
+import { sendAutomationData } from "./createAutomationButton";
 
-// Function to open modal and inject content
 export function markDueDateModal(ticketTitle, ticketId) {
-  console.log("Opening modal for:", ticketTitle, ticketId);
+  console.log("Ticket Title: " + ticketTitle + ", Ticket ID: " + ticketId);
 
   let modalContainer = document.getElementById("markDueDateModal");
 
@@ -22,7 +21,6 @@ export function markDueDateModal(ticketTitle, ticketId) {
         <div class="modal-body">
           <div class="d-flex align-items-center mb-2">
             <label class="form-label">Icon</label>
-            <span></span>
             <label class="form-label ms-4">Title</label>
           </div>
           <div class="d-flex align-items-center">
@@ -44,20 +42,17 @@ export function markDueDateModal(ticketTitle, ticketId) {
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
-            + Add action
-          </button>
+          <button type="button" class="btn btn-light w-100" id="addActionButton">+ Add action</button>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary w-100" id="saveButton" disabled>
-            Add Button
-          </button>
+          <button type="button" class="btn btn-primary w-100" id="saveButton" disabled>Add Button</button>
         </div>
-        <p class="message" id="message"></p>
       </div>
     </div>
   `;
 
+  // Initialize Bootstrap Modal properly
+  let modal = new bootstrap.Modal(modalContainer);
   // Initialize Bootstrap Modal properly
   let modal = new bootstrap.Modal(modalContainer);
   modal.show();
@@ -66,37 +61,37 @@ export function markDueDateModal(ticketTitle, ticketId) {
   const titleInput = modalContainer.querySelector("#titleInput");
   const duedate = modalContainer.querySelector("#duedate");
   const saveButton = modalContainer.querySelector("#saveButton");
+  const addActionButton = modalContainer.querySelector("#addActionButton");
 
   function checkInputs() {
     saveButton.disabled = titleInput.value.trim() === "";
+    saveButton.disabled = titleInput.value.trim() === "";
   }
 
+  // Attach event listeners to inputs
   titleInput.addEventListener("input", checkInputs);
   duedate.addEventListener("change", checkInputs);
 
-  // Initial check
+  // Add event listener for "Save" button
+  saveButton.addEventListener("click", () =>
+    markDueDateAutomationButton(ticketId)
+  );
+
+  // Initial check (in case inputs are cached)
   checkInputs();
 
-  saveButton.addEventListener("click", () => markDueDateAutomationButton(ticketId));
+  console.log("Mark Due Date Modal Initialized");
 }
 
 // Function to send automation data
 async function markDueDateAutomationButton(ticketId) {
-  const titleInput = document.getElementById("titleInput");
   const duedateStatus = document.getElementById("duedate").value;
-
+  const buttonAction = `markduedate('${ticketId}','${duedateStatus}')`;
+  const titleInput = document.getElementById("titleInput").value.trim();
   if (!titleInput) {
-    console.error("Input field not found.");
-    return;
-  }
-
-  const buttonTitle = titleInput.value.trim();
-  if (!buttonTitle) {
     console.error("Button title cannot be empty.");
     return;
   }
 
-  const buttonAction = `markduedate('${ticketId}','${duedateStatus}')`;
-
-  await sendAutomationData(ticketId, buttonTitle, buttonAction);
+  await sendAutomationData(ticketId, titleInput, buttonAction);
 }

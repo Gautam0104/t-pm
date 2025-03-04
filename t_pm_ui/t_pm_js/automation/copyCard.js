@@ -1,46 +1,49 @@
-function copyCardToModal(ticketTitle, ticketId, ticket_status) {
-  const copyCardToForm = document.getElementById(
-    "automation-copy-card-to-form"
-  );
-  copyCardToForm.innerHTML = `
-       <div class="modal-header">
-        <h4 class="text-center">Edit Button</h4>
+import { sendAutomationData } from "./createAutomationButton.js";
+import { fetchLists } from "./boardList.js";
+
+export function copyCardToModal(ticketTitle, ticketId, ticket_status) {
+  console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
+
+  let modalContainer = document.getElementById("automationcopyCardToModal");
+
+  if (!modalContainer) {
+    console.error("Modal container 'automationcopyCardToModal' not found.");
+    return;
+  }
+
+  // Inject modal content dynamically
+  modalContainer.innerHTML = `
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="text-center">Edit Button</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+        </div>
         <div class="modal-body">
-          <!-- Label Row -->
-<div class="d-flex align-items-center mb-2">
-  <label class="form-label me-3">Icon</label>
-  <span></span>
-  <label class="form-label me-3">Title</label>
-</div>
-
-<!-- Input Row -->
-<div class="d-flex align-items-center">
-  <!-- Icon -->
-  <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
-    <i class="fas fa-copy"></i>
-  </div>
-
-  <!-- Input Field -->
-  <input type="text" class="form-control" id="titleInput" placeholder="Copy card to...">
-</div>
-
-    
-          <!-- Actions -->
+          <div class="d-flex align-items-center mb-2">
+            <label class="form-label me-3">Icon</label>
+            <label class="form-label me-3">Title</label>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
+              <i class="fas fa-copy"></i>
+            </div>
+            <input type="text" class="form-control" id="titleInput" placeholder="Copy card to...">
+          </div>
           <div class="mb-3">
             <label class="form-label">Actions</label>
             <div class="border p-3">
-              <strong>Copy</strong></strong>
+              <strong>Copy</strong>
               <div>
-                Copy the card to the 
+                Copy the card to 
                 <select id="positionSelect1" class="form-select d-inline w-auto m-3">
                   <option value="">Select Position</option>
-                  <option value="top">top</option>
-                  <option value="bottom">bottom</option>
+                  <option value="top">Top</option>
+                  <option value="bottom">Bottom</option>
                 </select>
                 of the list 
                 <select id="listSelect" class="form-select d-inline w-auto m-3">
+                  <option value="">Select List</option>
                 </select>
                 on
                 <select id="boardSelect" class="form-select d-inline w-auto m-3">
@@ -51,133 +54,66 @@ function copyCardToModal(ticketTitle, ticketId, ticket_status) {
               </div>
             </div>
           </div>
-    
-          <!-- Add Action Button -->
-          <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
-            + Add action
-          </button>
+          <button type="button" class="btn btn-light w-100" id="addActionButton">+ Add action</button>
         </div>
-    
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary w-100" id="saveButton" disabled onclick="addcopyautomationButton('${ticketId}','${ticket_status}')">Add Button</button>
+          <button type="button" class="btn btn-primary w-100" id="saveButton" disabled>Add Button</button>
         </div>
-      `;
+      </div>
+    </div>
+  `;
 
-  // Initialize and show the Bootstrap modal dynamically
-  let modalElementauto = document.getElementById("automationcopyCardToModal");
-  let modal = new bootstrap.Modal(modalElementauto);
+  // Initialize Bootstrap Modal properly
+  let modal = new bootstrap.Modal(modalContainer);
   modal.show();
-  fetchLists();
 
-  // Attach event listeners directly after injecting HTML
-  const titleInput = document.getElementById("titleInput");
-  const positionSelect = document.getElementById("positionSelect1");
-  const listSelect = document.getElementById("listSelect");
-  const boardSelect = document.getElementById("boardSelect");
-  const saveButton = document.getElementById("saveButton");
+  // Attach event listeners
+  const titleInput = modalContainer.querySelector("#titleInput");
+  const positionSelect = modalContainer.querySelector("#positionSelect1");
+  const listSelect = modalContainer.querySelector("#listSelect");
+  const boardSelect = modalContainer.querySelector("#boardSelect");
+  const saveButton = modalContainer.querySelector("#saveButton");
+  const addActionButton = modalContainer.querySelector("#addActionButton");
 
   function checkInputs() {
-   
-    if (
+    // Check if all inputs have non-empty values
+    const isValid =
       titleInput.value.trim() !== "" &&
       positionSelect.value !== "" &&
       listSelect.value !== "" &&
-      boardSelect.value !== ""
-    ) {
-      saveButton.disabled = false;
-    } else {
-      saveButton.disabled = true;
-    }
+      boardSelect.value !== "";
+
+    saveButton.disabled = !isValid;
   }
 
-  // Attach event listeners
+  // Attach event listeners to inputs
   titleInput.addEventListener("input", checkInputs);
   positionSelect.addEventListener("change", checkInputs);
   listSelect.addEventListener("change", checkInputs);
   boardSelect.addEventListener("change", checkInputs);
 
+  // Add event listener for "Save" button
+  saveButton.addEventListener("click", () =>
+    addcopyautomationButton(ticketId, ticket_status)
+  );
+
   // Initial check (in case inputs are cached)
   checkInputs();
+
+  // Fetch lists for dynamic list options
+  fetchLists();
+  console.log("Fetching lists...");
 }
 
 async function addcopyautomationButton(ticketId, ticket_status) {
-  const buttonTitle = document.getElementById("titleInput").value; // Get the value of the input field
   const listSelect = document.getElementById("listSelect").value;
   const buttonAction = `copycardAutomation('${ticketId}', '${ticket_status}', '${listSelect}')`;
 
-  console.log(ticketId + ticket_status);
-
-  try {
-    const response = await fetch(`${API_BASE_URL}/automation-data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        ticketId,
-        buttonTitle, // Now passing the value of the input field
-        buttonAction
-      })
-    });
-    if (response.ok) {
-      console.log("copy card automation button added successfully");
-      location.reload();
-    }
-  } catch (error) {
-    console.log("error", error);
+  const titleInput = document.getElementById("titleInput").value.trim();
+  if (!titleInput) {
+    console.error("Button title cannot be empty.");
+    return;
   }
+
+  await sendAutomationData(ticketId, titleInput, buttonAction);
 }
-
-async function copycardAutomation(ticketId, currentTicketStatus, ticketStatus) {
-  // only pass the new status
-  const payload = { ticketStatus };
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/copy-row-automation/${ticketId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      }
-    );
-
-    if (response.ok) {
-      console.log("Ticket copied");
-      location.reload();
-    } else {
-      console.log("Something went wrong");
-    }
-  } catch (error) {
-    messageElement.textContent = "Error connecting to the server.";
-    messageElement.className = "message error";
-    console.error("Error:", error);
-  }
-}
-
-  // function to fetch list 
-  async function fetchLists() {
-    try {
-      const response = await fetch(`${API_BASE_URL}/getboards`); 
-      const lists = await response.json();
-
-      const select = document.getElementById("listSelect");
-      select.innerHTML = '<option value="">Select List</option>'; 
-
-      lists.forEach(list => {
-        const option = document.createElement("option");
-        option.value = list.board_id;  
-        option.textContent = list.board_title; 
-        select.appendChild(option);
-      });
-    } catch (error) {
-      console.error("Error fetching lists:", error);
-    }
-  }
- 
-
-  
- 
-
-

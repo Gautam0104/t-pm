@@ -1,0 +1,91 @@
+async function moveCardAutomation(ticketId, currentTicketStatus, ticketStatus) {
+  const payload = { ticketId, ticketStatus };
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/update-ticket-status-automation`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (response.ok) {
+      console.log("Ticket Updated");
+      location.reload();
+    } else {
+      console.error("Failed to update ticket");
+    }
+  } catch (error) {
+    console.error("Error connecting to the server:", error);
+  }
+}
+
+async function copycardAutomation(ticketId, currentTicketStatus, ticketStatus) {
+  // only pass the new status
+  const payload = { ticketStatus };
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/copy-row-automation/${ticketId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (response.ok) {
+      console.log("Ticket copied");
+      location.reload();
+    } else {
+      console.log("Something went wrong");
+    }
+  } catch (error) {
+    messageElement.textContent = "Error connecting to the server.";
+    messageElement.className = "message error";
+    console.error("Error:", error);
+  }
+}
+
+function markduedate(ticket_id, duedate) {
+  const ticket_eta = duedate;
+  const messageBox = document.getElementById("message");
+
+  if (!ticket_id || !ticket_eta) {
+    messageBox.textContent = "Please fill in both fields.";
+    messageBox.style.color = "red";
+    return;
+  }
+
+  fetch(`${API_BASE_URL}/automation-ticket-eta`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ticket_id, ticket_eta })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        messageBox.textContent = "Error: " + data.error;
+        messageBox.style.color = "red";
+      } else {
+        Swal.fire({
+          title: "Due date marked",
+          text: "card due date mark successfully",
+          icon: "success",
+          confirmButtonText: "Ok!"
+        }).then(function() {
+          location.reload();
+        });
+      }
+    })
+    .catch(error => {
+      messageBox.textContent = "Failed to connect to API.";
+      messageBox.style.color = "red";
+      console.error("Request Error:", error);
+    });
+}

@@ -17,7 +17,7 @@ function retrieveAutomation(ticketId) {
           automationButtonArea.style.display = "block";
         }
         const automationButtonAreaContent = `<li class="nav-item dropdown">
-          <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" onclick="${item.button_action}">
+          <button class="nav-link  d-flex align-items-center border-0  w-100" id="automationButton" onclick="${item.button_action}">
                  <i class="fas fa-arrow-right me-2"></i> ${item.button_title}
              </button>
           </li>`;
