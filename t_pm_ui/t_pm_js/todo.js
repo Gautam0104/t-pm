@@ -1,8 +1,11 @@
+import { joinCardToModal } from "./automation/joinCard.js";
+
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
   }, 1500);
 };
+
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
@@ -630,7 +633,7 @@ setTimeout(function() {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.title}','${element.ticket_id}')" >
                                                                     <i class="fas fa-tags me-2"></i> Add Labels
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="joinCardToModal('${element.title}','${element.ticket_id}')" >
+                                                                <button class="nav-link   d-flex align-items-center border-0  w-100"   id="joinAutomation">
                                                                     <i class="fas fa-user me-2"></i> Join Card
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="setDuedateCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
@@ -750,6 +753,14 @@ setTimeout(function() {
 
                 offcanvasDiv.innerHTML = offcanvasContent;
 
+                const joinAutomationButton = document.getElementById(
+                  "joinAutomation"
+                );
+
+                console.log("joinAutomation ", joinAutomationButton);
+                joinAutomationButton.addEventListener("click", () => {
+                  joinCardToModal(element.title, element.ticket_id);
+                });
                 cardjoinVerification(element.ticket_id);
 
                 retrieveAutomation(element.ticket_id);

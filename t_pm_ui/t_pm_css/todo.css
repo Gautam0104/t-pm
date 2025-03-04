@@ -1,0 +1,246 @@
+
+    img[src="https://xx87gmj8-3000.inc1.devtunnels.ms/uploads/null"],
+    img:not([src]) {
+      display: none;
+    }
+  
+
+
+    .layout-menu-fixed .layout-navbar-full .layout-menu,
+    .layout-menu-fixed-offcanvas .layout-navbar-full .layout-menu {
+      top: 56px !important;
+    }
+
+    .layout-page {
+      padding-top: 56px !important;
+    }
+
+    .content-wrapper {
+      padding-bottom: 54px !important;
+    }
+  
+
+    .layout-menu-fixed .layout-navbar-full .layout-menu,
+    .layout-menu-fixed-offcanvas .layout-navbar-full .layout-menu {
+      top: 56px !important;
+    }
+
+    .layout-page {
+      padding-top: 56px !important;
+    }
+
+    .content-wrapper {
+      padding-bottom: 54px !important;
+    }
+  
+
+    .layout-menu-fixed .layout-navbar-full .layout-menu,
+    .layout-menu-fixed-offcanvas .layout-navbar-full .layout-menu {
+      top: 56px !important;
+    }
+
+    .layout-page {
+      padding-top: 56px !important;
+    }
+
+    .content-wrapper {
+      padding-bottom: 54px !important;
+    }
+  
+  
+    img[src="https://xx87gmj8-3000.inc1.devtunnels.ms/uploads/null"],
+    img:not([src]) {
+      display: none;
+    }
+
+    #content-inprogress {
+      opacity: 0;
+
+    }
+
+    #content-inprogress:hover {
+      opacity: 1;
+    }
+  
+  
+    .comment-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 8px;
+      background: #f9f9f9;
+    }
+
+    .editable-area {
+      width: 100%;
+      min-height: 100px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      padding: 4px;
+      border-radius: 4px;
+      background: white;
+      overflow: auto;
+      word-wrap: break-word;
+    }
+
+    .editable-area[placeholder]:empty:before {
+      content: attr(placeholder);
+      color: #aaa;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 4px;
+      justify-content: end;
+    }
+
+    .toolbar-btn {
+      padding: 4px 6px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      background: #e0e0e0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toolbar-btn:hover {
+      background: #d0d0d0;
+    }
+  
+  
+    .color-box {
+      width: 30px;
+      height: 30px;
+      margin: 4px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+    }
+
+
+
+    .color-box:hover {
+      opacity: 0.7;
+    }
+
+    .card-bg-color {
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Horizontal layout when toggled */
+    .horizontal-layout {
+      display: flex;
+      flex-direction: column;
+      width: 30px;
+
+    }
+
+    /* Style to make the nested dropdown work */
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -5px;
+      display: none;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+  
+  
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .content {
+      display: none;
+      text-align: center;
+      padding: 20px;
+
+    }
+
+    .color-option {
+      width: 200px;
+      height: 24px;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+
+
+    .icon-title-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-placeholder {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+    }
+
+    .label-selection {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .label-gap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal.right .modal-dialog {
+      max-width: 400px;
+    }
+
+    .modal.right .modal-content {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  
