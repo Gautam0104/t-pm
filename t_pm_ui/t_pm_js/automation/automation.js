@@ -1,6 +1,5 @@
-import { API_ROUTES } from "../../apiRoutesHeader.js";
 function retrieveAutomation(ticketId) {
-  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
+  fetch(`${API_BASE_URL}/automation-data`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -18,7 +17,7 @@ function retrieveAutomation(ticketId) {
           automationButtonArea.style.display = "block";
         }
         const automationButtonAreaContent = `<li class="nav-item dropdown">
-          <button class="nav-link  d-flex align-items-center border-0  w-100" id="automationButton" onclick="${item.button_action}">
+          <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown" onclick="${item.button_action}">
                  <i class="fas fa-arrow-right me-2"></i> ${item.button_title}
              </button>
           </li>`;
@@ -30,7 +29,7 @@ function retrieveAutomation(ticketId) {
 }
 
 function editAutomation(ticketId) {
-  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}${ticketId}`)
+  fetch(`${API_BASE_URL}/automation-data/${ticketId}`)
     .then(response => {
       const contentType = response.headers.get("Content-Type");
       console.log("Response Headers:", response.headers);
@@ -91,7 +90,7 @@ function editAutomation(ticketId) {
 async function deleteAutomationButton(id) {
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/automation-data/${id}`, {
       method: "DELETE"
     });
 
@@ -106,3 +105,6 @@ async function deleteAutomationButton(id) {
     console.error(error);
   }
 }
+
+
+
