@@ -36,139 +36,84 @@ setTimeout(function() {
         }
         return response.json();
       })
-      .then(data => {
-        data.forEach(element => {
-          const cardItem = document.getElementById("todo-task");
-          const cardItem2 = document.getElementById("inprogress-task");
-          const cardItem3 = document.getElementById("for-approval-task");
-          const cardItem4 = document.getElementById("rejected-task");
-          const cardItem5 = document.getElementById("approved-task");
+      .then(async data => {
+        // Fetch board data first
+        const boardResponse = await fetch(`${API_BASE_URL}/getboards`);
+        if (!boardResponse.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const boardData = await boardResponse.json();
 
-          // Create kanban card dynamically
+        data.forEach(element => {
           const card = document.createElement("div");
           card.className = `kanban-item dragg-from-todo ${element.ticket_id}`;
           card.draggable = true;
           card.id = `${element.ticket_id}`;
 
-          // Add card content
           card.innerHTML = `
-                    
-                    <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
-
-                   <div class="d-flex">
-                   
-                    <div class="me-2" id="mark-card-${element.ticket_id}">
-                    
-                    </div>
-                    <div class="me-2" id="watch-notification-${element.ticket_id}">
-                    
-                    </div>
-                    
-                   </div>
-                    <div class="item-badges">
-                    <div class=" d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
-                    
-                        <div class="badge bg-label-success">${element.badge ||
-                          "UX"}</div>
-                    
-                    </div>
-
-                    <div class="dropdown kanban-tasks-item-dropdown">
-                        
-                        <i class="dropdown-toggle ti ti-dots-vertical" id="kanban-tasks-item-dropdown" 
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="cardDropdown(event)"></i>
-                        <div class="dropdown-menu dropdown-menu-end" 
-                            aria-labelledby="kanban-tasks-item-dropdown">
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Copy task link</a>
-                            <a class="dropdown-item waves-effect" href="javascript:void(0)">Duplicate task</a>
-                            <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)" onclick="deleteCard(event,'${element.ticket_id}')">Delete</a>
-                        </div>
-                    </div>
+            <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
+              <div class="d-flex">
+                <div class="me-2" id="mark-card-${element.ticket_id}"></div>
+                <div class="me-2" id="watch-notification-${element.ticket_id}"></div>
+              </div>
+              <div class="item-badges">
+                <div class="d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
+                <div class="badge bg-label-success">${element.badge ||
+                  "UX"}</div>
+              </div>
+              <div class="dropdown kanban-tasks-item-dropdown">
+                <i class="dropdown-toggle ti ti-dots-vertical" 
+                   id="kanban-tasks-item-dropdown" 
+                   data-bs-toggle="dropdown" 
+                   aria-haspopup="true" 
+                   aria-expanded="false" 
+                   onclick="cardDropdown(event)">
+                </i>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item waves-effect" href="javascript:void(0)">Copy task link</a>
+                  <a class="dropdown-item waves-effect" href="javascript:void(0)">Duplicate task</a>
+                  <a class="dropdown-item delete-task waves-effect" href="javascript:void(0)" 
+                     onclick="deleteCard(event,'${element.ticket_id}')">Delete</a>
                 </div>
-                <img class="img-fluid rounded mb-2" id="card-img" draggable = false src="${API_BASE_URL}/uploads/${element.card_image}">
-                <span class="kanban-text">${element.title}</span>
-                   <div id="checklist-container-${element.ticket_id}"></div>
-      <div class="item-badges mt-2" id="joined-member-${element.ticket_id}">
-                    
-                    
-                        
-                    
-                    </div>
-                <div class="d-flex justify-content-between align-items-center flex-wrap mt-2" >
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center me-2">
-                            <i class="ti ti-paperclip me-1"></i>
-                            <span class="attachments">${element.attachments ||
-                              "0"}</span>
-                        </span>
-                        <span class="d-flex align-items-center ms-2">
-                            <i class="ti ti-message-2 me-1"></i>
-                            <span>${element.comments || "0"}</span>
-                        </span>
-                    </div>
-                    <div class="avatar-group d-flex align-items-center assigned-avatar">
-                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
-                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
-                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
-                                class="rounded-circle pull-up">
-                        </div>
-                        <div class="avatar avatar-xs" data-bs-toggle="tooltip" 
-                            data-bs-placement="top" aria-label="Thunder" data-bs-original-title="Thunder">
-                            <img src="../assets/img/avatars/1.png" alt="Avatar" 
-                                class="rounded-circle pull-up">
-                        </div>
-                    </div>
-                </div>
-                `;
-          // const cardImg = document.getElementById('card-img');
-          // console.log(cardImg);
+              </div>
+            </div>
+            <img class="img-fluid rounded mb-2" id="card-img" draggable=false 
+                 src="${API_BASE_URL}/uploads/${element.card_image}">
+            <span class="kanban-text">${element.title}</span>
+            <div id="checklist-container-${element.ticket_id}"></div>
+            <div class="item-badges mt-2" id="joined-member-${element.ticket_id}"></div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap mt-2">
+              <div class="d-flex">
+                <span class="d-flex align-items-center me-2">
+                  <i class="ti ti-paperclip me-1"></i>
+                  <span class="attachments">${element.attachments || "0"}</span>
+                </span>
+                <span class="d-flex align-items-center ms-2">
+                  <i class="ti ti-message-2 me-1"></i>
+                  <span>${element.comments || "0"}</span>
+                </span>
+              </div>
+            </div>
+          `;
 
-          // if (!cardImg.src) {
-          //     cardImg.style.display = "none";
-          // };
-
-          // Append card to the container
-          fetch(`${API_BASE_URL}/getboards`)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok ");
-              }
-              return response.json();
-            })
-            .then(data => {
-              data.map(item => {
-                cardContent = document.getElementById(
-                  `${item.board_title}-task`
-                );
-                if (element.ticket_status === item.board_title) {
-                  cardContent.appendChild(card);
-                }
-              });
-            });
-          switch (element.ticket_status) {
-            case "todo":
-              cardItem.appendChild(card);
-              break;
-            case "inprogress":
-              cardItem2.appendChild(card);
-              break;
-            case "for-approval":
-              cardItem3.appendChild(card);
-              break;
-            case "approved":
-              cardItem5.appendChild(card);
-              break;
-            case "rejected":
-              cardItem4.appendChild(card);
-              break;
-            default:
-              cardItem.appendChild(card);
+          // Assign card to the correct board
+          const board = boardData.find(
+            b => b.board_title === element.ticket_status
+          );
+          if (board) {
+            const boardContainer = document.getElementById(
+              `${board.board_title}-task`
+            );
+            if (boardContainer) {
+              boardContainer.appendChild(card);
+            }
           }
         });
 
-        return document.querySelectorAll(".dragg-from-todo"); // Return the elements
+        return document.querySelectorAll(".dragg-from-todo");
       });
   }
+
   const cardImg = document.getElementById("card-img");
   console.log(cardImg);
 

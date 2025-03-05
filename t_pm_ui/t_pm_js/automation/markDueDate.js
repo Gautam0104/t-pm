@@ -53,8 +53,6 @@ export function markDueDateModal(ticketTitle, ticketId) {
 
   // Initialize Bootstrap Modal properly
   let modal = new bootstrap.Modal(modalContainer);
-  // Initialize Bootstrap Modal properly
-  let modal = new bootstrap.Modal(modalContainer);
   modal.show();
 
   // Attach event listeners
