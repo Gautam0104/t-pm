@@ -106,23 +106,3 @@ async function addDueDateAutomationButton(ticketId, ticket_status) {
 
   await sendAutomationData(ticketId, buttonTitle, buttonAction);
 }
-
-// Fetch boards list for the select input
-async function fetchLists() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/getboards`);
-    const lists = await response.json();
-
-    const select = document.getElementById("listSelect");
-    select.innerHTML = '<option value="">Select List</option>';
-
-    lists.forEach(list => {
-      const option = document.createElement("option");
-      option.value = list.board_id;
-      option.textContent = list.board_title;
-      select.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Error fetching lists:", error);
-  }
-}
