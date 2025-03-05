@@ -1,7 +1,12 @@
 import { joinCardToModal } from "./automation/joinCard.js";
 import { moveCardToModal } from "./automation/moveCard.js";
 import { copyCardToModal } from "./automation/copyCard.js";
-//import { markDueDateModal } from "./automation/markDueDate.js";
+import { removeCardToModal } from "./automation/removeAutomationFeature.js";
+import { markDueDateModal } from "./automation/markDueDate.js";
+import { setDuedateCardToModal } from "./automation/setDueDate.js";
+
+console.log(setDuedateCardToModal);
+
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
@@ -286,12 +291,12 @@ setTimeout(function() {
                                                     <div class="comment-box">
                                                         <div class="editable-area" id="description" contenteditable="true" placeholder="Write a Content...">${element.description}</div>
                                                         <div class="toolbar">
-                                                            <button type="button" class="toolbar-btn bold" onclick="applyStyle('bold')">B</button>
-                                                            <button type="button" class="toolbar-btn italic" onclick="applyStyle('italic')">I</button>
-                                                            <button type="button" class="toolbar-btn underline" onclick="applyStyle('underline')">U</button>
-                                                            <button type="button" class="toolbar-btn bullet" onclick="applyStyle('insertUnorderedList')">•</button>
-                                                            <button type="button" class="toolbar-btn link" onclick="addLink()">🔗</button>
-                                                            <button type="button" class="toolbar-btn image" onclick="addImage()">🖼️</button>
+                                                            <button type="button" class="toolbar-btn bold"  id="styleBold">B</button>
+                                                            <button type="button" class="toolbar-btn italic"  id="styleItalic">I</button>
+                                                            <button type="button" class="toolbar-btn underline"  id="styleUnderline">U</button>
+                                                            <button type="button" class="toolbar-btn bullet"  id="styleDote">•</button>
+                                                            <button type="button" class="toolbar-btn link"  id="addLink">🔗</button>
+                                                            <button type="button" class="toolbar-btn image"  id="addImage">🖼️</button>
                                                         </div>
                                                     </div>
                                                   </div>
@@ -577,13 +582,13 @@ setTimeout(function() {
                                                                 <button class="nav-link   d-flex align-items-center border-0  w-100"   id="joinAutomation">
                                                                     <i class="fas fa-user me-2"></i> Join Card
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#" onclick="setDuedateCardToModal('${element.title}','${element.ticket_id}','${element.ticket_status}')" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="setduedateAutomation" >
                                                                     <i class="fas fa-clock me-2"></i> Set due date or start date
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="markduedateAutomation" >
                                                                     <i class="fas fa-clock me-2"></i> Mark due date
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="removeCardToModal('${element.title}','${element.ticket_id}')" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="removeCardFeature" >
                                                                     <i class="fas fa-minus me-2"></i> Remove 
                                                                 </button>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="" onclick="" >
@@ -610,22 +615,22 @@ setTimeout(function() {
                                                                 
                                                             </li>
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="markCard('${element.ticket_id}')">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="markCardFeature" >
                                                                     <i class="fas fa-check me-2"></i> Mark Complete
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" onclick="watchNotification('${element.ticket_id}')">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="watchCardFeature">
                                                                     <i class="fas fa-eye me-2"></i> Watch Notification
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal" onclick="openCopyCardModal('${element.title}','${element.ticket_id}')">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal" id="copyCardFeature" >
                                                                     <i class="fas fa-copy me-2"></i> Copy Card
                                                                 </button>
                                                             </li>
                                                              <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#movecardModal" onclick="openMoveCardModal('${element.title}','${element.ticket_id}')">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#movecardModal" id="moveCardFeature">
                                                                     <i class="fas fa-arrow-right me-2"></i> Move Card
                                                                 </button>
                                                             </li>
@@ -694,6 +699,67 @@ setTimeout(function() {
 
                 offcanvasDiv.innerHTML = offcanvasContent;
 
+                //  all event listner of action tab
+
+                document
+                  .getElementById("styleBold")
+                  .addEventListener("click", function() {
+                    applyStyle("bold");
+                  });
+                document
+                  .getElementById("styleItalic")
+                  .addEventListener("click", function() {
+                    applyStyle("italic");
+                  });
+                document
+                  .getElementById("styleUnderline")
+                  .addEventListener("click", function() {
+                    applyStyle("underline");
+                  });
+                document
+                  .getElementById("styleDot")
+                  .addEventListener("click", function() {
+                    applyStyle("insertUnorderedList");
+                  });
+                document
+                  .getElementById("addLink")
+                  .addEventListener("click", function() {
+                    addLink();
+                  });
+                document
+                  .getElementById("addImage")
+                  .addEventListener("click", function() {
+                    addImage();
+                  });
+                document
+                  .getElementById("markCardFeature")
+                  .addEventListener("click", function() {
+                    markCard(element.ticket_id);
+                  });
+                document
+                  .getElementById("watchCardFeature")
+                  .addEventListener("click", function() {
+                    watchNotification(element.ticket_id);
+                  });
+                document
+                  .getElementById("copyCardFeature")
+                  .addEventListener("click", function() {
+                    copyCardToModal(
+                      element.title,
+                      element.ticket_id,
+                      element.ticket_status
+                    );
+                  });
+                document
+                  .getElementById("moveCardFeature")
+                  .addEventListener("click", function() {
+                    moveCardToModal(
+                      element.title,
+                      element.ticket_id,
+                      element.ticket_status
+                    );
+                  });
+
                 const joinAutomationButton = document.getElementById(
                   "joinAutomation"
                 );
@@ -707,9 +773,22 @@ setTimeout(function() {
                 const markduedateAutomationButton = document.getElementById(
                   "markduedateAutomation"
                 );
+                const setduedateAutomationButton = document.getElementById(
+                  "setduedateAutomation"
+                );
+                const removeFeatureAutomationButton = document.getElementById(
+                  "removeCardFeature"
+                );
 
                 markduedateAutomationButton.addEventListener("click", () => {
-                  markDueDateModal(element.title, element.ticket_id);
+                  setDuedateCardToModal(element.title, element.ticket_id);
+                });
+                setduedateAutomationButton.addEventListener("click", () => {
+                  markDueDateModal(
+                    element.title,
+                    element.ticket_id,
+                    element.ticket_status
+                  );
                 });
                 copyAutomationButton.addEventListener("click", () => {
                   copyCardToModal(
@@ -726,12 +805,20 @@ setTimeout(function() {
                     element.ticket_status
                   );
                 });
+                removeFeatureAutomationButton.addEventListener("click", () => {
+                  removeCardToModal(
+                    element.title,
+                    element.ticket_id,
+                    element.ticket_status
+                  );
+                });
                 joinAutomationButton.addEventListener("click", () => {
                   joinCardToModal(element.title, element.ticket_id);
                 });
                 cardjoinVerification(element.ticket_id);
 
                 retrieveAutomation(element.ticket_id);
+
                 // card image zone in modal
                 const imageArea = document.getElementById(
                   "activity-card-image-area"
@@ -1493,62 +1580,6 @@ setTimeout(function() {
   function changecardGB(element) {
     element.style.backgroundColor = "red";
   }
-
-  let isAscending = true; // Track sorting order
-
-  function toggleTicketSortByName(elementId) {
-    let todoTask = document.getElementById(elementId);
-    let kanbanItems = Array.from(
-      todoTask.getElementsByClassName("kanban-item")
-    );
-
-    kanbanItems.sort((a, b) => {
-      let nameA = a
-        .querySelector(".kanban-text")
-        .innerText.trim()
-        .toLowerCase();
-      let nameB = b
-        .querySelector(".kanban-text")
-        .innerText.trim()
-        .toLowerCase();
-
-      return isAscending
-        ? nameA.localeCompare(nameB)
-        : nameB.localeCompare(nameA);
-    });
-
-    kanbanItems.forEach(item => todoTask.appendChild(item));
-
-    isAscending = !isAscending; // Toggle sorting order for next call
-  }
-
-  let isDateAscending = true; // Track sorting order for date
-
-  function toggleTicketSortByDate(elementId) {
-    let todoTask = document.getElementById(elementId);
-    let kanbanItems = Array.from(
-      todoTask.getElementsByClassName("kanban-item")
-    );
-
-    kanbanItems.sort((a, b) => {
-      let nameA = a
-        .querySelector(".kanban-text")
-        .innerText.trim()
-        .toLowerCase();
-      let nameB = b
-        .querySelector(".kanban-text")
-        .innerText.trim()
-        .toLowerCase();
-
-      return isAscending
-        ? nameA.localeCompare(nameB)
-        : nameB.localeCompare(nameA);
-    });
-
-    kanbanItems.forEach(item => todoTask.appendChild(item));
-
-    isAscending = !isAscending; // Toggle sorting order for next call
-  }
 }, 1000);
 
 //  Move all card in this list
@@ -1593,26 +1624,6 @@ async function moveAllTask(from, currentStatus) {
     messageElement.textContent = "Error connecting to the server.";
     messageElement.className = "message error";
     console.error("Error:", error);
-  }
-}
-function watchedCard(watched) {
-  let checkedCard = document.getElementById(watched);
-  let watchedAnchor = document.getElementById(`${watched}-anchor`);
-  let isWatched = localStorage.getItem(`watched-${watched}`);
-
-  if (isWatched) {
-    checkedCard.innerHTML = "";
-    if (watchedAnchor)
-      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(
-        /<i class=\"ti ti-check ti-xs me-1\"><\/i>/g,
-        ""
-      );
-    localStorage.removeItem(`watched-${watched}`);
-  } else {
-    checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
-    if (watchedAnchor)
-      watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
-    localStorage.setItem(`watched-${watched}`, true);
   }
 }
 

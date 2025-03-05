@@ -189,3 +189,64 @@ const deleteBoard = async boardId => {
     console.error(error);
   }
 };
+
+function toggleTicketSortByName(elementId) {
+  let todoTask = document.getElementById(elementId);
+  let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
+
+  kanbanItems.sort((a, b) => {
+    let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+    let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
+
+    return isAscending
+      ? nameA.localeCompare(nameB)
+      : nameB.localeCompare(nameA);
+  });
+
+  kanbanItems.forEach(item => todoTask.appendChild(item));
+
+  isAscending = !isAscending; // Toggle sorting order for next call
+}
+
+let isAscending = true; // Track sorting order
+
+let isDateAscending = true; // Track sorting order for date
+
+function toggleTicketSortByDate(elementId) {
+  let todoTask = document.getElementById(elementId);
+  let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
+
+  kanbanItems.sort((a, b) => {
+    let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+    let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
+
+    return isAscending
+      ? nameA.localeCompare(nameB)
+      : nameB.localeCompare(nameA);
+  });
+
+  kanbanItems.forEach(item => todoTask.appendChild(item));
+
+  isAscending = !isAscending; // Toggle sorting order for next call
+}
+
+function watchedCard(watched) {
+  let checkedCard = document.getElementById(watched);
+  let watchedAnchor = document.getElementById(`${watched}-anchor`);
+  let isWatched = localStorage.getItem(`watched-${watched}`);
+
+  if (isWatched) {
+    checkedCard.innerHTML = "";
+    if (watchedAnchor)
+      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(
+        /<i class=\"ti ti-check ti-xs me-1\"><\/i>/g,
+        ""
+      );
+    localStorage.removeItem(`watched-${watched}`);
+  } else {
+    checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
+    if (watchedAnchor)
+      watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
+    localStorage.setItem(`watched-${watched}`, true);
+  }
+}
