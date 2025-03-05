@@ -716,19 +716,22 @@ setTimeout(function() {
                   .addEventListener("click", function() {
                     applyStyle("underline");
                   });
-                document
-                  .getElementById("styleDot")
-                  .addEventListener("click", function() {
-                    applyStyle("insertUnorderedList");
-                  });
+                // document
+                //   .getElementById("styleDot")
+                //   .addEventListener("click", function() {
+                //     applyStyle("insertUnorderedList");
+                //   });
                 document
                   .getElementById("addLink")
                   .addEventListener("click", function() {
                     addLink();
+                    console.log("hello");
                   });
                 document
                   .getElementById("addImage")
                   .addEventListener("click", function() {
+                    console.log("hello");
+
                     addImage();
                   });
                 document
