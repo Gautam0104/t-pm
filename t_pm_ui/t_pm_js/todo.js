@@ -780,10 +780,10 @@ setTimeout(function() {
                   "removeCardFeature"
                 );
 
-                markduedateAutomationButton.addEventListener("click", () => {
+                setduedateAutomationButton.addEventListener("click", () => {
                   setDuedateCardToModal(element.title, element.ticket_id);
                 });
-                setduedateAutomationButton.addEventListener("click", () => {
+                markduedateAutomationButton.addEventListener("click", () => {
                   markDueDateModal(
                     element.title,
                     element.ticket_id,
