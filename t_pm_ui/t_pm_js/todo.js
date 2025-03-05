@@ -120,12 +120,6 @@ setTimeout(function() {
   // Call the function and use the returned elements
   fetchDataAndCreateElements()
     .then(trydraggElements => {
-      const todoTask = document.getElementById("todo-task");
-      const inprogressTask = document.getElementById("inprogress-task");
-      const forApprovalTask = document.getElementById("for-approval-task");
-      const rejectedTask = document.getElementById("rejected-task");
-      const approvedTask = document.getElementById("approved-task");
-
       console.log("trydragg elements outside fetch:", trydraggElements);
 
       // Perform actions on the elements here
