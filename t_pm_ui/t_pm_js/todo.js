@@ -725,13 +725,10 @@ setTimeout(function() {
                   .getElementById("addLink")
                   .addEventListener("click", function() {
                     addLink();
-                    console.log("hello");
                   });
                 document
                   .getElementById("addImage")
                   .addEventListener("click", function() {
-                    console.log("hello");
-
                     addImage();
                   });
                 document
