@@ -1,14 +1,15 @@
 export const API_ROUTES = {
     // Authentication
-    AUTH_REGISTER: "/register",
-    AUTH_LOGIN: "/login",
-    AUTH_LOGOUT: "/logout",
+    AUTH_REGISTER: "auth/register",
+    AUTH_LOGIN: "auth/login",
+    AUTH_LOGOUT: "auth/logout",
 
     // Automation
     AUTOMATION_DATA: "/automation-data",
     AUTOMATION_TICKET_STATUS: "/update-ticket-status-automation",
     COPY_ROW_AUTOMATION: "/copy-row-automation", 
     AUTOMATION_REMOVE_CHECKLIST: "/remove-checklist",
+    AUTOMATION_TICKET_ETA: "/automation-ticket-eta",
 
     // Join Cards
     GET_JOIN_CARDS: "/get-join-cards",
@@ -40,7 +41,7 @@ export const API_ROUTES = {
     GET_SINGLE_PROJECT: "/project",
 
     // User Management
-    GET_USERNAME: "/username/:username",
+    GET_USERNAME: "/username",
     CREATE_TICKET_FROM_CALENDAR: "/calendar-ticket",
     CALENDAR_UPDATE: "/calendarUpdate",
     GET_USER_HISTORY: "/user-history",

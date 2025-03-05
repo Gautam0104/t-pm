@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../../apiRoutesHeader.js";
 async function moveCardAutomation(ticketId, currentTicketStatus, ticketStatus) {
   const payload = { ticketId, ticketStatus };
 
@@ -29,7 +30,7 @@ async function copycardAutomation(ticketId, currentTicketStatus, ticketStatus) {
   const payload = { ticketStatus };
   try {
     const response = await fetch(
-      `${API_BASE_URL}/copy-row-automation/${ticketId}`,
+      `${API_BASE_URL}${API_ROUTES.COPY_ROW_AUTOMATION}/${ticketId}`,
       {
         method: "POST",
         headers: {
@@ -62,7 +63,7 @@ function markduedate(ticket_id, duedate) {
     return;
   }
 
-  fetch(`${API_BASE_URL}/automation-ticket-eta`, {
+  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_TICKET_ETA}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ticket_id, ticket_eta })

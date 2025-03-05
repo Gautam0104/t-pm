@@ -1,6 +1,7 @@
+import { API_ROUTES } from "../../apiRoutesHeader.js";
 export async function fetchLists() {
   try {
-    const response = await fetch(`${API_BASE_URL}/getboards`);
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
 
     // Debugging: Check response status
     if (!response.ok) {

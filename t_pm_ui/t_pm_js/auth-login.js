@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
@@ -10,7 +11,7 @@ document.getElementById("loginForm").addEventListener("submit", async event => {
   const messageElement = document.getElementById("loginMessage");
 
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/${API_ROUTES.AUTH_LOGIN}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -32,7 +33,7 @@ document.getElementById("loginForm").addEventListener("submit", async event => {
         // Redirect to dashboard.html
         window.location.href = "dashboard.html";
       });
-      fetch(`${API_BASE_URL}/username/${username}`)
+      fetch(`${API_BASE_URL}/username/${API_ROUTES.GET_USERNAME}`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok " + response);

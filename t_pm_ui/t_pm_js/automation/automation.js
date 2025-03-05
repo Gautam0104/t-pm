@@ -1,5 +1,6 @@
+import { API_ROUTES } from "../../apiRoutesHeader.js";
 function retrieveAutomation(ticketId) {
-  fetch(`${API_BASE_URL}/automation-data`)
+  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -29,7 +30,7 @@ function retrieveAutomation(ticketId) {
 }
 
 function editAutomation(ticketId) {
-  fetch(`${API_BASE_URL}/automation-data/${ticketId}`)
+  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}${ticketId}`)
     .then(response => {
       const contentType = response.headers.get("Content-Type");
       console.log("Response Headers:", response.headers);
@@ -90,7 +91,7 @@ function editAutomation(ticketId) {
 async function deleteAutomationButton(id) {
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}/automation-data/${id}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}/${id}`, {
       method: "DELETE"
     });
 

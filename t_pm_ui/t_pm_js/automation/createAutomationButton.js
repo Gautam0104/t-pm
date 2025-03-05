@@ -1,11 +1,14 @@
+
+import { API_ROUTES } from "../../apiRoutesHeader.js";
+
 export async function sendAutomationData(ticketId, buttonTitle, buttonAction) {
   try {
-    const response = await fetch(`${API_BASE_URL}/automation-data`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ticketId, buttonTitle, buttonAction })
+      body: JSON.stringify({ ticketId, buttonTitle, buttonAction }),
     });
 
     if (response.ok) {
