@@ -1,10 +1,9 @@
-import { sendAutomationData } from "./createAutomationButton";
+import { sendAutomationData } from "./createAutomationButton.js";
 
 export function markDueDateModal(ticketTitle, ticketId) {
   console.log("Ticket Title: " + ticketTitle + ", Ticket ID: " + ticketId);
 
   let modalContainer = document.getElementById("markDueDateModal");
-
   if (!modalContainer) {
     console.error("Modal container 'markDueDateModal' not found.");
     return;
@@ -20,8 +19,8 @@ export function markDueDateModal(ticketTitle, ticketId) {
         </div>
         <div class="modal-body">
           <div class="d-flex align-items-center mb-2">
-            <label class="form-label">Icon</label>
-            <label class="form-label ms-4">Title</label>
+            <label class="form-label me-3">Icon</label>
+            <label class="form-label">Title</label>
           </div>
           <div class="d-flex align-items-center">
             <div class="icon-placeholder me-2 d-flex align-items-center justify-content-center border rounded p-2 bg-light">
@@ -51,45 +50,37 @@ export function markDueDateModal(ticketTitle, ticketId) {
     </div>
   `;
 
-  // Initialize Bootstrap Modal properly
   let modal = new bootstrap.Modal(modalContainer);
   modal.show();
 
-  // Attach event listeners
   const titleInput = modalContainer.querySelector("#titleInput");
   const duedate = modalContainer.querySelector("#duedate");
   const saveButton = modalContainer.querySelector("#saveButton");
-  const addActionButton = modalContainer.querySelector("#addActionButton");
 
   function checkInputs() {
-    saveButton.disabled = titleInput.value.trim() === "";
-    saveButton.disabled = titleInput.value.trim() === "";
+    saveButton.disabled =
+      titleInput.value.trim() === "" || duedate.value === "";
   }
 
-  // Attach event listeners to inputs
   titleInput.addEventListener("input", checkInputs);
   duedate.addEventListener("change", checkInputs);
 
-  // Add event listener for "Save" button
   saveButton.addEventListener("click", () =>
     markDueDateAutomationButton(ticketId)
   );
 
-  // Initial check (in case inputs are cached)
   checkInputs();
-
-  console.log("Mark Due Date Modal Initialized");
 }
 
-// Function to send automation data
 async function markDueDateAutomationButton(ticketId) {
   const duedateStatus = document.getElementById("duedate").value;
-  const buttonAction = `markduedate('${ticketId}','${duedateStatus}')`;
   const titleInput = document.getElementById("titleInput").value.trim();
+
   if (!titleInput) {
     console.error("Button title cannot be empty.");
     return;
   }
 
+  const buttonAction = `markduedate('${ticketId}', '${duedateStatus}')`;
   await sendAutomationData(ticketId, titleInput, buttonAction);
 }

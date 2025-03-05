@@ -90,3 +90,54 @@ function markduedate(ticket_id, duedate) {
       console.error("Request Error:", error);
     });
 }
+
+function removeDuedate(ticket_id) {
+  const ticket_eta = "";
+  const messageBox = document.getElementById("message");
+
+  if (!ticket_id) {
+    messageBox.textContent = "Please fill in both fields.";
+    messageBox.style.color = "red";
+    return;
+  }
+
+  fetch(`${API_BASE_URL}/automation-ticket-eta`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ticket_id, ticket_eta })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        messageBox.textContent = "Error: " + data.error;
+        messageBox.style.color = "red";
+      } else {
+        messageBox.textContent = "Success: " + data.message;
+        messageBox.style.color = "green";
+        window.location.reload();
+      }
+    })
+    .catch(error => {
+      messageBox.textContent = "Failed to connect to API.";
+      messageBox.style.color = "red";
+      console.error("Request Error:", error);
+    });
+}
+async function removeAllChecklists(id) {
+  try {
+    // Send DELETE request to the API
+    const response = await fetch(`${API_BASE_URL}/remove-checklist/${id}`, {
+      method: "DELETE"
+    });
+
+    if (response.ok) {
+      console.log("You successfully removed all checklist of given id's card");
+      window.location.reload(); // Refresh the page after successful delete
+    } else {
+      console.log("Oops, something went wrong");
+      window.location.reload();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
