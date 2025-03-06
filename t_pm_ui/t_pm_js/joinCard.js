@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader";
 function openjoinCardModal(ticketTitle, ticketId) {
   const joinCardForm = document.getElementById("join-card-form");
   const joinCardContent = ` <div class="mb-4">
@@ -15,7 +16,7 @@ function openjoinCardModal(ticketTitle, ticketId) {
 }
 
 function handleJoinCard() {
-  fetch(`${API_BASE_URL}/get-join-cards`)
+  fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARDS}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -63,7 +64,7 @@ setTimeout(function() {
 async function joinCard(ticket_id) {
   const joined_username = localStorage.getItem("logged-username");
   try {
-    const response = await fetch(`${API_BASE_URL}/add-join-card`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_JOIN_CARD}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -213,3 +214,7 @@ function joinNewUser(event, tickId) {
               </div>`;
   joinuserModal.innerHTML = modalBody;
 }
+window.openjoinCardModal = openjoinCardModal;
+window.joinCard =joinCard;
+window.joineUserDetail = joineUserDetail;
+window.joinNewUser = joinNewUser;

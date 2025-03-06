@@ -33,7 +33,7 @@ document.getElementById("loginForm").addEventListener("submit", async event => {
         // Redirect to dashboard.html
         window.location.href = "dashboard.html";
       });
-      fetch(`${API_BASE_URL}/username/${API_ROUTES.GET_USERNAME}`)
+      fetch(`${API_BASE_URL}/${API_ROUTES.GET_USERNAME}`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok " + response);

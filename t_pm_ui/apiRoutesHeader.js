@@ -12,7 +12,7 @@ export const API_ROUTES = {
     AUTOMATION_TICKET_ETA: "/automation-ticket-eta",
 
     // Join Cards
-    GET_JOIN_CARDS: "/get-join-cards",
+    GET_JOIN_CARDS: "/get-join-card",
     ADD_JOIN_CARD: "/add-join-card",
     DELETE_JOIN_CARD: "/delete-join-card",
 
@@ -23,6 +23,7 @@ export const API_ROUTES = {
     UPDATE_BOARD: "/updateboard",
     COPY_BOARD: "/copy-board",
 
+
     // Rows and Checklists
     COPY_ROW: "/copy-row",
     GET_CHECKLIST: "/get-checklist",
@@ -31,7 +32,7 @@ export const API_ROUTES = {
     // Kanban
     GET_KANBAN_ORDER: "/get-kanban-order",
     SAVE_KANBAN_ORDER: "/save-kanban-order",
-    UPDATE_CURRENT_STATUS: "/updateticketstatus/:currentStatus/",
+    UPDATE_CURRENT_STATUS: "/updateticketstatus",
 
     // Projects
     CREATE_PROJECT: "/project",
@@ -46,6 +47,7 @@ export const API_ROUTES = {
     CALENDAR_UPDATE: "/calendarUpdate",
     GET_USER_HISTORY: "/user-history",
     GET_USER: "/user",
+    GET_USERS: "/users",
     UPDATE_USER: "/updateUser",
     CLEAR_ROLE_HISTORY: "/clearroleHistory",
     DELETE_ROLE: "/delete-role",
@@ -59,11 +61,13 @@ export const API_ROUTES = {
     GET_ROLES: "/GetRoles",
     CLEAR_TICKET_HISTORY: "/clearHistory",
 
+
     // Tickets
     CREATE_TICKET_CALENDAR: "/CalendarCreateTicket",
-    CREATE_TICKET: "/ticket",
+    TICKET: "/ticket",
     UPDATE_TICKET_STATUS: "/updateTicketStatus",
     GET_TICKET_BY_ID: "/ticketbyid",
-    DELETE_TICKETS: "/deletetickets",
+    DELETE_TICKET: "/deleteticket",
     GET_TICKETS: "/tickets",
+    UPDATE_TICKET: "/updateticket",
 };

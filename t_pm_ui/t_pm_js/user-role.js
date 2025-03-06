@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 const colorBoxes = document.querySelectorAll(".color-box");
 const activeMenu = document.querySelector(".menu-link-active");
@@ -49,13 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchRoles() {
     try {
       // Replace `/api/roles` with your actual API endpoint
-      const response = await fetch(`${API_BASE_URL}/GetRoles`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`);
       const roles = await response.json(); // Assuming the API returns a JSON array
 
       // Get the container element
 
       if (!rolesContainer) {
-        console.error("rolesContainer element not found"); // Debugging log
         return;
       }
 
@@ -129,8 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-const updateRole = (role_id, role_name) => {
-  console.log('Updating role:', role_id, role_name);
+export const updateRole = (role_id, role_name) => {
   const updateroleForm = document.getElementById("update-role-form");
   const updateRoleContent = ` 
                     <form id="updateRoleForm" class="row g-6" onsubmit="return false">
@@ -154,7 +153,7 @@ const updateRole = (role_id, role_name) => {
 
     try {
 
-      const response = await fetch(`${API_BASE_URL}/updaterole/${role_id}`, {
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_ROLES}/${role_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -186,7 +185,7 @@ const updateRole = (role_id, role_name) => {
 }
 
 
-fetch(`${API_BASE_URL}/GetRoles`)
+fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok ");
@@ -213,9 +212,6 @@ fetch(`${API_BASE_URL}/GetRoles`)
 
       // Combine date and time
       const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
-
-      console.log("Formatted Date and Time:", formattedDateTime);
-
       const isoDateupdate = `${item.updated_at}`;
 
       // Convert to a Date object
@@ -273,13 +269,13 @@ fetch(`${API_BASE_URL}/GetRoles`)
   })
 
 
-const fetchrolehistory = async (roleId, roleName) => {
+export const fetchrolehistory = async (roleId, roleName) => {
   // Clear the previous content
   const historytablebody = document.getElementById("role-history-data");
   historytablebody.innerHTML = '';  // Clear any existing rows
 
   // Fetch role history based on roleId
-  await fetch(`${API_BASE_URL}/role-history/${roleId}`)
+  await fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLE_HISTORY}/${roleId}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -337,7 +333,7 @@ const fetchrolehistory = async (roleId, roleName) => {
 const deleteRole = async (role_id) => {
   try {
     // Send DELETE request to the API
-    const response1 = await fetch(`${API_BASE_URL}/clearroleHistory/${role_id}`, {
+    const response1 = await fetch(`${API_BASE_URL}${API_ROUTES.CLEAR_ROLE_HISTORY}/${role_id}`, {
       method: "DELETE"
     });
   }
@@ -346,7 +342,7 @@ const deleteRole = async (role_id) => {
   }
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}/delete-role/${role_id}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_ROLE}/${role_id}`, {
       method: "DELETE"
     });
 
@@ -370,4 +366,9 @@ const deleteRole = async (role_id) => {
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+window.fetchrolehistory = fetchrolehistory;
+window.updateRole = updateRole;
+window.deleteRole = deleteRole;
+

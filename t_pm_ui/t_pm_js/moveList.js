@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader";
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     const container = document.getElementById("kanban-wrapper-container");
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load saved order from localStorage
     // Frontend Code
     function loadOrder() {
-      fetch(`${API_BASE_URL}/get-kanban-order`)
+      fetch(`${API_BASE_URL}${API_ROUTES.GET_KANBAN_ORDER}`)
         .then(response => response.json())
         .then(data => {
           const orderArray = data.order;
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const orderArray = Array.from(container.children).map(el => el.id);
       console.log("Saving order:", orderArray); // Debugging
 
-      fetch(`${API_BASE_URL}/save-kanban-order`, {
+      fetch(`${API_BASE_URL}${API_ROUTES.SAVE_KANBAN_ORDER}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

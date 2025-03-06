@@ -43,15 +43,14 @@
 //   })();
 // });
 document.addEventListener('DOMContentLoaded', function (e) {
-  console.log('DOM fully loaded and parsed'); // Debugging log
-
+  
   const form = document.getElementById('addRoleForm');
   if (!form) {
     console.error('Form not found'); // Debugging log
     return;
   }
 
-  console.log('Form found'); // Debugging log
+ 
 
   const validation = FormValidation.formValidation(form, {
     fields: {
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           });
       } else {
-        //console.log('Form validation failed.'); // Debugging log
+        
       }
     });
   });

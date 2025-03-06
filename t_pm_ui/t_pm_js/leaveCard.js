@@ -1,5 +1,6 @@
+import { API_ROUTES } from "../apiRoutesHeader";
 function cardjoinVerification(ticketId) {
-  fetch(`${API_BASE_URL}/get-join-card/${ticketId}`)
+  fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARDS}/${ticketId}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -28,7 +29,7 @@ async function leaveCard(ticketId) {
   try {
     // Send DELETE request to the API
     const response = await fetch(
-      `${API_BASE_URL}/delete-join-card/${ticketId}`,
+      `${API_BASE_URL}${API_ROUTES.DELETE_JOIN_CARD}/${ticketId}`,
       {
         method: "DELETE"
       }
@@ -48,3 +49,6 @@ async function leaveCard(ticketId) {
     console.error(error);
   }
 }
+
+window.leaveCard = leaveCard;
+window.cardjoinVerification = cardjoinVerification;

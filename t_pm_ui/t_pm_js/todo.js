@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
 import { joinCardToModal } from "./automation/joinCard.js";
 import { moveCardToModal } from "./automation/moveCard.js";
 import { copyCardToModal } from "./automation/copyCard.js";
@@ -19,7 +20,7 @@ var creator_id = urlParams.get("user_id");
 setTimeout(function() {
   console.log(project_id);
 
-  fetch(`${API_BASE_URL}/project/${project_id}`)
+  fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -34,7 +35,7 @@ setTimeout(function() {
     });
   // Function to fetch and create elements
   function fetchDataAndCreateElements() {
-    return fetch(`${API_BASE_URL}/ticket/${project_id}`)
+    return fetch(`${API_BASE_URL}${API_ROUTES.TICKET}/${project_id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response was not ok " + response.statusText);
@@ -43,7 +44,7 @@ setTimeout(function() {
       })
       .then(async data => {
         // Fetch board data first
-        const boardResponse = await fetch(`${API_BASE_URL}/getboards`);
+        const boardResponse = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
         if (!boardResponse.ok) {
           throw new Error("Network response was not ok");
         }
@@ -120,8 +121,7 @@ setTimeout(function() {
   }
 
   const cardImg = document.getElementById("card-img");
-  console.log(cardImg);
-
+  
   // Call the function and use the returned elements
   fetchDataAndCreateElements()
     .then(trydraggElements => {
@@ -141,7 +141,7 @@ setTimeout(function() {
           console.log(e.currentTarget.id);
 
           // Fetch Ticket Data from API
-          fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+          fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
             .then(response => {
               if (!response.ok) {
                 throw new Error(
@@ -1166,7 +1166,7 @@ setTimeout(function() {
                     messageElement.textContent = "Updating ticket...";
 
                     // Send update request
-                    fetch(`${API_BASE_URL}/updateticket`, {
+                    fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET}`, {
                       method: "PUT",
                       body: formData
                     })
@@ -1223,7 +1223,7 @@ setTimeout(function() {
                   try {
                     // Send DELETE request to the API
                     const response = await fetch(
-                      `${API_BASE_URL}/clearHistory/${ticket_id}`,
+                      `${API_BASE_URL}${API_ROUTES.CLEAR_TICKET_HISTORY}/${ticket_id}`,
                       {
                         method: "DELETE"
                       }
@@ -1246,7 +1246,7 @@ setTimeout(function() {
                   try {
                     // Send DELETE request to the API
                     const response = await fetch(
-                      `${API_BASE_URL}/deleteticket/${ticket_id}`,
+                      `${API_BASE_URL}${API_ROUTES.DELETE_TICKET}/${ticket_id}`,
                       {
                         method: "DELETE"
                       }
@@ -1286,7 +1286,7 @@ setTimeout(function() {
           let selected = e.target;
           let ticket_id = selected.classList[2];
           function fetchselectedData() {
-            return fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+            return fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
               .then(response => {
                 if (!response.ok) {
                   throw new Error(
@@ -1482,7 +1482,7 @@ setTimeout(function() {
           //   selected = null;
           // });
 
-          fetch(`${API_BASE_URL}/getboards`)
+          fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
             .then(response => {
               if (!response.ok) {
                 throw new Error("Network response was not ok ");
@@ -1511,7 +1511,7 @@ setTimeout(function() {
                         return; // You could show an alert or handle the error here
                       }
 
-                      fetch(`${API_BASE_URL}/updateticketStatus`, {
+                      fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET_STATUS}`, {
                         method: "PUT",
                         headers: {
                           "Content-Type": "application/json"
@@ -1605,7 +1605,7 @@ async function moveAllTask(from, currentStatus) {
   const payload = { newStatus };
   try {
     const response = await fetch(
-      `${API_BASE_URL}/updateticketstatus/${currentStatus}/${project_id}`,
+      `${API_BASE_URL}${API_ROUTES.UPDATE_CURRENT_STATUS}/${currentStatus}/${project_id}`,
       {
         method: "PUT",
         headers: {
@@ -1795,7 +1795,7 @@ async function deleteCard(event, ticketId) {
 
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}/clearHistory/${ticketId}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.CLEAR_TICKET_HISTORY}/${ticketId}`, {
       method: "DELETE"
     });
 
@@ -1815,7 +1815,7 @@ async function deleteCard(event, ticketId) {
 
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}/deleteticket/${ticketId}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_TICKET}/${ticketId}`, {
       method: "DELETE"
     });
 

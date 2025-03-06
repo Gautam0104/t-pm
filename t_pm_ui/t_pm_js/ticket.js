@@ -1,4 +1,5 @@
-fetch(`${API_BASE_URL}/ticketbyid/${ticket_id}`)
+import { API_ROUTES } from "../apiRoutesHeader.js";
+fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);
