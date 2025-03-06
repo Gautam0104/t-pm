@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
           const orderArray = data.order;
-          console.log("Loading order:", orderArray); // Debugging
 
           // Reorder boards based on saved order
           orderArray.forEach(id => {

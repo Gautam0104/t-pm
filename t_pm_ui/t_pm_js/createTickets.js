@@ -10,9 +10,6 @@ setTimeout(function() {
   var rejectedForm = document.getElementById("add-new-rejected-form");
   var approvedForm = document.getElementById("add-new-approved-form");
 
-  console.log("project id : " + project_id);
-  console.log("project leader id : " + user_id);
-
   todoForm.addEventListener("submit", async function(e) {
     e.preventDefault();
 

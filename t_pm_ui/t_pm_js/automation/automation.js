@@ -6,14 +6,6 @@ import {
   removeAllChecklists
 } from "./automationLogic.js";
 
-console.log(
-  moveCardAutomation,
-  copycardAutomation,
-  markduedate,
-  removeDuedate,
-  removeAllChecklists
-);
-
 export function retrieveAutomation(ticketId) {
   fetch(`${API_BASE_URL}/automation-data`)
     .then(response => {
