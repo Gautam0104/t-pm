@@ -4,8 +4,13 @@ import { copyCardToModal } from "./automation/copyCard.js";
 import { removeCardToModal } from "./automation/removeAutomationFeature.js";
 import { markDueDateModal } from "./automation/markDueDate.js";
 import { setDuedateCardToModal } from "./automation/setDueDate.js";
+import {
+  retrieveAutomation,
+  editAutomation,
+  deleteAutomationButton
+} from "./automation/automation.js";
 
-console.log(setDuedateCardToModal);
+console.log(retrieveAutomation, editAutomation, deleteAutomationButton);
 
 window.onload = function() {
   setTimeout(function() {

@@ -1,4 +1,20 @@
-function retrieveAutomation(ticketId) {
+import {
+  moveCardAutomation,
+  copycardAutomation,
+  markduedate,
+  removeDuedate,
+  removeAllChecklists
+} from "./automationLogic.js";
+
+console.log(
+  moveCardAutomation,
+  copycardAutomation,
+  markduedate,
+  removeDuedate,
+  removeAllChecklists
+);
+
+export function retrieveAutomation(ticketId) {
   fetch(`${API_BASE_URL}/automation-data`)
     .then(response => {
       if (!response.ok) {
@@ -28,7 +44,7 @@ function retrieveAutomation(ticketId) {
     });
 }
 
-function editAutomation(ticketId) {
+export function editAutomation(ticketId) {
   fetch(`${API_BASE_URL}/automation-data/${ticketId}`)
     .then(response => {
       const contentType = response.headers.get("Content-Type");
@@ -38,7 +54,6 @@ function editAutomation(ticketId) {
         throw new Error("Network response was not ok " + response.statusText);
       }
 
-      // Check if content-type is JSON
       if (contentType && contentType.includes("application/json")) {
         return response.json();
       } else {
@@ -46,13 +61,12 @@ function editAutomation(ticketId) {
       }
     })
     .then(data => {
-      console.log("API Response Data:", data); // Log to see if it's an array or an object
+      console.log("API Response Data:", data);
       const editAutomationModal = document.getElementById(
         "edit-automation-modal-content"
       );
 
       if (Array.isArray(data)) {
-        // Loop through and display the data as array
         data.forEach(item => {
           const modalContent = `<ul class="nav flex-column py-2 overflow-auto">
                                     <li class="nav-item w-100 rounded d-flex justify-content-between" style="background-color: #e4dcdc;">
@@ -81,22 +95,20 @@ function editAutomation(ticketId) {
         "<p>Error occurred. Please check the console for details.</p>";
     });
 
-  // Initialize and show the Bootstrap modal dynamically
   let modalElementauto = document.getElementById("editautomationModal");
   let modal = new bootstrap.Modal(modalElementauto);
   modal.show();
 }
 
-async function deleteAutomationButton(id) {
+export async function deleteAutomationButton(id) {
   try {
-    // Send DELETE request to the API
     const response = await fetch(`${API_BASE_URL}/automation-data/${id}`, {
       method: "DELETE"
     });
 
     if (response.ok) {
       console.log("You successfully deleted an automation button");
-      window.location.reload(); // Refresh the page after successful delete
+      window.location.reload();
     } else {
       console.log("Oops, something went wrong");
       window.location.reload();
@@ -105,6 +117,8 @@ async function deleteAutomationButton(id) {
     console.error(error);
   }
 }
-
-
-
+window.moveCardAutomation = moveCardAutomation;
+window.copycardAutomation = copycardAutomation;
+window.markduedate = markduedate;
+window.removeDuedate = removeDuedate;
+window.removeAllChecklists = removeAllChecklists;
