@@ -9,7 +9,7 @@ setTimeout(function() {
     kanbanItem.addEventListener("click", function() {
       console.log("kanban-item working");
       offcanvas.classList.add("show");
-      contentWrapper.appendChild(backdrop);
+      // contentWrapper.appendChild(backdrop);
     });
   }
 
@@ -32,21 +32,21 @@ setTimeout(function() {
   const addItmeForm4 = document.getElementById("add-new-rejected-form");
   const addItmeForm5 = document.getElementById("add-new-approved-form");
 
-  // addItem1.addEventListener("click", function() {
-  //   const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
-  //                                                         placeholder="Add Content"  required=""></textarea>
-  //                                                 </div>
-  //                                                 <div class="mb-4"><button type="submit"
-  //                                                         class="btn btn-primary btn-sm me-4">Add</button><button
-  //                                                         type="button"
-  //                                                         class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
-  //                                                 </div>`;
-  //   addItmeForm1.innerHTML += formContent;
-  //   const cancelForm = document.getElementById("cancel-form-1");
-  //   cancelForm.addEventListener("click", function() {
-  //     addItmeForm1.innerHTML = "";
-  //   });
-  // });
+  addItem1.addEventListener("click", function() {
+    const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
+                                                          placeholder="Add Content"  required=""></textarea>
+                                                  </div>
+                                                  <div class="mb-4"><button type="submit"
+                                                          class="btn btn-primary btn-sm me-4">Add</button><button
+                                                          type="button"
+                                                          class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
+                                                  </div>`;
+    addItmeForm1.innerHTML += formContent;
+    const cancelForm = document.getElementById("cancel-form-1");
+    cancelForm.addEventListener("click", function() {
+      addItmeForm1.innerHTML = "";
+    });
+  });
   addItem2.addEventListener("click", function() {
     const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-inprogress"
                                                           placeholder="Add Content"  required=""></textarea>

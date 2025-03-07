@@ -1,10 +1,13 @@
 import { sendAutomationData } from "./createAutomationButton.js";
 import { fetchLists } from "./boardList.js";
+import { ELEMENT_IDS } from "../element_id.js";
 
 export function copyCardToModal(ticketTitle, ticketId, ticket_status) {
   console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
 
-  let modalContainer = document.getElementById("automationcopyCardToModal");
+  let modalContainer = document.getElementById(
+    ELEMENT_IDS.AUTOMATION_COPY_CARD_TO_MODAL
+  );
 
   if (!modalContainer) {
     console.error("Modal container 'automationcopyCardToModal' not found.");
@@ -106,10 +109,12 @@ export function copyCardToModal(ticketTitle, ticketId, ticket_status) {
 }
 
 async function addcopyautomationButton(ticketId, ticket_status) {
-  const listSelect = document.getElementById("listSelect").value;
+  const listSelect = document.getElementById(ELEMENT_IDS.SELECT_LIST).value;
   const buttonAction = `copycardAutomation('${ticketId}', '${ticket_status}', '${listSelect}')`;
 
-  const titleInput = document.getElementById("titleInput").value.trim();
+  const titleInput = document
+    .getElementById(ELEMENT_IDS.TITLE_INPUT)
+    .value.trim();
   if (!titleInput) {
     console.error("Button title cannot be empty.");
     return;

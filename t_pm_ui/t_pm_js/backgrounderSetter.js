@@ -1,10 +1,11 @@
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
+
 const boardimageUrl = localStorage.getItem(`board-bg-image-url ${project_id}`);
 if (boardimageUrl) {
   setTimeout(() => {
     changeElebg();
-  }, 500);
+  }, 1000);
   document.body.style.background = `url('${boardimageUrl}') no-repeat center center/cover`;
 } else {
   defaultBackground();
@@ -24,16 +25,14 @@ function changeBackground(imageUrl) {
 function defaultBackground() {
   resetElebg();
   localStorage.removeItem(`board-bg-image-url ${project_id}`);
-  window.location.reload();
 }
 
 function changeElebg() {
   const todoFooter = document.getElementById("footer");
   const todoHeader = document.getElementsByTagName("header");
   const todoButton = document.getElementsByClassName("kanban-title-button");
-  const todoTitle = document.getElementById("project-title-input");
+
   const todoForm = document.getElementsByClassName("new-item-form");
-  console.log("todo title is : ", todoTitle);
 
   // Convert the HTMLCollection to an array
   const headerArray = Array.from(todoHeader);
@@ -51,13 +50,13 @@ function changeElebg() {
     form.style.borderRadius = "5px";
   });
   todoFooter.style.backgroundColor = "#ffffff";
-  todoTitle.style.backgroundColor = "#ffffff";
 }
+
 function resetElebg() {
   const todoFooter = document.getElementById("footer");
   const todoHeader = document.getElementsByTagName("header");
   const todoButton = document.getElementsByClassName("kanban-title-button");
-  const todoTitle = document.getElementById("project-title-input");
+
   const todoForm = document.getElementsByClassName("new-item-form");
 
   // Convert the HTMLCollection to an array
@@ -85,5 +84,5 @@ function resetElebg() {
   todoFooter.style.backgroundColor = ""; // Revert to the default color
 
   // Reset the project title input background color
-  todoTitle.style.backgroundColor = ""; // Revert to the default color
+  // Revert to the default color
 }

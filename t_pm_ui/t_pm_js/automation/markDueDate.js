@@ -1,9 +1,12 @@
 import { sendAutomationData } from "./createAutomationButton.js";
+import { ELEMENT_IDS } from "../element_id.js";
 
 export function markDueDateModal(ticketTitle, ticketId) {
   console.log("Ticket Title: " + ticketTitle + ", Ticket ID: " + ticketId);
 
-  let modalContainer = document.getElementById("markDueDateModal");
+  let modalContainer = document.getElementById(
+    ELEMENT_IDS.AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL
+  );
   if (!modalContainer) {
     console.error("Modal container 'markDueDateModal' not found.");
     return;
@@ -73,8 +76,10 @@ export function markDueDateModal(ticketTitle, ticketId) {
 }
 
 async function markDueDateAutomationButton(ticketId) {
-  const duedateStatus = document.getElementById("duedate").value;
-  const titleInput = document.getElementById("titleInput").value.trim();
+  const duedateStatus = document.getElementById(ELEMENT_IDS.DUEDATE).value;
+  const titleInput = document
+    .getElementById(ELEMENT_IDS.TITLE_INPUT)
+    .value.trim();
 
   if (!titleInput) {
     console.error("Button title cannot be empty.");

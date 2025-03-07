@@ -1,9 +1,12 @@
 import { sendAutomationData } from "./createAutomationButton.js";
+import { ELEMENT_IDS } from "../element_id.js";
 
 export function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
   console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
 
-  let modalContainer = document.getElementById("setdueDateCardToModal");
+  let modalContainer = document.getElementById(
+    ELEMENT_IDS.AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL
+  );
   if (!modalContainer) {
     console.error("Modal container 'setdueDateCardToModal' not found.");
     return;
@@ -92,10 +95,13 @@ export function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
 }
 
 async function addDueDateAutomationButton(ticketId, ticket_status) {
-  const buttonTitle = document.getElementById("titleInput").value.trim();
-  const listSelect = document.getElementById("listSelect").value;
-  const boardSelect = document.getElementById("boardSelect").value;
-  const positionSelect = document.getElementById("positionSelect1").value;
+  const buttonTitle = document
+    .getElementById(ELEMENT_IDS.TITLE_INPUT)
+    .value.trim();
+  const listSelect = document.getElementById(ELEMENT_IDS.SELECT_LIST).value;
+  const boardSelect = document.getElementById(ELEMENT_IDS.SELECT_BOARD).value;
+  const positionSelect = document.getElementById(ELEMENT_IDS.SELECT_POSITION)
+    .value;
 
   if (!buttonTitle || !listSelect || !boardSelect || !positionSelect) {
     console.error("Please fill in all fields.");

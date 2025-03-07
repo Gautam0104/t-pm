@@ -10,11 +10,15 @@ import {
   editAutomation,
   deleteAutomationButton
 } from "./automation/automation.js";
+import { ELEMENT_IDS } from "./element_id.js";
+
+console.log(ELEMENT_IDS);
+
 
 window.onload = function() {
   setTimeout(function() {
-    document.getElementById("loading").style.display = "none";
-  }, 1000);
+    document.getElementById(ELEMENT_IDS.PAGE_LOADING).style.display = "none";
+  }, 500);
 };
 
 var urlParams = new URLSearchParams(window.location.search);
@@ -119,19 +123,19 @@ setTimeout(function() {
           }
         });
 
-        return document.querySelectorAll(".dragg-from-todo");
+        return document.querySelectorAll(ELEMENT_IDS.DRAG_EVENT);
       });
   }
 
-  const cardImg = document.getElementById("card-img");
-  
+  const cardImg = document.getElementById(ELEMENT_IDS.CARD_IMAGE);
+
   // Call the function and use the returned elements
   fetchDataAndCreateElements()
     .then(trydraggElements => {
       // Perform actions on the elements here
       trydraggElements.forEach(element => {
         element.addEventListener("click", function(e) {
-          const offcanvas = document.querySelector(".offcanvas");
+          const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
           // const backdropWrapper = document.getElementById("backdrop");
           offcanvas.classList.add("show");
 
@@ -139,7 +143,7 @@ setTimeout(function() {
           // backdropWrapper.innerHTML = backdropContent;
           let selected = e.currentTarget.id;
           let ticket_id = selected;
-          console.log(e.currentTarget.id);
+          // console.log(e.currentTarget.id);
 
           // Fetch Ticket Data from API
           fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
@@ -171,7 +175,7 @@ setTimeout(function() {
                 // Combine date and time
                 const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
 
-                console.log("Formatted Date and Time:", formattedDateTime);
+                // console.log("Formatted Date and Time:", formattedDateTime);
 
                 const isoDateupdate = `${element.updated_at}`;
 
@@ -703,17 +707,17 @@ setTimeout(function() {
                 //  all event listner of action tab
 
                 document
-                  .getElementById("styleBold")
+                  .getElementById(ELEMENT_IDS.STYLE_BOLD)
                   .addEventListener("click", function() {
                     applyStyle("bold");
                   });
                 document
-                  .getElementById("styleItalic")
+                  .getElementById(ELEMENT_IDS.STYLE_ITALIC)
                   .addEventListener("click", function() {
                     applyStyle("italic");
                   });
                 document
-                  .getElementById("styleUnderline")
+                  .getElementById(ELEMENT_IDS.STYLE_UNDERLINE)
                   .addEventListener("click", function() {
                     applyStyle("underline");
                   });
@@ -723,27 +727,27 @@ setTimeout(function() {
                 //     applyStyle("insertUnorderedList");
                 //   });
                 document
-                  .getElementById("addLink")
+                  .getElementById(ELEMENT_IDS.ADD_LINK)
                   .addEventListener("click", function() {
                     addLink();
                   });
                 document
-                  .getElementById("addImage")
+                  .getElementById(ELEMENT_IDS.ADD_IMAGE)
                   .addEventListener("click", function() {
                     addImage();
                   });
                 document
-                  .getElementById("markCardFeature")
+                  .getElementById(ELEMENT_IDS.MARD_CARD_FEATURE)
                   .addEventListener("click", function() {
                     markCard(element.ticket_id);
                   });
                 document
-                  .getElementById("watchCardFeature")
+                  .getElementById(ELEMENT_IDS.WATCH_CARD_FEATURE)
                   .addEventListener("click", function() {
                     watchNotification(element.ticket_id);
                   });
                 document
-                  .getElementById("copyCardFeature")
+                  .getElementById(ELEMENT_IDS.COPY_CARD_FEATURE)
                   .addEventListener("click", function() {
                     copyCardToModal(
                       element.title,
@@ -752,7 +756,7 @@ setTimeout(function() {
                     );
                   });
                 document
-                  .getElementById("moveCardFeature")
+                  .getElementById(ELEMENT_IDS.MOVE_CARD_FEATURE)
                   .addEventListener("click", function() {
                     moveCardToModal(
                       element.title,
@@ -762,23 +766,23 @@ setTimeout(function() {
                   });
 
                 const joinAutomationButton = document.getElementById(
-                  "joinAutomation"
+                  ELEMENT_IDS.JOIN_AUTOMATION
                 );
                 const moveAutomationButton = document.getElementById(
-                  "moveAutomation"
+                  ELEMENT_IDS.MOVE_AUTOMATION
                 );
 
                 const copyAutomationButton = document.getElementById(
-                  "copyAutomation"
+                  ELEMENT_IDS.COPY_AUTOMATION
                 );
                 const markduedateAutomationButton = document.getElementById(
-                  "markduedateAutomation"
+                  ELEMENT_IDS.MARK_DUEDATE_AUTOMATION
                 );
                 const setduedateAutomationButton = document.getElementById(
-                  "setduedateAutomation"
+                  ELEMENT_IDS.SET_DUEDATE_AUTOMATION
                 );
                 const removeFeatureAutomationButton = document.getElementById(
-                  "removeCardFeature"
+                  ELEMENT_IDS.REMOVE_CARD_FEATURE
                 );
 
                 setduedateAutomationButton.addEventListener("click", () => {
@@ -816,13 +820,13 @@ setTimeout(function() {
                 joinAutomationButton.addEventListener("click", () => {
                   joinCardToModal(element.title, element.ticket_id);
                 });
-                cardjoinVerification(element.ticket_id);
+                // cardjoinVerification(element.ticket_id);
 
                 retrieveAutomation(element.ticket_id);
 
                 // card image zone in modal
                 const imageArea = document.getElementById(
-                  "activity-card-image-area"
+                  ELEMENT_IDS.ACTIVITY_CARD_IMAGE_AREA
                 );
                 const cardImage = `<img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" >`;
                 imageArea.innerHTML = cardImage;
@@ -846,7 +850,7 @@ setTimeout(function() {
                   .then(users => {
                     users.map(user => {
                       const taskOwnerfield = document.getElementById(
-                        "ticket-owner"
+                        ELEMENT_IDS.TICKET_OWNER
                       );
                       const taskOwnerContent = `<option value="${user.first_name}">${user.first_name}</option>`;
 
@@ -868,7 +872,7 @@ setTimeout(function() {
                 function imagePath(item, index) {
                   item = item.replace(/^"|"$/g, "").trim(); // Clean image path
                   const attachmentDiv = document.getElementById(
-                    "attachment-content"
+                    ELEMENT_IDS.ATTACHMENT_CONTENT
                   );
                   const activityImages = `<span class="badge bg-label-secondary m-2">Attachment #${index +
                     1}</span>
@@ -876,7 +880,7 @@ setTimeout(function() {
 
                   attachmentDiv.innerHTML += activityImages;
                   const activityImageArea = document.getElementById(
-                    "activity-image-area"
+                    ELEMENT_IDS.ACTIVITY_IMAGE_AREA
                   );
 
                   const imageContent = `
@@ -905,7 +909,7 @@ setTimeout(function() {
                   .then(histories => {
                     histories.map(history => {
                       const ticketHistory = document.getElementById(
-                        "history-content"
+                        ELEMENT_IDS.HISTORY_CONTENT
                       );
                       // Convert to a Date object
                       const isoHisDateupdate = `${history.updated_at}`;
@@ -993,7 +997,7 @@ setTimeout(function() {
 
                       document.addEventListener("DOMContentLoaded", function() {
                         let imgElement = document.getElementById(
-                          "card-image-preview-update"
+                          ELEMENT_IDS.CARD_IMAGE_PREVIEW_UPDATE
                         );
 
                         if (
@@ -1021,7 +1025,7 @@ setTimeout(function() {
                         item = item.replace(/^"|"$/g, "").trim(); // Clean image path
 
                         const attachmenthistoryDiv = document.getElementById(
-                          "attachment-content-history"
+                          ELEMENT_IDS.ATTACHMENT_CONTENT_HISTORY
                         );
                         const activitypreImages = `<span class="badge bg-label-secondary m-2">Attachment #${index +
                           1}</span>
@@ -1029,7 +1033,7 @@ setTimeout(function() {
 
                         attachmenthistoryDiv.innerHTML += activitypreImages;
                         const activityImageArea = document.getElementById(
-                          "activity-image-area"
+                          ELEMENT_IDS.ACTIVITY_IMAGE_AREA
                         );
 
                         const imageContent = `
@@ -1047,13 +1051,13 @@ setTimeout(function() {
                     });
                   });
 
-                const closeButton = document.getElementById("offcanvase-close");
-                const deleteButton = document.getElementById("delete-ticket");
+                const closeButton = document.getElementById(ELEMENT_IDS.OFFCANVAS_CLOSE);
+                const deleteButton = document.getElementById(ELEMENT_IDS.DELETE_TICKET);
                 //console.log(updateButton);
                 closeButton.addEventListener("click", function() {
                   selected = null;
                   console.log("selected is null now");
-                  const offcanvas = document.querySelector(".offcanvas");
+                  const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
                   // const backdropWrapper = document.getElementById("backdrop");
                   offcanvas.classList.remove("show");
                   // backdropWrapper.innerHTML = "";
@@ -1064,16 +1068,16 @@ setTimeout(function() {
                   .addEventListener("change", function(event) {
                     const fileInput = event.target;
                     const previewContainer = document.getElementById(
-                      "card-image-preview"
+                      ELEMENT_IDS.CARD_IMAGE_PREVIEW
                     );
                     const previewContainerUpdate = document.getElementById(
-                      "card-image-preview-update"
+                      ELEMENT_IDS.CARD_IMAGE_PREVIEW_UPDATE
                     );
                     const previewUpdate = document.getElementById(
-                      "image-preview-update"
+                      ELEMENT_IDS.IMAGE_PREVIEW_UPDATE
                     );
                     const previewImage = document.getElementById(
-                      "card-image-preview-img"
+                      ELEMENT_IDS.CARD_IMAGE_PREVIEW_IMG
                     );
 
                     previewContainerUpdate.style.display = "none";
@@ -1104,142 +1108,111 @@ setTimeout(function() {
                   });
 
                 // update ticket form
-                document
-                  .getElementById("ticketForm")
-                  .addEventListener("submit", function(e) {
-                    e.preventDefault();
-
-                    const ticket_id = element.ticket_id;
-                    const title = document.getElementById("title").value;
-                    const description = document.getElementById("description")
-                      .innerHTML;
-                    const status = "backlog";
-                    const priority = "Medium";
-                    const due_date = document.getElementById("due-date").value;
-                    const ticket_status = element.ticket_status;
-                    const images = document.getElementById("image").files;
-                    const cardImage = document.getElementById("card-image")
-                      .files;
-                    const ticket_eta = document.getElementById("ticket_eta")
-                      .value;
-                    const ticket_owner = document.getElementById("ticket-owner")
-                      .value;
-
-                    // Validate required fields
-                    if (
-                      !ticket_id ||
-                      !title ||
-                      !description ||
-                      !status ||
-                      !priority ||
-                      !ticket_status ||
-                      !ticket_owner
-                    ) {
-                      alert("Please fill in all required fields.");
-                      return;
-                    }
-
-                    // Create FormData
-                    const formData = new FormData();
-                    formData.append("ticket_id", ticket_id);
-                    formData.append("title", title);
-                    formData.append("description", description);
-                    formData.append("status", status);
-                    formData.append("priority", priority);
-                    formData.append("due_date", due_date);
-                    formData.append("ticket_status", ticket_status);
-                    formData.append("ticket_eta", ticket_eta);
-                    formData.append("ticket_owner", ticket_owner);
-
-                    // Append multiple images
-                    if (images.length > 0) {
-                      for (let i = 0; i < images.length; i++) {
-                        formData.append("images", images[i]);
-                      }
-                    }
-                    // Append single cardImage
-                    if (cardImage.length > 0) {
-                      formData.append("card_image", cardImage[0]); // Correctly append the first cardImage file
-                    }
-
-                    // Display a loading message
-                    const messageElement = document.getElementById("message");
-                    messageElement.textContent = "Updating ticket...";
-
-                    // Send update request
-                    fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET}`, {
+                document.getElementById(ELEMENT_IDS.TICKET_FORM).addEventListener("submit", async function (e) {
+                  e.preventDefault();
+                
+                  // Debugging logs
+                  console.log("Submitting form...");
+                
+                  // Ensure element exists
+                  if (typeof element === "undefined" || !element) {
+                    console.error("Error: 'element' is not defined or missing");
+                    alert("An error occurred. Please try again.");
+                    return;
+                  }
+                
+                  console.log("Element Data:", element);
+                
+                  const ticket_id = element?.ticket_id?.toString().trim() || "";
+                  const ticket_status = element?.ticket_status?.toString().trim() || "Backlog"; // Default fallback
+                  
+                  const titleElement = document.getElementById(ELEMENT_IDS.TICKET_TITLE);
+                  const descriptionElement = document.getElementById(ELEMENT_IDS.TICKET_DESCRIPTION);
+                  const dueDateElement = document.getElementById(ELEMENT_IDS.TICKET_DUEDATE);
+                  const ticketEtaElement = document.getElementById(ELEMENT_IDS.TICKET_ETA);
+                  const ticketOwnerElement = document.getElementById(ELEMENT_IDS.TICKET_OWNER);
+                  const imageElement = document.getElementById(ELEMENT_IDS.TICKET_IMAGE);
+                  const cardImageElement = document.getElementById(ELEMENT_IDS.TICKET_CARD_IMAGE);
+                
+                  if (!titleElement || !descriptionElement || !ticketOwnerElement) {
+                    console.error("Error: One or more required elements are missing from the DOM.");
+                    alert("Form elements are missing. Please check your form structure.");
+                    return;
+                  }
+                
+                  const title = titleElement?.value?.trim() || "";
+                  const description = descriptionElement?.value?.trim() || element?.description?.trim() || "No description provided"; // Ensuring a valid description
+                  const due_date = dueDateElement?.value?.trim() || "";
+                  const ticket_eta = ticketEtaElement?.value?.trim() || "";
+                  const ticket_owner = ticketOwnerElement?.value?.trim() || "";
+                  const images = imageElement?.files || [];
+                  const cardImage = cardImageElement?.files || [];
+                
+                  console.log("Form Values:", { ticket_id, title, description, due_date, ticket_eta, ticket_owner, ticket_status });
+                
+                  // Validate required fields
+                  if (!ticket_id || !title || !description || !ticket_status || !ticket_owner) {
+                    console.error("Validation failed: Missing required fields.");
+                    alert("Please fill in all required fields.");
+                    return;
+                  }
+                
+                  const formData = new FormData();
+                  formData.append("ticket_id", ticket_id);
+                  formData.append("title", title);
+                  formData.append("description", description);
+                  formData.append("status", "backlog");
+                  formData.append("priority", "Medium");
+                  formData.append("due_date", due_date);
+                  formData.append("ticket_status", ticket_status);
+                  formData.append("ticket_eta", ticket_eta);
+                  formData.append("ticket_owner", ticket_owner);
+                
+                  for (const image of images) {
+                    formData.append("images", image);
+                  }
+                  if (cardImage.length > 0) {
+                    formData.append("card_image", cardImage[0]);
+                  }
+                
+                  document.getElementById(ELEMENT_IDS.MESSAGE).textContent = "Updating ticket...";
+                
+                  try {
+                    const response = await fetch(`${API_BASE_URL}/updateticket`, {
                       method: "PUT",
-                      body: formData
-                    })
-                      .then(response => response.json())
-                      .then(data => {
-                        if (data.message) {
-                          // Ticket successfully updated
-                          selected = null;
-                          const offcanvas = document.querySelector(
-                            ".offcanvas"
-                          );
-                          if (offcanvas) {
-                            offcanvas.classList.remove("show");
-                          }
-
-                          // Log activity
-                          const userName = localStorage.getItem(
-                            "logged-username"
-                          );
-                          logActivity(
-                            `${userName} updated ticket ID ${ticket_id} with title: "${title}"`
-                          );
-
-                          // Check if SweetAlert is being reached
-                          console.log(
-                            "Ticket updated successfully, showing SweetAlert."
-                          );
-
-                          // Show success message
-                          Swal.fire({
-                            title: "Ticket Updated Successfully",
-                            text: "The ticket has been updated successfully.",
-                            icon: "success",
-                            confirmButtonText: "Ok!"
-                          }).then(() => {
-                            console.log("SweetAlert closed, reloading page.");
-                            window.location.reload();
-                          });
-                        } else if (data.error) {
-                          const messageElement = document.getElementById(
-                            "message"
-                          );
-                          if (messageElement) {
-                            messageElement.textContent = data.error;
-                            messageElement.style.color = "red";
-                          }
-                        }
-                      })
-                      .catch(error => {
-                        const messageElement = document.getElementById(
-                          "message"
-                        );
-                        if (messageElement) {
-                          messageElement.textContent = "An error occurred.";
-                          messageElement.style.color = "red";
-                        }
-                        console.error("Error:", error);
+                      body: formData,
+                    });
+                    const data = await response.json();
+                
+                    console.log("API Response:", data);
+                
+                    if (data.message) {
+                      document.querySelector(ELEMENT_IDS.OFFCANVAS)?.classList.remove("show");
+                      // logActivity(`${localStorage.getItem("logged-username")} updated ticket ID ${ticket_id} with title: "${title}"`);
+                      await Swal.fire({
+                        title: "Ticket Updated Successfully",
+                        text: "The ticket has been updated successfully.",
+                        icon: "success",
+                        confirmButtonText: "Ok!",
                       });
-                  });
-
-                console.log(deleteButton);
+                      window.location.reload();
+                    } else {
+                      document.getElementById(ELEMENT_IDS.MESSAGE).textContent = data.error || "An error occurred.";
+                      document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
+                    }
+                  } catch (error) {
+                    document.getElementById(ELEMENT_IDS.MESSAGE).textContent = "An error occurred.";
+                    document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
+                    console.error("Error:", error);
+                  }
+                });
+                
+                
+                // delete ticket 
 
                 deleteButton.addEventListener("click", async function() {
-                  // console.log("deleteButtonworking");
-                  const ticket_id = element.ticket_id;
-                  console.log("Project id is : " + ticket_id);
-                  // if (!recordId) {
-                  //     messageDiv.textContent = 'Please enter a valid ID.';
-                  //     messageDiv.className = 'message error';
-                  //     return;
-                  // }
 
+                  const ticket_id = element.ticket_id;
                   try {
                     // Send DELETE request to the API
                     const response = await fetch(
@@ -1249,8 +1222,6 @@ setTimeout(function() {
                       }
                     );
 
-                    // Parse the response
-                    // const data = await response.json();
 
                     if (response.ok) {
                       console.log("ticket history clear");
@@ -1259,10 +1230,7 @@ setTimeout(function() {
                     }
                   } catch (error) {
                     console.error(error);
-                    // messageDiv.textContent = 'Could not connect to the server.';
-                    // messageDiv.className = 'message error';
                   }
-
                   try {
                     // Send DELETE request to the API
                     const response = await fetch(
@@ -1271,9 +1239,6 @@ setTimeout(function() {
                         method: "DELETE"
                       }
                     );
-
-                    // Parse the response
-                    // const data = await response.json();
 
                     if (response.ok) {
                       Swal.fire({
@@ -1294,8 +1259,6 @@ setTimeout(function() {
                     }
                   } catch (error) {
                     console.error(error);
-                    // messageDiv.textContent = 'Could not connect to the server.';
-                    // messageDiv.className = 'message error';
                   }
                 });
               });
@@ -1321,188 +1284,7 @@ setTimeout(function() {
               });
           }
 
-          // inprogressTask.addEventListener("dragover", function(e) {
-          //   e.preventDefault();
-          //   const contentInprogress = document.getElementById(
-          //     "content-inprogress"
-          //   );
-          //   contentDiv.style.opacity = "1";
-          // });
-          // forApprovalTask.addEventListener("dragover", function(e) {
-          //   e.preventDefault();
-          // });
-          // rejectedTask.addEventListener("dragover", function(e) {
-          //   e.preventDefault();
-          // });
-          // approvedTask.addEventListener("dragover", function(e) {
-          //   e.preventDefault();
-          // });
-          // todoTask.addEventListener("dragover", function(e) {
-          //   e.preventDefault();
-          // });
-          // inprogressTask.addEventListener("drop", function(e) {
-          //   e.preventDefault();
-          //   inprogressTask.appendChild(selected);
-          //   selected.classList.remove("dragg-from-todo");
-          //   selected.classList.add("dragg-from-inprogress");
-          //   fetchselectedData()
-          //     .then(selectedData => {
-          //       const ticketId = selectedData.ticket_id;
-          //       const ticketStatus = "inprogress";
-
-          //       // Check for undefined or empty values before sending the request
-          //       if (!ticketId || !ticketStatus) {
-          //         console.log("Ticket ID or Status is missing");
-          //         return; // You could show an alert or handle the error here
-          //       }
-
-          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
-          //         method: "PUT",
-          //         headers: {
-          //           "Content-Type": "application/json"
-          //         },
-          //         body: JSON.stringify({
-          //           ticket_id: ticketId,
-          //           ticket_status: ticketStatus
-          //         })
-          //       })
-          //         .then(response => response.json())
-          //         .then(data => console.log("Success:", data))
-          //         .catch(error => console.error("Error:", error));
-          //     })
-          //     .catch(error => console.error("Error:", error));
-
-          //   selected = null;
-          // });
-          // todoTask.addEventListener("drop", function(e) {
-          //   e.preventDefault();
-          //   todoTask.appendChild(selected);
-          //   selected.classList.remove("dragg-from-inprogress");
-          //   selected.classList.add("dragg-from-todo");
-          //   fetchselectedData()
-          //     .then(selectedData => {
-          //       const ticketId = selectedData.ticket_id;
-          //       const ticketStatus = "todo";
-
-          //       // Check for undefined or empty values before sending the request
-          //       if (!ticketId || !ticketStatus) {
-          //         console.log("Ticket ID or Status is missing");
-          //         return; // You could show an alert or handle the error here
-          //       }
-
-          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
-          //         method: "PUT",
-          //         headers: {
-          //           "Content-Type": "application/json"
-          //         },
-          //         body: JSON.stringify({
-          //           ticket_id: ticketId,
-          //           ticket_status: ticketStatus
-          //         })
-          //       })
-          //         .then(response => response.json())
-          //         .then(data => console.log("Success:", data))
-          //         .catch(error => console.error("Error:", error));
-          //     })
-          //     .catch(error => console.error("Error:", error));
-
-          //   selected = null;
-          // });
-          // forApprovalTask.addEventListener("drop", function(e) {
-          //   e.preventDefault();
-          //   forApprovalTask.appendChild(selected);
-          //   fetchselectedData()
-          //     .then(selectedData => {
-          //       const ticketId = selectedData.ticket_id;
-          //       const ticketStatus = "for-approval";
-
-          //       // Check for undefined or empty values before sending the request
-          //       if (!ticketId || !ticketStatus) {
-          //         console.log("Ticket ID or Status is missing");
-          //         return; // You could show an alert or handle the error here
-          //       }
-
-          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
-          //         method: "PUT",
-          //         headers: {
-          //           "Content-Type": "application/json"
-          //         },
-          //         body: JSON.stringify({
-          //           ticket_id: ticketId,
-          //           ticket_status: ticketStatus
-          //         })
-          //       })
-          //         .then(response => response.json())
-          //         .then(data => console.log("Success:", data))
-          //         .catch(error => console.error("Error:", error));
-          //     })
-          //     .catch(error => console.error("Error:", error));
-          //   selected = null;
-          // });
-          // rejectedTask.addEventListener("drop", function(e) {
-          //   e.preventDefault();
-          //   rejectedTask.appendChild(selected);
-          //   fetchselectedData()
-          //     .then(selectedData => {
-          //       const ticketId = selectedData.ticket_id;
-          //       const ticketStatus = "rejected";
-
-          //       // Check for undefined or empty values before sending the request
-          //       if (!ticketId || !ticketStatus) {
-          //         console.log("Ticket ID or Status is missing");
-          //         return; // You could show an alert or handle the error here
-          //       }
-
-          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
-          //         method: "PUT",
-          //         headers: {
-          //           "Content-Type": "application/json"
-          //         },
-          //         body: JSON.stringify({
-          //           ticket_id: ticketId,
-          //           ticket_status: ticketStatus
-          //         })
-          //       })
-          //         .then(response => response.json())
-          //         .then(data => console.log("Success:", data))
-          //         .catch(error => console.error("Error:", error));
-          //     })
-          //     .catch(error => console.error("Error:", error));
-          //   selected = null;
-          // });
-          // approvedTask.addEventListener("drop", function(e) {
-          //   e.preventDefault();
-          //   approvedTask.appendChild(selected);
-          //   fetchselectedData()
-          //     .then(selectedData => {
-          //       const ticketId = selectedData.ticket_id;
-          //       const ticketStatus = "approved";
-
-          //       // Check for undefined or empty values before sending the request
-          //       if (!ticketId || !ticketStatus) {
-          //         console.log("Ticket ID or Status is missing");
-          //         return; // You could show an alert or handle the error here
-          //       }
-
-          //       fetch(`${API_BASE_URL}/updateticketStatus`, {
-          //         method: "PUT",
-          //         headers: {
-          //           "Content-Type": "application/json"
-          //         },
-          //         body: JSON.stringify({
-          //           ticket_id: ticketId,
-          //           ticket_status: ticketStatus
-          //         })
-          //       })
-          //         .then(response => response.json())
-          //         .then(data => console.log("Success:", data))
-          //         .catch(error => console.error("Error:", error));
-          //     })
-          //     .catch(error => console.error("Error:", error));
-          //   selected = null;
-          // });
-
-          fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
+          fetch(`${API_BASE_URL}/getboards`)
             .then(response => {
               if (!response.ok) {
                 throw new Error("Network response was not ok ");
@@ -1556,7 +1338,7 @@ setTimeout(function() {
     .catch(error => console.error("Error:", error));
 
   const closeCanvase = () => {
-    const offcanvas = document.querySelector(".offcanvas");
+    const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
     // const backdropWrapper = document.getElementById("backdrop");
     offcanvas.classList.remove("show");
     // backdropWrapper.innerHTML = "";
@@ -1600,21 +1382,21 @@ setTimeout(function() {
   function changecardGB(element) {
     element.style.backgroundColor = "red";
   }
-}, 1000);
+}, 500);
 
 //  Move all card in this list
 async function moveAllTask(from, currentStatus) {
   let todoContainer = document.getElementById(from);
-  let inProgressContainer = document.getElementById("move-to").value;
+  let inProgressContainer = document.getElementById(ELEMENT_IDS.TICKET_MOVE_TO).value;
 
-  let newStatus = document.getElementById("move-to").value;
+  let newStatus = document.getElementById(ELEMENT_IDS.TICKET_MOVE_TO).value;
 
   console.log(newStatus);
 
   // Remove currentStatus and newStatus as they are not used later on.
 
   // Select all tasks inside the To-Do container
-  let tasks = todoContainer.querySelectorAll(".kanban-item");
+  let tasks = todoContainer.querySelectorAll(ELEMENT_IDS.KANBAN_ITEMS);
 
   // Move each task to the In-Progress container
   tasks.forEach(task => {
@@ -1715,10 +1497,10 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  const checkbox = document.querySelector(".form-check-input");
-  const progressBar = document.querySelector(".progress-bar");
-  const checklistTitle = document.querySelector("#checklist-title");
-  const progressText = document.querySelector(".col-1 span"); // Selecting the span showing progress percentage
+  const checkbox = document.querySelector(ELEMENT_IDS.FORM_CHECK_INPUT);
+  const progressBar = document.querySelector(ELEMENT_IDS.FORM_PROGRESS_BAR);
+  const checklistTitle = document.querySelector(ELEMENT_IDS.FORM_CHECKLIST_TITLE);
+  const progressText = document.querySelector(ELEMENT_IDS.FORM_PROGRESS_TEXT); // Selecting the span showing progress percentage
 
   checkbox.addEventListener("change", function() {
     if (this.checked) {
@@ -1748,7 +1530,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function openCopyCardModal(title, ticketId) {
-  const copycardForm = document.getElementById("copy-card-form");
+  const copycardForm = document.getElementById(ELEMENT_IDS.FORM_COPY_CARD);
   copycardForm.innerHTML = `                  <div class="mb-4">
                     <label class="form-check-label" for="">Title</label>
                     <textarea class="form-control" rows="2" id="copied-card-title"
@@ -1783,7 +1565,7 @@ function openCopyCardModal(title, ticketId) {
   copycardForm.addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const ticketStatus = document.getElementById("copied-ticket-status").value;
+    const ticketStatus = document.getElementById(ELEMENT_IDS.COPIED_TICKET_STATUS).value;
 
     console.log("form submited", ticketStatus);
     try {
@@ -1867,7 +1649,7 @@ async function deleteCard(event, ticketId) {
 }
 
 function openMoveCardModal(title, ticketId) {
-  const movecardForm = document.getElementById("move-card-form");
+  const movecardForm = document.getElementById(ELEMENT_IDS.FORM_MOVE_CARD);
   movecardForm.innerHTML = `                  <div class="col-10">
                     <div class="mb-4">
                       <strong><label class="form-check-label" for="">Board</label></strong>
@@ -1915,7 +1697,7 @@ function openMoveCardModal(title, ticketId) {
 
   document.getElementById("move-card").addEventListener("click", function(e) {
     e.preventDefault();
-    const ticketStatus = document.getElementById("move-card-in").value;
+    const ticketStatus = document.getElementById(ELEMENT_IDS.FORM_MOVE_CARD_IN).value;
     // Check for undefined or empty values before sending the request
     if (!ticketId || !ticketStatus) {
       return; // You could show an alert or handle the error here
@@ -2062,19 +1844,19 @@ function addLabelModal(ticketId) {
   document
     .getElementById("saveLabelButton")
     .addEventListener("click", function() {
-      const selectedColor = document.getElementById("selectedColor").style
+      const selectedColor = document.getElementById(ELEMENT_IDS.SELETCT_COLOR).style
         .backgroundColor;
       addLabel(selectedColor, ticketId);
     });
 }
 
 function selectColor(color) {
-  document.getElementById("selectedColor").style.backgroundColor = color;
+  document.getElementById(ELEMENT_IDS.SELETCT_COLOR).style.backgroundColor = color;
 }
 
 function openActionModal() {
   var actionModal = new bootstrap.Modal(
-    document.getElementById("actionModal"),
+    document.getElementById(ELEMENT_IDS.ACTION_MODAL),
     { backdrop: false }
   );
   actionModal.show();
@@ -2082,3 +1864,10 @@ function openActionModal() {
 
 window.editAutomation = editAutomation;
 window.deleteAutomationButton = deleteAutomationButton;
+window.moveAllTask = moveAllTask;
+window.openActionModal = openActionModal;
+window.openMoveCardModal = openMoveCardModal;
+window.openCopyCardModal = openCopyCardModal;
+window.selectColor = selectColor;
+window.addLabelModal = addLabelModal;
+window.cardDropdown = cardDropdown;

@@ -1,9 +1,12 @@
 import { sendAutomationData } from "./createAutomationButton.js";
+import { ELEMENT_IDS } from "../element_id.js";
 
 export function removeCardToModal(ticketTitle, ticketId, ticket_status) {
   console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
 
-  let modalContainer = document.getElementById("removeCardToModal");
+  let modalContainer = document.getElementById(
+    ELEMENT_IDS.AUTOMATION_REMOVE_FEATURE_TO_MODAL
+  );
   if (!modalContainer) {
     console.error("Modal container 'removeCardToModal' not found.");
     return;
@@ -83,8 +86,12 @@ export function removeCardToModal(ticketTitle, ticketId, ticket_status) {
 }
 
 async function addRemoveAutomationButton(ticketId) {
-  const removeFeature = document.getElementById("selectRemoveAutomation").value;
-  const buttonTitle = document.getElementById("titleInput").value.trim();
+  const removeFeature = document.getElementById(
+    ELEMENT_IDS.SELECT_REMOVE_AUTOMATION
+  ).value;
+  const buttonTitle = document
+    .getElementById(ELEMENT_IDS.TITLE_INPUT)
+    .value.trim();
   if (!buttonTitle) {
     console.error("Button title cannot be empty.");
     return;
