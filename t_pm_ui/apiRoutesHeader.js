@@ -1,15 +1,15 @@
 export const API_ROUTES = {
-    // Authentication
-    AUTH_REGISTER: "auth/register",
-    AUTH_LOGIN: "auth/login",
-    AUTH_LOGOUT: "auth/logout",
+  // Authentication
+  AUTH_REGISTER: "auth/register",
+  AUTH_LOGIN: "auth/login",
+  AUTH_LOGOUT: "auth/logout",
 
-    // Automation
-    AUTOMATION_DATA: "/automation-data",
-    AUTOMATION_TICKET_STATUS: "/update-ticket-status-automation",
-    COPY_ROW_AUTOMATION: "/copy-row-automation", 
-    AUTOMATION_REMOVE_CHECKLIST: "/remove-checklist",
-    AUTOMATION_TICKET_ETA: "/automation-ticket-eta",
+  // Automation
+  AUTOMATION_DATA: "/automation-data",
+  AUTOMATION_TICKET_STATUS: "/update-ticket-status-automation",
+  COPY_ROW_AUTOMATION: "/copy-row-automation",
+  AUTOMATION_REMOVE_CHECKLIST: "/remove-checklist",
+  AUTOMATION_TICKET_ETA: "/automation-ticket-eta",
 
     // Join Cards
     GET_JOIN_CARDS: "/get-join-card",
@@ -24,22 +24,22 @@ export const API_ROUTES = {
     COPY_BOARD: "/copy-board",
 
 
-    // Rows and Checklists
-    COPY_ROW: "/copy-row",
-    GET_CHECKLIST: "/get-checklist",
-    CREATE_CHECKLIST: "/create-checklist",
+  // Rows and Checklists
+  COPY_ROW: "/copy-row",
+  GET_CHECKLIST: "/get-checklist",
+  CREATE_CHECKLIST: "/create-checklist",
 
     // Kanban
     GET_KANBAN_ORDER: "/get-kanban-order",
     SAVE_KANBAN_ORDER: "/save-kanban-order",
     UPDATE_CURRENT_STATUS: "/updateticketstatus",
 
-    // Projects
-    CREATE_PROJECT: "/project",
-    UPDATE_PROJECTS: "/updateproject",
-    DELETE_PROJECT: "/deleteProject",
-    PROJECT_DATA: "/projects",
-    GET_SINGLE_PROJECT: "/project",
+  // Projects
+  CREATE_PROJECT: "/project",
+  UPDATE_PROJECTS: "/updateproject",
+  DELETE_PROJECT: "/deleteProject",
+  PROJECT_DATA: "/projects",
+  GET_SINGLE_PROJECT: "/project",
 
     // User Management
     GET_USERNAME: "/username",

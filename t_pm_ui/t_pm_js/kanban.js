@@ -1,5 +1,4 @@
 setTimeout(function() {
-  console.log("kanbanjs working");
   const kanbanItems = document.querySelectorAll(".kanban-item");
   const offcanvas = document.querySelector(".offcanvas");
   const contentWrapper = document.querySelector(".content-wrapper");
@@ -28,29 +27,26 @@ setTimeout(function() {
   const addItem5 = document.getElementById("add-approved-item");
   const addItmeForm1 = document.getElementById("add-new-todo-form");
   const addItmeForm2 = document.getElementById("add-new-inprogress-form");
-  console.log(addItmeForm2);
 
   const addItmeForm3 = document.getElementById("add-new-for-approval-form");
   const addItmeForm4 = document.getElementById("add-new-rejected-form");
   const addItmeForm5 = document.getElementById("add-new-approved-form");
 
-  console.log("addItem", addItem1);
-
-  addItem1.addEventListener("click", function() {
-    const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
-                                                          placeholder="Add Content"  required=""></textarea>
-                                                  </div>
-                                                  <div class="mb-4"><button type="submit"
-                                                          class="btn btn-primary btn-sm me-4">Add</button><button
-                                                          type="button"
-                                                          class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
-                                                  </div>`;
-    addItmeForm1.innerHTML += formContent;
-    const cancelForm = document.getElementById("cancel-form-1");
-    cancelForm.addEventListener("click", function() {
-      addItmeForm1.innerHTML = "";
-    });
-  });
+  // addItem1.addEventListener("click", function() {
+  //   const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
+  //                                                         placeholder="Add Content"  required=""></textarea>
+  //                                                 </div>
+  //                                                 <div class="mb-4"><button type="submit"
+  //                                                         class="btn btn-primary btn-sm me-4">Add</button><button
+  //                                                         type="button"
+  //                                                         class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
+  //                                                 </div>`;
+  //   addItmeForm1.innerHTML += formContent;
+  //   const cancelForm = document.getElementById("cancel-form-1");
+  //   cancelForm.addEventListener("click", function() {
+  //     addItmeForm1.innerHTML = "";
+  //   });
+  // });
   addItem2.addEventListener("click", function() {
     const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-inprogress"
                                                           placeholder="Add Content"  required=""></textarea>

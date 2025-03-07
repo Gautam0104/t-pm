@@ -1,9 +1,15 @@
-async function moveCardAutomation(ticketId, currentTicketStatus, ticketStatus) {
+import { API_ROUTES } from "../../apiRoutesHeader.js";
+
+export async function moveCardAutomation(
+  ticketId,
+  currentTicketStatus,
+  ticketStatus
+) {
   const payload = { ticketId, ticketStatus };
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/update-ticket-status-automation`,
+      `${API_BASE_URL}${API_ROUTES.AUTOMATION_TICKET_STATUS}`,
       {
         method: "PUT",
         headers: {
@@ -24,8 +30,11 @@ async function moveCardAutomation(ticketId, currentTicketStatus, ticketStatus) {
   }
 }
 
-async function copycardAutomation(ticketId, currentTicketStatus, ticketStatus) {
-  // only pass the new status
+export async function copycardAutomation(
+  ticketId,
+  currentTicketStatus,
+  ticketStatus
+) {
   const payload = { ticketStatus };
   try {
     const response = await fetch(
@@ -46,13 +55,11 @@ async function copycardAutomation(ticketId, currentTicketStatus, ticketStatus) {
       console.log("Something went wrong");
     }
   } catch (error) {
-    messageElement.textContent = "Error connecting to the server.";
-    messageElement.className = "message error";
     console.error("Error:", error);
   }
 }
 
-function markduedate(ticket_id, duedate) {
+export function markduedate(ticket_id, duedate) {
   const ticket_eta = duedate;
   const messageBox = document.getElementById("message");
 
@@ -75,7 +82,7 @@ function markduedate(ticket_id, duedate) {
       } else {
         Swal.fire({
           title: "Due date marked",
-          text: "card due date mark successfully",
+          text: "Card due date marked successfully",
           icon: "success",
           confirmButtonText: "Ok!"
         }).then(function() {
@@ -90,7 +97,7 @@ function markduedate(ticket_id, duedate) {
     });
 }
 
-function removeDuedate(ticket_id) {
+export function removeDuedate(ticket_id) {
   const ticket_eta = "";
   const messageBox = document.getElementById("message");
 
@@ -122,16 +129,16 @@ function removeDuedate(ticket_id) {
       console.error("Request Error:", error);
     });
 }
-async function removeAllChecklists(id) {
+
+export async function removeAllChecklists(id) {
   try {
-    // Send DELETE request to the API
     const response = await fetch(`${API_BASE_URL}/remove-checklist/${id}`, {
       method: "DELETE"
     });
 
     if (response.ok) {
-      console.log("You successfully removed all checklist of given id's card");
-      window.location.reload(); // Refresh the page after successful delete
+      console.log("You successfully removed all checklists of given card ID");
+      window.location.reload();
     } else {
       console.log("Oops, something went wrong");
       window.location.reload();

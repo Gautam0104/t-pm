@@ -5,13 +5,16 @@ import { copyCardToModal } from "./automation/copyCard.js";
 import { removeCardToModal } from "./automation/removeAutomationFeature.js";
 import { markDueDateModal } from "./automation/markDueDate.js";
 import { setDuedateCardToModal } from "./automation/setDueDate.js";
-
-console.log(setDuedateCardToModal);
+import {
+  retrieveAutomation,
+  editAutomation,
+  deleteAutomationButton
+} from "./automation/automation.js";
 
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
-  }, 1500);
+  }, 1000);
 };
 
 var urlParams = new URLSearchParams(window.location.search);
@@ -125,8 +128,6 @@ setTimeout(function() {
   // Call the function and use the returned elements
   fetchDataAndCreateElements()
     .then(trydraggElements => {
-      console.log("trydragg elements outside fetch:", trydraggElements);
-
       // Perform actions on the elements here
       trydraggElements.forEach(element => {
         element.addEventListener("click", function(e) {
@@ -780,10 +781,10 @@ setTimeout(function() {
                   "removeCardFeature"
                 );
 
-                markduedateAutomationButton.addEventListener("click", () => {
+                setduedateAutomationButton.addEventListener("click", () => {
                   setDuedateCardToModal(element.title, element.ticket_id);
                 });
-                setduedateAutomationButton.addEventListener("click", () => {
+                markduedateAutomationButton.addEventListener("click", () => {
                   markDueDateModal(
                     element.title,
                     element.ticket_id,
@@ -1178,13 +1179,21 @@ setTimeout(function() {
                           const offcanvas = document.querySelector(
                             ".offcanvas"
                           );
-                          offcanvas.classList.remove("show");
+                          if (offcanvas) {
+                            offcanvas.classList.remove("show");
+                          }
+
                           // Log activity
                           const userName = localStorage.getItem(
                             "logged-username"
                           );
                           logActivity(
                             `${userName} updated ticket ID ${ticket_id} with title: "${title}"`
+                          );
+
+                          // Check if SweetAlert is being reached
+                          console.log(
+                            "Ticket updated successfully, showing SweetAlert."
                           );
 
                           // Show success message
@@ -1194,16 +1203,27 @@ setTimeout(function() {
                             icon: "success",
                             confirmButtonText: "Ok!"
                           }).then(() => {
+                            console.log("SweetAlert closed, reloading page.");
                             window.location.reload();
                           });
                         } else if (data.error) {
-                          messageElement.textContent = data.error;
-                          messageElement.style.color = "red";
+                          const messageElement = document.getElementById(
+                            "message"
+                          );
+                          if (messageElement) {
+                            messageElement.textContent = data.error;
+                            messageElement.style.color = "red";
+                          }
                         }
                       })
                       .catch(error => {
-                        messageElement.textContent = "An error occurred.";
-                        messageElement.style.color = "red";
+                        const messageElement = document.getElementById(
+                          "message"
+                        );
+                        if (messageElement) {
+                          messageElement.textContent = "An error occurred.";
+                          messageElement.style.color = "red";
+                        }
                         console.error("Error:", error);
                       });
                   });
@@ -1898,7 +1918,6 @@ function openMoveCardModal(title, ticketId) {
     const ticketStatus = document.getElementById("move-card-in").value;
     // Check for undefined or empty values before sending the request
     if (!ticketId || !ticketStatus) {
-      console.log("Ticket ID or Status is missing");
       return; // You could show an alert or handle the error here
     }
     fetch(`${API_BASE_URL}/updateticketStatus`, {
@@ -1923,28 +1942,24 @@ window.addEventListener("DOMContentLoaded", function() {
 });
 
 function restoreCardState(ticketId) {
-  console.log(`Restoring state for Ticket ID: ${ticketId}`);
   const joinCardAvtar = document.getElementById(`joined-member-${ticketId}`);
   const markTemp = document.getElementById(`mark-card-${ticketId}`);
   const watchTemp = document.getElementById(`watch-notification-${ticketId}`);
 
   // Restore joinCard state
   const joinedMember = localStorage.getItem(`joined-member-${ticketId}`);
-  console.log(`Joined Member for ${ticketId}: `, joinedMember);
   if (joinedMember && joinCardAvtar) {
     joinCardAvtar.innerHTML = joinedMember;
   }
 
   // Restore markCard state
   const marked = localStorage.getItem(`mark-card-${ticketId}`);
-  console.log(`Marked Card for ${ticketId}: `, marked);
   if (marked && markTemp) {
     markTemp.innerHTML = marked;
   }
 
   // Restore watchNotification state
   const watched = localStorage.getItem(`watch-notification-${ticketId}`);
-  console.log(`Watched Notification for ${ticketId}: `, watched);
   if (watched && watchTemp) {
     watchTemp.innerHTML = watched;
   }
@@ -2064,3 +2079,6 @@ function openActionModal() {
   );
   actionModal.show();
 }
+
+window.editAutomation = editAutomation;
+window.deleteAutomationButton = deleteAutomationButton;
