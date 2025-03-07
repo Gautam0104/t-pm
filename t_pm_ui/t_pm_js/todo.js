@@ -13,7 +13,7 @@ import {
 window.onload = function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
-  }, 1500);
+  }, 1000);
 };
 
 var urlParams = new URLSearchParams(window.location.search);
