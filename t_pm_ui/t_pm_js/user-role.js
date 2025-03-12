@@ -1,14 +1,16 @@
-import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id";
+
 const API_BASE_URL = ENV.API_BASE_URL;
-const colorBoxes = document.querySelectorAll(".color-box");
-const activeMenu = document.querySelector(".menu-link-active");
-const footerLink = document.querySelectorAll(".footer-link");
-const othertext = document.querySelectorAll(".otext");
-const acBtn = document.querySelector(".acbutton");
-const btnC = document.querySelectorAll(".btnCSwitch");
-const cardBg = document.querySelectorAll(".card-bg");
-const progressBar = document.querySelectorAll(".progress-bar");
-const pageItem = document.querySelectorAll(".page-item");
+
+const colorBoxes = document.querySelectorAll(ELEMENT_IDS.COLOR_BOXES);
+const activeMenu = document.querySelector(ELEMENT_IDS.MENU_LINK_ACTIVE);
+const footerLink = document.querySelectorAll(ELEMENT_IDS.FOOTER_LINK);
+const othertext = document.querySelectorAll(ELEMENT_IDS.O_TEXT);
+const acBtn = document.querySelector(ELEMENT_IDS.AC_BUTTON);
+const btnC = document.querySelectorAll(ELEMENT_IDS.BTNC_SWITCH);
+const cardBg = document.querySelectorAll(ELEMENT_IDS.CARD_BG);
+const progressBar = document.querySelectorAll(ELEMENT_IDS.PROGRESS_BAR);
+const pageItem = document.querySelectorAll(ELEMENT_IDS.PAGE_ITEM);
 
 // Add click event to each color box
 colorBoxes.forEach(box => {
@@ -44,9 +46,7 @@ colorBoxes.forEach(box => {
     });
   });
 });
-document.addEventListener("DOMContentLoaded", function () {
-
-
+document.addEventListener("DOMContentLoaded", function() {
   async function fetchRoles() {
     try {
       // Replace `/api/roles` with your actual API endpoint
@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Dynamically create and append role cards
       roles.forEach(role => {
-        const countRole = document.getElementById("count-role");
-        const cardDiv = document.getElementById("rolesContainer");
+        const countRole = document.getElementById(ELEMENT_IDS.COUNT_ROLE);
+        const cardDiv = document.getElementById(ELEMENT_IDS.ROLES_CONTAINER);
 
         const card = `
                         <div class="col-xl-4 col-lg-6 col-md-6">
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Call the function on page load
   fetchRoles();
   setTimeout(() => {
-    const cardDiv = document.getElementById("rolesContainer");
+    const cardDiv = document.getElementById(ELEMENT_IDS.ROLES_CONTAINER);
     const card = `<div class="col-xl-4 col-lg-6 col-md-6">
             <div class="card h-100">
               <div class="row h-100">
@@ -127,10 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 1000); // Adjust delay if necessary
 });
 
-
-
-export const updateRole = (role_id, role_name) => {
-  const updateroleForm = document.getElementById("update-role-form");
+const updateRole = (role_id, role_name) => {
+  console.log("Updating role:", role_id, role_name);
+  const updateroleForm = document.getElementById(ELEMENT_IDS.UPDATE_ROLE_FORM);
   const updateRoleContent = ` 
                     <form id="updateRoleForm" class="row g-6" onsubmit="return false">
                       <div class="col-12">
@@ -144,46 +143,47 @@ export const updateRole = (role_id, role_name) => {
                           Cancel
                         </button>
                       </div>
-                    </form>`
+                    </form>`;
   updateroleForm.innerHTML = updateRoleContent;
 
-  document.getElementById("updateRoleForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const role_name = document.getElementById('updateRoleName').value.trim();
+  document
+    .getElementById("updateRoleForm")
+    .addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const role_name = document
+        .getElementById(ELEMENT_IDS.UPDATE_ROLE_NAME)
+        .value.trim();
 
-    try {
-
-      const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_ROLES}/${role_id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          role_name
-        })
-      });
-      if (response.ok) {
-        Swal.fire({
-          title: "Role Updated Successfully",
-          text: "A role is update from your projects",
-          icon: "success",
-          confirmButtonText: "Ok!"
-        }).then(() => {
-          window.location.reload();
+      try {
+        const response = await fetch(`${API_BASE_URL}/updaterole/${role_id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            role_name
+          })
         });
-      } else {
-        Swal.fire({
-          title: "Oops!",
-          text: "something went wrong. Try again!",
-          icon: "error",
-          confirmButtonText: "Retry!"
-        });
+        if (response.ok) {
+          Swal.fire({
+            title: "Role Updated Successfully",
+            text: "A role is update from your projects",
+            icon: "success",
+            confirmButtonText: "Ok!"
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Oops!",
+            text: "something went wrong. Try again!",
+            icon: "error",
+            confirmButtonText: "Retry!"
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-
-    }
-  })
-}
-
+    });
+};
 
 fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
   .then(response => {
@@ -194,7 +194,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
   })
   .then(roles => {
     roles.map(item => {
-      const tablebody = document.getElementById("role-data");
+      const tablebody = document.getElementById(ELEMENT_IDS.ROLE_DATA);
       const isoDate = `${item.created_at}`;
 
       // Convert to a Date object
@@ -219,21 +219,13 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
 
       // Extract date components
       const day1 = dateupdate.getDate().toString().padStart(2, "0");
-      const month1 = (dateupdate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0"); // Months are 0-based
+      const month1 = (dateupdate.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
       const year1 = dateupdate.getFullYear();
 
       // Extract time components
       const hours1 = dateupdate.getHours().toString().padStart(2, "0");
-      const minutes1 = dateupdate
-        .getMinutes()
-        .toString()
-        .padStart(2, "0");
-      const seconds1 = dateupdate
-        .getSeconds()
-        .toString()
-        .padStart(2, "0");
+      const minutes1 = dateupdate.getMinutes().toString().padStart(2, "0");
+      const seconds1 = dateupdate.getSeconds().toString().padStart(2, "0");
 
       // Combine date and time
       const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
@@ -262,17 +254,15 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
                         </tr>`;
 
       tablebody.innerHTML += bodyContent;
+    });
+  });
 
-
-
-    })
-  })
-
-
-export const fetchrolehistory = async (roleId, roleName) => {
+const fetchrolehistory = async (roleId, roleName) => {
   // Clear the previous content
-  const historytablebody = document.getElementById("role-history-data");
-  historytablebody.innerHTML = '';  // Clear any existing rows
+  const historytablebody = document.getElementById(
+    ELEMENT_IDS.ROLE_HISTORY_DATA
+  );
+  historytablebody.innerHTML = ""; // Clear any existing rows
 
   // Fetch role history based on roleId
   await fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLE_HISTORY}/${roleId}`)
@@ -298,7 +288,10 @@ export const fetchrolehistory = async (roleId, roleName) => {
         const year1 = dateupdate_history.getFullYear();
 
         // Extract time components
-        const hours1 = dateupdate_history.getHours().toString().padStart(2, "0");
+        const hours1 = dateupdate_history
+          .getHours()
+          .toString()
+          .padStart(2, "0");
         const minutes1 = dateupdate_history
           .getMinutes()
           .toString()
@@ -329,22 +322,26 @@ export const fetchrolehistory = async (roleId, roleName) => {
     });
 };
 
-
-const deleteRole = async (role_id) => {
+const deleteRole = async role_id => {
   try {
     // Send DELETE request to the API
-    const response1 = await fetch(`${API_BASE_URL}${API_ROUTES.CLEAR_ROLE_HISTORY}/${role_id}`, {
-      method: "DELETE"
-    });
-  }
-  catch (error) {
+    const response1 = await fetch(
+      `${API_BASE_URL}/clearroleHistory/${role_id}`,
+      {
+        method: "DELETE"
+      }
+    );
+  } catch (error) {
     console.error(error);
   }
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_ROLE}/${role_id}`, {
-      method: "DELETE"
-    });
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.DELETE_ROLE}/${role_id}`,
+      {
+        method: "DELETE"
+      }
+    );
 
     if (response.ok) {
       Swal.fire({
@@ -367,8 +364,3 @@ const deleteRole = async (role_id) => {
     console.error(error);
   }
 };
-
-window.fetchrolehistory = fetchrolehistory;
-window.updateRole = updateRole;
-window.deleteRole = deleteRole;
-

@@ -1,4 +1,6 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "../element_id.js";
+
 export async function fetchLists() {
   try {
     const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
@@ -11,7 +13,7 @@ export async function fetchLists() {
 
     const lists = await response.json();
 
-    const select = document.getElementById("listSelect");
+    const select = document.getElementById(ELEMENT_IDS.SELECT_LIST);
     if (!select) {
       console.error("listSelect element not found");
       return;
@@ -20,7 +22,7 @@ export async function fetchLists() {
     select.innerHTML = '<option value="">Select List</option>';
 
     lists.forEach(list => {
-      const option = document.createElement("option");
+      const option = document.createElement(ELEMENT_IDS.OPTION);
       option.value = list.board_title;
       option.textContent = list.board_title;
       select.appendChild(option);

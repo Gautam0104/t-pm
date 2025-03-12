@@ -6,6 +6,7 @@ import {
   removeDuedate,
   removeAllChecklists
 } from "./automationLogic.js";
+import { ELEMENT_IDS } from "../element_id.js";
 
 export function retrieveAutomation(ticketId) {
   fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
@@ -56,7 +57,7 @@ export function editAutomation(ticketId) {
     .then(data => {
       console.log("API Response Data:", data);
       const editAutomationModal = document.getElementById(
-        "edit-automation-modal-content"
+        ELEMENT_IDS.EDIT_AUTOMATION_MODAL_CONTENT
       );
 
       if (Array.isArray(data)) {
@@ -84,11 +85,15 @@ export function editAutomation(ticketId) {
     })
     .catch(error => {
       console.error("Fetch error:", error);
-      document.getElementById("edit-automation-modal-content").innerHTML =
+      document.getElementById(
+        ELEMENT_IDS.EDIT_AUTOMATION_MODAL_CONTENT
+      ).innerHTML =
         "<p>Error occurred. Please check the console for details.</p>";
     });
 
-  let modalElementauto = document.getElementById("editautomationModal");
+  let modalElementauto = document.getElementById(
+    ELEMENT_IDS.EDIT_AUTOMATION_MODAL
+  );
   let modal = new bootstrap.Modal(modalElementauto);
   modal.show();
 }

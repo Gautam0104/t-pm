@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "../element_id.js";
 
 export async function moveCardAutomation(
   ticketId,
@@ -61,7 +62,7 @@ export async function copycardAutomation(
 
 export function markduedate(ticket_id, duedate) {
   const ticket_eta = duedate;
-  const messageBox = document.getElementById("message");
+  const messageBox = document.getElementById(ELEMENT_IDS.MESSAGE);
 
   if (!ticket_id || !ticket_eta) {
     messageBox.textContent = "Please fill in both fields.";
@@ -99,7 +100,7 @@ export function markduedate(ticket_id, duedate) {
 
 export function removeDuedate(ticket_id) {
   const ticket_eta = "";
-  const messageBox = document.getElementById("message");
+  const messageBox = document.getElementById(ELEMENT_IDS.MESSAGE);
 
   if (!ticket_id) {
     messageBox.textContent = "Please fill in both fields.";

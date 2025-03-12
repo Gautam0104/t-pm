@@ -1,10 +1,12 @@
 import { sendAutomationData } from "./createAutomationButton.js";
-
+import { ELEMENT_IDS } from "../element_id.js";
 // Function to open modal and inject content
 export function joinCardToModal(ticketTitle, ticketId) {
   console.log("Opening modal for:", ticketTitle, ticketId);
 
-  let modalContainer = document.getElementById("automationjoinCardToModal");
+  let modalContainer = document.getElementById(
+    ELEMENT_IDS.AUTOMATION_JOIN_CARD_TO_MODAL
+  );
 
   if (!modalContainer) {
     console.error("Modal container 'automationjoinCardToModal' not found.");
@@ -72,7 +74,7 @@ export function joinCardToModal(ticketTitle, ticketId) {
 
 // Function to send automation data
 async function joinAutomationButton(ticketId) {
-  const titleInput = document.getElementById("titleInput");
+  const titleInput = document.getElementById(ELEMENT_IDS.TITLE_INPUT);
 
   if (!titleInput) {
     console.error("Input field not found.");
