@@ -1,4 +1,4 @@
-import { API_ROUTES } from "../apiRoutesHeader";
+import { API_ROUTES } from "../apiRoutesHeader.js";
 function openjoinCardModal(ticketTitle, ticketId) {
   const joinCardForm = document.getElementById("join-card-form");
   const joinCardContent = ` <div class="mb-4">
@@ -102,8 +102,6 @@ function joinNewUser(event, tickId) {
                   <h4 class="mb-2">Users</h4>
                   <p>You can join any user on this card</p>
                 </div>
-
-
                 <h5 class="ms-4 ms-md-0" id="numofmember">4 Members</h5>
                 <ul class="p-0 m-0 mx-4 mx-md-0" id="list-content">
 
@@ -215,6 +213,7 @@ function joinNewUser(event, tickId) {
   joinuserModal.innerHTML = modalBody;
 }
 window.openjoinCardModal = openjoinCardModal;
-window.joinCard =joinCard;
+window.joinCard = joinCard;
 window.joineUserDetail = joineUserDetail;
 window.joinNewUser = joinNewUser;
+window.handleJoinCard = handleJoinCard;

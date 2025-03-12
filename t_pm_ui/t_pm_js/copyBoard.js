@@ -1,7 +1,8 @@
 // Function to fetch and display board items
+import { API_ROUTES } from "../apiRoutesHeader.js";
 async function getBoards() {
     try {
-        const response = await fetch(`${API_BASE_URL}/getboards`);
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
         const data = await response.json();
         const boardList = document.getElementById("kanban-wrapper-container");
 
@@ -190,7 +191,7 @@ async function addBoard() {
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/addnewboard`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_NEW_BOARD}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name })
@@ -228,9 +229,6 @@ function formShowHide(boardName) {
 
 function copyTicket(newStatus, currentStatus) {
 
-
-
-
     // Check if both values are selected
     if (!currentStatus || !newStatus) {
         showMessage('Please select both current status and new status.', 'error');
@@ -238,7 +236,7 @@ function copyTicket(newStatus, currentStatus) {
     }
 
     // Send the data to the backend API
-    fetch(`${API_BASE_URL}/copy-board`, {
+    fetch(`${API_BASE_URL}${API_ROUTES.COPY_BOARD}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -261,3 +259,5 @@ function copyTicket(newStatus, currentStatus) {
             showMessage('An error occurred. Please try again later.', 'error');
         });
 }
+window.addBoard = addBoard;
+window.formShowHide = formShowHide;

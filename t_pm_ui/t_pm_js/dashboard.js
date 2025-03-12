@@ -1,6 +1,6 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
-
 
 // Project table data filter
 const filterInput = document.getElementById("filterInput");
@@ -35,7 +35,7 @@ function openModal() {
 // project data
 
 // Fetch Project Data from API
-fetch(`${API_BASE_URL}/users`)
+fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);
@@ -117,7 +117,7 @@ fetch(`${API_BASE_URL}/users`)
     });
 
 // Fetch Project Data from API
-fetch(`${API_BASE_URL}/projects`)
+fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);
@@ -257,7 +257,7 @@ const totalProjectsCountElement = document.getElementById(
 );
 
 // Fetch Project Data from API
-fetch(`${API_BASE_URL}/projects`)
+fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok: " + response.statusText);
@@ -298,7 +298,7 @@ const handleDelete = async (project_id) => {
 
     try {
         // Send DELETE request to the API
-        const response = await fetch(`${API_BASE_URL}/deleteProject/${project_id}`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_PROJECT}/${project_id}`, {
             method: 'DELETE',
         });
 
@@ -326,3 +326,6 @@ const handleDelete = async (project_id) => {
         console.error(error);
     }
 }
+
+window.openModal = openModal;
+window.handleDelete = handleDelete;

@@ -1,6 +1,7 @@
+import { API_ROUTES } from "../apiRoutesHeader";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
-fetch(`${API_BASE_URL}/getboards`)
+fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok ");
@@ -177,7 +178,7 @@ fetch(`${API_BASE_URL}/getboards`)
 const deleteBoard = async boardId => {
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}/deleteboard/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_BOARD}/${boardId}`, {
       method: "DELETE"
     });
 
@@ -250,3 +251,7 @@ function watchedCard(watched) {
     localStorage.setItem(`watched-${watched}`, true);
   }
 }
+window.deleteBoard = deleteBoard;
+window.toggleTicketSortByName = toggleTicketSortByName;
+window.toggleTicketSortByDate = toggleTicketSortByDate;
+window.watchedCard = watchedCard;

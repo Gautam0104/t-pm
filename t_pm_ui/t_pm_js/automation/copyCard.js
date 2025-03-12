@@ -2,8 +2,6 @@ import { sendAutomationData } from "./createAutomationButton.js";
 import { fetchLists } from "./boardList.js";
 
 export function copyCardToModal(ticketTitle, ticketId, ticket_status) {
-  console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
-
   let modalContainer = document.getElementById("automationcopyCardToModal");
 
   if (!modalContainer) {

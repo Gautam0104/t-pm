@@ -1,4 +1,4 @@
-import { API_ROUTES } from "../apiRoutesHeader";
+import { API_ROUTES } from "../apiRoutesHeader.js";
 function cardjoinVerification(ticketId) {
   fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARDS}/${ticketId}`)
     .then(response => {

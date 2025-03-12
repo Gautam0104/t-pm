@@ -1,4 +1,4 @@
-import { API_ROUTES } from "../apiRoutesHeader";
+import { API_ROUTES } from "../apiRoutesHeader.js";
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     const container = document.getElementById("kanban-wrapper-container");

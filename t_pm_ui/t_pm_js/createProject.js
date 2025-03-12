@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
 function closeModal() {
     $('#modalCenter').modal('hide');
 }
@@ -52,7 +53,7 @@ document
             // alert(project_name + "" + selected_type);
             // Add logic to submit the form data here
             try {
-                const response = await fetch(`${API_BASE_URL}/project`, {
+                const response = await fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -100,7 +101,7 @@ document
 
 
 const editProject = async (project_id) => {
-    await fetch(`${API_BASE_URL}/project/${project_id}`)
+    await fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok ");
@@ -109,7 +110,6 @@ const editProject = async (project_id) => {
 
         })
         .then(project => {
-            console.log();
             const updatemodal = document.getElementById("update-project-modal");
             const modalContent = `       <div class="modal-content">
                                                     <div class="modal-header">
@@ -231,7 +231,6 @@ const editProject = async (project_id) => {
                 }
             });
         })
-
-
-
 }
+window.editProject = editProject;
+

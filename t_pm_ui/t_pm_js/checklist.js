@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     const checkbox = document.querySelector(".form-check-input");
@@ -41,7 +42,7 @@ const createChecklist = async (ticketId, ticketTitle) => {
   console.log("Creating checklist for:", checkList, ticketId, ticketTitle);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/create-checklist`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.CREATE_CHECKLIST}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -67,7 +68,7 @@ const DEBUG_MODE = false; // Change to false to disable console logs
 
 const getChecklist = async (ticket_id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/get-checklist/${ticket_id}`);
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_CHECKLIST}/${ticket_id}`);
 
     if (response.status === 404) {
       // Handle 404 gracefully: No checklist found, just return
@@ -113,7 +114,7 @@ const getChecklist = async (ticket_id) => {
 
 // Fetch all tickets and get checklists for each one
 setTimeout(() => {
-  fetch(`${API_BASE_URL}/tickets`)
+  fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKETS}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -136,3 +137,6 @@ setTimeout(() => {
 function checklistModal(event) {
   event.stopPropagation(); // Prevents the event from bubbling up
 }
+
+window.createChecklist = createChecklist;
+window.checklistModal = checklistModal;

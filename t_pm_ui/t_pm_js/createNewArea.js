@@ -1,3 +1,5 @@
+import { API_ROUTES } from "../apiRoutesHeader.js";
+
 const formShow = document.getElementById("form-show");
 const formHide = document.getElementById("form-hide");
 const addBoardDiv = document.getElementById("addBoardDiv");
@@ -18,7 +20,7 @@ function toggleFormVisibility(hide) {
 async function createBoard(boardTitle) {
   if (!boardTitle.trim()) return;
   try {
-    const response = await fetch(`${API_BASE_URL}/addnewboard`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_NEW_BOARD}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ boardTitle })
@@ -77,7 +79,7 @@ async function submitBoardName(status) {
 // Function to copy card status
 async function copyCardStatus(status, ticketStatus) {
   try {
-    const response = await fetch(`${API_BASE_URL}/copy-row/status/${status}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.COPY_BOARD}/status/${status}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ticketStatus })
@@ -89,3 +91,6 @@ async function copyCardStatus(status, ticketStatus) {
     console.error("Error copying card:", error);
   }
 }
+
+window.copyBoardList = copyBoardList;
+window.submitBoardName = submitBoardName;
