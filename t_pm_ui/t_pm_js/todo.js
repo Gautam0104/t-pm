@@ -1795,7 +1795,7 @@ function watchNotification(ticketId) {
 
 // function for add label body
 function addLabelModal(ticketId) {
-  const addLabelForm = document.getElementById("add-label-form");
+  const addLabelForm = document.getElementById(ELEMENT_IDS.ADD_LABEL_FORM);
   addLabelForm.innerHTML = `
     <div class="modal-body">
       <form id="label-form">

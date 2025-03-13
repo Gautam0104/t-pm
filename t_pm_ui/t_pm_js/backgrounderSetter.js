@@ -1,3 +1,4 @@
+import {ELEMENT_IDS} from "./element_id.js";
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 
@@ -28,11 +29,11 @@ function defaultBackground() {
 }
 
 function changeElebg() {
-  const todoFooter = document.getElementById("footer");
-  const todoHeader = document.getElementsByTagName("header");
-  const todoButton = document.getElementsByClassName("kanban-title-button");
+  const todoFooter = document.getElementById(ELEMENT_IDS.FOOTER);
+  const todoHeader = document.getElementsByTagName(ELEMENT_IDS.HEADER);
+  const todoButton = document.getElementsByClassName(ELEMENT_IDS.KANBAN_TITLE_BUTTON);
 
-  const todoForm = document.getElementsByClassName("new-item-form");
+  const todoForm = document.getElementsByClassName(ELEMENT_IDS.ADD_NEW_FORM);
 
   // Convert the HTMLCollection to an array
   const headerArray = Array.from(todoHeader);
@@ -53,11 +54,11 @@ function changeElebg() {
 }
 
 function resetElebg() {
-  const todoFooter = document.getElementById("footer");
-  const todoHeader = document.getElementsByTagName("header");
-  const todoButton = document.getElementsByClassName("kanban-title-button");
+  const todoFooter = document.getElementById(ELEMENT_IDS.FOOTER);
+  const todoHeader = document.getElementsByTagName(ELEMENT_IDS.HEADER);
+  const todoButton = document.getElementsByClassName(ELEMENT_IDS.KANBAN_TITLE_BUTTON);
 
-  const todoForm = document.getElementsByClassName("new-item-form");
+  const todoForm = document.getElementsByClassName(ELEMENT_IDS.ADD_NEW_FORM);
 
   // Convert the HTMLCollection to an array
   const headerArray = Array.from(todoHeader);

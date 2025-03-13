@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import {ELEMENT_IDS} from "../element_id.js";
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     const checkbox = document.querySelector(".form-check-input");
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const createChecklist = async (ticketId, ticketTitle) => {
-  const checkList = document.getElementById("checklist-name").value;
+  const checkList = document.getElementById(ELEMENT_IDS.CHECKLIST_NAME).value;
 
   console.log("Creating checklist for:", checkList, ticketId, ticketTitle);
 
@@ -85,8 +86,8 @@ const getChecklist = async (ticket_id) => {
     const data = await response.json();
     if (DEBUG_MODE) console.log("Fetched checklist data:", data);
 
-    const headerTitle = document.getElementById("modal-header-title");
-    const checklistTitle = document.getElementById("checklist-title");
+    const headerTitle = document.getElementById(ELEMENT_IDS.MODAL_HEADER_TITLE);
+    const checklistTitle = document.getElementById(ELEMENT_IDS.CHECKLIST_TITLE);
     const checklistContainer = document.getElementById(`checklist-container-${ticket_id}`);
 
     if (checklistContainer) {

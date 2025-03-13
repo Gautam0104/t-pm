@@ -1,3 +1,4 @@
+import { ELEMENT_IDS } from "./element_id";
 setTimeout(function() {
   const kanbanItems = document.querySelectorAll(".kanban-item");
   const offcanvas = document.querySelector(".offcanvas");
@@ -19,18 +20,17 @@ setTimeout(function() {
   // })
   //Add new todo item||ticket||task
   // const addItems = document.querySelectorAll('.kanban-title-button');
-  const addItem1 = document.getElementById("add-todo-item");
+  const addItem1 = document.getElementById(ELEMENT_IDS.ADD_TODO_ITEM);
+  const addItem2 = document.getElementById(ELEMENT_IDS.IN_PROGRESS_ITEM);
+  const addItem3 = document.getElementById(ELEMENT_IDS. ADD_FOR_APPROVAL_ITEM);
+  const addItem4 = document.getElementById(ELEMENT_IDS.ADD_REJECTED_ITEM);
+  const addItem5 = document.getElementById(ELEMENT_IDS.ADD_APPROVED_ITEM);
+  const addItmeForm1 = document.getElementById(ELEMENT_IDS.ADD_NEW_TODO_FORM);
+  const addItmeForm2 = document.getElementById(ELEMENT_IDS.ADD_NEW_INPROGRESS_FORM);
 
-  const addItem2 = document.getElementById("add-inprogress-item");
-  const addItem3 = document.getElementById("add-for-approval-item");
-  const addItem4 = document.getElementById("add-rejected-item");
-  const addItem5 = document.getElementById("add-approved-item");
-  const addItmeForm1 = document.getElementById("add-new-todo-form");
-  const addItmeForm2 = document.getElementById("add-new-inprogress-form");
-
-  const addItmeForm3 = document.getElementById("add-new-for-approval-form");
-  const addItmeForm4 = document.getElementById("add-new-rejected-form");
-  const addItmeForm5 = document.getElementById("add-new-approved-form");
+  const addItmeForm3 = document.getElementById(ELEMENT_IDS.ADD_NEW_FOR_APPROVAL_FORM);
+  const addItmeForm4 = document.getElementById(ELEMENT_IDS.ADD_NEW_REJECTED_FORM);
+  const addItmeForm5 = document.getElementById(ELEMENT_IDS.ADD_NEW_APPROVED_FORM);
 
   addItem1.addEventListener("click", function() {
     const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
@@ -42,7 +42,7 @@ setTimeout(function() {
                                                           class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
                                                   </div>`;
     addItmeForm1.innerHTML += formContent;
-    const cancelForm = document.getElementById("cancel-form-1");
+    const cancelForm = document.getElementById(ELEMENT_IDS.CANCEL_FORM_1);
     cancelForm.addEventListener("click", function() {
       addItmeForm1.innerHTML = "";
     });
@@ -57,7 +57,7 @@ setTimeout(function() {
                                                           class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-2">Cancel</button>
                                                   </div>`;
     addItmeForm2.innerHTML += formContent;
-    const cancelForm = document.getElementById("cancel-form-2");
+    const cancelForm = document.getElementById(ELEMENT_IDS.CANCEL_FORM_2);
     cancelForm.addEventListener("click", function() {
       addItmeForm2.innerHTML = "";
     });
@@ -72,7 +72,7 @@ setTimeout(function() {
                                                           class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-3">Cancel</button>
                                                   </div>`;
     addItmeForm3.innerHTML += formContent;
-    const cancelForm = document.getElementById("cancel-form-3");
+    const cancelForm = document.getElementById(ELEMENT_IDS.CANCEL_FORM_3);
     cancelForm.addEventListener("click", function() {
       addItmeForm3.innerHTML = "";
     });
@@ -87,7 +87,7 @@ setTimeout(function() {
                                                           class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-4">Cancel</button>
                                                   </div>`;
     addItmeForm4.innerHTML += formContent;
-    const cancelForm = document.getElementById("cancel-form-4");
+    const cancelForm = document.getElementById(ELEMENT_IDS.CANCEL_FORM_4);
     cancelForm.addEventListener("click", function() {
       addItmeForm4.innerHTML = "";
     });
@@ -102,7 +102,7 @@ setTimeout(function() {
                                                           class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-5">Cancel</button>
                                                   </div>`;
     addItmeForm5.innerHTML += formContent;
-    const cancelForm = document.getElementById("cancel-form-5");
+    const cancelForm = document.getElementById(ELEMENT_IDS.CANCEL_FORM_5);
     cancelForm.addEventListener("click", function() {
       addItmeForm5.innerHTML = "";
     });

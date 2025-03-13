@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
 function cardjoinVerification(ticketId) {
   fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARDS}/${ticketId}`)
     .then(response => {
@@ -10,8 +11,8 @@ function cardjoinVerification(ticketId) {
     .then(data => {
       const loggedUsername = localStorage.getItem("logged-username");
       data.map(item => {
-        const joinCardButton = document.getElementById("join-button");
-        const leaveCardButton = document.getElementById("leave-button");
+        const joinCardButton = document.getElementById(ELEMENT_IDS.JOIN_BUTTON);
+        const leaveCardButton = document.getElementById(ELEMENT_IDS.LEAVE_BUTTON);
         if (item.joined_username === loggedUsername) {
           console.log("you all ready joined this card");
           leaveCardButton.style.display = "block";

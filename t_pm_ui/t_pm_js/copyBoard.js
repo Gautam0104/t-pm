@@ -1,10 +1,11 @@
 // Function to fetch and display board items
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import {ELEMENT_IDS} from "../element_id.js";
 async function getBoards() {
     try {
         const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
         const data = await response.json();
-        const boardList = document.getElementById("kanban-wrapper-container");
+        const boardList = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
 
 
         data.data.forEach(item => {
@@ -184,7 +185,7 @@ async function getBoards() {
 
 // Function to add a new board item
 async function addBoard() {
-    const name = document.getElementById("copy-board-name").value;
+    const name = document.getElementById(ELEMENT_IDS.COPY_BOARD_NAME).value;
     if (!name) {
         alert("Please enter a name!");
         return;
@@ -199,7 +200,7 @@ async function addBoard() {
 
         const data = await response.json();
         if (response.ok) {
-            document.getElementById("copy-board-name").value = ""; // Clear input
+            document.getElementById(ELEMENT_IDS.COPY_BOARD_NAME).value = ""; // Clear input
             getBoards(); // Refresh the board list
         } else {
             alert("Error: " + data.error);

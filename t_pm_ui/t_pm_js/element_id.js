@@ -74,6 +74,8 @@ export const ELEMENT_IDS = {
   COPIED_TICKET_STATUS: "copied-ticket-status",
   SELETCT_COLOR: "selectedColor",
   ACTION_MODAL: "actionModal",
+  TICKET_TAB_ACTIVITY: "tab-activity",
+  TICKET_TAB_OFFCANVAS: "offcanvas-div",
 
   // USER LIST
   USER_ROLE: "user-role",
@@ -87,7 +89,6 @@ export const ELEMENT_IDS = {
   UPDATE_USER: "update-user",
   UPDATE_USER_ROLE: "update-user-role",
   UPDATE_USER_FORM: "updateUserForm",
-  UPDATE_USER_ROLE: "update-user-role",
   UPDATE_USER_EMAIL: "update-user-email",
   UPDATE_USER_FIRSTNAME: "update-user-first-name",
   UPDATE_USER_LASTNAME: "update-user-last-name",
@@ -107,5 +108,71 @@ export const ELEMENT_IDS = {
   COUNT_ROLE: "count-role",
   ROLES_CONTAINER: "rolesContainer",
   UPDATE_ROLE_FORM: "update-role-form",
-  UPDATE_ROLE_NAME: "updateRoleName"
+  UPDATE_ROLE_NAME: "updateRoleName",
+
+  // BACKGROUND HEADER FOOTER
+  HEADER: "header",
+  FOOTER: "footer",
+  KANBAN_TITLE_BUTTON: "kanban-title-button",
+  ADD_NEW_FORM: "add-new-form",
+
+  // CHECKLIST
+  MODAL_HEADER_TITLE: "modal-header-title",
+  CHECKLIST_TITLE: "checklist-title",
+  CHECKLIST_CONTAINER:"checklist-container-",
+  CHECKLIST_NAME: "checklist-name",
+
+  // COPY BOARD
+  KANBAN_WRAPPER_CONTAINER: "kanban-wrapper-container",
+  COPY_BOARD_NAME: "copy-board-name",
+
+  // CREATE NEW AREA
+  FROM_SHOW: "form-show",
+  FROM_HIDE: "form-hide",
+  ADD_BOARD_DIV: "addBoardDiv",
+  KANBAN_BOARD_ADD_INPUT: "kanban-add-board-input",
+  CREATE_NEW_BOARD: "create-new-board",
+  COPY_BOARD_MODAL_CONTENT: "copy-board-modal-content",
+  BOARD_NAME: "boardName",
+
+  // CREATE NEW PROEJCT
+  CREATE_NEW_PROJECT: "createProjectorTicket",
+  PROJECT_NAME: "project-name",
+  PROJECT_STATUS: "project-status",
+  PROJECT_ETA: "project-eta",
+  PROJECT_DESCRIPTION: "project-des",
+  NAME_ERROR: "nameError",
+  DESCRIPTION_ERROR: "descriptionError",
+  UPDATE_PROJECT_MODAL: "update-project-modal",
+  UPDATE_PROJECT_FORM: "updateProjectForm",
+  UPDATE_PROJECT_NAME: "update-project-name",
+  UPDATE_PROJECT_DESCRIPTION: "update-project-des",
+
+  // DASHBOARD
+  FILTER_INPUT: "filterInput",
+  TABLE_BODY: "tableBody",
+  SHARE_PROJECT: "shareProject",
+  ACTIVE_PROJECTS_COUNTS: "active-projects-counts",
+  COMPLETE_PROJECTS_COUNTS: "complete-projects-counts",
+  TOTAL_PROJECTS_COUNTS: "total-projects-counts",
+
+  // KANBAN 
+  ADD_TODO_ITEM: "add-todo-item",
+  IN_PROGRESS_ITEM: "add-inprogress-item",
+  ADD_FOR_APPROVAL_ITEM: "add-for-approval-item",
+  ADD_REJECTED_ITEM: "add-rejected-item",
+  ADD_APPROVED_ITEM: "add-approved-item",
+  ADD_NEW_TODO_FORM: "add-new-todo-form",
+  ADD_NEW_INPROGRESS_FORM: "add-new-inprogress-form",
+  ADD_NEW_FOR_APPROVAL_FORM: "add-new-for-approval-form",
+  ADD_NEW_REJECTED_FORM: "add-new-rejected-form",
+  ADD_NEW_APPROVED_FORM: "add-new-approved-form",
+  CANCEL_FORM_1: "cancel-form-1",
+  CANCEL_FORM_2: "cancel-form-2",
+  CANCEL_FORM_3: "cancel-form-3",
+  CANCEL_FORM_4: "cancel-form-4",
+  CANCEL_FORM_5: "cancel-form-5",
+  JOIN_BUTTON: "join-button",
+  LEAVE_BUTTON: "leave-button",
+  ADD_LABEL_FORM:"add-label-form",
 };

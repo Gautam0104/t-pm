@@ -1,10 +1,11 @@
+import { ELEMENT_IDS } from "./element_id";
 document.addEventListener("DOMContentLoaded", () => {
     // Log when user enters the page
     const userName = localStorage.getItem("logged-username") || "Guest";
     logActivity(`${userName} entered the page at ${new Date().toLocaleString()}`);
 
     // Track changes in the ticket form (if it exists)
-    const ticketForm = document.getElementById("ticketForm");
+    const ticketForm = document.getElementById(ELEMENT_IDS.TICKET_FORM);
 
     if (ticketForm) {
         ticketForm.addEventListener("input", (event) => {

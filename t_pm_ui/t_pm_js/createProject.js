@@ -1,35 +1,36 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import {ELEMENT_IDS} from "../elements_id.js";
 function closeModal() {
     $('#modalCenter').modal('hide');
 }
 // Create Project
 
 document
-    .getElementById("createProjectorTicket")
+    .getElementById(ELEMENT_IDS.CREATE_NEW_PROJECT)
     .addEventListener("submit", async function (e) {
         // Prevent form submission
         e.preventDefault();
 
         // Clear previous errors
-        document.getElementById("nameError").textContent = "";
+        document.getElementById(ELEMENT_IDS.NAME_ERROR).textContent = "";
         // document.getElementById('statusError').textContent = '';
         // document.getElementById('etaError').textContent = '';
-        document.getElementById("descriptionError").textContent = "";
+        document.getElementById(ELEMENT_IDS.DESCRIPTION_ERROR).textContent = "";
 
         // Validate form fields
         let isValid = true;
 
-        const project_name = document.getElementById("project-name").value.trim();
+        const project_name = document.getElementById(ELEMENT_IDS.PROJECT_NAME).value.trim();
         const project_type = document.querySelector('input[name="type"]:checked').value;
         const project_leader_id = localStorage.getItem("logged-user-id");
-        const status = document.getElementById("project-status").value;
-        const total_eta = document.getElementById("project-eta").value;
-        const description = document.getElementById("project-des").value.trim();
+        const status = document.getElementById(ELEMENT_IDS.PROJECT_STATUS).value;
+        const total_eta = document.getElementById(ELEMENT_IDS.PROJECT_ETA).value;
+        const description = document.getElementById(ELEMENT_IDS.PROJECT_DESCRIPTION).value.trim();
 
 
 
         if (project_name === "") {
-            document.getElementById("nameError").textContent =
+            document.getElementById(ELEMENT_IDS.NAME_ERROR).textContent =
                 "Project/Ticket Name is required.";
             isValid = false;
 
@@ -43,7 +44,7 @@ document
         //     isValid = false;
         // }
         if (description === "") {
-            document.getElementById("descriptionError").textContent =
+            document.getElementById(ELEMENT_IDS.DESCRIPTION_ERROR).textContent =
                 "Project Description is required.";
             isValid = false;
 
@@ -110,7 +111,7 @@ const editProject = async (project_id) => {
 
         })
         .then(project => {
-            const updatemodal = document.getElementById("update-project-modal");
+            const updatemodal = document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_MODAL);
             const modalContent = `       <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="modalCenterTitle">Update Project</h5>
@@ -179,12 +180,12 @@ const editProject = async (project_id) => {
                                                     </div>`;
 
             updatemodal.innerHTML = modalContent;
-            document.getElementById("updateProjectForm").addEventListener("click", async (e) => {
+            document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_FORM).addEventListener("click", async (e) => {
                 e.preventDefault();
 
                 const projectId = project.project_id;
-                const project_name = document.getElementById('update-project-name').value;
-                const description = document.getElementById('update-project-des').value.trim();
+                const project_name = document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_NAME).value;
+                const description = document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_DESCRIPTION).value.trim();
                 const project_status = project.project_status;
                 const total_eta = project.total_eta;
                 const project_type = document.querySelector('input[name="update-type"]:checked').value;

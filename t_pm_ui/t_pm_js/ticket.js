@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
 fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
     .then(response => {
         if (!response.ok) {
@@ -8,7 +9,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
     })
     .then(data => {
         data.map(element => {
-            const offcanvasDiv = document.getElementById("offcanvas-div");
+            const offcanvasDiv = document.getElementById(ELEMENT_IDS.TICKET_TAB_OFFCANVAS);
             const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
                                         <button type="button" class="btn-close" id="offcanvase-close"
@@ -88,7 +89,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
             imageArray.forEach(imagePath => {
                 imagePath = imagePath.replace(/^"|"$/g, '').trim(); // Clean image path
 
-                const activitySection = document.getElementById('tab-activity');
+                const activitySection = document.getElementById(ELEMENT_IDS.TICKET_TAB_ACTIVITY);
                 const activityImages = `
                     <div class="card border m-2">
                         <div class="card-body text-center w-100" style="height:200px">

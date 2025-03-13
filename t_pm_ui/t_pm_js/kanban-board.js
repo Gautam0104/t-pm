@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../apiRoutesHeader";
+import { ELEMENT_IDS } from "./element_id";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
@@ -10,7 +11,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   })
   .then(data => {
     const kanbanboardContainer = document.getElementById(
-      "kanban-wrapper-container"
+      ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
     );
     data.map(item => {
       const kanbanboardContent = `<div data-id="board-in-progress" data-order="${item.order}" class="kanban-board" id="board-${item.order}"

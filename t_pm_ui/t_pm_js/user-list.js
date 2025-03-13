@@ -1,4 +1,4 @@
-import { ELEMENT_IDS } from "./element_id";
+import { ELEMENT_IDS } from "./element_id.js";
 // Base URL of the API
 import { API_ROUTES } from "../apiRoutesHeader.js";
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
@@ -351,7 +351,7 @@ const editUser = async user_id => {
           e.preventDefault();
 
           const userId = ele.user_id;
-          const role_id = document.getElementById("update-user-role").value;
+          const role_id = document.getElementById(ELEMENT_IDS.UPDATE_USER_ROLE).value;
           const username = document
             .getElementById(ELEMENT_IDS.UPDATE_USER_EMAIL)
             .value.trim();

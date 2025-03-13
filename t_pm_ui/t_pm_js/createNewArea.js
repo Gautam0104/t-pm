@@ -1,11 +1,12 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import {ELEMENT_IDS} from "../elements_id.js";
 
-const formShow = document.getElementById("form-show");
-const formHide = document.getElementById("form-hide");
-const addBoardDiv = document.getElementById("addBoardDiv");
-const addBoardInput = document.getElementById("kanban-add-board-input");
-const createNewBoardForm = document.getElementById("create-new-board");
-const copyBoardDialog = document.getElementById("copy-board-modal-content");
+const formShow = document.getElementById(ELEMENT_IDS.FROM_SHOW);
+const formHide = document.getElementById(ELEMENT_IDS.FROM_HIDE);
+const addBoardDiv = document.getElementById(ELEMENT_IDS.ADD_BOARD_DIV);
+const addBoardInput = document.getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT);
+const createNewBoardForm = document.getElementById(ELEMENT_IDS.CREATE_NEW_BOARD);
+const copyBoardDialog = document.getElementById(ELEMENT_IDS.COPY_BOARD_MODAL_CONTENT);
 
 // Toggle form visibility
 formShow.addEventListener("click", () => toggleFormVisibility(false));
@@ -65,7 +66,7 @@ function copyBoardList(cardStatus) {
 
 // Function to submit board name and copy board
 async function submitBoardName(status) {
-  const boardTitle = document.getElementById("boardName").value;
+  const boardTitle = document.getElementById(ELEMENT_IDS.BOARD_NAME).value;
   if (!boardTitle.trim()) return;
   try {
     await createBoard(boardTitle);

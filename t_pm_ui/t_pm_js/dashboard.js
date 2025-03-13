@@ -1,10 +1,11 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
 // Project table data filter
-const filterInput = document.getElementById("filterInput");
-const tableBody = document.getElementById("tableBody");
+const filterInput = document.getElementById(ELEMENT_IDS.FILTER_INPUT);
+const tableBody = document.getElementById(ELEMENT_IDS.TABLE_BODY);
 
 filterInput.addEventListener("keyup", () => {
     const filterValue = filterInput.value.toLowerCase();
@@ -26,7 +27,7 @@ filterInput.addEventListener("keyup", () => {
 });
 
 function openModal() {
-    const modalElement = document.getElementById("shareProject");
+    const modalElement = document.getElementById(ELEMENT_IDS.SHARE_PROJECT);
     const modal = new bootstrap.Modal(modalElement);
 
     modal.show();
@@ -247,13 +248,13 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
 
 // Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById(
-    "active-projects-counts"
+    ELEMENT_IDS.ACTIVE_PROJECTS_COUNTS
 );
 const completeProjectsCountElement = document.getElementById(
-    "complete-projects-counts"
+    ELEMENT_IDS.COMPLETE_PROJECTS_COUNTS
 );
 const totalProjectsCountElement = document.getElementById(
-    "total-projects-counts"
+    ELEMENT_IDS.TOTAL_PROJECTS_COUNTS
 );
 
 // Fetch Project Data from API
