@@ -1,20 +1,21 @@
+import { ELEMENT_IDS } from "./element_id";
 // Logout Button Click
 const logoutTime = 15 * 60 * 1000; // 15 minutes in milliseconds
 
 function updateLastActivity() {
-    localStorage.setItem("lastActivity", Date.now());
+    localStorage.setItem(ELEMENT_IDS.LAST_ACTIVITY, Date.now());
 }
 
 function checkInactivity() {
-    const lastActivity = localStorage.getItem("lastActivity");
+    const lastActivity = localStorage.getItem(ELEMENT_IDS.LAST_ACTIVITY);
     if (lastActivity && Date.now() - lastActivity > logoutTime) {
-        localStorage.removeItem("sessionExpireTime");
-        localStorage.removeItem("sessionIs");
-        localStorage.removeItem("logged-user-id");
-        localStorage.removeItem("logged-username");
-        localStorage.removeItem("logged-first-name");
-        localStorage.removeItem("logged-role-id");
-        localStorage.removeItem("logged-role-name");
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_SESSION_EXPIRE);
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_SESSION_LS);
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_USERID);
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_USERNAME);
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_FIRSTNAME);
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_ROLE_ID);
+        localStorage.removeItem(ELEMENT_IDS.LOGGED_ROLE_NAME);
         window.location.href = "auth-login-cover.html";
     }
 }
@@ -45,13 +46,13 @@ document.getElementById("logoutButton").addEventListener("click", async () => {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
-    localStorage.removeItem("sessionExpireTime");
-    localStorage.removeItem("sessionIs");
-    localStorage.removeItem("logged-user-id");
-    localStorage.removeItem("logged-username");
-    localStorage.removeItem("logged-first-name");
-    localStorage.removeItem("logged-role-id");
-    localStorage.removeItem("logged-role-name");
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_SESSION_EXPIRE);
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_SESSION_LS);
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_USERID);
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_USERNAME);
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_FIRSTNAME);
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_ROLE_ID);
+    localStorage.removeItem(ELEMENT_IDS.LOGGED_ROLE_NAME);
     window.location.href = "auth-login-cover.html";
 });
 

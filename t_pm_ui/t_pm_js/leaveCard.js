@@ -9,16 +9,16 @@ function cardjoinVerification(ticketId) {
       return response.json();
     })
     .then(data => {
-      const loggedUsername = localStorage.getItem("logged-username");
+      const loggedUsername = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME);
       data.map(item => {
         const joinCardButton = document.getElementById(ELEMENT_IDS.JOIN_BUTTON);
         const leaveCardButton = document.getElementById(ELEMENT_IDS.LEAVE_BUTTON);
         if (item.joined_username === loggedUsername) {
-          console.log("you all ready joined this card");
+          
           leaveCardButton.style.display = "block";
           joinCardButton.style.display = "none";
         } else {
-          console.log("you can join this card");
+         
           leaveCardButton.style.display = "none";
           joinCardButton.style.display = "block";
         }

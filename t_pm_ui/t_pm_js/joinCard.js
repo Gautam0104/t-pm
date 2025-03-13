@@ -1,8 +1,9 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 
 function openjoinCardModal(ticketTitle, ticketId) {
-  const joinCardForm = document.getElementById("join-card-form");
+  const joinCardForm = document.getElementById(ELEMENT_IDS. JOIN_CARD_FORM);
   const joinCardContent = `
     <div class="mb-4">
       <label class="form-check-label" for="">Title</label>
@@ -16,7 +17,7 @@ function openjoinCardModal(ticketTitle, ticketId) {
 }
 
 async function joinCard(ticket_id) {
-  const joined_username = localStorage.getItem("logged-username");
+  const joined_username = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME);
   try {
     const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_JOIN_CARD}`, {
       method: "POST",
@@ -55,7 +56,7 @@ function handleJoinCard() {
     })
     .then(data => {
       data.forEach(item => {
-        const joined_username = localStorage.getItem("logged-username");
+        const joined_username = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME);
         const joinedCardAvtar = document.getElementById(`joined-member-${item.ticket_id}`);
         const joinhtmlContent = `
           <div class="d-flex">
@@ -85,11 +86,11 @@ function joineUserDetail(event, user) {
 
 function joinNewUser(event, tickId) {
   event.stopPropagation();
-  const modalElement = document.getElementById("joinUsers");
+  const modalElement = document.getElementById(ELEMENT_IDS.JOIN_USER);
   const modal = new bootstrap.Modal(modalElement);
   modal.show();
 
-  const joinuserModal = document.getElementById("join-user-modal");
+  const joinuserModal = document.getElementById(ELEMENT_IDS.JOIN_USER_MODAL);
   const modalBody = `
     <div class="modal-body">
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

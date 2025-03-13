@@ -22,7 +22,7 @@ document
 
         const project_name = document.getElementById(ELEMENT_IDS.PROJECT_NAME).value.trim();
         const project_type = document.querySelector('input[name="type"]:checked').value;
-        const project_leader_id = localStorage.getItem("logged-user-id");
+        const project_leader_id = localStorage.getItem(ELEMENT_IDS.LOGGED_USERID);
         const status = document.getElementById(ELEMENT_IDS.PROJECT_STATUS).value;
         const total_eta = document.getElementById(ELEMENT_IDS.PROJECT_ETA).value;
         const description = document.getElementById(ELEMENT_IDS.PROJECT_DESCRIPTION).value.trim();
@@ -189,7 +189,7 @@ const editProject = async (project_id) => {
                 const project_status = project.project_status;
                 const total_eta = project.total_eta;
                 const project_type = document.querySelector('input[name="update-type"]:checked').value;
-                const messageElement = document.getElementById('message');
+                const messageElement = document.getElementById(ELEMENT_IDS.MESSAGE);
 
                 if (!projectId || !project_name || !description) {
                     messageElement.textContent = 'Please fill in all required fields.';

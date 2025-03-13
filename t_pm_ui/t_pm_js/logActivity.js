@@ -1,7 +1,7 @@
 import { ELEMENT_IDS } from "./element_id";
 document.addEventListener("DOMContentLoaded", () => {
     // Log when user enters the page
-    const userName = localStorage.getItem("logged-username") || "Guest";
+    const userName = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME) || "Guest";
     logActivity(`${userName} entered the page at ${new Date().toLocaleString()}`);
 
     // Track changes in the ticket form (if it exists)
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("beforeunload", () => {
     // Log when user leaves the page
-    const userName = localStorage.getItem("logged-username") || "Guest";
+    const userName = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME) || "Guest";
     logActivity(`${userName} left the page at ${new Date().toLocaleString()}`);
 });
 

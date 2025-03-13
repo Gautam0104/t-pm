@@ -76,6 +76,10 @@ export const ELEMENT_IDS = {
   ACTION_MODAL: "actionModal",
   TICKET_TAB_ACTIVITY: "tab-activity",
   TICKET_TAB_OFFCANVAS: "offcanvas-div",
+  MOVE_CARD: "move-card",
+  JOIN_CARD_FORM: "join-card-form",
+  JOIN_USER: "joinUsers",
+  JOIN_USER_MODAL: "join-user-modal",
 
   // USER LIST
   USER_ROLE: "user-role",
@@ -141,6 +145,8 @@ export const ELEMENT_IDS = {
   PROJECT_STATUS: "project-status",
   PROJECT_ETA: "project-eta",
   PROJECT_DESCRIPTION: "project-des",
+  PROJECT_TITLE: "project-title",
+  PROJECT_TITLE_INPUT: "project-title-input",
   NAME_ERROR: "nameError",
   DESCRIPTION_ERROR: "descriptionError",
   UPDATE_PROJECT_MODAL: "update-project-modal",
@@ -175,4 +181,19 @@ export const ELEMENT_IDS = {
   JOIN_BUTTON: "join-button",
   LEAVE_BUTTON: "leave-button",
   ADD_LABEL_FORM:"add-label-form",
+
+  // MODAL
+  CHECKLIST_MODAL: "checklistModal",
+
+  // LOCAL STORAGE
+    LOGGED_USERID: "logged-user-id",
+    LOGGED_USERNAME: "logged-username",
+    LOGGED_FIRSTNAME: "logged-first-name",
+    LOGGED_USERROLE_ID: "logged-user-role-id",
+    LOGGED_USERROLE_NAME: "logged-user-role-name",
+    LOGGED_ACTIVITY: "lastActivity",
+    LOGGED_ROLE_ID: "logged-role-id",
+    LOGGED_ROLE_NAME: "logged-role-name",
+    LOGGED_SESSION_EXPIRE: "sessionExpireTime",
+    LOGGED_SESSION_LS: "sessionIs",
 };

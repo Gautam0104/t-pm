@@ -46,11 +46,11 @@ document
           })
           .then(data => {
             data.map(user => {
-              localStorage.setItem("logged-user-id", user.user_id);
-              localStorage.setItem("logged-username", user.username);
-              localStorage.setItem("logged-first-name", user.first_name);
-              localStorage.setItem("logged-user-role-id", user.role_id);
-              localStorage.setItem("logged-user-role-name", user.role_name);
+              localStorage.setItem(ELEMENT_IDS.LOGGED_USERID, user.user_id);
+              localStorage.setItem(ELEMENT_IDS.LOGGED_USERNAME, user.username);
+              localStorage.setItem(ELEMENT_IDS.LOGGED_FIRSTNAME, user.first_name);
+              localStorage.setItem(ELEMENT_IDS.LOGGED_USERROLE_ID, user.role_id);
+              localStorage.setItem(ELEMENT_IDS.LOGGED_USERROLE_NAME, user.role_name);
             });
           });
       } else {

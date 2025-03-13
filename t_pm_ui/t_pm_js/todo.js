@@ -12,8 +12,6 @@ import {
 } from "./automation/automation.js";
 import { ELEMENT_IDS } from "./element_id.js";
 
-console.log(ELEMENT_IDS);
-
 
 window.onload = function() {
   setTimeout(function() {
@@ -35,7 +33,7 @@ setTimeout(function() {
       return response.json();
     })
     .then(data => {
-      const projectTitle = document.getElementById("project-title");
+      const projectTitle = document.getElementById(ELEMENT_IDS.PROJECT_TITLE);
       const titleContent = `<input type="text" class="form-control" value = "${data.project_name}" id="project-title-input">`;
 
       projectTitle.innerHTML += titleContent;
@@ -209,7 +207,7 @@ setTimeout(function() {
                   return html.replace(/<\/?[^>]+(>|$)/g, "");
                 }
 
-                const offcanvasDiv = document.getElementById("offcanvas-div");
+                const offcanvasDiv = document.getElementById(ELEMENT_IDS.TICKET_TAB_OFFCANVAS);
                 const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
                                         <button type="button" class="btn-close" id="offcanvase-close"
@@ -1695,7 +1693,7 @@ function openMoveCardModal(title, ticketId) {
                     </button>
                   </div>`;
 
-  document.getElementById("move-card").addEventListener("click", function(e) {
+  document.getElementById(ELEMENT_IDS.MOVE_CARD).addEventListener("click", function(e) {
     e.preventDefault();
     const ticketStatus = document.getElementById(ELEMENT_IDS.FORM_MOVE_CARD_IN).value;
     // Check for undefined or empty values before sending the request
