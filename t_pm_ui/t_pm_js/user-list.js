@@ -1,4 +1,7 @@
-import { ELEMENT_IDS } from "./element_id.js";
+import { ELEMENT_IDS } from "./element_id";
+
+import { errorLog } from "./error.js";
+
 // Base URL of the API
 import { API_ROUTES } from "../apiRoutesHeader.js";
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
@@ -281,7 +284,7 @@ const deleteUser = async user_id => {
       });
     }
   } catch (error) {
-    console.error(error);
+    errorLog();
   }
 };
 
@@ -351,7 +354,8 @@ const editUser = async user_id => {
           e.preventDefault();
 
           const userId = ele.user_id;
-          const role_id = document.getElementById(ELEMENT_IDS.UPDATE_USER_ROLE).value;
+          const role_id = document.getElementById(ELEMENT_IDS.UPDATE_USER_ROLE)
+            .value;
           const username = document
             .getElementById(ELEMENT_IDS.UPDATE_USER_EMAIL)
             .value.trim();
@@ -401,9 +405,7 @@ const editUser = async user_id => {
               });
             }
           } catch (error) {
-            messageElement.textContent = "Error connecting to the server.";
-            messageElement.className = "message error";
-            console.error("Error:", error);
+            errorLog();
           }
         });
     });
@@ -411,8 +413,7 @@ const editUser = async user_id => {
     console.error("Error fetching user details:", error);
     const messageElement = document.getElementById(ELEMENT_IDS.MESSAGE);
     if (messageElement) {
-      messageElement.textContent = "Error fetching user details.";
-      messageElement.className = "message error";
+      errorLog();
     }
   }
 };
@@ -509,6 +510,6 @@ const fetchuserhistory = async userId => {
       });
     })
     .catch(error => {
-      console.error("Error fetching role history:", error);
+      errorLog();
     });
 };

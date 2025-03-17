@@ -1,5 +1,6 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "../element_id.js";
+import { errorLog } from "../error.js";
 
 export async function moveCardAutomation(
   ticketId,
@@ -27,7 +28,7 @@ export async function moveCardAutomation(
       console.error("Failed to update ticket");
     }
   } catch (error) {
-    console.error("Error connecting to the server:", error);
+    errorLog();
   }
 }
 
@@ -56,7 +57,7 @@ export async function copycardAutomation(
       console.log("Something went wrong");
     }
   } catch (error) {
-    console.error("Error:", error);
+    errorLog();
   }
 }
 
@@ -92,9 +93,7 @@ export function markduedate(ticket_id, duedate) {
       }
     })
     .catch(error => {
-      messageBox.textContent = "Failed to connect to API.";
-      messageBox.style.color = "red";
-      console.error("Request Error:", error);
+      errorLog();
     });
 }
 
@@ -125,9 +124,7 @@ export function removeDuedate(ticket_id) {
       }
     })
     .catch(error => {
-      messageBox.textContent = "Failed to connect to API.";
-      messageBox.style.color = "red";
-      console.error("Request Error:", error);
+      errorLog();
     });
 }
 
@@ -145,6 +142,50 @@ export async function removeAllChecklists(id) {
       window.location.reload();
     }
   } catch (error) {
-    console.error(error);
+    errorLog();
   }
 }
+
+export function addLabelAutomation(ticketId, selectedColor) {
+  let labelBox = document.getElementById(`label-color-box-${ticketId}`);
+
+  if (!labelBox) {
+    // Create label box if it does not exist
+    labelBox = document.createElement("div");
+    labelBox.id = `label-color-box-${ticketId}`;
+    labelBox.classList.add("label-container");
+
+    // Append it to the ticket container
+    const ticketElement = document.getElementById(`ticket-${ticketId}`);
+    if (ticketElement) {
+      ticketElement.appendChild(labelBox);
+    }
+  }
+
+  // Add the label color inside the label box
+  labelBox.innerHTML = `<div class="label-color" style="background-color: ${selectedColor}; width: 20px; height: 5px; border-radius: 10px; margin-bottom:10px;"></div>`;
+
+  // Store the selected color in localStorage
+  localStorage.setItem(`labelColor-${ticketId}`, selectedColor);
+}
+
+// ✅ Function to restore labels after tickets are loaded
+export function loadSavedLabels() {
+  const interval = setInterval(() => {
+    const tickets = document.querySelectorAll("[id^='ticket-']");
+    if (tickets.length > 0) {
+      tickets.forEach(ticket => {
+        const ticketId = ticket.id.replace("ticket-", ""); // Extract ticketId
+        const savedColor = localStorage.getItem(`labelColor-${ticketId}`);
+
+        if (savedColor) {
+          addLabelAutomation(ticketId, savedColor);
+        }
+      });
+      clearInterval(interval); // Stop checking once labels are restored
+    }
+  }, 300); // Check every 300ms until tickets exist
+}
+
+// ✅ Ensure labels are restored on page load
+document.addEventListener("DOMContentLoaded", loadSavedLabels);

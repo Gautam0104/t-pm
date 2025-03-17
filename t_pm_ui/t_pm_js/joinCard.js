@@ -3,7 +3,7 @@ import { ELEMENT_IDS } from "./element_id.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 
 function openjoinCardModal(ticketTitle, ticketId) {
-  const joinCardForm = document.getElementById(ELEMENT_IDS. JOIN_CARD_FORM);
+  const joinCardForm = document.getElementById(ELEMENT_IDS.JOIN_CARD_FORM);
   const joinCardContent = `
     <div class="mb-4">
       <label class="form-check-label" for="">Title</label>
@@ -56,12 +56,17 @@ function handleJoinCard() {
     })
     .then(data => {
       data.forEach(item => {
-        const joined_username = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME);
-        const joinedCardAvtar = document.getElementById(`joined-member-${item.ticket_id}`);
+        const joined_username = localStorage.getItem(
+          ELEMENT_IDS.LOGGED_USERNAME
+        );
+        const joinedCardAvtar = document.getElementById(
+          `joined-member-${item.ticket_id}`
+        );
         const joinhtmlContent = `
           <div class="d-flex">
             <div class="avatar me-1 flex-shrink-0" id="joined-user" onclick="joineUserDetail(event,'${item.joined_username}')">
-              <span class="avatar-initial bg-label-primary rounded-circle">${item.joined_username[0]}${item.joined_username[1]}</span>
+              <span class="avatar-initial bg-label-primary rounded-circle">${item
+                .joined_username[0]}${item.joined_username[1]}</span>
             </div>
             <div class="avatar me-3 flex-shrink-0" onclick="joinNewUser(event,'${item.ticket_id}')">
               <span class="avatar-initial bg-label-primary rounded-circle"><i class="ti ti-plus"></i></span>
@@ -70,7 +75,9 @@ function handleJoinCard() {
         if (joinedCardAvtar) {
           joinedCardAvtar.innerHTML = joinhtmlContent;
         } else {
-          console.error("Element with ID 'joined-member-${item.ticket_id}' not found.");
+          console.error(
+            "Element with ID 'joined-member-${item.ticket_id}' not found."
+          );
         }
       });
     })

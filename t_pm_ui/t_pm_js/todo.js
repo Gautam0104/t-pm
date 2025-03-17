@@ -12,6 +12,12 @@ import {
 } from "./automation/automation.js";
 import { ELEMENT_IDS } from "./element_id.js";
 
+import { errorLog } from "./error.js";
+
+import { addLabelModal } from "./automation/addLabel.js";
+
+import { addLabelAutomation } from "./automation/automationLogic.js";
+
 
 window.onload = function() {
   setTimeout(function() {
@@ -23,7 +29,7 @@ var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
 setTimeout(function() {
-  console.log(project_id);
+
 
   fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
     .then(response => {
@@ -39,8 +45,8 @@ setTimeout(function() {
       projectTitle.innerHTML += titleContent;
     });
   // Function to fetch and create elements
-  function fetchDataAndCreateElements() {
-    return fetch(`${API_BASE_URL}${API_ROUTES.TICKET}/${project_id}`)
+  async function fetchDataAndCreateElements() {
+    return await fetch(`${API_BASE_URL}${API_ROUTES.TICKET}/${project_id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response was not ok " + response.statusText);
@@ -579,7 +585,7 @@ setTimeout(function() {
                                                                 <button class="nav-link d-flex align-items-center border-0 w-100" id="copyAutomation" >
                                                                     <i class="fas fa-copy me-2"></i> Copy card to..
                                                                 </button>
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.title}','${element.ticket_id}')" >
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#addLabelModal" onclick="addLabelModal('${element.ticket_id}')" >
                                                                     <i class="fas fa-tags me-2"></i> Add Labels
                                                                 </button>
                                                                 <button class="nav-link   d-flex align-items-center border-0  w-100"   id="joinAutomation">
@@ -1199,9 +1205,7 @@ setTimeout(function() {
                       document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
                     }
                   } catch (error) {
-                    document.getElementById(ELEMENT_IDS.MESSAGE).textContent = "An error occurred.";
-                    document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
-                    console.error("Error:", error);
+                    errorLog()
                   }
                 });
                 
@@ -1227,7 +1231,7 @@ setTimeout(function() {
                       console.log("something went wrong");
                     }
                   } catch (error) {
-                    console.error(error);
+                    rrorLog()
                   }
                   try {
                     // Send DELETE request to the API
@@ -1256,7 +1260,7 @@ setTimeout(function() {
                       });
                     }
                   } catch (error) {
-                    console.error(error);
+                    errorLog()
                   }
                 });
               });
@@ -1333,7 +1337,7 @@ setTimeout(function() {
         });
       });
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => errorLog());
 
   const closeCanvase = () => {
     const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
@@ -1421,9 +1425,7 @@ async function moveAllTask(from, currentStatus) {
       console.log("Something went wrong");
     }
   } catch (error) {
-    messageElement.textContent = "Error connecting to the server.";
-    messageElement.className = "message error";
-    console.error("Error:", error);
+    errorLog()
   }
 }
 
@@ -1581,7 +1583,7 @@ function openCopyCardModal(title, ticketId) {
         window.location.reload();
       }
     } catch (error) {
-      console.log("error", error);
+      errorLog()
     }
   });
 }
@@ -1608,9 +1610,7 @@ async function deleteCard(event, ticketId) {
       console.log("something went wrong");
     }
   } catch (error) {
-    console.error(error);
-    // messageDiv.textContent = 'Could not connect to the server.';
-    // messageDiv.className = 'message error';
+    errorLog()
   }
 
   try {
@@ -1640,9 +1640,7 @@ async function deleteCard(event, ticketId) {
       });
     }
   } catch (error) {
-    console.error(error);
-    // messageDiv.textContent = 'Could not connect to the server.';
-    // messageDiv.className = 'message error';
+    errorLog()
   }
 }
 
@@ -1791,62 +1789,7 @@ function watchNotification(ticketId) {
   }
 }
 
-// function for add label body
-function addLabelModal(ticketId) {
-  const addLabelForm = document.getElementById(ELEMENT_IDS.ADD_LABEL_FORM);
-  addLabelForm.innerHTML = `
-    <div class="modal-body">
-      <form id="label-form">
-        <div class="label-gap">
-          <label class="form-label">Icon</label>
-          <span></span>
-          <label class="form-label">Title</label>
-        </div>
-        <div class="mb-3 icon-title-container">
-          <div class="icon-placeholder">
-            <i class="fas fa-tags me-2"></i>
-          </div>
-          <input type="text" class="form-control" id="labelText" placeholder="Add label...">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Actions</label>
-          <div class="label-selection">
-            <span>Add to</span>
-            <div class="dropdown">
-              <button class="btn btn-light dropdown-toggle" type="button" id="labelDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="color-option" id="selectedColor" style="background-color: green;"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="labelDropdown">
-                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(10, 82, 42)')"><span class="color-option" style="background-color: rgb(10, 82, 42);"></span></a></li>
-                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(233, 34, 34)')"><span class="color-option" style="background-color: rgb(233, 34, 34);"></span></a></li>
-                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(218, 110, 21)')"><span class="color-option" style="background-color: rgb(218, 110, 21);"></span></a></li>
-                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(148, 122, 8)')"><span class="color-option" style="background-color: rgb(148, 122, 8);"></span></a></li>
-                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(116, 128, 241)')"><span class="color-option" style="background-color:rgb(116, 128, 241);"></span></a></li>
-                <li><a class="dropdown-item" href="#" onclick="selectColor('rgb(46, 60, 185)')"><span class="color-option" style="background-color: rgb(46, 60, 185);"></span></a></li>
-              </ul>
-            </div>
-            <span>label to the card</span>
-          </div>
-        </div>
-       <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
-                    + Add action
-                </button>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      <button type="button" id="saveLabelButton" class="btn btn-primary">Save</button>
-    </div>
-  `;
 
-  document
-    .getElementById("saveLabelButton")
-    .addEventListener("click", function() {
-      const selectedColor = document.getElementById(ELEMENT_IDS.SELETCT_COLOR).style
-        .backgroundColor;
-      addLabel(selectedColor, ticketId);
-    });
-}
 
 function selectColor(color) {
   document.getElementById(ELEMENT_IDS.SELETCT_COLOR).style.backgroundColor = color;
@@ -1869,3 +1812,5 @@ window.openCopyCardModal = openCopyCardModal;
 window.selectColor = selectColor;
 window.addLabelModal = addLabelModal;
 window.cardDropdown = cardDropdown;
+window.addLabelModal = addLabelModal;
+window.addLabelAutomation = addLabelAutomation;

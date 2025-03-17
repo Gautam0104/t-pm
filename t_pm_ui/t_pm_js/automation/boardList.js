@@ -1,5 +1,6 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "../element_id.js";
+import { errorLog } from "../error.js";
 
 export async function fetchLists() {
   try {
@@ -28,6 +29,6 @@ export async function fetchLists() {
       select.appendChild(option);
     });
   } catch (error) {
-    console.error("Error fetching lists:", error);
+    errorLog();
   }
 }

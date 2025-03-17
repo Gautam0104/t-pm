@@ -1,5 +1,7 @@
 import { ELEMENT_IDS } from "./element_id.js";
 
+import { errorLog } from "./error";
+
 const API_BASE_URL = ENV.API_BASE_URL;
 
 const colorBoxes = document.querySelectorAll(ELEMENT_IDS.COLOR_BOXES);
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
         cardDiv.innerHTML += card;
       });
     } catch (error) {
-      console.error("Error fetching roles:", error);
+      errorLog();
     }
   }
 
@@ -180,7 +182,7 @@ const updateRole = (role_id, role_name) => {
           });
         }
       } catch (error) {
-        console.log(error);
+        errorLog();
       }
     });
 };
@@ -318,7 +320,7 @@ const fetchrolehistory = async (roleId, roleName) => {
       });
     })
     .catch(error => {
-      console.error("Error fetching role history:", error);
+      errorLog();
     });
 };
 
@@ -332,7 +334,7 @@ const deleteRole = async role_id => {
       }
     );
   } catch (error) {
-    console.error(error);
+    errorLog();
   }
   try {
     // Send DELETE request to the API
@@ -361,6 +363,6 @@ const deleteRole = async role_id => {
       });
     }
   } catch (error) {
-    console.error(error);
+    errorLog();
   }
 };

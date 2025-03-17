@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
+import { errorLog } from "../error.js";
 
 export async function sendAutomationData(ticketId, buttonTitle, buttonAction) {
   try {
@@ -18,6 +19,6 @@ export async function sendAutomationData(ticketId, buttonTitle, buttonAction) {
       location.reload();
     }
   } catch (error) {
-    console.log("Error:", error);
+    errorLog();
   }
 }

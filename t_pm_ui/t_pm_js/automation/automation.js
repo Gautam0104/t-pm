@@ -7,6 +7,7 @@ import {
   removeAllChecklists
 } from "./automationLogic.js";
 import { ELEMENT_IDS } from "../element_id.js";
+import { errorLog } from "../error.js";
 
 export function retrieveAutomation(ticketId) {
   fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
@@ -112,7 +113,7 @@ export async function deleteAutomationButton(id) {
       window.location.reload();
     }
   } catch (error) {
-    console.error(error);
+    errorLog();
   }
 }
 window.moveCardAutomation = moveCardAutomation;
