@@ -1,5 +1,5 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import {ELEMENT_IDS} from "../elements_id.js";
+import {ELEMENT_IDS} from "./element_id.js";
 function closeModal() {
     $('#modalCenter').modal('hide');
 }

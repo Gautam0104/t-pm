@@ -1,4 +1,4 @@
-import { ELEMENT_IDS } from "./element_id";
+import { ELEMENT_IDS } from "./element_id.js";
 document.addEventListener("DOMContentLoaded", () => {
     // Log when user enters the page
     const userName = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME) || "Guest";

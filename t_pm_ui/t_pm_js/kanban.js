@@ -1,4 +1,4 @@
-import { ELEMENT_IDS } from "./element_id";
+import { ELEMENT_IDS } from "./element_id.js";
 setTimeout(function() {
   const kanbanItems = document.querySelectorAll(".kanban-item");
   const offcanvas = document.querySelector(".offcanvas");

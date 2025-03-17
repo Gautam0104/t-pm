@@ -1,5 +1,6 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import  {ELEMENT_IDS} from "../elements_id.js";
+import  {ELEMENT_IDS} from "./element_id.js";
+const API_BASE_URL = ENV.API_BASE_URL;
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);

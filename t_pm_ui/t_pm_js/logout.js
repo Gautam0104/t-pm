@@ -1,4 +1,4 @@
-import { ELEMENT_IDS } from "./element_id";
+import { ELEMENT_IDS } from "./element_id.js";
 // Logout Button Click
 const logoutTime = 15 * 60 * 1000; // 15 minutes in milliseconds
 

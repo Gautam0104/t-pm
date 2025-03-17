@@ -1,5 +1,5 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import {ELEMENT_IDS} from "../elements_id.js";
+import {ELEMENT_IDS} from "./element_id.js";
 
 const formShow = document.getElementById(ELEMENT_IDS.FROM_SHOW);
 const formHide = document.getElementById(ELEMENT_IDS.FROM_HIDE);

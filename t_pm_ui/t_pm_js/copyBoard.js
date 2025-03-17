@@ -1,6 +1,6 @@
 // Function to fetch and display board items
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import {ELEMENT_IDS} from "../element_id.js";
+import {ELEMENT_IDS} from "./element_id.js";
 async function getBoards() {
     try {
         const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);

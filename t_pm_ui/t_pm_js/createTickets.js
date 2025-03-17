@@ -1,4 +1,4 @@
-import { API_ROUTES } from "../apiRoutesHeader";
+import { API_ROUTES } from "../apiRoutesHeader.js";
 // Base URL of the API
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");

@@ -1,5 +1,5 @@
-import { API_ROUTES } from "../apiRoutesHeader";
-import { ELEMENT_IDS } from "./element_id";
+import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
