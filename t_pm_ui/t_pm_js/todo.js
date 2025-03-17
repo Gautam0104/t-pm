@@ -18,7 +18,7 @@ import { addLabelModal } from "./automation/addLabel.js";
 
 import { addLabelAutomation } from "./automation/automationLogic.js";
 
-
+const API_BASE_URL = ENV.API_BASE_URL;
 window.onload = function() {
   setTimeout(function() {
     document.getElementById(ELEMENT_IDS.PAGE_LOADING).style.display = "none";
