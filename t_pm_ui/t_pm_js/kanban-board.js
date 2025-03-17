@@ -1,7 +1,8 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "./element_id.js";
 // Base URL of the API
-const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
+const API_BASE_URL = ENV.API_BASE_URL;
+ // Access the URL securely
 fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   .then(response => {
     if (!response.ok) {
@@ -116,6 +117,188 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                 onclick="watchedCard('watched-${item.board_title}-card')" id="watched-${item.board_title}-card-anchor">
                 <i class="ti ti-eye ti-xs me-1"></i> <span class="align-middle">Watch</span>
                 </a>
+                 <!-- Automation -->
+                  <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                onclick="" id="">
+                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Automation</span>
+                </a>
+                 <!-- When a card is added to the list -->
+                <div class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">When a card is added to the list.</span>
+                </a>
+                <div class="dropdown-menu"  style="width: 420px;">
+                <div class="modal-dialog" style="width: 100%;">
+      <div class="modal-content p-2 w-100">
+        <div class="modal-header d-flex justify-content-between w-100">
+          <h5 class="text-center">New Rule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body w-100">
+          
+          <div class="mb-4">
+            <label class="form-label">When</label>
+            <div class="border p-3">
+              <strong>Cards and list</strong>
+              <div>
+                When a card is added to the list 
+                <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                  <option value="">Boardlist</option>
+                  <option value="todo">Todo</option>
+                  <option value="inprogress">Inprogress</option>
+                  <option value="for-approval">For-approval</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="approved">Approved</option>
+                </select>
+               
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Then</label>
+            
+          </div>
+          <button type="button" class="btn btn-primary w-100 mt-2" id="addActionButton"> + Add action </button>
+          <button type="button" class="btn btn-light w-100 mt-2" id="addActionButton"> Add new rule </button>
+        </div>
+        <div class="modal-footer"w-100>
+        
+        </div>
+      </div>
+    </div>
+                </div>
+                </div>
+                <!--Every day,sort list by.. -->
+                <div class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Every day,sort list by..</span>
+                </a>
+                <div class="dropdown-menu"  style="width: 420px;">
+                <div class="modal-dialog" style="width: 100%;">
+      <div class="modal-content p-2 w-100">
+        <div class="modal-header d-flex justify-content-between w-100">
+          <h5 class="text-center">New Rule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body w-100">
+          
+          <div class="mb-4">
+            <label class="form-label">When</label>
+            <div class="border p-3">
+              <strong>Calender</strong>
+              <div>
+               Everyday
+                
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Then</label>
+            <div class="border p-3">
+              
+              <div>
+                Sort the list 
+                <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                  <option value="">Boardlist</option>
+                  <option value="todo">Todo</option>
+                  <option value="inprogress">Inprogress</option>
+                  <option value="for-approval">For-approval</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="Aproved">Approved</option>
+                </select>
+                by  
+                <select id="dueDate" class="form-select d-inline w-auto m-3">
+                  <option value="">Due Date </option>
+                </select>
+              
+                <select id="boardOrder" class="form-select d-inline w-auto m-3">
+                  <option value="">Order</option>
+                  <option value="ascending">Ascending </option>
+                  <option value="descending">Descending</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary w-100" id="addActionButton"> Add new rule </button>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+                </div>
+                </div>
+                <!-- Every monday,sort ist by..-->
+                <div class="dropdown-submenu w-100">
+                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Every monday,sort ist by..</span>
+                </a>
+                <div class="dropdown-menu"  style="width: 420px;">
+                <div class="modal-dialog" style="width: 100%;">
+      <div class="modal-content p-2 w-100">
+        <div class="modal-header d-flex justify-content-between w-100">
+          <h5 class="text-center">New Rule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body w-100">
+          
+          <div class="mb-4">
+            <label class="form-label">When</label>
+            <div class="border p-3">
+              <strong>Calender</strong>
+              <div>
+               Every
+                <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                  <option value="">Day</option>
+                  <option value="monday">Monday</option>
+                  <option value="thuesday">Thuesday</option>
+                  <option value="wednesday">Wednesday</option>
+                  <option value="thusday">Thusday</option>
+                  <option value="friday">Friday</option>
+                  <option value="saturday">Saturday</option>
+                  <option value="sunday">Sunday</option>
+                </select>
+                at
+                <select id="timeSelect" class="form-select d-inline w-auto m-3">
+                  <option value="">Time </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Then</label>
+            <div class="border p-3">
+              
+              <div>
+                Sort the list 
+                <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                  <option value="">Boardlist</option>
+                  <option value="todo">Todo</option>
+                  <option value="inprogress">Inprogress</option>
+                  <option value="for-approval">For-approval</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="Aproved">Approved</option>
+                </select>
+                by  
+                <select id="dueDate" class="form-select d-inline w-auto m-3">
+                  <option value="">Due Date </option>
+                </select>
+              
+                <select id="boardOrder" class="form-select d-inline w-auto m-3">
+                  <option value="">Order</option>
+                  <option value="ascending">Ascending </option>
+                  <option value="descending">Descending</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary w-100" id="addActionButton"> Add new rule </button>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+                </div>
+                </div>
                 <!-- Color Picker -->
                 <div class="dropdown-item">
                 <i class="ti ti-palette ti-xs"></i>
@@ -175,7 +358,22 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
       kanbanboardContainer.innerHTML += kanbanboardContent;
     });
   });
+  
+  function getCurrentTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12; // Convert 24-hour format to 12-hour format
+    return `${hours}:${minutes} ${ampm}`;
+  }
 
+  // Add current time as an option
+  const selectElement = document.getElementById("timeSelect");
+  const currentTimeOption = document.createElement("option");
+  currentTimeOption.value = getCurrentTime();
+  currentTimeOption.textContent = `Current Time: ${currentTimeOption.value}`;
+  selectElement.appendChild(currentTimeOption);
 const deleteBoard = async boardId => {
   try {
     // Send DELETE request to the API
