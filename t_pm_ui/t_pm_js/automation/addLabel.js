@@ -29,18 +29,18 @@ export function addLabelModal(ticketId) {
                   <span class="color-option" id="selectedColor" style="background-color: ${selectedColor};"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="labelDropdown">
-                  <li><a class="dropdown-item" href="#" onclick="updateSelectedColor('rgb(10, 82, 42)')"><span class="color-option" style="background-color: rgb(10, 82, 42);"></span></a></li>
-                  <li><a class="dropdown-item" href="#" onclick="updateSelectedColor('rgb(233, 34, 34)')"><span class="color-option" style="background-color: rgb(233, 34, 34);"></span></a></li>
-                  <li><a class="dropdown-item" href="#" onclick="updateSelectedColor('rgb(218, 110, 21)')"><span class="color-option" style="background-color: rgb(218, 110, 21);"></span></a></li>
-                  <li><a class="dropdown-item" href="#" onclick="updateSelectedColor('rgb(148, 122, 8)')"><span class="color-option" style="background-color: rgb(148, 122, 8);"></span></a></li>
-                  <li><a class="dropdown-item" href="#" onclick="updateSelectedColor('rgb(116, 128, 241)')"><span class="color-option" style="background-color:rgb(116, 128, 241);"></span></a></li>
-                  <li><a class="dropdown-item" href="#" onclick="updateSelectedColor('rgb(46, 60, 185)')"><span class="color-option" style="background-color: rgb(46, 60, 185);"></span></a></li>
+                  <li><a class="dropdown-item color-item" data-color="rgb(10, 82, 42)"><span class="color-option" style="background-color: rgb(10, 82, 42);"></span></a></li>
+                  <li><a class="dropdown-item color-item" data-color="rgb(233, 34, 34)"><span class="color-option" style="background-color: rgb(233, 34, 34);"></span></a></li>
+                  <li><a class="dropdown-item color-item" data-color="rgb(218, 110, 21)"><span class="color-option" style="background-color: rgb(218, 110, 21);"></span></a></li>
+                  <li><a class="dropdown-item color-item" data-color="rgb(148, 122, 8)"><span class="color-option" style="background-color: rgb(148, 122, 8);"></span></a></li>
+                  <li><a class="dropdown-item color-item" data-color="rgb(116, 128, 241)"><span class="color-option" style="background-color:rgb(116, 128, 241);"></span></a></li>
+                  <li><a class="dropdown-item color-item" data-color="rgb(46, 60, 185)"><span class="color-option" style="background-color: rgb(46, 60, 185);"></span></a></li>
                 </ul>
               </div>
               <span>label to the card</span>
             </div>
           </div>
-         <button type="button" class="btn btn-light w-100" onclick="openActionModal()">
+         <button type="button" class="btn btn-light w-100" id="openActionButton">
                       + Add action
          </button>
         </form>
@@ -51,11 +51,24 @@ export function addLabelModal(ticketId) {
       </div>
     `;
 
+  // Attach event listener for color selection
+  document.querySelectorAll(".color-item").forEach(item => {
+    item.addEventListener("click", function() {
+      updateSelectedColor(this.getAttribute("data-color"));
+    });
+  });
+
+  // Attach event listener for save button
   document
     .getElementById("saveLabelButton")
     .addEventListener("click", function() {
       addLabelAutomationButton(ticketId);
     });
+
+  // Attach event listener for action button
+  document
+    .getElementById("openActionButton")
+    .addEventListener("click", openActionModal);
 }
 
 // Function to update the selected color
@@ -76,5 +89,6 @@ async function addLabelAutomationButton(ticketId) {
   await sendAutomationData(ticketId, titleInput, buttonAction);
 }
 
-// Expose function globally for inline onclick handlers
+// Expose function globally for inline onclick handlers if needed
 window.updateSelectedColor = updateSelectedColor;
+window.addLabelAutomationButton = addLabelAutomationButton;

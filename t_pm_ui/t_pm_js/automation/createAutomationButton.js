@@ -1,6 +1,6 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { errorLog } from "../error.js";
-
+const API_BASE_URL = ENV.API_BASE_URL;
 export async function sendAutomationData(ticketId, buttonTitle, buttonAction) {
   try {
     const response = await fetch(
@@ -19,6 +19,6 @@ export async function sendAutomationData(ticketId, buttonTitle, buttonAction) {
       location.reload();
     }
   } catch (error) {
-    errorLog();
+    errorLog(error);
   }
 }

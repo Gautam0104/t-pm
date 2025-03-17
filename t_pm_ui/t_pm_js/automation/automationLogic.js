@@ -1,6 +1,5 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "../element_id.js";
-import { errorLog } from "../error.js";
 
 export async function moveCardAutomation(
   ticketId,
@@ -28,7 +27,7 @@ export async function moveCardAutomation(
       console.error("Failed to update ticket");
     }
   } catch (error) {
-    errorLog();
+    console.log("error  : ", error);
   }
 }
 
@@ -57,7 +56,7 @@ export async function copycardAutomation(
       console.log("Something went wrong");
     }
   } catch (error) {
-    errorLog();
+    console.log("error  : ", error);
   }
 }
 
@@ -93,7 +92,7 @@ export function markduedate(ticket_id, duedate) {
       }
     })
     .catch(error => {
-      errorLog();
+      console.log("error  : ", error);
     });
 }
 
@@ -124,15 +123,18 @@ export function removeDuedate(ticket_id) {
       }
     })
     .catch(error => {
-      errorLog();
+      console.log("error  : ", error);
     });
 }
 
 export async function removeAllChecklists(id) {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_REMOVE_CHECKLIST}/${id}`, {
-      method: "DELETE"
-    });
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.AUTOMATION_REMOVE_CHECKLIST}/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
 
     if (response.ok) {
       console.log("You successfully removed all checklists of given card ID");
@@ -142,7 +144,7 @@ export async function removeAllChecklists(id) {
       window.location.reload();
     }
   } catch (error) {
-    errorLog();
+    console.log("error  : ", error);
   }
 }
 

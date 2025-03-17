@@ -1182,7 +1182,7 @@ setTimeout(function() {
                   document.getElementById(ELEMENT_IDS.MESSAGE).textContent = "Updating ticket...";
                 
                   try {
-                    const response = await fetch(`${API_BASE_URL}/updateticket`, {
+                    const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET}`, {
                       method: "PUT",
                       body: formData,
                     });
@@ -1205,7 +1205,7 @@ setTimeout(function() {
                       document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
                     }
                   } catch (error) {
-                    errorLog()
+                    errorLog(error)
                   }
                 });
                 
@@ -1260,7 +1260,7 @@ setTimeout(function() {
                       });
                     }
                   } catch (error) {
-                    errorLog()
+                    errorLog(error)
                   }
                 });
               });
@@ -1286,7 +1286,7 @@ setTimeout(function() {
               });
           }
 
-          fetch(`${API_BASE_URL}/getboards`)
+          fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
             .then(response => {
               if (!response.ok) {
                 throw new Error("Network response was not ok ");
@@ -1337,7 +1337,7 @@ setTimeout(function() {
         });
       });
     })
-    .catch(error => errorLog());
+    .catch(error => errorLog(error));
 
   const closeCanvase = () => {
     const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
@@ -1425,7 +1425,7 @@ async function moveAllTask(from, currentStatus) {
       console.log("Something went wrong");
     }
   } catch (error) {
-    errorLog()
+    errorLog(error)
   }
 }
 
@@ -1583,7 +1583,7 @@ function openCopyCardModal(title, ticketId) {
         window.location.reload();
       }
     } catch (error) {
-      errorLog()
+      errorLog(error)
     }
   });
 }
@@ -1610,7 +1610,7 @@ async function deleteCard(event, ticketId) {
       console.log("something went wrong");
     }
   } catch (error) {
-    errorLog()
+    errorLog(error)
   }
 
   try {
@@ -1640,7 +1640,7 @@ async function deleteCard(event, ticketId) {
       });
     }
   } catch (error) {
-    errorLog()
+    errorLog(error)
   }
 }
 

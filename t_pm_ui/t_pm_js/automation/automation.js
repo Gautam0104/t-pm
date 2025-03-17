@@ -7,8 +7,8 @@ import {
   removeAllChecklists
 } from "./automationLogic.js";
 import { ELEMENT_IDS } from "../element_id.js";
-import { errorLog } from "../error.js";
 
+const API_BASE_URL = ENV.API_BASE_URL;
 export function retrieveAutomation(ticketId) {
   fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
     .then(response => {
@@ -101,9 +101,12 @@ export function editAutomation(ticketId) {
 
 export async function deleteAutomationButton(id) {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}/${id}`, {
-      method: "DELETE"
-    });
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
 
     if (response.ok) {
       console.log("You successfully deleted an automation button");
@@ -113,7 +116,7 @@ export async function deleteAutomationButton(id) {
       window.location.reload();
     }
   } catch (error) {
-    errorLog();
+    console.log(error);
   }
 }
 window.moveCardAutomation = moveCardAutomation;

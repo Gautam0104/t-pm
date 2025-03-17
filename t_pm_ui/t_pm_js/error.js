@@ -1,6 +1,5 @@
-export function errorLog() {
-  document.getElementById(ELEMENT_IDS.MESSAGE).textContent =
-    "An error occurred.";
-  document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
+export function errorLog(error) {
+  document.getElementById("message").textContent = "An error occurred.";
+  document.getElementById("message").style.color = "red";
   console.error("Error:", error);
 }
