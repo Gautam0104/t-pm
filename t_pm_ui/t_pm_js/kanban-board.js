@@ -1,83 +1,79 @@
-import { API_ROUTES } from "../apiRoutesHeader.js";
-import { ELEMENT_IDS } from "./element_id.js";
-import { newRule } from "./todo.js";
-import { fetchLists } from "./automation/boardList.js";
-import { errorLog } from "./error.js";
+import { API_ROUTES } from '../apiRoutesHeader.js';
+import { ELEMENT_IDS } from './element_id.js';
+import { fetchLists } from './automation/boardList.js';
+import { errorLog } from './error.js';
+import { newRule } from './todo.js';
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL;
+// Access the URL securely
+fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok ');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const kanbanboardContainer = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+    data.map(item => {
+      const kanbanboardContent = `<div data-id="board-in-progress" data-order="${item.order}" class="kanban-board" id="board-${item.order}"
+        style="width: 250px; margin-left: 12px; margin-right: 12px;">
+        <header class="kanban-board-header" id="${item.board_title}-header">
+            <div class="kanban-title-board" style="text-transform: capitalize;">${item.board_title}</div>
 
-// State for sorting
-const sortState = {
-  isAscending: true
-};
 
-// Fetch and render boards
-function fetchAndRenderBoards() {
-  fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then(data => {
-      const kanbanboardContainer = document.getElementById(
-        ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
-      );
-      if (!kanbanboardContainer) {
-        console.error("Kanban container not found");
-        return;
-      }
+            <div class="dropdown" style="height:auto;">
 
-      data.forEach(item => {
-        const kanbanboardContent = createKanbanBoardHTML(item);
-        kanbanboardContainer.innerHTML += kanbanboardContent;
-      });
+            <span id="watched-${item.board_title}-card"></span>
 
-      // Add event listeners after rendering
-      addEventListeners();
-    })
-    .catch(error => {
-      console.error("There was a problem with the fetch operation:", error);
-      alert("Failed to load boards. Please try again later.");
-    });
-}
+            <i class="ti ti-arrows-horizontal"
+                onclick="toggleTodo('${item.board_title}-task','${item.board_title}-header', 'new-${item.board_title}-item')"></i>
 
-// Create HTML for a single Kanban board
-function createKanbanBoardHTML(item) {
-  return `
-    <div data-id="board-in-progress" data-order="${item.order}" class="kanban-board" id="board-${item.order}">
-      <header class="kanban-board-header px-3" id="${item.board_title}-header">
-        <div class="kanban-title-board">${item.board_title}</div>
-        <div class="dropdown">
-          <span id="watched-${item.board_title}-card"></span>
-          <i class="ti ti-arrows-horizontal" onclick="toggleTodo('${item.board_title}-task', '${item.board_title}-header', 'new-${item.board_title}-item')"></i>
-          <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
-            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" onclick="deleteBoard('${item.board_id}')">
-              <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
-            </a>
-            <a class="dropdown-item waves-effect" href="javascript:void(0)">
-              <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
-            </a>
-            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveBoard(this)">
-              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
-            </a>
-            <a class="dropdown-item waves-effect" href="javascript:void(0)" onclick="archiveAllCards(this)">
-              <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All Cards</span>
-            </a>
-            <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)" onclick="moveBoard(this)">
-              <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
-            </a>
-            <a class="dropdown-item waves-effect" data-bs-toggle="modal" data-bs-target="#copyboardModal" onclick="CopyBardlist('${item.board_title}')">
-              <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
-            </a>
-            <div class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this list</span>
-              </a>
-              <div class="dropdown-menu">
-                <form>
+            <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
+                <!-- Delete -->
+                <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" onclick="deleteBoard('${item.board_id}')">
+                <i class="ti ti-trash ti-xs me-1"></i> <span class="align-middle">Delete</span>
+                </a>
+
+                <!-- Rename -->
+                <a class="dropdown-item waves-effect" href="javascript:void(0)">
+                <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                </a>
+
+                <!-- Archive -->
+                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                onclick="archiveBoard(this)">
+                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive</span>
+                </a>
+                <!-- New button to archive all cards -->
+                <a class="dropdown-item waves-effect" href="javascript:void(0)"
+                onclick="archiveAllCards(this)">
+                <i class="ti ti-archive ti-xs me-1"></i> <span class="align-middle">Archive All
+                    Cards</span>
+                </a>
+                <!-- Move Board -->
+                <a class="dropdown-item waves-effect move-board-trigger" href="javascript:void(0)"
+                onclick="moveBoard(this)">
+                <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move Board</span>
+                </a>
+
+                <!-- Copy Board -->
+                <a class="dropdown-item waves-effect"  data-bs-toggle="modal" data-bs-target="#copyboardModal" onclick="CopyBardlist('${item.board_title}')">
+                <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
+                </a>
+
+                <!-- Move all card in this list -->
+                <div class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
+                    list</span>
+                </a>
+                <div class="dropdown-menu">
+                <form >
+
                   <div class="mb-4">
                     <label class="form-check-label">Move all From</label>
                     <input type="text" class="form-control" id="move-from" placeholder="Move from ${item.board_title}" value="${item.board_title}">
@@ -120,7 +116,7 @@ function createKanbanBoardHTML(item) {
               </a>
               <div class="dropdown-menu" style="width: 420px;">
                 <div class="modal-dialog" style="width: 100%;">
-      <div class="modal-content p-2 w-100">
+       <div class="modal-content p-2 w-100">
         <div class="modal-header d-flex justify-content-between w-100">
           <h5 class="text-center">New Rule</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -199,13 +195,13 @@ function createKanbanBoardHTML(item) {
                 </select>
                 by  
                 <select id="filterSelect" class="form-select d-inline w-auto m-3">
-                  <option value="">age </option>
-                  <option value="">start date </option>
-                  <option value="">due date </option>
-                  <option value="">the label </option>
-                  <option value="">time in list </option>
-                  <option value="">name </option>
-                  <option value="">votes </option>
+                  <option value="age">Age </option>
+                  <option value="start-date">Start Date </option>
+                  <option value="due-date">Due Date </option>
+                  <option value="the-label">The Label </option>
+                  <option value="time-list">Time in list </option>
+                  <option value="name">Name </option>
+                  <option value="votes">Votes </option>
                 </select>
               
                 <select id="boardOrder" class="form-select d-inline w-auto m-3">
@@ -216,7 +212,7 @@ function createKanbanBoardHTML(item) {
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary w-100" id="addNewRule"> Add new rule </button>
+          <button type="button" class="btn btn-primary w-100" id="addNewRule" onclick="newRule()"> Add new rule </button>
         </div>
         <div class="modal-footer">
         </div>
@@ -292,7 +288,7 @@ function createKanbanBoardHTML(item) {
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary w-100" id="addNewRule"> Add new rule </button>
+          <button type="button" class="btn btn-primary w-100" id="addNewRule" onclick="newRule()" Add new rule </button>
         </div>
         <div class="modal-footer">
         </div>
@@ -360,93 +356,97 @@ function createKanbanBoardHTML(item) {
     });
   });
 
-  
-  async function fetchListsnew() {
-    try {
-        const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
+// function to fetch board name
+async function fetchListsnew() {
+  try {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
 
-        if (!response.ok) {
-            return;
-        }
-
-        const lists = await response.json();
-        const selects = document.querySelectorAll(".listSelect.form-select.d-inline.w-auto.m-3"); 
-
-        if (selects.length === 0) {
-            return;
-        }
-
-        selects.forEach(select => {
-            select.innerHTML = '<option value="">Select List</option>'; 
-
-            lists.forEach(list => {
-                const option = document.createElement("option"); 
-                option.value = list.board_title;
-                option.textContent = list.board_title;
-                select.appendChild(option);
-            });
-        });
-    } catch (error) {
-       
-        errorLog();
+    if (!response.ok) {
+      return;
     }
+
+    const lists = await response.json();
+    const selects = document.querySelectorAll('.listSelect.form-select.d-inline.w-auto.m-3');
+
+    if (selects.length === 0) {
+      return;
+    }
+
+    selects.forEach(select => {
+      select.innerHTML = '<option value="">Select List</option>';
+
+      lists.forEach(list => {
+        const option = document.createElement('option');
+        option.value = list.board_title;
+        option.textContent = list.board_title;
+        select.appendChild(option);
+      });
+    });
+  } catch (error) {
+    errorLog();
+  }
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(() => {
-        const selectElements = document.querySelectorAll(".listSelect");
-        console.log("Found elements:", selectElements.length);
 
-        if (selectElements.length > 0) {
-            fetchListsnew(); 
-        } else {
-            console.warn("No .listSelect elements found at the time of execution");
-        }
-    }, 500); 
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(() => {
+    const selectElements = document.querySelectorAll('.listSelect');
+    console.log('Found elements:', selectElements.length);
+
+    if (selectElements.length > 0) {
+      fetchListsnew();
+    } else {
+      console.warn('No .listSelect elements found at the time of execution');
+    }
+  }, 500);
 });
-
-
-  
 
 const deleteBoard = async boardId => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}${API_ROUTES.DELETE_BOARD}/${boardId}`,
-      {
-        method: "DELETE"
-      }
-    );
+    // Send DELETE request to the API
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_BOARD}/${boardId}`, {
+      method: 'DELETE'
+    });
 
     if (response.ok) {
-      console.log("Board deleted successfully");
-      document.getElementById(`board-${boardId}`).remove();
+      console.log('board deleted successfully');
+      window.location.reload();
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-// Toggle ticket sort
-function toggleTicketSort(elementId, sortBy) {
-  const todoTask = document.getElementById(elementId);
-  const kanbanItems = Array.from(
-    todoTask.getElementsByClassName("kanban-item")
-  );
+function toggleTicketSortByName(elementId) {
+  let todoTask = document.getElementById(elementId);
+  let kanbanItems = Array.from(todoTask.getElementsByClassName('kanban-item'));
 
   kanbanItems.sort((a, b) => {
-    let valueA, valueB;
-    if (sortBy === "name") {
-      valueA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
-      valueB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
-    } else if (sortBy === "date") {
-      valueA = new Date(a.querySelector(".kanban-date").innerText.trim());
-      valueB = new Date(b.querySelector(".kanban-date").innerText.trim());
-    }
+    let nameA = a.querySelector('.kanban-text').innerText.trim().toLowerCase();
+    let nameB = b.querySelector('.kanban-text').innerText.trim().toLowerCase();
 
-    return sortState.isAscending
-      ? valueA.localeCompare(valueB)
-      : valueB.localeCompare(valueA);
+    return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+  });
+
+  kanbanItems.forEach(item => todoTask.appendChild(item));
+
+  isAscending = !isAscending; // Toggle sorting order for next call
+}
+
+let isAscending = true; // Track sorting order
+
+let isDateAscending = true; // Track sorting order for date
+
+function toggleTicketSortByDate(elementId) {
+  let todoTask = document.getElementById(elementId);
+  let kanbanItems = Array.from(todoTask.getElementsByClassName('kanban-item'));
+
+  kanbanItems.sort((a, b) => {
+    let nameA = a.querySelector('.kanban-text').innerText.trim().toLowerCase();
+    let nameB = b.querySelector('.kanban-text').innerText.trim().toLowerCase();
+
+    return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
   });
 
   kanbanItems.forEach(item => todoTask.appendChild(item));
@@ -460,32 +460,17 @@ function watchedCard(watched) {
   const isWatched = localStorage.getItem(`watched-${watched}`);
 
   if (isWatched) {
-    checkedCard.innerHTML = "";
-    if (watchedAnchor) {
-      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(
-        /<i class=\"ti ti-check ti-xs me-1\"><\/i>/g,
-        ""
-      );
-    }
+    checkedCard.innerHTML = '';
+    if (watchedAnchor)
+      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(/<i class=\"ti ti-check ti-xs me-1\"><\/i>/g, '');
     localStorage.removeItem(`watched-${watched}`);
   } else {
     checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
-    if (watchedAnchor) {
-      watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
-    }
+    if (watchedAnchor) watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
     localStorage.setItem(`watched-${watched}`, true);
   }
 }
 
-// Create rule modal function
-function createRuleModal() {
-  console.log("Create rule automation is working");
-}
-
-// Initialize
-fetchAndRenderBoards();
-
-// Expose functions to the global scope
 window.newRule = newRule;
 window.deleteBoard = deleteBoard;
 window.toggleTicketSort = toggleTicketSort;
