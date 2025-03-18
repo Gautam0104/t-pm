@@ -139,7 +139,10 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
           <div class="mb-4">
             <label class="form-label">When</label>
             <div class="border p-3">
-              <strong>Cards and list</strong>
+            <span
+                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-layout"></i> 
+                    <strong>Cards & lists</strong>
+                          </span>
               <div>
                 When a card is added to the list 
                 <select id="positionSelect1" class="form-select d-inline w-auto m-3">
@@ -158,7 +161,9 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
             <label class="form-label">Then</label>
             
           </div>
-          <button type="button" class="btn btn-primary w-100 mt-2" id="addActionButton"> + Add action </button>
+          <button type="button" class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#AutomationactionModalLabel">
+            + Add action
+          </button>
           <button type="button" class="btn btn-light w-100 mt-2" id="addActionButton"> Add new rule </button>
         </div>
         <div class="modal-footer"w-100>
@@ -185,7 +190,10 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
           <div class="mb-4">
             <label class="form-label">When</label>
             <div class="border p-3">
-              <strong>Calender</strong>
+              <span
+                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-calendar"></i> 
+                    <strong>Calendar</strong>
+                          </span>
               <div>
                Everyday
                 
@@ -195,7 +203,10 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
           <div class="mb-3">
             <label class="form-label">Then</label>
             <div class="border p-3">
-              
+              <span
+                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-align-center"></i> 
+                    <strong>Sort</strong>
+                          </span>
               <div>
                 Sort the list 
                 <select id="positionSelect1" class="form-select d-inline w-auto m-3">
@@ -208,7 +219,13 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                 </select>
                 by  
                 <select id="dueDate" class="form-select d-inline w-auto m-3">
-                  <option value="">Due Date </option>
+                  <option value="">age </option>
+                  <option value="">start date </option>
+                  <option value="">due date </option>
+                  <option value="">the label </option>
+                  <option value="">time in list </option>
+                  <option value="">name </option>
+                  <option value="">votes </option>
                 </select>
               
                 <select id="boardOrder" class="form-select d-inline w-auto m-3">
@@ -244,7 +261,10 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
           <div class="mb-4">
             <label class="form-label">When</label>
             <div class="border p-3">
-              <strong>Calender</strong>
+              <span
+                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-calendar"></i> 
+                    <strong>Calendar</strong>
+                    </span>
               <div>
                Every
                 <select id="positionSelect1" class="form-select d-inline w-auto m-3">
@@ -267,7 +287,10 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
           <div class="mb-3">
             <label class="form-label">Then</label>
             <div class="border p-3">
-              
+              <span
+                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-align-center"></i> 
+                    <strong>Sort</strong>
+                          </span>
               <div>
                 Sort the list 
                 <select id="positionSelect1" class="form-select d-inline w-auto m-3">
@@ -280,7 +303,13 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                 </select>
                 by  
                 <select id="dueDate" class="form-select d-inline w-auto m-3">
-                  <option value="">Due Date </option>
+                  <option value="">age </option>
+                  <option value="">start date </option>
+                  <option value="">due date </option>
+                  <option value="">the label </option>
+                  <option value="">time in list </option>
+                  <option value="">name </option>
+                  <option value="">votes </option>
                 </select>
               
                 <select id="boardOrder" class="form-select d-inline w-auto m-3">
