@@ -109,7 +109,7 @@ export function moveCardToModal(ticketTitle, ticketId, ticketStatus) {
 
   // Fetch lists for dynamic list options
   fetchLists();
-  console.log("list is not working");
+  console.log("list is not working", fetchLists);
 }
 
 async function addAutomationButton(ticketId, ticketStatus) {

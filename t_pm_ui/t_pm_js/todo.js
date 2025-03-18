@@ -1803,6 +1803,18 @@ function openActionModal() {
   actionModal.show();
 }
 
+export function newRule(){
+  Swal.fire({
+    title: "A new rule added",
+    text: "A new rule automation added on ticket board.",
+    icon: "success",
+    confirmButtonText: "Ok!",
+  });
+}
+
+
+
+
 window.editAutomation = editAutomation;
 window.deleteAutomationButton = deleteAutomationButton;
 window.moveAllTask = moveAllTask;

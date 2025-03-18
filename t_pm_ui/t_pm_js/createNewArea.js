@@ -1,12 +1,18 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import {ELEMENT_IDS} from "./element_id.js";
-
+import { ELEMENT_IDS } from "./element_id.js";
+const API_BASE_URL = ENV.API_BASE_URL;
 const formShow = document.getElementById(ELEMENT_IDS.FROM_SHOW);
 const formHide = document.getElementById(ELEMENT_IDS.FROM_HIDE);
 const addBoardDiv = document.getElementById(ELEMENT_IDS.ADD_BOARD_DIV);
-const addBoardInput = document.getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT);
-const createNewBoardForm = document.getElementById(ELEMENT_IDS.CREATE_NEW_BOARD);
-const copyBoardDialog = document.getElementById(ELEMENT_IDS.COPY_BOARD_MODAL_CONTENT);
+const addBoardInput = document.getElementById(
+  ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT
+);
+const createNewBoardForm = document.getElementById(
+  ELEMENT_IDS.CREATE_NEW_BOARD
+);
+const copyBoardDialog = document.getElementById(
+  ELEMENT_IDS.COPY_BOARD_MODAL_CONTENT
+);
 
 // Toggle form visibility
 formShow.addEventListener("click", () => toggleFormVisibility(false));
@@ -80,11 +86,14 @@ async function submitBoardName(status) {
 // Function to copy card status
 async function copyCardStatus(status, ticketStatus) {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.COPY_BOARD}/status/${status}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticketStatus })
-    });
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.COPY_BOARD}/status/${status}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ticketStatus })
+      }
+    );
     if (response.ok) {
       console.log("Card copied successfully");
     }

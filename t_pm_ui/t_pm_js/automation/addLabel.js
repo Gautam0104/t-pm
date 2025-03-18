@@ -1,6 +1,4 @@
 import { sendAutomationData } from "./createAutomationButton.js";
-import { fetchLists } from "./boardList.js";
-import { ELEMENT_IDS } from "../element_id.js";
 
 let selectedColor = "rgb(10, 82, 42)"; // Default color
 

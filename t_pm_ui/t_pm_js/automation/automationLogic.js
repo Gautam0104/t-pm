@@ -171,7 +171,7 @@ export function addLabelAutomation(ticketId, selectedColor) {
   localStorage.setItem(`labelColor-${ticketId}`, selectedColor);
 }
 
-// ✅ Function to restore labels after tickets are loaded
+//  Function to restore labels after tickets are loaded
 export function loadSavedLabels() {
   const interval = setInterval(() => {
     const tickets = document.querySelectorAll("[id^='ticket-']");
@@ -189,5 +189,5 @@ export function loadSavedLabels() {
   }, 300); // Check every 300ms until tickets exist
 }
 
-// ✅ Ensure labels are restored on page load
+//  Ensure labels are restored on page load
 document.addEventListener("DOMContentLoaded", loadSavedLabels);

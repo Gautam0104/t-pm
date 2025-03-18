@@ -1,7 +1,7 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "../element_id.js";
 import { errorLog } from "../error.js";
-
+const API_BASE_URL = ENV.API_BASE_URL;
 export async function fetchLists() {
   try {
     const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
