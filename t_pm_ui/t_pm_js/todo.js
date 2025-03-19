@@ -1,6 +1,7 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
 import { joinCardToModal } from "./automation/joinCard.js";
 import { moveCardToModal } from "./automation/moveCard.js";
+import { shareCardToModal } from "./automation/shareCard.js";
 import { copyCardToModal } from "./automation/copyCard.js";
 import { removeCardToModal } from "./automation/removeAutomationFeature.js";
 import { markDueDateModal } from "./automation/markDueDate.js";
@@ -643,10 +644,16 @@ setTimeout(function() {
                                                                     <i class="fas fa-arrow-right me-2"></i> Move Card
                                                                 </button>
                                                             </li>
+                                                            <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#sharecardModal" id="shareCardFeature">
+                                                                    <i class="fas fa-share me-2"></i> Share 
+                                                                </button>
+                                                            </li>
                                                            <li class="nav-item dropdown">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="cover-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-box me-2"></i> Cover
                                                                 </button>
+                                                                
                                                                 <ul class="dropdown-menu w-100" aria-labelledby="cover-dropdown">
                                                                  <li>
                                                                  <div class="row d-flex justify-content-center">
@@ -768,6 +775,17 @@ setTimeout(function() {
                       element.ticket_status
                     );
                   });
+
+                  document
+                  .getElementById(ELEMENT_IDS.SHARE_CARD_FEATURE)
+                  .addEventListener("click", function() {
+                    shareCardToModal(
+                      element.title,
+                      element.ticket_id,
+                      element.ticket_status
+                    );
+                  });
+
 
                 const joinAutomationButton = document.getElementById(
                   ELEMENT_IDS.JOIN_AUTOMATION
@@ -1588,6 +1606,46 @@ function openCopyCardModal(title, ticketId) {
   });
 }
 
+function openShareCardModal(title, ticketId) {
+  const copycardForm = document.getElementById(ELEMENT_IDS.FORM_SHARE_CARD);
+  copycardForm.innerHTML = `                  <div class="mb-4">
+                    <label class="form-check-label" for="">Title</label>
+                    <textarea class="form-control" rows="2" id="copied-card-title"
+                      placeholder="Add Content" required="">${title}</textarea>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">Main Board</label>
+                    <select class="form-control form-select" name="" id="">
+                      <option value="todo">Todo</option>
+                      <option value="inprogress">Inprogress</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="for-approval">For-approval</option>
+                      <option value="approved">Approved</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-check-label" for="">List</label>
+                    <select class="form-control form-select" name="" id="copied-ticket-status">
+                      <option value="todo">Todo</option>
+                      <option value="inprogress">Inprogress</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="for-approval">For-approval</option>
+                      <option value="approved">Approved</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-4"><button type="submit" class="btn btn-primary btn-sm me-4">Create
+                      Card</button><button type="button"
+                      class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
+                      id="cancel-form-4">Cancel</button>
+                  </div>`;
+  copycardForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    
+  });
+}
+
 function cardDropdown(event) {
   event.stopPropagation();
 }
@@ -1811,17 +1869,6 @@ export function newRule(){
   });
 }
 
-export function newRule(){
-  Swal.fire({
-    title: "A new rule added",
-    text: "A new rule automation added on ticket board.",
-    icon: "success",
-    confirmButtonText: "Ok!",
-  });
-}
-
-
-
 
 window.editAutomation = editAutomation;
 window.deleteAutomationButton = deleteAutomationButton;
@@ -1829,6 +1876,7 @@ window.moveAllTask = moveAllTask;
 window.openActionModal = openActionModal;
 window.openMoveCardModal = openMoveCardModal;
 window.openCopyCardModal = openCopyCardModal;
+window.openShareCardModal = openShareCardModal;
 window.selectColor = selectColor;
 window.addLabelModal = addLabelModal;
 window.cardDropdown = cardDropdown;

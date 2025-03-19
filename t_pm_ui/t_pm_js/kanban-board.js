@@ -1,6 +1,5 @@
 import { API_ROUTES } from '../apiRoutesHeader.js';
 import { ELEMENT_IDS } from './element_id.js';
-import { fetchLists } from './automation/boardList.js';
 import { errorLog } from './error.js';
 import { newRule } from './todo.js';
 // Base URL of the API
