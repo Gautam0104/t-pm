@@ -161,246 +161,185 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                 </a>
                 <div class="dropdown-menu"  style="width: 420px;">
                 <div class="modal-dialog" style="width: 100%;">
-      <div class="modal-content p-2 w-100">
-        <div class="modal-header d-flex justify-content-between w-100">
-          <h5 class="text-center">New Rule</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body w-100">
-          
-          <div class="mb-4">
-            <label class="form-label">When</label>
-            <div class="border p-3">
-              <span
-                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-calendar"></i> 
-                    <strong>Calendar</strong>
-                          </span>
-              <div>
-               Everyday
-                
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Then</label>
-            <div class="border p-3">
-              <span
-                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-align-center"></i> 
-                    <strong>Sort</strong>
-                          </span>
-              <div>
-                Sort the list 
-                <select class="listSelect form-select d-inline w-auto m-3" >
-                </select>
-                by  
-                <select id="filterSelect" class="form-select d-inline w-auto m-3">
-                  <option value="age">Age </option>
-                  <option value="start-date">Start Date </option>
-                  <option value="due-date">Due Date </option>
-                  <option value="the-label">The Label </option>
-                  <option value="time-list">Time in list </option>
-                  <option value="name">Name </option>
-                  <option value="votes">Votes </option>
-                </select>
-              
-                <select id="boardOrder" class="form-select d-inline w-auto m-3">
-                  <option value="">Order</option>
-                  <option value="ascending">Ascending </option>
-                  <option value="descending">Descending</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-primary w-100" id="addNewRule" onclick="newRule()"> Add new rule </button>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-                </div>
-                </div>
-                <!-- Every monday,sort ist by..-->
-                <div class="dropdown-submenu w-100">
-                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
-                    <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Every monday,sort ist by..</span>
-                </a>
-                <div class="dropdown-menu"  style="width: 420px;">
-                <div class="modal-dialog" style="width: 100%;">
-      <div class="modal-content p-2 w-100">
-        <div class="modal-header d-flex justify-content-between w-100">
-          <h5 class="text-center">New Rule</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body w-100">
-          
-          <div class="mb-4">
-            <label class="form-label">When</label>
-            <div class="border p-3">
-              <span
-                    class="avatar-initial rounded bg-label-primary "><i class="ti ti-calendar"></i> 
-                    <strong>Calendar</strong>
-                    </span>
-              <div>
-               Every
-                <select id="daysSelect" class="form-select d-inline w-auto m-3">
-                  <option value="">Day</option>
-                  <option value="monday">Monday</option>
-                  <option value="thuesday">Thuesday</option>
-                  <option value="wednesday">Wednesday</option>
-                  <option value="thusday">Thusday</option>
-                  <option value="friday">Friday</option>
-                  <option value="saturday">Saturday</option>
-                  <option value="sunday">Sunday</option>
-                </select>
-                at
-               <input type="time" id="timeSelect" class="form-control d-inline w-auto m-3">
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Then</label>
-            <div class="border p-3">
-              <span
-              class="avatar-initial rounded bg-label-primary "><i class="ti ti-align-center"></i> 
-              <strong>Sort</strong>
-              </span>
-              <div>
-                Sort the list 
-                <select class="listSelect form-select d-inline w-auto m-3">
-                </select>
-                by  
-                <select id="filterSelect" class="form-select d-inline w-auto m-3">
-                  <option value="age">Age </option>
-                  <option value="start-date">Start Date </option>
-                  <option value="due-date">Due Date </option>
-                  <option value="the-label">The Label </option>
-                  <option value="time-list">Time in list </option>
-                  <option value="name">Name </option>
-                  <option value="votes">Votes </option>
-                </select>
-              
-                <select id="boardOrderSelect" class="form-select d-inline w-auto m-3">
-                  <option value="">Order</option>
-                  <option value="ascending">Ascending </option>
-                  <option value="descending">Descending</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-primary w-100" id="addNewRule" onclick="newRule()" Add new rule </button>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-                </div>
-                </div>
-                <!-- Color Picker -->
-                <div class="dropdown-item">
-                <i class="ti ti-palette ti-xs"></i>
-                <span class="align-middle">Card Bg</span>
-                <div class="d-flex flex-wrap mt-2" style="width: 140px;">
-                    <div class="color-box" style="background: #ff5733;"
-                    onclick="changeBgColor('#ff5733','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #33ff57;"
-                    onclick="changeBgColor('#33ff57','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #3357ff;"
-                    onclick="changeBgColor('#3357ff','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #f4d03f;"
-                    onclick="changeBgColor('#f4d03f','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #8e44ad;"
-                    onclick="changeBgColor('#8e44ad','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #1abc9c;"
-                    onclick="changeBgColor('#1abc9c','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #e74c3c;"
-                    onclick="changeBgColor('#e74c3c','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #2c3e50;"
-                    onclick="changeBgColor('#2c3e50','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #d35400;"
-                    onclick="changeBgColor('#d35400','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #16a085;"
-                    onclick="changeBgColor('#16a085','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #ed0cf5;"
-                    onclick="changeBgColor('#ed0cf5','${item.board_title}-task')"></div>
-                    <div class="color-box" style="background: #f9fafa;" onclick="makeDefault('${item.board_title}-task')">
+                  <div class="modal-content p-2 w-100">
+                    <div class="modal-header d-flex justify-content-between w-100">
+                      <h5 class="text-center">New Rule</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body w-100">
+                      <div class="mb-4">
+                        <label class="form-label">When</label>
+                        <div class="border p-3">
+                          <strong>Calendar</strong>
+                          <div>Everyday</div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Then</label>
+                        <div class="border p-3">
+                          <div>
+                            Sort the list
+                            <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                              <option value="">Boardlist</option>
+                              <option value="todo">Todo</option>
+                              <option value="inprogress">Inprogress</option>
+                              <option value="for-approval">For-approval</option>
+                              <option value="rejected">Rejected</option>
+                              <option value="Aproved">Approved</option>
+                            </select>
+                            by
+                            <select id="dueDate" class="form-select d-inline w-auto m-3">
+                              <option value="">Due Date</option>
+                              <option value="time">Time</option>
+                              <option value="age">Age</option>
+                              <option value="duedate">duedate</option>
+                              <option value="name">name</option>
+                              <option value="date">date</option>
+                              <option value="label">label</option>
+                            </select>
+                            <select id="boardOrder" class="form-select d-inline w-auto m-3">
+                              <option value="">Order</option>
+                              <option value="ascending">Ascending</option>
+                              <option value="descending">Descending</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-primary w-100" id="start">Add new rule</button>
+                    </div>
+                    <div class="modal-footer"></div>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div class="dropdown-submenu w-100">
+              <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                <i class="ti ti-arrows-up-down ti-xs"></i> <span class="align-middle">Every Monday, sort list by..</span>
+              </a>
+              <div class="dropdown-menu" style="width: 420px;">
+                <div class="modal-dialog" style="width: 100%;">
+                  <div class="modal-content p-2 w-100">
+                    <div class="modal-header d-flex justify-content-between w-100">
+                      <h5 class="text-center">New Rule</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body w-100">
+                      <div class="mb-4">
+                        <label class="form-label">When</label>
+                        <div class="border p-3">
+                          <strong>Calendar</strong>
+                          <div>
+                            Every
+                            <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                              <option value="">Day</option>
+                              <option value="monday">Monday</option>
+                              <option value="thuesday">Tuesday</option>
+                              <option value="wednesday">Wednesday</option>
+                              <option value="thursday">Thursday</option>
+                              <option value="friday">Friday</option>
+                              <option value="saturday">Saturday</option>
+                              <option value="sunday">Sunday</option>
+                            </select>
+                            at
+                            <select id="timeSelect" class="form-select d-inline w-auto m-3">
+                              <option value="time">Time</option>
+                              <option value="age">Age</option>
+                              <option value="duedate">duedate</option>
+                              <option value="name">name</option>
+                              <option value="date">date</option>
+                              <option value="label">label</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Then</label>
+                        <div class="border p-3">
+                          <div>
+                            Sort the list
+                            <select id="positionSelect1" class="form-select d-inline w-auto m-3">
+                              <option value="">Boardlist</option>
+                              <option value="todo">Todo</option>
+                              <option value="inprogress">Inprogress</option>
+                              <option value="for-approval">For-approval</option>
+                              <option value="rejected">Rejected</option>
+                              <option value="Aproved">Approved</option>
+                            </select>
+                            by
+                            <select id="dueDate" class="form-select d-inline w-auto m-3">
+                              <option value="">Due Date</option>
+                            </select>
+                            <select id="boardOrder" class="form-select d-inline w-auto m-3">
+                              <option value="">Order</option>
+                              <option value="ascending">Ascending</option>
+                              <option value="descending">Descending</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-primary w-100" id="addActionButton" onclick>Add new rule</button>
+                    </div>
+                    <div class="modal-footer"></div>
+                  </div>
                 </div>
+              </div>
             </div>
+            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" id="create-rule-automation" data-bs-toggle="modal" data-bs-target="#createRule">
+              <i class="ti ti-arrow-up-right ti-xs me-1"></i> <span class="align-middle">Create a rule</span>
+            </a>
+            <div class="dropdown-item">
+              <i class="ti ti-palette ti-xs"></i>
+              <span class="align-middle">Card Bg</span>
+              <div class="d-flex flex-wrap mt-2" style="width: 140px;">
+                <div class="color-box" style="background: #ff5733;" onclick="changeBgColor('#ff5733', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #33ff57;" onclick="changeBgColor('#33ff57', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #3357ff;" onclick="changeBgColor('#3357ff', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #f4d03f;" onclick="changeBgColor('#f4d03f', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #8e44ad;" onclick="changeBgColor('#8e44ad', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #1abc9c;" onclick="changeBgColor('#1abc9c', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #e74c3c;" onclick="changeBgColor('#e74c3c', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #2c3e50;" onclick="changeBgColor('#2c3e50', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #d35400;" onclick="changeBgColor('#d35400', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #16a085;" onclick="changeBgColor('#16a085', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #ed0cf5;" onclick="changeBgColor('#ed0cf5', '${item.board_title}-task')"></div>
+                <div class="color-box" style="background: #f9fafa;" onclick="makeDefault('${item.board_title}-task')"></div>
+              </div>
             </div>
-
-            <button class="kanban-title-button btn" id="add-${item.board_title}-item">+ Add
-            New
-            Item</button>
-
-
-        </header>
-        <main class="kanban-drag">
-
-            <div id="${item.board_title}-task" style="display: block;">
-            <div id="content-inprogress">Droped in ${item.board_title}</div>
-
-            </div>
-            <form class="new-item-form" id="add-new-${item.board_title}-form">
-
-            </form>
-            <div id="backdrop">
-
-            </div>
-        </main>
-        <!-- <footer></footer> -->
-        </div>`;
-
-      kanbanboardContainer.innerHTML += kanbanboardContent;
-    });
+          </div>
+        </div>
+        <button class="kanban-title-button btn" id="add-${item.board_title}-item">+ Add New Item</button>
+      </header>
+      <main class="kanban-drag px-3">
+        <div id="${item.board_title}-task" style="display: block;">
+          <div id="content-inprogress">Dropped in ${item.board_title}</div>
+        </div>
+        <form class="new-item-form" id="add-new-${item.board_title}-form"></form>
+        <div id="backdrop"></div>
+      </main>
+    </div>
+  `;
+  let intervalId;
+  document.getElementById("start").addEventListener("click", function() {
+    const timeSelect = document.getElementById("timeSelect");
+    if (!intervalId) {
+      intervalId = setInterval(
+        toggleTicketSort(`${item.board_title}-task`, timeSelect),
+        8640000
+      ); // Runs every 24 hours
+    }
   });
-
-// function to fetch board name
-async function fetchListsnew() {
-  try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
-
-    if (!response.ok) {
-      return;
-    }
-
-    const lists = await response.json();
-    const selects = document.querySelectorAll('.listSelect.form-select.d-inline.w-auto.m-3');
-
-    if (selects.length === 0) {
-      return;
-    }
-
-    selects.forEach(select => {
-      select.innerHTML = '<option value="">Select List</option>';
-
-      lists.forEach(list => {
-        const option = document.createElement('option');
-        option.value = list.board_title;
-        option.textContent = list.board_title;
-        select.appendChild(option);
-      });
-    });
-  } catch (error) {
-    errorLog();
-  }
 }
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(() => {
-    const selectElements = document.querySelectorAll('.listSelect');
-    console.log('Found elements:', selectElements.length);
-
-    if (selectElements.length > 0) {
-      fetchListsnew();
-    } else {
-      console.warn('No .listSelect elements found at the time of execution');
+// Add event listeners
+function addEventListeners() {
+  document.addEventListener("click", function(event) {
+    if (event.target && event.target.id === "create-rule-automation") {
+      createRuleModal();
     }
-  }, 500);
-});
+  });
+}
 
+// Delete board function
 const deleteBoard = async boardId => {
   try {
     // Send DELETE request to the API
