@@ -14,7 +14,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   })
   .then(data => {
     const kanbanboardContainer = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
-    data.map(item => {
+    data.forEach(item => {
       const kanbanboardContent = `<div data-id="board-in-progress" data-order="${item.order}" class="kanban-board" id="board-${item.order}"
         style="width: 250px; margin-left: 12px; margin-right: 12px;">
         <header class="kanban-board-header" id="${item.board_title}-header">
@@ -241,14 +241,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                               <option value="sunday">Sunday</option>
                             </select>
                             at
-                            <select id="timeSelect" class="form-select d-inline w-auto m-3">
-                              <option value="time">Time</option>
-                              <option value="age">Age</option>
-                              <option value="duedate">duedate</option>
-                              <option value="name">name</option>
-                              <option value="date">date</option>
-                              <option value="label">label</option>
-                            </select>
+                            <input type="time" id="timeInput" class="form-control d-inline w-auto m-3">
                           </div>
                         </div>
                       </div>
@@ -267,7 +260,12 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                             </select>
                             by
                             <select id="dueDate" class="form-select d-inline w-auto m-3">
-                              <option value="">Due Date</option>
+                              <option value="time">Time</option>
+                              <option value="age">Age</option>
+                              <option value="duedate">duedate</option>
+                              <option value="name">name</option>
+                              <option value="date">date</option>
+                              <option value="label">label</option>
                             </select>
                             <select id="boardOrder" class="form-select d-inline w-auto m-3">
                               <option value="">Order</option>
@@ -316,19 +314,29 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
         <form class="new-item-form" id="add-new-${item.board_title}-form"></form>
         <div id="backdrop"></div>
       </main>
-    </div>
-  `;
-  let intervalId;
-  document.getElementById("start").addEventListener("click", function() {
-    const timeSelect = document.getElementById("timeSelect");
-    if (!intervalId) {
-      intervalId = setInterval(
-        toggleTicketSort(`${item.board_title}-task`, timeSelect),
-        8640000
-      ); // Runs every 24 hours
-    }
+    </div>`;
+      
+      // Add the content to the container
+      kanbanboardContainer.insertAdjacentHTML('beforeend', kanbanboardContent);
+      
+      let intervalId;
+      const startButton = document.getElementById("start");
+      if (startButton) {
+        startButton.addEventListener("click", function() {
+          const timeSelect = document.getElementById("timeSelect");
+          if (!intervalId) {
+            intervalId = setInterval(
+              () => toggleTicketSort(`${item.board_title}-task`, timeSelect.value),
+              8640000
+            ); // Runs every 24 hours
+          }
+        });
+      }
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching boards:', error);
   });
-}
 
 // Add event listeners
 function addEventListeners() {
@@ -356,6 +364,16 @@ const deleteBoard = async boardId => {
   }
 };
 
+// Toggle ticket sort function
+function toggleTicketSort(elementId, sortType) {
+  if (sortType === 'name') {
+    toggleTicketSortByName(elementId);
+  } else if (sortType === 'date') {
+    toggleTicketSortByDate(elementId);
+  }
+}
+
+// Sort by name
 function toggleTicketSortByName(elementId) {
   let todoTask = document.getElementById(elementId);
   let kanbanItems = Array.from(todoTask.getElementsByClassName('kanban-item'));
@@ -368,27 +386,23 @@ function toggleTicketSortByName(elementId) {
   });
 
   kanbanItems.forEach(item => todoTask.appendChild(item));
-
-  isAscending = !isAscending; // Toggle sorting order for next call
+  isAscending = !isAscending;
 }
 
-let isAscending = true; // Track sorting order
-
-let isDateAscending = true; // Track sorting order for date
-
+// Sort by date
 function toggleTicketSortByDate(elementId) {
   let todoTask = document.getElementById(elementId);
   let kanbanItems = Array.from(todoTask.getElementsByClassName('kanban-item'));
 
   kanbanItems.sort((a, b) => {
-    let nameA = a.querySelector('.kanban-text').innerText.trim().toLowerCase();
-    let nameB = b.querySelector('.kanban-text').innerText.trim().toLowerCase();
+    let dateA = new Date(a.dataset.createdAt || 0);
+    let dateB = new Date(b.dataset.createdAt || 0);
 
-    return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    return isDateAscending ? dateA - dateB : dateB - dateA;
   });
 
   kanbanItems.forEach(item => todoTask.appendChild(item));
-  sortState.isAscending = !sortState.isAscending;
+  isDateAscending = !isDateAscending;
 }
 
 // Watched card function
@@ -409,6 +423,11 @@ function watchedCard(watched) {
   }
 }
 
+// Sorting state variables
+let isAscending = true;
+let isDateAscending = true;
+
+// Export functions to window object
 window.newRule = newRule;
 window.deleteBoard = deleteBoard;
 window.toggleTicketSort = toggleTicketSort;
