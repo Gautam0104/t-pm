@@ -4,11 +4,59 @@ import { errorLog } from './error.js';
 import { newRule } from './todo.js';
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL;
+
+// Function to fetch and populate lists
+async function fetchListsnew() {
+  try {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch boards');
+    }
+
+    const lists = await response.json();
+    const selects = document.querySelectorAll(".listSelect.form-select.d-inline.w-auto.m-3");
+
+    if (selects.length === 0) {
+      console.warn('No select elements found');
+      return;
+    }
+
+    selects.forEach(select => {
+      select.innerHTML = '<option value="">Select List</option>';
+
+      lists.forEach(list => {
+        const option = document.createElement("option");
+        option.value = list.board_title;
+        option.textContent = list.board_title;
+        select.appendChild(option);
+      });
+    });
+  } catch (error) {
+    console.error('Error fetching lists:', error);
+    errorLog();
+  }
+}
+
+// Initialize lists when DOM is loaded
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(() => {
+    const selectElements = document.querySelectorAll(".listSelect");
+    console.log("Found elements:", selectElements.length);
+
+    if (selectElements.length > 0) {
+      fetchListsnew();
+    } else {
+      console.warn("No .listSelect elements found at the time of execution");
+    }
+  }, 500);
+});
+
 // Access the URL securely
 fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok ');
+      throw new Error('Network response was not ok');
     }
     return response.json();
   })
@@ -179,14 +227,8 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                         <div class="border p-3">
                           <div>
                             Sort the list
-                            <select id="positionSelect1" class="form-select d-inline w-auto m-3">
-                              <option value="">Boardlist</option>
-                              <option value="todo">Todo</option>
-                              <option value="inprogress">Inprogress</option>
-                              <option value="for-approval">For-approval</option>
-                              <option value="rejected">Rejected</option>
-                              <option value="Aproved">Approved</option>
-                            </select>
+                             <select class="listSelect form-select d-inline w-auto m-3" >
+                             </select>
                             by
                             <select id="dueDate" class="form-select d-inline w-auto m-3">
                               <option value="">Due Date</option>
@@ -250,14 +292,8 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                         <div class="border p-3">
                           <div>
                             Sort the list
-                            <select id="positionSelect1" class="form-select d-inline w-auto m-3">
-                              <option value="">Boardlist</option>
-                              <option value="todo">Todo</option>
-                              <option value="inprogress">Inprogress</option>
-                              <option value="for-approval">For-approval</option>
-                              <option value="rejected">Rejected</option>
-                              <option value="Aproved">Approved</option>
-                            </select>
+                             <select class="listSelect form-select d-inline w-auto m-3" >
+                             </select>
                             by
                             <select id="dueDate" class="form-select d-inline w-auto m-3">
                               <option value="time">Time</option>
