@@ -466,5 +466,6 @@ let isDateAscending = true;
 // Export functions to window object
 window.newRule = newRule;
 window.deleteBoard = deleteBoard;
-window.toggleTicketSort = toggleTicketSort;
+window.toggleTicketSort = toggleTicketSortByName;
+window.toggleTicketSort = toggleTicketSortByDate;
 window.watchedCard = watchedCard;

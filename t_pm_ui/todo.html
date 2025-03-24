@@ -988,7 +988,7 @@
             </div>
           </div>
         </div>
-        
+
 
         <!-- join card modal -->
         <div class="modal fade" id="automationjoinCardToModal" tabindex="-1" aria-hidden="true">
@@ -1075,6 +1075,43 @@
           </div>
         </div>
         <!-- Add label modal -->
+        <!-- About Automation Modal -->
+        <div class="modal fade" id="aboutautomationModal" tabindex="-1" aria-modal="true" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <!-- Centered Heading -->
+                <h4 class="col-12 text-center mb-0">
+                  <ul class="d-flex justify-content-center mb-0">
+                    <li class="menu-item p-2">About Automation</li>
+                  </ul>
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- Consistent Spacing for Text Content -->
+                <div class="d-flex align-items-center p-4 mb-4">
+                  <p class="mb-0 text-center">Create buttons and rules to perform different actions on your Trello
+                    boards.</p>
+                </div>
+                <div class="p-4">
+                  <p class="mb-4 text-center">To add new automations or edit existing automations, go to the directory.
+                  </p>
+                  <hr style="color: #636363;">
+                  <div class="d-flex align-items-center">
+                    <div class="w-100">
+                      <button type="button" class="btn btn-primary w-100 mt-3" data-bs-toggle="modal"
+                        data-bs-target="#aboutautomation">
+                        Go to the Automation Directory
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /About Automation Modal -->
         <!-- copy card modal -->
         <div class="modal fade" id="copycardModal" tabindex="-1" aria-modal="true" role="dialog">
           <div class="modal-dialog" role="document">
@@ -1306,7 +1343,8 @@
                             </div>
                             <div class="row d-flex justify-content-between p-10">
                               <div class="col d-flex p-4 w-100 bg-light rounded">
-                                <span class="fw-medium">when a card is added into the list "ToDo", join the card</span>
+                                <span class="fw-medium">when a card is added into the list "ToDo", join the
+                                  card</span>
                               </div>
                             </div>
                             <div class="row d-flex justify-content-between px-6">
@@ -1332,9 +1370,227 @@
           </div>
         </div>
 
+        <!-- create a suggestion automation modal -->
+        <div class="modal fade" id="aboutautomation" tabindex="-1" aria-labelledby="aboutautomationModal"
+          aria-hidden="true" role="dialog">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" style="height: 120vh;">
+                <div class="container-fluid">
+                  <div class="row">
 
-        <!--/ create a rule automation modal -->
+                    <!-- Sidenav (Side Navigation) -->
+                    <div class="col-3">
+                      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                        <div class="app-brand demo">
+                          <a href="../index.html" class="app-brand-link">
+                            <div class="avatar">
+                              <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
+                                class="rounded-circle">
+                            </div>
+                            <span class="app-brand-text demo menu-text fw-bold">Automation</span>
+                          </a>
+                        </div>
+
+                        <div class="menu-inner-shadow"></div>
+                        <ul class="menu-inner py-1 overflow-auto">
+                          <span class="app-brand-text demo menu-text">Automation</span>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-arrows-right"></i>
+                              <div>Rule</div>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-calendar"></i>
+                              <div>Scheduled</div>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-calendar"></i>
+                              <div>Due Date</div>
+                            </a>
+                          </li>
+                          <span class="app-brand-text demo menu-text">Custom Buttons</span>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-layout"></i>
+                              <div>Card Buttons</div>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-layout-2"></i>
+                              <div>Board Buttons</div>
+                            </a>
+                          </li>
+                          <span class="app-brand-text demo menu-text">App automation</span>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-settings"></i>
+                              <div>View apps</div>
+                            </a>
+                          </li>
+                          <span class="app-brand-text demo menu-text">More</span>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link bg-primary text-white">
+                              <i class="menu-icon tf-icons ti ti-wand"></i>
+                              <div>Suggestions</div>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-activity"></i>
+                              <div>Activity</div>
+                            </a>
+                          </li>
+                          <li class="menu-item mt-5">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-speakerphone"></i>
+                              <div>Send feedback</div>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="#" class="menu-link">
+                              <i class="menu-icon tf-icons ti ti-help"></i>
+                              <div>Help</div>
+                            </a>
+                          </li>
+                        </ul>
+                      </aside>
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="col-9">
+                      <span class="app-brand-text demo menu-text fw-bold">Automation tips</span>
+                      <div class="">
+                        <!-- Navigation Bar -->
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="header-title d-flex align-items-center">
+                            <span class=" ">Generated 5 hours age based on 628
+                              action performed by
+                              you on this board in the last 2 months.</span>
+                          </div>
+
+                          <!-- Additional Menu Links -->
+                          <div class="header-menu">
+                            <ul class="d-flex " style="margin-top: 20px;">
+                              <li class="menu-item me-1">
+                                <a href="#" class="menu-link " style="color:#333232;">
+                                  <span class="bg-light p-2 fw-bold rounded"><i
+                                      class="ti ti-reload me-1"></i>Refresh</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <hr style="color: #636363;">
+                        <!-- Main Content Area -->
+                        <div class="main-content  border py-6 " style="margin-top: 50px;">
+                          <div class="row d-flex justify-content-between">
+                            <div class="col-8">
+                              <ul class="d-flex">
+                                <li class="menu-item me-1">
+                                  <a href="" class="menu-link">
+                                    <!-- <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span> -->
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <span class="app-brand-text demo menu-text fw-bold">Automation tips and essentials to help you
+                          get
+                          started</span>
+                        <div class="main-content  border py-6 " style="margin-top: 50px;">
+                          <div class="content-section">
+                            <div class="row d-flex justify-content-between">
+                              <div class="col-8">
+                                <ul class="d-flex">
+                                  <li class="menu-item me-1">
+                                    <a href="" class="btn btn-light">
+                                      <i class="ti ti-star me-2"></i>Card Button
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-4">
+                                <li class="menu-item">
+                                  <a href="" class="menu-link me-1">
+                                    <span class="bg-light p-2 fw-bold rounded col-4 me-12"><i
+                                        class="ti ti-trash"></i></span>
+                                    <button type="button" class="btn btn-primary w-55 px-4 "> + Add
+                                    </button>
+                                  </a>
+                                </li>
+                              </div>
+                            </div>
+                            <div class="row d-flex justify-content-between px-10">
+                              <div class="col d-flex p-4 w-100 bg-light rounded">
+                                <span class="fw-medium">add member @gusgalante to the card</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex justify-content-between p-4">
+                            <div class="col d-flex px-6 w-55 rounded">
+                              <div class="d-flex ms-1">
+                                <span>Performed 57 times, most recently a day ago.</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="main-content  border py-6 " style="margin-top: 50px;">
+                          <div class="content-section">
+                            <div class="row d-flex justify-content-between">
+                              <div class="col-8">
+                                <ul class="d-flex">
+                                  <li class="menu-item me-1">
+                                    <a href="" class="btn btn-light">
+                                      <i class="ti ti-star me-2"></i>Card Button
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-4">
+                                <li class="menu-item">
+                                  <a href="" class="menu-link me-1">
+                                    <span class="bg-light p-2 fw-bold rounded col-4 me-12"><i
+                                        class="ti ti-trash"></i></span>
+                                    <button type="button" class="btn btn-primary w-55 px-4"> + Add
+                                    </button>
+                                  </a>
+                                </li>
+                              </div>
+                            </div>
+                            <div class="row d-flex justify-content-between px-10">
+                              <div class="col d-flex p-4 w-100 bg-light rounded">
+                                <span class="fw-medium">remove member @gusgalante from the card</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex justify-content-between p-4">
+                            <div class="col d-flex px-6 w-55 rounded">
+                              <div class="d-flex ms-1">
+                                <span>Performed 57 times, most recently a day ago.</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Add action Modal -->
         <div class="modal fade right" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel"

@@ -20,8 +20,8 @@ import { addLabelModal } from "./automation/addLabel.js";
 import { addLabelAutomation } from "./automation/automationLogic.js";
 
 const API_BASE_URL = ENV.API_BASE_URL;
-window.onload = function() {
-  setTimeout(function() {
+window.onload = function () {
+  setTimeout(function () {
     document.getElementById(ELEMENT_IDS.PAGE_LOADING).style.display = "none";
   }, 500);
 };
@@ -29,7 +29,7 @@ window.onload = function() {
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
-setTimeout(function() {
+setTimeout(function () {
 
 
   fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
@@ -77,7 +77,7 @@ setTimeout(function() {
               <div class="item-badges">
                 <div class="d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
                 <div class="badge bg-label-success">${element.badge ||
-                  "UX"}</div>
+            "UX"}</div>
               </div>
               <div class="dropdown kanban-tasks-item-dropdown">
                 <i class="dropdown-toggle ti ti-dots-vertical" 
@@ -139,7 +139,7 @@ setTimeout(function() {
     .then(trydraggElements => {
       // Perform actions on the elements here
       trydraggElements.forEach(element => {
-        element.addEventListener("click", function(e) {
+        element.addEventListener("click", function (e) {
           const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
           // const backdropWrapper = document.getElementById("backdrop");
           offcanvas.classList.add("show");
@@ -621,9 +621,14 @@ setTimeout(function() {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100 " id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-plus me-2"></i> Add Button
                                                                 </button>
-
-                                                                
-                                                            </li>
+                                                                 
+                                                                <li class="nav-item d-flex justify-content-end">
+                                                                <button class="nav-link d-flex align-items-center border-0" data-bs-toggle="modal" 
+          data-bs-target="#aboutautomationModal" 
+          onclick="aboutautomation('${element.ticket_id}')">
+    <i class="fa-solid fa-power-off me-2"></i>
+  </button>
+</li>
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="markCardFeature" >
                                                                     <i class="fas fa-check me-2"></i> Mark Complete
@@ -719,17 +724,17 @@ setTimeout(function() {
 
                 document
                   .getElementById(ELEMENT_IDS.STYLE_BOLD)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     applyStyle("bold");
                   });
                 document
                   .getElementById(ELEMENT_IDS.STYLE_ITALIC)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     applyStyle("italic");
                   });
                 document
                   .getElementById(ELEMENT_IDS.STYLE_UNDERLINE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     applyStyle("underline");
                   });
                 // document
@@ -739,27 +744,27 @@ setTimeout(function() {
                 //   });
                 document
                   .getElementById(ELEMENT_IDS.ADD_LINK)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     addLink();
                   });
                 document
                   .getElementById(ELEMENT_IDS.ADD_IMAGE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     addImage();
                   });
                 document
                   .getElementById(ELEMENT_IDS.MARD_CARD_FEATURE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     markCard(element.ticket_id);
                   });
                 document
                   .getElementById(ELEMENT_IDS.WATCH_CARD_FEATURE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     watchNotification(element.ticket_id);
                   });
                 document
                   .getElementById(ELEMENT_IDS.COPY_CARD_FEATURE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     copyCardToModal(
                       element.title,
                       element.ticket_id,
@@ -768,7 +773,7 @@ setTimeout(function() {
                   });
                 document
                   .getElementById(ELEMENT_IDS.MOVE_CARD_FEATURE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     moveCardToModal(
                       element.title,
                       element.ticket_id,
@@ -776,9 +781,9 @@ setTimeout(function() {
                     );
                   });
 
-                  document
+                document
                   .getElementById(ELEMENT_IDS.SHARE_CARD_FEATURE)
-                  .addEventListener("click", function() {
+                  .addEventListener("click", function () {
                     shareCardToModal(
                       element.title,
                       element.ticket_id,
@@ -1017,7 +1022,7 @@ setTimeout(function() {
                       ticketHistory.innerHTML += Content;
                       // image src check
 
-                      document.addEventListener("DOMContentLoaded", function() {
+                      document.addEventListener("DOMContentLoaded", function () {
                         let imgElement = document.getElementById(
                           ELEMENT_IDS.CARD_IMAGE_PREVIEW_UPDATE
                         );
@@ -1032,12 +1037,12 @@ setTimeout(function() {
                       // Check if the images field is null or empty
                       const historyimageArray =
                         history.previous_images &&
-                        history.previous_images !== null
+                          history.previous_images !== null
                           ? Array.isArray(history.previous_images)
                             ? history.previous_images
                             : history.previous_images
-                                .replace(/^\[|\]$/g, "")
-                                .split(",")
+                              .replace(/^\[|\]$/g, "")
+                              .split(",")
                           : [];
 
                       // If imageArray is empty, you may choose to show a default message or not display the images section at all
@@ -1076,7 +1081,7 @@ setTimeout(function() {
                 const closeButton = document.getElementById(ELEMENT_IDS.OFFCANVAS_CLOSE);
                 const deleteButton = document.getElementById(ELEMENT_IDS.DELETE_TICKET);
                 //console.log(updateButton);
-                closeButton.addEventListener("click", function() {
+                closeButton.addEventListener("click", function () {
                   selected = null;
                   console.log("selected is null now");
                   const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
@@ -1087,7 +1092,7 @@ setTimeout(function() {
                 // Add event listener for the card-image input field
                 document
                   .getElementById("card-image")
-                  .addEventListener("change", function(event) {
+                  .addEventListener("change", function (event) {
                     const fileInput = event.target;
                     const previewContainer = document.getElementById(
                       ELEMENT_IDS.CARD_IMAGE_PREVIEW
@@ -1117,7 +1122,7 @@ setTimeout(function() {
 
                       // Use FileReader to display the image
                       const reader = new FileReader();
-                      reader.onload = function(e) {
+                      reader.onload = function (e) {
                         // Set the preview image src to the loaded file data
                         previewImage.src = e.target.result;
                         previewImage.style.display = "block"; // Show the image
@@ -1132,22 +1137,22 @@ setTimeout(function() {
                 // update ticket form
                 document.getElementById(ELEMENT_IDS.TICKET_FORM).addEventListener("submit", async function (e) {
                   e.preventDefault();
-                
+
                   // Debugging logs
                   console.log("Submitting form...");
-                
+
                   // Ensure element exists
                   if (typeof element === "undefined" || !element) {
                     console.error("Error: 'element' is not defined or missing");
                     alert("An error occurred. Please try again.");
                     return;
                   }
-                
+
                   console.log("Element Data:", element);
-                
+
                   const ticket_id = element?.ticket_id?.toString().trim() || "";
                   const ticket_status = element?.ticket_status?.toString().trim() || "Backlog"; // Default fallback
-                  
+
                   const titleElement = document.getElementById(ELEMENT_IDS.TICKET_TITLE);
                   const descriptionElement = document.getElementById(ELEMENT_IDS.TICKET_DESCRIPTION);
                   const dueDateElement = document.getElementById(ELEMENT_IDS.TICKET_DUEDATE);
@@ -1155,13 +1160,13 @@ setTimeout(function() {
                   const ticketOwnerElement = document.getElementById(ELEMENT_IDS.TICKET_OWNER);
                   const imageElement = document.getElementById(ELEMENT_IDS.TICKET_IMAGE);
                   const cardImageElement = document.getElementById(ELEMENT_IDS.TICKET_CARD_IMAGE);
-                
+
                   if (!titleElement || !descriptionElement || !ticketOwnerElement) {
                     console.error("Error: One or more required elements are missing from the DOM.");
                     alert("Form elements are missing. Please check your form structure.");
                     return;
                   }
-                
+
                   const title = titleElement?.value?.trim() || "";
                   const description = descriptionElement?.value?.trim() || element?.description?.trim() || "No description provided"; // Ensuring a valid description
                   const due_date = dueDateElement?.value?.trim() || "";
@@ -1169,16 +1174,16 @@ setTimeout(function() {
                   const ticket_owner = ticketOwnerElement?.value?.trim() || "";
                   const images = imageElement?.files || [];
                   const cardImage = cardImageElement?.files || [];
-                
+
                   console.log("Form Values:", { ticket_id, title, description, due_date, ticket_eta, ticket_owner, ticket_status });
-                
+
                   // Validate required fields
                   if (!ticket_id || !title || !description || !ticket_status || !ticket_owner) {
                     console.error("Validation failed: Missing required fields.");
                     alert("Please fill in all required fields.");
                     return;
                   }
-                
+
                   const formData = new FormData();
                   formData.append("ticket_id", ticket_id);
                   formData.append("title", title);
@@ -1189,25 +1194,25 @@ setTimeout(function() {
                   formData.append("ticket_status", ticket_status);
                   formData.append("ticket_eta", ticket_eta);
                   formData.append("ticket_owner", ticket_owner);
-                
+
                   for (const image of images) {
                     formData.append("images", image);
                   }
                   if (cardImage.length > 0) {
                     formData.append("card_image", cardImage[0]);
                   }
-                
+
                   document.getElementById(ELEMENT_IDS.MESSAGE).textContent = "Updating ticket...";
-                
+
                   try {
                     const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET}`, {
                       method: "PUT",
                       body: formData,
                     });
                     const data = await response.json();
-                
+
                     console.log("API Response:", data);
-                
+
                     if (data.message) {
                       document.querySelector(ELEMENT_IDS.OFFCANVAS)?.classList.remove("show");
                       // logActivity(`${localStorage.getItem("logged-username")} updated ticket ID ${ticket_id} with title: "${title}"`);
@@ -1226,11 +1231,11 @@ setTimeout(function() {
                     errorLog(error)
                   }
                 });
-                
-                
+
+
                 // delete ticket 
 
-                deleteButton.addEventListener("click", async function() {
+                deleteButton.addEventListener("click", async function () {
 
                   const ticket_id = element.ticket_id;
                   try {
@@ -1266,7 +1271,7 @@ setTimeout(function() {
                         text: "A Ticket is delete from your tickets",
                         icon: "success",
                         confirmButtonText: "Ok!"
-                      }).then(function() {
+                      }).then(function () {
                         window.location.reload();
                       });
                     } else {
@@ -1316,10 +1321,10 @@ setTimeout(function() {
                 const newTask = document.getElementById(
                   `${boardItem.board_title}-task`
                 );
-                newTask.addEventListener("dragover", function(e) {
+                newTask.addEventListener("dragover", function (e) {
                   e.preventDefault();
                 });
-                newTask.addEventListener("drop", function(e) {
+                newTask.addEventListener("drop", function (e) {
                   e.preventDefault();
                   newTask.appendChild(selected);
                   fetchselectedData()
@@ -1448,7 +1453,7 @@ async function moveAllTask(from, currentStatus) {
 }
 
 // Restore state on page load
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("[id]").forEach(element => {
     let watchedId = element.id;
     let watchedAnchor = document.getElementById(`${watchedId}-anchor`);
@@ -1507,20 +1512,20 @@ function loadLabelContent(elementId) {
 }
 
 // Automatically load all saved label content when the page loads
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   let savedElements = JSON.parse(localStorage.getItem("savedElements")) || [];
   savedElements.forEach(elementId => {
     loadLabelContent(elementId);
   });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const checkbox = document.querySelector(ELEMENT_IDS.FORM_CHECK_INPUT);
   const progressBar = document.querySelector(ELEMENT_IDS.FORM_PROGRESS_BAR);
   const checklistTitle = document.querySelector(ELEMENT_IDS.FORM_CHECKLIST_TITLE);
   const progressText = document.querySelector(ELEMENT_IDS.FORM_PROGRESS_TEXT); // Selecting the span showing progress percentage
 
-  checkbox.addEventListener("change", function() {
+  checkbox.addEventListener("change", function () {
     if (this.checked) {
       animateProgress(0, 100);
       progressBar.style.width = "100%";
@@ -1580,7 +1585,7 @@ function openCopyCardModal(title, ticketId) {
                       class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
                       id="cancel-form-4">Cancel</button>
                   </div>`;
-  copycardForm.addEventListener("submit", async function(e) {
+  copycardForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const ticketStatus = document.getElementById(ELEMENT_IDS.COPIED_TICKET_STATUS).value;
@@ -1639,10 +1644,10 @@ function openShareCardModal(title, ticketId) {
                       class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light"
                       id="cancel-form-4">Cancel</button>
                   </div>`;
-  copycardForm.addEventListener("submit", async function(e) {
+  copycardForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    
+
   });
 }
 
@@ -1686,7 +1691,7 @@ async function deleteCard(event, ticketId) {
         text: "A Ticket is delete from your tickets",
         icon: "success",
         confirmButtonText: "Ok!"
-      }).then(function() {
+      }).then(function () {
         window.location.reload();
       });
     } else {
@@ -1749,7 +1754,7 @@ function openMoveCardModal(title, ticketId) {
                     </button>
                   </div>`;
 
-  document.getElementById(ELEMENT_IDS.MOVE_CARD).addEventListener("click", function(e) {
+  document.getElementById(ELEMENT_IDS.MOVE_CARD).addEventListener("click", function (e) {
     e.preventDefault();
     const ticketStatus = document.getElementById(ELEMENT_IDS.FORM_MOVE_CARD_IN).value;
     // Check for undefined or empty values before sending the request
@@ -1770,7 +1775,7 @@ function openMoveCardModal(title, ticketId) {
 }
 
 // Restore state on page load
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
   const ticketIds = [1, 2, 3]; // Add all your ticket IDs here
   ticketIds.forEach(ticketId => {
     restoreCardState(ticketId);
@@ -1860,7 +1865,7 @@ function openActionModal() {
   );
   actionModal.show();
 }
-export function newRule(){
+export function newRule() {
   Swal.fire({
     title: "A new rule added",
     text: "A new rule automation added on ticket board.",

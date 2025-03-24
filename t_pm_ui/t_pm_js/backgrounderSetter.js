@@ -20,7 +20,7 @@ function changeBackground(imageUrl) {
   );
 
   document.body.style.background = `url('${boardimageUrl}') no-repeat center center/cover`;
-  console.log(todoFooter);
+ // console.log(todoFooter);
 }
 
 function defaultBackground() {
@@ -87,3 +87,5 @@ function resetElebg() {
   // Reset the project title input background color
   // Revert to the default color
 }
+window.changeBackground = changeBackground;
+window.defaultBackground = defaultBackground;1
