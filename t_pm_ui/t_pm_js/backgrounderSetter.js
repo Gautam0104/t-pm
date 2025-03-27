@@ -1,4 +1,4 @@
-import {ELEMENT_IDS} from "./element_id.js";
+import { ELEMENT_IDS } from "./element_id.js";
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 
@@ -20,7 +20,7 @@ function changeBackground(imageUrl) {
   );
 
   document.body.style.background = `url('${boardimageUrl}') no-repeat center center/cover`;
- // console.log(todoFooter);
+  //console.log(todoFooter);
 }
 
 function defaultBackground() {
@@ -31,7 +31,9 @@ function defaultBackground() {
 function changeElebg() {
   const todoFooter = document.getElementById(ELEMENT_IDS.FOOTER);
   const todoHeader = document.getElementsByTagName(ELEMENT_IDS.HEADER);
-  const todoButton = document.getElementsByClassName(ELEMENT_IDS.KANBAN_TITLE_BUTTON);
+  const todoButton = document.getElementsByClassName(
+    ELEMENT_IDS.KANBAN_TITLE_BUTTON
+  );
 
   const todoForm = document.getElementsByClassName(ELEMENT_IDS.ADD_NEW_FORM);
 
@@ -56,7 +58,9 @@ function changeElebg() {
 function resetElebg() {
   const todoFooter = document.getElementById(ELEMENT_IDS.FOOTER);
   const todoHeader = document.getElementsByTagName(ELEMENT_IDS.HEADER);
-  const todoButton = document.getElementsByClassName(ELEMENT_IDS.KANBAN_TITLE_BUTTON);
+  const todoButton = document.getElementsByClassName(
+    ELEMENT_IDS.KANBAN_TITLE_BUTTON
+  );
 
   const todoForm = document.getElementsByClassName(ELEMENT_IDS.ADD_NEW_FORM);
 
@@ -87,5 +91,7 @@ function resetElebg() {
   // Reset the project title input background color
   // Revert to the default color
 }
+
 window.changeBackground = changeBackground;
-window.defaultBackground = defaultBackground;1
+window.defaultBackground = defaultBackground;
+window.changeElebg = changeElebg;

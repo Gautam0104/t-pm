@@ -1,7 +1,9 @@
-import { API_ROUTES } from '../apiRoutesHeader.js';
-import { ELEMENT_IDS } from './element_id.js';
-import { errorLog } from './error.js';
-import { newRule } from './todo.js';
+import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
+import { errorLog } from "./error.js";
+import { newRule } from "./todo.js";
+import { moveAllCard } from "./moveallcard.js";
+import { copyCardStatus } from "./createNewArea.js";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL;
 
@@ -11,14 +13,16 @@ async function fetchListsnew() {
     const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch boards');
+      throw new Error("Failed to fetch boards");
     }
 
     const lists = await response.json();
-    const selects = document.querySelectorAll(".listSelect.form-select.d-inline.w-auto.m-3");
+    const selects = document.querySelectorAll(
+      ".listSelect.form-select.d-inline.w-auto.m-3"
+    );
 
     if (selects.length === 0) {
-      console.warn('No select elements found');
+      console.warn("No select elements found");
       return;
     }
 
@@ -33,7 +37,7 @@ async function fetchListsnew() {
       });
     });
   } catch (error) {
-    console.error('Error fetching lists:', error);
+    console.error("Error fetching lists:", error);
     errorLog();
   }
 }
@@ -56,12 +60,14 @@ document.addEventListener("DOMContentLoaded", function() {
 fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     return response.json();
   })
   .then(data => {
-    const kanbanboardContainer = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+    const kanbanboardContainer = document.getElementById(
+      ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+    );
     data.forEach(item => {
       const kanbanboardContent = `<div data-id="board-in-progress" data-order="${item.order}" class="kanban-board" id="board-${item.order}"
         style="width: 250px; margin-left: 12px; margin-right: 12px;">
@@ -108,7 +114,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                 </a>
 
                 <!-- Copy Board -->
-                <a class="dropdown-item waves-effect"  data-bs-toggle="modal" data-bs-target="#copyboardModal" onclick="CopyBardlist('${item.board_title}')">
+                <a class="dropdown-item waves-effect"  data-bs-toggle="modal" data-bs-target="#copyboardModal" onclick="copyBoardList('${item.board_title}')">
                 <i class="ti ti-copy"></i> <span class="align-middle">Copy Board</span>
                 </a>
 
@@ -130,7 +136,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
                     <input type="text" class="form-control" id="move-to" placeholder="Please enter board where you want to move all card">
                   </div>
                   <div class="mb-4 w-100">
-                    <button type="button" class="btn btn-primary btn-sm me-4" onclick="moveAllTask('${item.board_title}-task', '${item.board_title}')">Move...</button>
+                    <button type="button" class="btn btn-primary btn-sm me-4" id="moveAllCard">Move...</button>
                   </div>
                 </form>
               </div>
@@ -351,10 +357,21 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
         <div id="backdrop"></div>
       </main>
     </div>`;
-      
+
       // Add the content to the container
-      kanbanboardContainer.insertAdjacentHTML('beforeend', kanbanboardContent);
-      
+      kanbanboardContainer.insertAdjacentHTML("beforeend", kanbanboardContent);
+
+      // move all card
+
+      document
+        .getElementById("moveAllCard")
+        .addEventListener("click", function() {
+          const moveFrom = document.getElementById("move-from").value.trim();
+          const moveTo = document.getElementById("move-to").value.trim();
+
+          moveAllCard(moveFrom, moveTo);
+        });
+
       let intervalId;
       const startButton = document.getElementById("start");
       if (startButton) {
@@ -362,7 +379,8 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
           const timeSelect = document.getElementById("timeSelect");
           if (!intervalId) {
             intervalId = setInterval(
-              () => toggleTicketSort(`${item.board_title}-task`, timeSelect.value),
+              () =>
+                toggleTicketSort(`${item.board_title}-task`, timeSelect.value),
               8640000
             ); // Runs every 24 hours
           }
@@ -371,7 +389,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
     });
   })
   .catch(error => {
-    console.error('Error fetching boards:', error);
+    console.error("Error fetching boards:", error);
   });
 
 // Add event listeners
@@ -387,12 +405,15 @@ function addEventListeners() {
 const deleteBoard = async boardId => {
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_BOARD}/${boardId}`, {
-      method: 'DELETE'
-    });
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.DELETE_BOARD}/${boardId}`,
+      {
+        method: "DELETE"
+      }
+    );
 
     if (response.ok) {
-      console.log('board deleted successfully');
+      console.log("board deleted successfully");
       window.location.reload();
     }
   } catch (error) {
@@ -402,9 +423,9 @@ const deleteBoard = async boardId => {
 
 // Toggle ticket sort function
 function toggleTicketSort(elementId, sortType) {
-  if (sortType === 'name') {
+  if (sortType === "name") {
     toggleTicketSortByName(elementId);
-  } else if (sortType === 'date') {
+  } else if (sortType === "date") {
     toggleTicketSortByDate(elementId);
   }
 }
@@ -412,13 +433,15 @@ function toggleTicketSort(elementId, sortType) {
 // Sort by name
 function toggleTicketSortByName(elementId) {
   let todoTask = document.getElementById(elementId);
-  let kanbanItems = Array.from(todoTask.getElementsByClassName('kanban-item'));
+  let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
 
   kanbanItems.sort((a, b) => {
-    let nameA = a.querySelector('.kanban-text').innerText.trim().toLowerCase();
-    let nameB = b.querySelector('.kanban-text').innerText.trim().toLowerCase();
+    let nameA = a.querySelector(".kanban-text").innerText.trim().toLowerCase();
+    let nameB = b.querySelector(".kanban-text").innerText.trim().toLowerCase();
 
-    return isAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    return isAscending
+      ? nameA.localeCompare(nameB)
+      : nameB.localeCompare(nameA);
   });
 
   kanbanItems.forEach(item => todoTask.appendChild(item));
@@ -428,7 +451,7 @@ function toggleTicketSortByName(elementId) {
 // Sort by date
 function toggleTicketSortByDate(elementId) {
   let todoTask = document.getElementById(elementId);
-  let kanbanItems = Array.from(todoTask.getElementsByClassName('kanban-item'));
+  let kanbanItems = Array.from(todoTask.getElementsByClassName("kanban-item"));
 
   kanbanItems.sort((a, b) => {
     let dateA = new Date(a.dataset.createdAt || 0);
@@ -448,13 +471,17 @@ function watchedCard(watched) {
   const isWatched = localStorage.getItem(`watched-${watched}`);
 
   if (isWatched) {
-    checkedCard.innerHTML = '';
+    checkedCard.innerHTML = "";
     if (watchedAnchor)
-      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(/<i class=\"ti ti-check ti-xs me-1\"><\/i>/g, '');
+      watchedAnchor.innerHTML = watchedAnchor.innerHTML.replace(
+        /<i class=\"ti ti-check ti-xs me-1\"><\/i>/g,
+        ""
+      );
     localStorage.removeItem(`watched-${watched}`);
   } else {
     checkedCard.innerHTML = `<i class="ti ti-eye ti-xs me-1"></i>`;
-    if (watchedAnchor) watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
+    if (watchedAnchor)
+      watchedAnchor.innerHTML += `<i class="ti ti-check ti-xs me-1"></i>`;
     localStorage.setItem(`watched-${watched}`, true);
   }
 }
@@ -469,3 +496,15 @@ window.deleteBoard = deleteBoard;
 window.toggleTicketSort = toggleTicketSortByName;
 window.toggleTicketSort = toggleTicketSortByDate;
 window.watchedCard = watchedCard;
+window.addEventListener = addEventListeners;
+window.toggleTicketSortByName = toggleTicketSortByName;
+window.toggleTicketSortByDate = toggleTicketSortByDate;
+window.moveAllCard = moveAllCard;
+
+window.archiveBoard = archiveBoard;
+window.archiveAllCards = archiveAllCards;
+window.moveBoard = moveBoard;
+window.changeBgColor = changeBgColor;
+window.makeDefault = makeDefault;
+window.createRuleModal = createRuleModal;
+window.copyCardStatus = copyCardStatus;

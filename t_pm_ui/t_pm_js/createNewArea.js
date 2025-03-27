@@ -76,31 +76,31 @@ async function submitBoardName(status) {
   if (!boardTitle.trim()) return;
   try {
     await createBoard(boardTitle);
-    await copyCardStatus(status, boardTitle);
+    copyCardStatus(status, boardTitle);
   } catch (error) {
     console.error("Error copying board:", error);
   }
-  window.location.reload();
 }
 
 // Function to copy card status
-async function copyCardStatus(status, ticketStatus) {
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}${API_ROUTES.COPY_BOARD}/status/${status}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ticketStatus })
-      }
-    );
-    if (response.ok) {
-      console.log("Card copied successfully");
-    }
-  } catch (error) {
-    console.error("Error copying card:", error);
-  }
+export function copyCardStatus(status, ticketStatus) {
+  let currentStatus = status;
+  let newStatus = ticketStatus;
+  fetch(`localhost:3000/copy-board`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ currentStatus, newStatus })
+  })
+    .then(response => response.json())
+    .then(data => {
+      responseElement.innerHTML = ` ${data.message}`;
+      responseElement.style.color = "green";
+    })
+    .catch(error => {
+      logError(error);
+    });
 }
 
 window.copyBoardList = copyBoardList;
 window.submitBoardName = submitBoardName;
+window.copyCardStatus = copyCardStatus;

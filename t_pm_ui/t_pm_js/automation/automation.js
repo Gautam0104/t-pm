@@ -3,6 +3,7 @@ import {
   moveCardAutomation,
   copycardAutomation,
   markduedate,
+  addduedateAutomation,
   removeDuedate,
   removeAllChecklists
 } from "./automationLogic.js";
@@ -122,5 +123,6 @@ export async function deleteAutomationButton(id) {
 window.moveCardAutomation = moveCardAutomation;
 window.copycardAutomation = copycardAutomation;
 window.markduedate = markduedate;
+window.addduedateAutomation = addduedateAutomation;
 window.removeDuedate = removeDuedate;
 window.removeAllChecklists = removeAllChecklists;

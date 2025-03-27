@@ -16,8 +16,8 @@ function openjoinCardModal(ticketTitle, ticketId) {
   joinCardForm.innerHTML = joinCardContent;
 }
 
-async function joinCard(ticket_id) {
-  const joined_username = localStorage.getItem(ELEMENT_IDS.LOGGED_USERNAME);
+export async function joinCard(ticket_id) {
+  const joined_username = localStorage.getItem("logged_username");
   try {
     const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_JOIN_CARD}`, {
       method: "POST",
@@ -47,7 +47,7 @@ async function joinCard(ticket_id) {
 }
 
 function handleJoinCard() {
-  fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARDS}`)
+  fetch(`${API_BASE_URL}/get-join-cards`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -62,6 +62,8 @@ function handleJoinCard() {
         const joinedCardAvtar = document.getElementById(
           `joined-member-${item.ticket_id}`
         );
+        console.log();
+
         const joinhtmlContent = `
           <div class="d-flex">
             <div class="avatar me-1 flex-shrink-0" id="joined-user" onclick="joineUserDetail(event,'${item.joined_username}')">
@@ -195,7 +197,9 @@ function joinNewUser(event, tickId) {
     </div>`;
   joinuserModal.innerHTML = modalBody;
 }
-
+setTimeout(() => {
+  handleJoinCard();
+}, 1000);
 window.openjoinCardModal = openjoinCardModal;
 window.joinCard = joinCard;
 window.joineUserDetail = joineUserDetail;

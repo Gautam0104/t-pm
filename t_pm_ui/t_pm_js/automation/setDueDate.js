@@ -4,9 +4,7 @@ import { ELEMENT_IDS } from "../element_id.js";
 export function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
   console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
 
-  let modalContainer = document.getElementById(
-    ELEMENT_IDS.AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL
-  );
+  let modalContainer = document.getElementById("setdueDateCardToModal");
   if (!modalContainer) {
     console.error("Modal container 'setdueDateCardToModal' not found.");
     return;
@@ -88,27 +86,38 @@ export function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
   boardSelect.addEventListener("change", checkInputs);
 
   saveButton.addEventListener("click", () =>
-    addDueDateAutomationButton(ticketId, ticket_status)
+    addDueDateAutomationButton(
+      ticketId,
+      ticket_status,
+      titleInput,
+      listSelect,
+      boardSelect,
+      positionSelect
+    )
   );
 
   checkInputs();
 }
 
-async function addDueDateAutomationButton(ticketId, ticket_status) {
-  const buttonTitle = document
-    .getElementById(ELEMENT_IDS.TITLE_INPUT)
-    .value.trim();
-  const listSelect = document.getElementById(ELEMENT_IDS.SELECT_LIST).value;
-  const boardSelect = document.getElementById(ELEMENT_IDS.SELECT_BOARD).value;
-  const positionSelect = document.getElementById(ELEMENT_IDS.SELECT_POSITION)
-    .value;
+async function addDueDateAutomationButton(
+  ticketId,
+  ticket_status,
+  titleInput,
+  listSelect,
+  boardSelect,
+  positionSelect
+) {
+  const buttonTitle = titleInput.value.trim();
+  const listValue = listSelect.value;
+  const boardValue = boardSelect.value;
+  const positionValue = positionSelect.value;
 
-  if (!buttonTitle || !listSelect || !boardSelect || !positionSelect) {
+  if (!buttonTitle || !listValue || !boardValue || !positionValue) {
     console.error("Please fill in all fields.");
     return;
   }
 
-  const buttonAction = `addduedateAutomation('${ticketId}', '${listSelect}', '${boardSelect}')`;
+  const buttonAction = `addduedateAutomation('${ticketId}', '${listValue}', '${boardValue}')`;
 
   await sendAutomationData(ticketId, buttonTitle, buttonAction);
 }

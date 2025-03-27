@@ -13,11 +13,20 @@ import {
 } from "./automation/automation.js";
 import { ELEMENT_IDS } from "./element_id.js";
 
+
+
 import { errorLog } from "./error.js";
 
 import { addLabelModal } from "./automation/addLabel.js";
 
 import { addLabelAutomation } from "./automation/automationLogic.js";
+
+import { leaveCard } from "./leaveCard.js";
+
+import { joinCard } from "./joinCard.js";
+
+
+
 
 const API_BASE_URL = ENV.API_BASE_URL;
 window.onload = function () {
@@ -608,6 +617,7 @@ setTimeout(function () {
                                                                  Create a custom button
                                                                  </button>
                                                                  </li>
+                                                                 
                                                                  </ul>
 
                                                                   <ul class="nav flex-column  overflow-auto" id="automation-button-ul-${element.ticket_id}" style="display:none;">
@@ -616,7 +626,7 @@ setTimeout(function () {
                                                                     <i class="fas fa-pencil me-2"></i> Automation
                                                                 </button>
                                                              </li>
-                                                             
+                                                           
                                                             </ul>
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100 " id="add-button-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="fas fa-plus me-2"></i> Add Button
@@ -649,6 +659,12 @@ setTimeout(function () {
                                                                     <i class="fas fa-arrow-right me-2"></i> Move Card
                                                                 </button>
                                                             </li>
+                                                             <li class="nav-item">
+                                                             <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown"  id="create-rule-automation" data-bs-toggle="modal" data-bs-target="#createRule">
+                                                                    <i class="ti ti-arrow-up-right ti-xs me-1"></i> <span class="align-middle">Create a rule</span>
+                                                                </button>
+                                                                         
+                                                             </li>
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#sharecardModal" id="shareCardFeature">
                                                                     <i class="fas fa-share me-2"></i> Share 
@@ -707,7 +723,9 @@ setTimeout(function () {
                                                                  </div>
                                                                  </li>
                                                                 </ul>
+
                                                             </li>
+                                                             
                                                         </ul>
                                                     </div>
 
@@ -813,7 +831,7 @@ setTimeout(function () {
                 );
 
                 setduedateAutomationButton.addEventListener("click", () => {
-                  setDuedateCardToModal(element.title, element.ticket_id);
+                  setDuedateCardToModal(element.title, element.ticket_id, element.ticket_status);
                 });
                 markduedateAutomationButton.addEventListener("click", () => {
                   markDueDateModal(
@@ -847,9 +865,37 @@ setTimeout(function () {
                 joinAutomationButton.addEventListener("click", () => {
                   joinCardToModal(element.title, element.ticket_id);
                 });
-                // cardjoinVerification(element.ticket_id);
+
+
+                fetch(`${API_BASE_URL}/get-join-card/${element.ticket_id}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  const loggedUsername = localStorage.getItem("logged_username");
+                  console.log('loggedUsername', loggedUsername);
+                  
+                  data.map(item => {
+                    const joinCardButton = document.getElementById(ELEMENT_IDS.JOIN_BUTTON);
+                    const leaveCardButton = document.getElementById(
+                      ELEMENT_IDS.LEAVE_BUTTON
+                    );
+                    if (item.joined_username === loggedUsername) {
+                      leaveCardButton.style.display = "block";
+                      joinCardButton.style.display = "none";
+                    } else {
+                      leaveCardButton.style.display = "none";
+                      joinCardButton.style.display = "block";
+                    }
+                  });
+                });
 
                 retrieveAutomation(element.ticket_id);
+                retrieveAutomationRule(element.ticket_id);
+          
 
                 // card image zone in modal
                 const imageArea = document.getElementById(
@@ -1875,6 +1921,96 @@ export function newRule() {
 }
 
 
+function retrieveAutomationRule(tickerId){
+  fetch(`${API_BASE_URL}/automation-data/${tickerId}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    const automationRule = document.getElementById(`rule-view`);
+
+    data.map(item => {
+      const ruleContent = ` <div class="main-content  border py-6 " style="margin-top: 50px;" >      
+                          <div class="content-section">
+                            <div class="row d-flex justify-content-between">
+                              <div class="col-8">
+                                <ul class="d-flex">
+                                  <li class="menu-item me-1">
+                                    <a href="" class="menu-link">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item">
+                                    <a href="" class="menu-link me-1">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-pencil"></i></span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item">
+                                    <a href="" class="menu-link me-1">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-copy"></i></span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item">
+                                    <a href="" class="menu-link me-1">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-trash"></i></span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item">
+                                    <a href="" class="menu-link me-1">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-location"></i></span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="" class="btn btn-primary">
+                                      <i class="ti ti-bell-plus-filled me-2"></i>Add to another board
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-4"><span class=""><a href="" style="color:#333232;">Enabled on 1
+                                    board,</a>last modified a month
+                                  ago</span></div>
+                            </div>
+                                  <div class="row d-flex justify-content-between px-10 py-3">
+                              <div class="col d-flex p-4 w-100 bg-light rounded" >
+                                 <span class="fw-medium">${item.button_title}</span>
+                              </div>
+                            </div>
+
+                            <div class="row d-flex justify-content-between px-6">
+                              <div class="col d-flex px-4 w-100  rounded">
+                                <div class="d-flex me-5 ms-1">
+                                  <input type="checkbox" class="form-check-input me-1">
+                                  <span>Enable automation on board</span>
+                                </div>
+                                <div class="d-flex me-5 ms-1">
+                                  <input type="checkbox" class="form-check-input me-1">
+                                  <span>Disable automation on board</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+      
+      
+      
+      
+      
+
+      
+      `;
+
+      automationRule.innerHTML += ruleContent;
+    });
+  });
+
+}
+
+
+
 window.editAutomation = editAutomation;
 window.deleteAutomationButton = deleteAutomationButton;
 window.moveAllTask = moveAllTask;
@@ -1887,3 +2023,5 @@ window.addLabelModal = addLabelModal;
 window.cardDropdown = cardDropdown;
 window.addLabelModal = addLabelModal;
 window.addLabelAutomation = addLabelAutomation;
+window.leaveCard = leaveCard;
+window.joinCard = joinCard;

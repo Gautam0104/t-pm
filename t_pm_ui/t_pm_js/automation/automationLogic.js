@@ -95,6 +95,41 @@ export function markduedate(ticket_id, duedate) {
       console.log("error  : ", error);
     });
 }
+export function addduedateAutomation(ticket_id, duedate, days) {
+  const ticket_eta = duedate + ` ${days}`;
+  const messageBox = document.getElementById(ELEMENT_IDS.MESSAGE);
+
+  if (!ticket_id || !ticket_eta) {
+    messageBox.textContent = "Please fill in both fields.";
+    messageBox.style.color = "red";
+    return;
+  }
+
+  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_TICKET_ETA}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ticket_id, ticket_eta })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        messageBox.textContent = "Error: " + data.error;
+        messageBox.style.color = "red";
+      } else {
+        Swal.fire({
+          title: "Due date marked",
+          text: "Card due date marked successfully",
+          icon: "success",
+          confirmButtonText: "Ok!"
+        }).then(function() {
+          location.reload();
+        });
+      }
+    })
+    .catch(error => {
+      console.log("error  : ", error);
+    });
+}
 
 export function removeDuedate(ticket_id) {
   const ticket_eta = "";

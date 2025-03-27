@@ -37,7 +37,7 @@ document
           // Redirect to dashboard.html
           window.location.href = "dashboard.html";
         });
-        fetch(`${API_BASE_URL}/username/${API_ROUTES.GET_USERNAME}`)
+        fetch(`${API_BASE_URL}/username/${username}`)
           .then(response => {
             if (!response.ok) {
               throw new Error("Network response was not ok " + response);
@@ -47,10 +47,19 @@ document
           .then(data => {
             data.map(user => {
               localStorage.setItem(ELEMENT_IDS.LOGGED_USERID, user.user_id);
-              localStorage.setItem(ELEMENT_IDS.LOGGED_USERNAME, user.username);
-              localStorage.setItem(ELEMENT_IDS.LOGGED_FIRSTNAME, user.first_name);
-              localStorage.setItem(ELEMENT_IDS.LOGGED_USERROLE_ID, user.role_id);
-              localStorage.setItem(ELEMENT_IDS.LOGGED_USERROLE_NAME, user.role_name);
+              localStorage.setItem("logged_username", user.username);
+              localStorage.setItem(
+                ELEMENT_IDS.LOGGED_FIRSTNAME,
+                user.first_name
+              );
+              localStorage.setItem(
+                ELEMENT_IDS.LOGGED_USERROLE_ID,
+                user.role_id
+              );
+              localStorage.setItem(
+                ELEMENT_IDS.LOGGED_USERROLE_NAME,
+                user.role_name
+              );
             });
           });
       } else {

@@ -74,7 +74,7 @@ export function joinCardToModal(ticketTitle, ticketId) {
 
 // Function to send automation data
 async function joinAutomationButton(ticketId) {
-  const titleInput = document.getElementById(ELEMENT_IDS.TITLE_INPUT);
+  const titleInput = document.getElementById("titleInput");
 
   if (!titleInput) {
     console.error("Input field not found.");
