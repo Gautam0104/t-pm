@@ -25,6 +25,8 @@ import { leaveCard } from "./leaveCard.js";
 
 import { joinCard } from "./joinCard.js";
 
+//import { getTicketComments } from "./ticket-comments.js";
+
 
 
 
@@ -398,33 +400,7 @@ setTimeout(function () {
                                                 </div>
                                                 <div class="tab-content p-0">
                                                 <div class="tab-pane fade text-heading" id="tab-comments" role="tabpanel">
-                                                <div class="media mb-4 d-flex align-items-center">
-                                                    <div class="avatar me-3 flex-shrink-0">
-                                                    <span class="avatar-initial bg-label-success rounded-circle">AS</span>
-                                                    </div>
-                                                    <div class="media-body">
-                                                    <p class="mb-0"><span>Aman</span> Left the board.</p>
-                                                    <small class="text-muted">Today 11:00 AM</small>
-                                                    </div>
-                                                </div>
-                                                <div class="media mb-4 d-flex align-items-center">
-                                                    <div class="avatar me-3 flex-shrink-0">
-                                                    <span class="avatar-initial bg-label-success rounded-circle">GS</span>
-                                                    </div>
-                                                    <div class="media-body">
-                                                    <p class="mb-0"><span>Gautam</span> Join the board.</p>
-                                                    <small class="text-muted">Today 11:00 AM</small>
-                                                    </div>
-                                                </div>
-                                                <div class="media mb-4 d-flex align-items-center">
-                                                    <div class="avatar me-3 flex-shrink-0">
-                                                    <span class="avatar-initial bg-label-success rounded-circle">US</span>
-                                                    </div>
-                                                    <div class="media-body">
-                                                    <p class="mb-0"><span>Utkarsh</span></span> Left the board.</p>
-                                                    <small class="text-muted">Today 11:00 AM</small>
-                                                    </div>
-                                                </div>
+                                           
                                                 
                                                 </div>
                                                 </div>
@@ -739,6 +715,50 @@ setTimeout(function () {
                 offcanvasDiv.innerHTML = offcanvasContent;
 
                 //  all event listner of action tab
+
+                //fetch comments
+                const commentTab = document.getElementById("tab-comments");
+                console.log("commentTab", commentTab);
+                fetch(`${API_BASE_URL}/get-comments/${element.ticket_id}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  console.log("Ticket Comments Data:", data);
+                  data.map(comment => { 
+                    const isoDate = `${comment.changed_at}`;
+                    const date = new Date(isoDate);
+                    const formattedDate = date.toLocaleString("en-US", {
+                      month: "short",
+                      day: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit"
+                    });
+                    const commentContent = `
+                    
+
+                     <div class="media mb-4 d-flex align-items-center">
+                                                    <div class="avatar me-3 flex-shrink-0">
+                                                    <span class="avatar-initial bg-label-success rounded-circle">${comment.changed_by[0]+comment.changed_by[1]}</span>
+                                                    </div>
+                                                    <div class="media-body">
+                                                    <p class="mb-0"> ${comment.change_description}</p>
+                                                    <small class="text-muted">${formattedDate}</small>
+                                                    </div>
+                                                </div>
+                    
+                    `;
+                    commentTab.innerHTML += commentContent;
+                  }
+                  )
+                });
+             
+                //fetch comments end
 
                 document
                   .getElementById(ELEMENT_IDS.STYLE_BOLD)
@@ -1206,6 +1226,8 @@ setTimeout(function () {
                   const ticketOwnerElement = document.getElementById(ELEMENT_IDS.TICKET_OWNER);
                   const imageElement = document.getElementById(ELEMENT_IDS.TICKET_IMAGE);
                   const cardImageElement = document.getElementById(ELEMENT_IDS.TICKET_CARD_IMAGE);
+                  const changedBy = localStorage.getItem("logged_username");
+
 
                   if (!titleElement || !descriptionElement || !ticketOwnerElement) {
                     console.error("Error: One or more required elements are missing from the DOM.");
@@ -1240,6 +1262,7 @@ setTimeout(function () {
                   formData.append("ticket_status", ticket_status);
                   formData.append("ticket_eta", ticket_eta);
                   formData.append("ticket_owner", ticket_owner);
+                  formData.append("changed_by", changedBy);
 
                   for (const image of images) {
                     formData.append("images", image);
