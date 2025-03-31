@@ -29,6 +29,7 @@ import { joinCard } from "./joinCard.js";
 
 
 
+import { initializeTabManager } from './automation/tabManager.js';
 
 const API_BASE_URL = ENV.API_BASE_URL;
 window.onload = function () {
@@ -2048,3 +2049,9 @@ window.addLabelModal = addLabelModal;
 window.addLabelAutomation = addLabelAutomation;
 window.leaveCard = leaveCard;
 window.joinCard = joinCard;
+
+
+// Initialize tab manager when the create rule modal is shown
+document.getElementById('createRule').addEventListener('show.bs.modal', function () {
+  initializeTabManager();
+});

@@ -1196,64 +1196,64 @@
                         <ul class="menu-inner py-1 overflow-auto">
                           <span class="app-brand-text demo menu-text">Automation</span>
                           <li class="menu-item">
-                            <a href="#" class="menu-link ">
+                            <a href="#" class="menu-link" data-automation-type="rule">
                               <i class="menu-icon tf-icons ti ti-arrows-right"></i>
                               <div>Rule</div>
                             </a>
                           </li>
                           <li class="menu-item">
-                            <a href="#" class="menu-link bg-primary text-white">
+                            <a href="#" class="menu-link" data-automation-type="scheduled">
                               <i class="menu-icon tf-icons ti ti-calendar"></i>
                               <div>Scheduled</div>
                             </a>
                           </li>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="due-date">
                               <i class="menu-icon tf-icons ti ti-calendar"></i>
                               <div>Due Date</div>
                             </a>
                           </li>
                           <span class="app-brand-text demo menu-text">Custom Buttons</span>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="card-buttons">
                               <i class="menu-icon tf-icons ti ti-layout"></i>
                               <div>Card Buttons</div>
                             </a>
                           </li>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="board-buttons">
                               <i class="menu-icon tf-icons ti ti-layout-2"></i>
                               <div>Board Buttons</div>
                             </a>
                           </li>
                           <span class="app-brand-text demo menu-text">App automation</span>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="view-apps">
                               <i class="menu-icon tf-icons ti ti-settings"></i>
                               <div>View apps</div>
                             </a>
                           </li>
                           <span class="app-brand-text demo menu-text">More</span>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="suggestions">
                               <i class="menu-icon tf-icons ti ti-wand"></i>
                               <div>Suggestions</div>
                             </a>
                           </li>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="activity">
                               <i class="menu-icon tf-icons ti ti-activity"></i>
                               <div>Activity</div>
                             </a>
                           </li>
                           <li class="menu-item mt-5">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="feedback">
                               <i class="menu-icon tf-icons ti ti-speakerphone"></i>
                               <div>Send feedback</div>
                             </a>
                           </li>
                           <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="#" class="menu-link" data-automation-type="help">
                               <i class="menu-icon tf-icons ti ti-help"></i>
                               <div>Help</div>
                             </a>
@@ -1264,13 +1264,63 @@
 
                     <!-- Content Area -->
                     <div class="col-9">
-                      <div class="">
-                        <!-- Navigation Bar -->
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="header-title d-flex align-items-center">
-                            <span class="app-brand-text demo menu-text fw-bold">Scheduled automation</span>
-                            <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                      <div class="automation-content overflow-auto" style="max-height: 700px;">
+                        <!-- Rule Content -->
+                        <div class="content-section" data-content-type="rule">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="header-title d-flex align-items-center">
+                              <span class="app-brand-text demo menu-text fw-bold">Rule Automation</span>
+                              <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                            </div>
+                            <div class="header-menu">
+                              <ul class="d-flex">
+                                <li class="menu-item me-1">
+                                  <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;">
+                                    <i class="ti ti-video me-1"></i>Watch video overview
+                                  </a>
+                                </li>
+                                <li class="menu-item me-1">
+                                  <a href="#" class="btn btn-primary">Create Rule</a>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
+                          <hr style="color: #3d3c3c;">
+                          <div class="main-content border py-6" style="margin-top: 50px;">
+                            <div class="content-section">
+                              <div class="row d-flex justify-content-between">
+                                <div class="col-8">
+                                  <ul class="d-flex">
+                                    <li class="menu-item me-1">
+                                      <a href="#" class="menu-link">
+                                        <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
+                                      </a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="#" class="menu-link me-1">
+                                        <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-pencil"></i></span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="row d-flex justify-content-between p-10">
+                                <div class="col d-flex p-4 w-100 bg-light rounded">
+                                  <span class="fw-medium">Create a new automation rule</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Scheduled Content -->
+                        <div class="content-section d-none" data-content-type="scheduled">
+                          <!-- Navigation Bar -->
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="header-title d-flex align-items-center">
+                              <span class="app-brand-text demo menu-text fw-bold">Scheduled automation</span>
+                              <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                            </div>
 
                           <!-- Additional Menu Links -->
                           <div class="header-menu">
@@ -1904,5 +1954,7 @@
                       <script src="./t_pm_js/todo_extra.js"></script>
                       <script src="./t_pm_js/create-automation-rule/viewrule.js"></script>
 </body>
+
+</html>
 
 </html>
