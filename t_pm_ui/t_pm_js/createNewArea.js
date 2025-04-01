@@ -37,7 +37,10 @@ async function createBoard(boardTitle) {
       window.location.reload();
     }
   } catch (error) {
-    console.error("Error adding board:", error);
+    console.error("Create board  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
 }
 
@@ -78,7 +81,10 @@ async function submitBoardName(status) {
     await createBoard(boardTitle);
     copyCardStatus(status, boardTitle);
   } catch (error) {
-    console.error("Error copying board:", error);
+    console.error("Copy board  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
 }
 
@@ -97,7 +103,10 @@ export function copyCardStatus(status, ticketStatus) {
       responseElement.style.color = "green";
     })
     .catch(error => {
-      logError(error);
+      console.error("Copy card status  error:", error);
+      res.status(500).json({
+        message: "'An error occurred. Please try again later.', 'error'"
+      });
     });
 }
 

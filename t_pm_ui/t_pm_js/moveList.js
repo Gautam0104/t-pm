@@ -1,9 +1,11 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import  {ELEMENT_IDS} from "./element_id.js";
+import { ELEMENT_IDS } from "./element_id.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
-    const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+    const container = document.getElementById(
+      ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+    );
 
     if (!container) {
       console.error("Kanban container not found!");
@@ -40,7 +42,10 @@ document.addEventListener("DOMContentLoaded", function() {
           });
         })
         .catch(error => {
-          console.error("Error loading order:", error);
+          console.error("Loading order  error:", error);
+          res.status(500).json({
+            message: "'An error occurred. Please try again later.', 'error'"
+          });
         });
     }
 
@@ -61,7 +66,10 @@ document.addEventListener("DOMContentLoaded", function() {
           console.log("Order saved successfully:", data);
         })
         .catch(error => {
-          console.error("Error saving order:", error);
+          console.error("Saving order  error:", error);
+          res.status(500).json({
+            message: "'An error occurred. Please try again later.', 'error'"
+          });
         });
     }
 
@@ -97,7 +105,9 @@ function showMoveBoardDropdown(element) {
   if (!board) return;
 
   const boardId = board.id; // Get board ID
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
   const boards = Array.from(container.children);
 
   // Remove any existing dropdown before adding a new one

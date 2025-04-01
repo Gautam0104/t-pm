@@ -56,7 +56,8 @@ export async function copycardAutomation(
       console.log("Something went wrong");
     }
   } catch (error) {
-    console.log("error  : ", error);
+    console.error("Automation rule error:", err);
+    res.status(500).json({ message: "Error creating rule." });
   }
 }
 
@@ -92,7 +93,8 @@ export function markduedate(ticket_id, duedate) {
       }
     })
     .catch(error => {
-      console.log("error  : ", error);
+      console.error("Automation rule error:", err);
+      res.status(500).json({ message: "Error creating rule." });
     });
 }
 export function addduedateAutomation(ticket_id, duedate, days) {
@@ -127,7 +129,10 @@ export function addduedateAutomation(ticket_id, duedate, days) {
       }
     })
     .catch(error => {
-      console.log("error  : ", error);
+      console.error("Automation rule error:", error);
+      res
+        .status(500)
+        .json({ message: "Error creating in due date automation." });
     });
 }
 
@@ -158,7 +163,8 @@ export function removeDuedate(ticket_id) {
       }
     })
     .catch(error => {
-      console.log("error  : ", error);
+      console.error("Automation rule error:", err);
+      res.status(500).json({ message: "Error creating rule." });
     });
 }
 
@@ -179,7 +185,8 @@ export async function removeAllChecklists(id) {
       window.location.reload();
     }
   } catch (error) {
-    console.log("error  : ", error);
+    console.error("Automation rule error:", err);
+    res.status(500).json({ message: "Error creating remove all checklists." });
   }
 }
 

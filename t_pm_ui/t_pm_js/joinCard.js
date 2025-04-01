@@ -84,7 +84,10 @@ function handleJoinCard() {
       });
     })
     .catch(error => {
-      console.error("Error fetching join cards:", error);
+      console.error("Fetching join card  error:", error);
+      res.status(500).json({
+        message: "'An error occurred. Please try again later.', 'error'"
+      });
     });
 }
 

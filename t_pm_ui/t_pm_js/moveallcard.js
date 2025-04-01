@@ -19,6 +19,9 @@ export async function moveAllCard(currentStatus, newStatus) {
       console.error("Failed to update ticket");
     }
   } catch (error) {
-    console.log("error  : ", error);
+    console.error("Move all card  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
 }

@@ -44,7 +44,7 @@ var creator_id = urlParams.get("user_id");
 setTimeout(function () {
 
 
-  fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
+  fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`,)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -59,7 +59,15 @@ setTimeout(function () {
     });
   // Function to fetch and create elements
   async function fetchDataAndCreateElements() {
-    return await fetch(`${API_BASE_URL}${API_ROUTES.TICKET}/${project_id}`)
+    return await fetch(`${API_BASE_URL}${API_ROUTES.TICKET}/${project_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("authToken")}` // Add the token to the Authorization header
+        }
+      }
+    )
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response was not ok " + response.statusText);
@@ -1324,7 +1332,10 @@ setTimeout(function () {
                       console.log("something went wrong");
                     }
                   } catch (error) {
-                    rrorLog()
+                    console.error("Delete ticket  error:", error);
+                    res.status(500).json({
+                      message: "'An error occurred. Please try again later.', 'error'"
+                    });
                   }
                   try {
                     // Send DELETE request to the API
@@ -1353,7 +1364,10 @@ setTimeout(function () {
                       });
                     }
                   } catch (error) {
-                    errorLog(error)
+                    console.error("Delete ticket  error:", error);
+                    res.status(500).json({
+                      message: "'An error occurred. Please try again later.', 'error'"
+                    });
                   }
                 });
               });

@@ -37,8 +37,10 @@ async function fetchListsnew() {
       });
     });
   } catch (error) {
-    console.error("Error fetching lists:", error);
-    errorLog();
+    console.error("Fetch list  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
 }
 
@@ -57,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Access the URL securely
+
 fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
   .then(response => {
     if (!response.ok) {
@@ -389,7 +392,10 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
     });
   })
   .catch(error => {
-    console.error("Error fetching boards:", error);
+    console.error("Fetching board  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   });
 
 // Add event listeners
@@ -417,7 +423,10 @@ const deleteBoard = async boardId => {
       window.location.reload();
     }
   } catch (error) {
-    console.error(error);
+    console.error("Delete board  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
 };
 

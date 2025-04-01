@@ -19,6 +19,8 @@ export async function sendAutomationData(ticketId, buttonTitle, buttonAction) {
       location.reload();
     }
   } catch (error) {
-    errorLog(error);
+    console.error("Automation send data error:", error);
+    // Handle error appropriately, e.g., show a message to the user
+    res.status(500).json({ message: "Error in send automation data." });
   }
 }

@@ -1,118 +1,122 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import {ELEMENT_IDS} from "./element_id.js";
+import { ELEMENT_IDS } from "./element_id.js";
 function closeModal() {
-    $('#modalCenter').modal('hide');
+  $("#modalCenter").modal("hide");
 }
 // Create Project
 
 document
-    .getElementById(ELEMENT_IDS.CREATE_NEW_PROJECT)
-    .addEventListener("submit", async function (e) {
-        // Prevent form submission
-        e.preventDefault();
+  .getElementById(ELEMENT_IDS.CREATE_NEW_PROJECT)
+  .addEventListener("submit", async function(e) {
+    // Prevent form submission
+    e.preventDefault();
 
-        // Clear previous errors
-        document.getElementById(ELEMENT_IDS.NAME_ERROR).textContent = "";
-        // document.getElementById('statusError').textContent = '';
-        // document.getElementById('etaError').textContent = '';
-        document.getElementById(ELEMENT_IDS.DESCRIPTION_ERROR).textContent = "";
+    // Clear previous errors
+    document.getElementById(ELEMENT_IDS.NAME_ERROR).textContent = "";
+    // document.getElementById('statusError').textContent = '';
+    // document.getElementById('etaError').textContent = '';
+    document.getElementById(ELEMENT_IDS.DESCRIPTION_ERROR).textContent = "";
 
-        // Validate form fields
-        let isValid = true;
+    // Validate form fields
+    let isValid = true;
 
-        const project_name = document.getElementById(ELEMENT_IDS.PROJECT_NAME).value.trim();
-        const project_type = document.querySelector('input[name="type"]:checked').value;
-        const project_leader_id = localStorage.getItem(ELEMENT_IDS.LOGGED_USERID);
-        const status = document.getElementById(ELEMENT_IDS.PROJECT_STATUS).value;
-        const total_eta = document.getElementById(ELEMENT_IDS.PROJECT_ETA).value;
-        const description = document.getElementById(ELEMENT_IDS.PROJECT_DESCRIPTION).value.trim();
+    const project_name = document
+      .getElementById(ELEMENT_IDS.PROJECT_NAME)
+      .value.trim();
+    const project_type = document.querySelector('input[name="type"]:checked')
+      .value;
+    const project_leader_id = localStorage.getItem(ELEMENT_IDS.LOGGED_USERID);
+    const status = document.getElementById(ELEMENT_IDS.PROJECT_STATUS).value;
+    const total_eta = document.getElementById(ELEMENT_IDS.PROJECT_ETA).value;
+    const description = document
+      .getElementById(ELEMENT_IDS.PROJECT_DESCRIPTION)
+      .value.trim();
 
+    if (project_name === "") {
+      document.getElementById(ELEMENT_IDS.NAME_ERROR).textContent =
+        "Project/Ticket Name is required.";
+      isValid = false;
+    }
+    // if (status === '') {
+    //     document.getElementById('statusError').textContent = 'Project Status is required.';
+    //     isValid = false;
+    // }
+    // if (total_eta === '') {
+    //     document.getElementById('etadError').textContent = 'Total ETA is required.';
+    //     isValid = false;
+    // }
+    if (description === "") {
+      document.getElementById(ELEMENT_IDS.DESCRIPTION_ERROR).textContent =
+        "Project Description is required.";
+      isValid = false;
+    }
 
+    if (isValid) {
+      // alert(project_name + "" + selected_type);
+      // Add logic to submit the form data here
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              project_name,
+              project_leader_id,
+              description,
+              status,
+              project_type,
+              total_eta
+            })
+          }
+        );
 
-        if (project_name === "") {
-            document.getElementById(ELEMENT_IDS.NAME_ERROR).textContent =
-                "Project/Ticket Name is required.";
-            isValid = false;
+        // const data = await response.json();
 
+        if (response.ok) {
+          closeModal();
+          Swal.fire({
+            title: "Project created Successfully",
+            text: "A new project created",
+            icon: "success",
+            confirmButtonText: "Ok!"
+          }).then(function() {
+            // Redirect to dashboard.html
+            window.location.href = "dashboard.html";
+          });
+        } else {
+          // messageElement.style.color = 'red';
+          Swal.fire({
+            title: "Oops!",
+            text: "something went wrong. Try again!",
+            icon: "error",
+            confirmButtonText: "Retry!"
+          });
         }
-        // if (status === '') {
-        //     document.getElementById('statusError').textContent = 'Project Status is required.';
-        //     isValid = false;
-        // }
-        // if (total_eta === '') {
-        //     document.getElementById('etadError').textContent = 'Total ETA is required.';
-        //     isValid = false;
-        // }
-        if (description === "") {
-            document.getElementById(ELEMENT_IDS.DESCRIPTION_ERROR).textContent =
-                "Project Description is required.";
-            isValid = false;
+      } catch (error) {
+        console.error("Create project  error:", error);
+        res.status(500).json({
+          message: "'An error occurred. Please try again later.', 'error'"
+        });
+      }
+    }
+  });
 
-        }
-
-        if (isValid) {
-            // alert(project_name + "" + selected_type);
-            // Add logic to submit the form data here
-            try {
-                const response = await fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        project_name,
-                        project_leader_id,
-                        description,
-                        status,
-                        project_type,
-                        total_eta,
-                    }),
-                });
-
-                // const data = await response.json();
-
-                if (response.ok) {
-                    closeModal();
-                    Swal.fire({
-                        title: "Project created Successfully",
-                        text: "A new project created",
-                        icon: "success",
-                        confirmButtonText: "Ok!",
-                    }).then(function () {
-                        // Redirect to dashboard.html
-                        window.location.href = "dashboard.html";
-                    });
-                } else {
-                    // messageElement.style.color = 'red';
-                    Swal.fire({
-                        title: "Oops!",
-                        text: "something went wrong. Try again!",
-                        icon: "error",
-                        confirmButtonText: "Retry!",
-                    });
-                }
-            } catch (error) {
-                messageElement.style.color = "red";
-                // messageElement.textContent = 'An error occurred.';
-                console.error(error);
-            }
-        }
-    });
-
-
-
-const editProject = async (project_id) => {
-    await fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok ");
-            }
-            return response.json();
-
-        })
-        .then(project => {
-            const updatemodal = document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_MODAL);
-            const modalContent = `       <div class="modal-content">
+const editProject = async project_id => {
+  await fetch(`${API_BASE_URL}${API_ROUTES.CREATE_PROJECT}/${project_id}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok ");
+      }
+      return response.json();
+    })
+    .then(project => {
+      const updatemodal = document.getElementById(
+        ELEMENT_IDS.UPDATE_PROJECT_MODAL
+      );
+      const modalContent = `       <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="modalCenterTitle">Update Project</h5>
                                                         <form id="update-project">
@@ -179,59 +183,75 @@ const editProject = async (project_id) => {
                                                     </form>
                                                     </div>`;
 
-            updatemodal.innerHTML = modalContent;
-            document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_FORM).addEventListener("click", async (e) => {
-                e.preventDefault();
+      updatemodal.innerHTML = modalContent;
+      document
+        .getElementById(ELEMENT_IDS.UPDATE_PROJECT_FORM)
+        .addEventListener("click", async e => {
+          e.preventDefault();
 
-                const projectId = project.project_id;
-                const project_name = document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_NAME).value;
-                const description = document.getElementById(ELEMENT_IDS.UPDATE_PROJECT_DESCRIPTION).value.trim();
-                const project_status = project.project_status;
-                const total_eta = project.total_eta;
-                const project_type = document.querySelector('input[name="update-type"]:checked').value;
-                const messageElement = document.getElementById(ELEMENT_IDS.MESSAGE);
+          const projectId = project.project_id;
+          const project_name = document.getElementById(
+            ELEMENT_IDS.UPDATE_PROJECT_NAME
+          ).value;
+          const description = document
+            .getElementById(ELEMENT_IDS.UPDATE_PROJECT_DESCRIPTION)
+            .value.trim();
+          const project_status = project.project_status;
+          const total_eta = project.total_eta;
+          const project_type = document.querySelector(
+            'input[name="update-type"]:checked'
+          ).value;
+          const messageElement = document.getElementById(ELEMENT_IDS.MESSAGE);
 
-                if (!projectId || !project_name || !description) {
-                    messageElement.textContent = 'Please fill in all required fields.';
-                    messageElement.className = 'message error';
-                    return;
-                }
+          if (!projectId || !project_name || !description) {
+            messageElement.textContent = "Please fill in all required fields.";
+            messageElement.className = "message error";
+            return;
+          }
 
-                const payload = { project_name, description, project_status, project_type, total_eta };
+          const payload = {
+            project_name,
+            description,
+            project_status,
+            project_type,
+            total_eta
+          };
 
-                try {
-                    const response = await fetch(`${API_BASE_URL}/updateproject/${projectId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload),
-                    });
+          try {
+            const response = await fetch(
+              `${API_BASE_URL}/updateproject/${projectId}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+              }
+            );
 
-                    if (response.ok) {
-                        Swal.fire({
-                            title: "Project Updated Successfully",
-                            text: "A project is update from your projects",
-                            icon: "success",
-                            confirmButtonText: "Ok!",
-                        }).then(() => {
-                            window.location.reload();
-                        })
-                    } else {
-                        Swal.fire({
-                            title: "Oops!",
-                            text: "something went wrong. Try again!",
-                            icon: "error",
-                            confirmButtonText: "Retry!",
-                        });
-                    }
-                } catch (error) {
-                    messageElement.textContent = 'Error connecting to the server.';
-                    messageElement.className = 'message error';
-                    console.error('Error:', error);
-                }
-            });
-        })
-}
+            if (response.ok) {
+              Swal.fire({
+                title: "Project Updated Successfully",
+                text: "A project is update from your projects",
+                icon: "success",
+                confirmButtonText: "Ok!"
+              }).then(() => {
+                window.location.reload();
+              });
+            } else {
+              Swal.fire({
+                title: "Oops!",
+                text: "something went wrong. Try again!",
+                icon: "error",
+                confirmButtonText: "Retry!"
+              });
+            }
+          } catch (error) {
+            messageElement.textContent = "Error connecting to the server.";
+            messageElement.className = "message error";
+            console.error("Error:", error);
+          }
+        });
+    });
+};
 window.editProject = editProject;
-

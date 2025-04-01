@@ -1,16 +1,16 @@
 // Function to fetch and display board items
 import { API_ROUTES } from "../apiRoutesHeader.js";
-import {ELEMENT_IDS} from "./element_id.js";
+import { ELEMENT_IDS } from "./element_id.js";
 async function getBoards() {
-    try {
-        const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
-        const data = await response.json();
-        const boardList = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  try {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
+    const data = await response.json();
+    const boardList = document.getElementById(
+      ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+    );
 
-
-        data.data.forEach(item => {
-
-            const li = `                    <div data-id="board-${item.name}" data-order="${item.position}" class="kanban-board" id="board-${item.position}"
+    data.data.forEach(item => {
+      const li = `                    <div data-id="board-${item.name}" data-order="${item.position}" class="kanban-board" id="board-${item.position}"
                       style="width: 250px; margin-left: 12px; margin-right: 12px;">
                       <header class="kanban-board-header" id="todo-header">
                         <div class="kanban-title-board">${item.name}</div>
@@ -174,91 +174,90 @@ async function getBoards() {
                       </main>
                       <!-- <footer></footer> -->
                     </div>`;
-            boardList.innerHTML += li;
-            copyTicket(item.name, 'inprogress')
-
-        });
-    } catch (error) {
-        console.error("Error fetching board items:", error);
-    }
+      boardList.innerHTML += li;
+      copyTicket(item.name, "inprogress");
+    });
+  } catch (error) {
+    console.error("Fetching board error:", error);
+    res.status(500).json({ message: "Error fetching board items." });
+  }
 }
 
 // Function to add a new board item
 async function addBoard() {
-    const name = document.getElementById(ELEMENT_IDS.COPY_BOARD_NAME).value;
-    if (!name) {
-        alert("Please enter a name!");
-        return;
-    }
+  const name = document.getElementById(ELEMENT_IDS.COPY_BOARD_NAME).value;
+  if (!name) {
+    alert("Please enter a name!");
+    return;
+  }
 
-    try {
-        const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_NEW_BOARD}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name })
-        });
+  try {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_NEW_BOARD}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name })
+    });
 
-        const data = await response.json();
-        if (response.ok) {
-            document.getElementById(ELEMENT_IDS.COPY_BOARD_NAME).value = ""; // Clear input
-            getBoards(); // Refresh the board list
-        } else {
-            alert("Error: " + data.error);
-        }
-    } catch (error) {
-        console.error("Error adding board item:", error);
+    const data = await response.json();
+    if (response.ok) {
+      document.getElementById(ELEMENT_IDS.COPY_BOARD_NAME).value = ""; // Clear input
+      getBoards(); // Refresh the board list
+    } else {
+      alert("Error: " + data.error);
     }
+  } catch (error) {
+    console.error("Adding board  error:", error);
+    res.status(500).json({ message: "Error adding board item." });
+  }
 }
 
 // Load board items when the page loads
 window.onload = getBoards;
 
-
 // Function to toggle the form visibility
 function formShowHide(boardName) {
-    const newForm = document.getElementById(`add-new-${boardName}-form`);
+  const newForm = document.getElementById(`add-new-${boardName}-form`);
 
-    // Check the current display status and toggle it
-    if (newForm.style.display === "none" || newForm.style.display === "") {
-        newForm.style.display = "block";  // Show the form
-    } else {
-        newForm.style.display = "none";   // Hide the form
-    }
+  // Check the current display status and toggle it
+  if (newForm.style.display === "none" || newForm.style.display === "") {
+    newForm.style.display = "block"; // Show the form
+  } else {
+    newForm.style.display = "none"; // Hide the form
+  }
 }
 
-
-
 function copyTicket(newStatus, currentStatus) {
+  // Check if both values are selected
+  if (!currentStatus || !newStatus) {
+    showMessage("Please select both current status and new status.", "error");
+    return;
+  }
 
-    // Check if both values are selected
-    if (!currentStatus || !newStatus) {
-        showMessage('Please select both current status and new status.', 'error');
-        return;
-    }
-
-    // Send the data to the backend API
-    fetch(`${API_BASE_URL}${API_ROUTES.COPY_BOARD}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            currentStatus: currentStatus,
-            newStatus: newStatus
-        })
+  // Send the data to the backend API
+  fetch(`${API_BASE_URL}${API_ROUTES.COPY_BOARD}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      currentStatus: currentStatus,
+      newStatus: newStatus
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                showMessage(data.message, 'success');
-            } else {
-                showMessage('Failed to copy the tickets.', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showMessage('An error occurred. Please try again later.', 'error');
-        });
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        showMessage(data.message, "success");
+      } else {
+        showMessage("Failed to copy the tickets.", "error");
+      }
+    })
+    .catch(error => {
+      console.error("Copy board  error:", error);
+      res.status(500).json({
+        message: "'An error occurred. Please try again later.', 'error'"
+      });
+    });
 }
 window.addBoard = addBoard;
 window.formShowHide = formShowHide;

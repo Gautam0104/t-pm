@@ -92,7 +92,10 @@ document.addEventListener("DOMContentLoaded", function() {
         cardDiv.innerHTML += card;
       });
     } catch (error) {
-      errorLog();
+      console.error("Get role error:", error);
+      res.status(500).json({
+        message: "'An error occurred. Please try again later.', 'error'"
+      });
     }
   }
 
@@ -182,7 +185,10 @@ const updateRole = (role_id, role_name) => {
           });
         }
       } catch (error) {
-        errorLog();
+        console.error("Fetch role error:", error);
+        res.status(500).json({
+          message: "'An error occurred. Please try again later.', 'error'"
+        });
       }
     });
 };
@@ -320,7 +326,10 @@ const fetchrolehistory = async (roleId, roleName) => {
       });
     })
     .catch(error => {
-      errorLog();
+      console.error("Fetch role history  error:", error);
+      res.status(500).json({
+        message: "'An error occurred. Please try again later.', 'error'"
+      });
     });
 };
 
@@ -334,7 +343,10 @@ const deleteRole = async role_id => {
       }
     );
   } catch (error) {
-    errorLog();
+    console.error("Delete userrole  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
   try {
     // Send DELETE request to the API
@@ -363,6 +375,9 @@ const deleteRole = async role_id => {
       });
     }
   } catch (error) {
-    errorLog();
+    console.error("Delete user role  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
   }
 };

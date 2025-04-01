@@ -8,74 +8,74 @@ const filterInput = document.getElementById(ELEMENT_IDS.FILTER_INPUT);
 const tableBody = document.getElementById(ELEMENT_IDS.TABLE_BODY);
 
 filterInput.addEventListener("keyup", () => {
-    const filterValue = filterInput.value.toLowerCase();
-    const rows = tableBody.getElementsByTagName("tr");
+  const filterValue = filterInput.value.toLowerCase();
+  const rows = tableBody.getElementsByTagName("tr");
 
-    for (let row of rows) {
-        const cells = row.getElementsByTagName("td");
-        let match = false;
+  for (let row of rows) {
+    const cells = row.getElementsByTagName("td");
+    let match = false;
 
-        for (let cell of cells) {
-            if (cell.textContent.toLowerCase().includes(filterValue)) {
-                match = true;
-                break;
-            }
-        }
-
-        row.style.display = match ? "" : "none";
+    for (let cell of cells) {
+      if (cell.textContent.toLowerCase().includes(filterValue)) {
+        match = true;
+        break;
+      }
     }
+
+    row.style.display = match ? "" : "none";
+  }
 });
 
 function openModal() {
-    const modalElement = document.getElementById(ELEMENT_IDS.SHARE_PROJECT);
-    const modal = new bootstrap.Modal(modalElement);
+  const modalElement = document.getElementById(ELEMENT_IDS.SHARE_PROJECT);
+  const modal = new bootstrap.Modal(modalElement);
 
-    modal.show();
+  modal.show();
 }
 
 // project data
 
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        const modifiedRole = data.map(user => {
-            let roleText = "";
-            switch (user.role_id) {
-                case 1:
-                    roleText = '<span class="badge bg-label-success me-1">Admin</span>';
-                    break;
-                case 2:
-                    roleText =
-                        '<span class="badge bg-label-primary me-1">Project Manager</span>';
-                    break;
-                case 3:
-                    roleText =
-                        '<span class="badge bg-label-info me-1">Team Member</span>';
-                    break;
-                default:
-                    statusText =
-                        '<span class="badge bg-label-danger me-1">Unknown</span>';
-            }
-            return {
-                role: roleText,
-                username: user.username,
-                first_name: user.first_name,
-                last_name: user.last_name,
-            };
-        });
-        const listContent = document.querySelector("#list-content");
-        // tableBody.innerHTML = ''; // Clear existing rows
-        const memberCount = document.getElementById("numofmember");
-        memberCount.innerHTML = `${data.length} Members`;
-        // Populate List Content with User Data
-        modifiedRole.forEach(element => {
-            const content = `
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    const modifiedRole = data.map(user => {
+      let roleText = "";
+      switch (user.role_id) {
+        case 1:
+          roleText = '<span class="badge bg-label-success me-1">Admin</span>';
+          break;
+        case 2:
+          roleText =
+            '<span class="badge bg-label-primary me-1">Project Manager</span>';
+          break;
+        case 3:
+          roleText =
+            '<span class="badge bg-label-info me-1">Team Member</span>';
+          break;
+        default:
+          statusText =
+            '<span class="badge bg-label-danger me-1">Unknown</span>';
+      }
+      return {
+        role: roleText,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name
+      };
+    });
+    const listContent = document.querySelector("#list-content");
+    // tableBody.innerHTML = ''; // Clear existing rows
+    const memberCount = document.getElementById("numofmember");
+    memberCount.innerHTML = `${data.length} Members`;
+    // Populate List Content with User Data
+    modifiedRole.forEach(element => {
+      const content = `
                      <li class="d-flex flex-wrap mb-4" >  
                      <div class="avatar me-4">
                         <img src="../assets/img/avatars/1.png" alt="avatar" class="rounded-circle" />
@@ -109,80 +109,80 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
                       </li>
                    
           `;
-            listContent.innerHTML += content;
-        });
-        //console.log(data)
-    })
-    .catch(error => {
-        console.error("Error fetching user data:", error);
+      listContent.innerHTML += content;
     });
+    //console.log(data)
+  })
+  .catch(error => {
+    console.error("Error fetching user data:", error);
+  });
 
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        const modifiedResults = data.map(project => {
-            let statusText = "";
-            switch (project.project_status) {
-                case 1:
-                    statusText =
-                        '<span class="badge bg-label-primary me-1">Active</span>';
-                    break;
-                case 2:
-                    statusText =
-                        '<span class="badge bg-label-success me-1">Complete</span>';
-                    break;
-                case 3:
-                    statusText =
-                        '<span class="badge bg-label-info me-1">Scheduled</span>';
-                    break;
-                case 4:
-                    statusText =
-                        '<span class="badge bg-label-warning me-1">Pending</span>';
-                    break;
-                default:
-                    statusText =
-                        '<span class="badge bg-label-danger me-1">Unknown</span>';
-            }
-            let projectTpe = "";
-            switch (project.project_type) {
-                case "project":
-                    projectTpe =
-                        '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
-                    break;
-                case "ticket":
-                    projectTpe =
-                        '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
-                    break;
-                default:
-                    projectTpe =
-                        '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
-            }
-            return {
-                project_id: project.project_id,
-                project_name: project.project_name,
-                project_Leader_id: project.project_leader_id,
-                project_leader_fname: project.first_name,
-                project_leader_lname: project.last_name,
-                description: project.description,
-                status: statusText,
-                total_eta: project.total_eta,
-                created_at: project.created_at,
-                updated_at: project.updated_at,
-                project_type: projectTpe,
-            };
-        });
-        const tableBody = document.querySelector("#initailbody");
-        // tableBody.innerHTML = ''; // Clear existing rows
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    const modifiedResults = data.map(project => {
+      let statusText = "";
+      switch (project.project_status) {
+        case 1:
+          statusText =
+            '<span class="badge bg-label-primary me-1">Active</span>';
+          break;
+        case 2:
+          statusText =
+            '<span class="badge bg-label-success me-1">Complete</span>';
+          break;
+        case 3:
+          statusText =
+            '<span class="badge bg-label-info me-1">Scheduled</span>';
+          break;
+        case 4:
+          statusText =
+            '<span class="badge bg-label-warning me-1">Pending</span>';
+          break;
+        default:
+          statusText =
+            '<span class="badge bg-label-danger me-1">Unknown</span>';
+      }
+      let projectTpe = "";
+      switch (project.project_type) {
+        case "project":
+          projectTpe =
+            '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+          break;
+        case "ticket":
+          projectTpe =
+            '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
+          break;
+        default:
+          projectTpe =
+            '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
+      }
+      return {
+        project_id: project.project_id,
+        project_name: project.project_name,
+        project_Leader_id: project.project_leader_id,
+        project_leader_fname: project.first_name,
+        project_leader_lname: project.last_name,
+        description: project.description,
+        status: statusText,
+        total_eta: project.total_eta,
+        created_at: project.created_at,
+        updated_at: project.updated_at,
+        project_type: projectTpe
+      };
+    });
+    const tableBody = document.querySelector("#initailbody");
+    // tableBody.innerHTML = ''; // Clear existing rows
 
-        // Populate Table Rows with User Data
-        modifiedResults.forEach(element => {
-            const row = `
+    // Populate Table Rows with User Data
+    modifiedResults.forEach(element => {
+      const row = `
             <tr>
               
               <td></td>
@@ -238,95 +238,93 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
                 </td>
             </tr>
           `;
-            tableBody.innerHTML += row;
-        });
-        //console.log(data)
-    })
-    .catch(error => {
-        console.error("Error fetching user data:", error);
+      tableBody.innerHTML += row;
     });
+    //console.log(data)
+  })
+  .catch(error => {
+    console.error("Error fetching user data:", error);
+  });
 
 // Fetch and count data active projects and completed tasks
 const activeProjectsCountElement = document.getElementById(
-    ELEMENT_IDS.ACTIVE_PROJECTS_COUNTS
+  ELEMENT_IDS.ACTIVE_PROJECTS_COUNTS
 );
 const completeProjectsCountElement = document.getElementById(
-    ELEMENT_IDS.COMPLETE_PROJECTS_COUNTS
+  ELEMENT_IDS.COMPLETE_PROJECTS_COUNTS
 );
 const totalProjectsCountElement = document.getElementById(
-    ELEMENT_IDS.TOTAL_PROJECTS_COUNTS
+  ELEMENT_IDS.TOTAL_PROJECTS_COUNTS
 );
 
 // Fetch Project Data from API
 fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok: " + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Filter projects with "active" status
-        const activeProjects = data.filter(project => project.project_status === 1);
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok: " + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Filter projects with "active" status
+    const activeProjects = data.filter(project => project.project_status === 1);
 
-        // Update the active projects count in the DOM
-        activeProjectsCountElement.textContent = activeProjects.length;
+    // Update the active projects count in the DOM
+    activeProjectsCountElement.textContent = activeProjects.length;
 
-        // Filter projects with "completed" status
-        const completeProjects = data.filter(
-            project => project.project_status === 2
-        );
+    // Filter projects with "completed" status
+    const completeProjects = data.filter(
+      project => project.project_status === 2
+    );
 
-        // Update the completed projects count in the DOM
-        completeProjectsCountElement.textContent = completeProjects.length;
+    // Update the completed projects count in the DOM
+    completeProjectsCountElement.textContent = completeProjects.length;
 
-        // count total projects and tickets
-        const totalProjects = data.filter(project => project.project_id).length;
-        totalProjectsCountElement.textContent = totalProjects;
-    })
-    .catch(error => {
-        console.error("Error fetching projects:", error);
-        activeProjectsCountElement.textContent = "Error";
-    });
-
-
-
+    // count total projects and tickets
+    const totalProjects = data.filter(project => project.project_id).length;
+    totalProjectsCountElement.textContent = totalProjects;
+  })
+  .catch(error => {
+    console.error("Error fetching projects:", error);
+    activeProjectsCountElement.textContent = "Error";
+  });
 
 //Delete Project
 
-const handleDelete = async (project_id) => {
+const handleDelete = async project_id => {
+  try {
+    // Send DELETE request to the API
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.DELETE_PROJECT}/${project_id}`,
+      {
+        method: "DELETE"
+      }
+    );
 
-
-    try {
-        // Send DELETE request to the API
-        const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_PROJECT}/${project_id}`, {
-            method: 'DELETE',
-        });
-
-
-
-        if (response.ok) {
-
-            Swal.fire({
-                title: "Projet Deleted Successfully",
-                text: "A project is delete from your projects",
-                icon: "success",
-                confirmButtonText: "Ok!",
-            }).then(() => {
-                window.location.reload();
-            })
-        } else {
-            Swal.fire({
-                title: "Oops!",
-                text: "something went wrong. Try again!",
-                icon: "error",
-                confirmButtonText: "Retry!",
-            });
-        }
-    } catch (error) {
-        console.error(error);
+    if (response.ok) {
+      Swal.fire({
+        title: "Projet Deleted Successfully",
+        text: "A project is delete from your projects",
+        icon: "success",
+        confirmButtonText: "Ok!"
+      }).then(() => {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: "Oops!",
+        text: "something went wrong. Try again!",
+        icon: "error",
+        confirmButtonText: "Retry!"
+      });
     }
-}
+  } catch (error) {
+    console.error("Delete project  error:", error);
+    res.status(500).json({
+      message: "'An error occurred. Please try again later.', 'error'"
+    });
+  }
+};
 
 window.openModal = openModal;
 window.handleDelete = handleDelete;

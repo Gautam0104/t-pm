@@ -1,6 +1,5 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "../element_id.js";
-import { errorLog } from "../error.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 export async function fetchLists() {
   try {
@@ -29,6 +28,8 @@ export async function fetchLists() {
       select.appendChild(option);
     });
   } catch (error) {
-    errorLog();
+    console.error("fetchlist error:", error);
+    // Handle error appropriately, e.g., show a message to the user
+    res.status(500).json({ message: "Error in fetching list." });
   }
 }
