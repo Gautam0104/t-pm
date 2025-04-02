@@ -1212,22 +1212,22 @@ setTimeout(function () {
                 // update ticket form
                 document.getElementById(ELEMENT_IDS.TICKET_FORM).addEventListener("submit", async function (e) {
                   e.preventDefault();
-
+                
                   // Debugging logs
                   console.log("Submitting form...");
-
+                
                   // Ensure element exists
                   if (typeof element === "undefined" || !element) {
                     console.error("Error: 'element' is not defined or missing");
                     alert("An error occurred. Please try again.");
                     return;
                   }
-
+                
                   console.log("Element Data:", element);
-
+                
                   const ticket_id = element?.ticket_id?.toString().trim() || "";
                   const ticket_status = element?.ticket_status?.toString().trim() || "Backlog"; // Default fallback
-
+                
                   const titleElement = document.getElementById(ELEMENT_IDS.TICKET_TITLE);
                   const descriptionElement = document.getElementById(ELEMENT_IDS.TICKET_DESCRIPTION);
                   const dueDateElement = document.getElementById(ELEMENT_IDS.TICKET_DUEDATE);
@@ -1236,35 +1236,34 @@ setTimeout(function () {
                   const imageElement = document.getElementById(ELEMENT_IDS.TICKET_IMAGE);
                   const cardImageElement = document.getElementById(ELEMENT_IDS.TICKET_CARD_IMAGE);
                   const changedBy = localStorage.getItem("logged_username");
-
-
+                
                   if (!titleElement || !descriptionElement || !ticketOwnerElement) {
                     console.error("Error: One or more required elements are missing from the DOM.");
                     alert("Form elements are missing. Please check your form structure.");
                     return;
                   }
-
+                
                   const title = titleElement?.value?.trim() || "";
-                  const description = descriptionElement?.value?.trim() || element?.description?.trim() || "No description provided"; // Ensuring a valid description
+                  const description = descriptionElement?.innerHTML?.trim() || element?.description?.trim() || "No description provided"; // Use innerHTML for contenteditable
                   const due_date = dueDateElement?.value?.trim() || "";
                   const ticket_eta = ticketEtaElement?.value?.trim() || "";
                   const ticket_owner = ticketOwnerElement?.value?.trim() || "";
                   const images = imageElement?.files || [];
                   const cardImage = cardImageElement?.files || [];
-
+                
                   console.log("Form Values:", { ticket_id, title, description, due_date, ticket_eta, ticket_owner, ticket_status });
-
+                
                   // Validate required fields
                   if (!ticket_id || !title || !description || !ticket_status || !ticket_owner) {
                     console.error("Validation failed: Missing required fields.");
                     alert("Please fill in all required fields.");
                     return;
                   }
-
+                
                   const formData = new FormData();
                   formData.append("ticket_id", ticket_id);
                   formData.append("title", title);
-                  formData.append("description", description);
+                  formData.append("description", description); // Correctly append the description
                   formData.append("status", "backlog");
                   formData.append("priority", "Medium");
                   formData.append("due_date", due_date);
@@ -1272,28 +1271,27 @@ setTimeout(function () {
                   formData.append("ticket_eta", ticket_eta);
                   formData.append("ticket_owner", ticket_owner);
                   formData.append("changed_by", changedBy);
-
+                
                   for (const image of images) {
                     formData.append("images", image);
                   }
                   if (cardImage.length > 0) {
                     formData.append("card_image", cardImage[0]);
                   }
-
+                
                   document.getElementById(ELEMENT_IDS.MESSAGE).textContent = "Updating ticket...";
-
+                
                   try {
                     const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET}`, {
                       method: "PUT",
                       body: formData,
                     });
                     const data = await response.json();
-
+                
                     console.log("API Response:", data);
-
+                
                     if (data.message) {
                       document.querySelector(ELEMENT_IDS.OFFCANVAS)?.classList.remove("show");
-                      // logActivity(`${localStorage.getItem("logged-username")} updated ticket ID ${ticket_id} with title: "${title}"`);
                       await Swal.fire({
                         title: "Ticket Updated Successfully",
                         text: "The ticket has been updated successfully.",
@@ -1306,7 +1304,7 @@ setTimeout(function () {
                       document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
                     }
                   } catch (error) {
-                    errorLog(error)
+                    errorLog(error);
                   }
                 });
 

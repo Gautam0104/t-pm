@@ -121,52 +121,36 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
 fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
   .then(response => {
     if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
+      throw new Error(`Network response was not ok: ${response.statusText}`);
     }
     return response.json();
   })
   .then(data => {
     const modifiedResults = data.map(project => {
-      let statusText = "";
-      switch (project.project_status) {
-        case 1:
-          statusText =
-            '<span class="badge bg-label-primary me-1">Active</span>';
-          break;
-        case 2:
-          statusText =
-            '<span class="badge bg-label-success me-1">Complete</span>';
-          break;
-        case 3:
-          statusText =
-            '<span class="badge bg-label-info me-1">Scheduled</span>';
-          break;
-        case 4:
-          statusText =
-            '<span class="badge bg-label-warning me-1">Pending</span>';
-          break;
-        default:
-          statusText =
-            '<span class="badge bg-label-danger me-1">Unknown</span>';
-      }
-      let projectTpe = "";
-      switch (project.project_type) {
-        case "project":
-          projectTpe =
-            '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
-          break;
-        case "ticket":
-          projectTpe =
-            '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
-          break;
-        default:
-          projectTpe =
-            '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
-      }
+      // Determine project status
+      const statusMap = {
+        1: '<span class="badge bg-label-primary me-1">Active</span>',
+        2: '<span class="badge bg-label-success me-1">Complete</span>',
+        3: '<span class="badge bg-label-info me-1">Scheduled</span>',
+        4: '<span class="badge bg-label-warning me-1">Pending</span>'
+      };
+      const statusText =
+        statusMap[project.project_status] ||
+        '<span class="badge bg-label-danger me-1">Unknown</span>';
+
+      // Determine project type icon
+      const typeMap = {
+        project: '<img src="../assets/img/icons/dash_icon/active.png" alt="">',
+        ticket: '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">'
+      };
+      const projectType =
+        typeMap[project.project_type] ||
+        '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+
       return {
         project_id: project.project_id,
         project_name: project.project_name,
-        project_Leader_id: project.project_leader_id,
+        project_leader_id: project.project_leader_id,
         project_leader_fname: project.first_name,
         project_leader_lname: project.last_name,
         description: project.description,
@@ -174,76 +158,83 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
         total_eta: project.total_eta,
         created_at: project.created_at,
         updated_at: project.updated_at,
-        project_type: projectTpe
+        project_type: projectType
       };
     });
-    const tableBody = document.querySelector("#initailbody");
-    // tableBody.innerHTML = ''; // Clear existing rows
 
-    // Populate Table Rows with User Data
+    const tableBody = document.querySelector("#initailbody");
+    tableBody.innerHTML = ""; // Clear existing rows
+
+    // Populate table rows with user data
     modifiedResults.forEach(element => {
+      const isoDate = `${element.total_eta}`;
+
+      // Convert to a Date object
+      const date = new Date(isoDate);
+
+      // Extract date components
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+      const year = date.getFullYear();
+
+      // Extract time components
+      const hours = date.getHours().toString().padStart(2, "0");
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const seconds = date.getSeconds().toString().padStart(2, "0");
+
+      // Combine date and time
+      const formattedEta = `${hours}:${minutes}:${seconds} , ${day}/${month}/${year} `;
       const row = `
-            <tr>
-              
-              <td></td>
-              <td>
-                <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-                    <li class="avatar avatar-xs pull-up" title="Christina Parker">
-                    ${element.project_type}
-                    </li>
-                     <li class="mx-3">
-                        ${element.project_name}
-                        </li>
-              </ul>
-              </td>
-              <td  style="cursor:pointer"> <a class="dropdown-item" href="todo.html?id=${element.project_id}&user_id=${element.project_Leader_id}">${element.project_leader_fname}</a></td>
-              <td>
-                    <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                        class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                        <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                        </li>
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                        class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-                        <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                        </li>
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                        class="avatar avatar-xs pull-up" title="Christina Parker">
-                        <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                        </li>
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                        class="avatar avatar-xs pull-up" title="Add team member" onclick="openModal()">
-                        <i class="ti ti-plus me-0 me-sm-1 ti-xs border rounded-circle bg-dark"
-                            style="color: #fff;"></i>
-                        </li>
-                    </ul>
-               </td>
-               <td>${element.total_eta}</td>
-               <td>2hour</td>
-               <td>${element.status}
-               </td>
-              
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateProject" onclick="editProject(${element.project_id})"><i class="ti ti-pencil me-1"></i>
-                                Edit</a>
-                              <a class="dropdown-item"  onclick="handleDelete(${element.project_id})"><i class="ti ti-trash me-1"></i>
-                                Delete</a>
-                            </div>
-                          </div>
-                </td>
-            </tr>
-          `;
+        <tr>
+          <td></td>
+          <td>
+            <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
+              <li class="avatar avatar-xs pull-up" title="Project Type">
+                ${element.project_type}
+              </li>
+              <li class="mx-3">${element.project_name}</li>
+            </ul>
+          </td>
+          <td style="cursor:pointer">
+            <a class="dropdown-item" href="todo.html?id=${element.project_id}&user_id=${element.project_leader_id}">
+              ${element.project_leader_fname}
+            </a>
+          </td>
+          <td>
+            <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
+              <li data-bs-toggle="tooltip" class="avatar avatar-xs pull-up" title="Team Member">
+                <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+              </li>
+              <li data-bs-toggle="tooltip" class="avatar avatar-xs pull-up" title="Add team member" onclick="openModal()">
+                <i class="ti ti-plus me-0 me-sm-1 ti-xs border rounded-circle bg-dark" style="color: #fff;"></i>
+              </li>
+            </ul>
+          </td>
+          <td>${formattedEta}</td>
+          <td>2 hours</td>
+          <td>${element.status}</td>
+          <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="ti ti-dots-vertical"></i>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#updateProject" onclick="editProject(${element.project_id})">
+                  <i class="ti ti-pencil me-1"></i> Edit
+                </a>
+                <a class="dropdown-item" onclick="handleDelete(${element.project_id})">
+                  <i class="ti ti-trash me-1"></i> Delete
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
       tableBody.innerHTML += row;
     });
-    //console.log(data)
   })
   .catch(error => {
-    console.error("Error fetching user data:", error);
+    console.error("Error fetching project data:", error);
   });
 
 // Fetch and count data active projects and completed tasks
