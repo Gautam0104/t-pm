@@ -15,53 +15,65 @@ document
     const messageElement = document.getElementById(ELEMENT_IDS.LOGIN_MESSAGE);
 
     try {
-      const response = await fetch(
-        "https://d8wgkwwg-3000.inc1.devtunnels.ms/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ username, password })
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/${API_ROUTES.AUTH_LOGIN}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
 
-      if (!response.ok) {
-        // If response status is not OK (e.g., 401, 500, etc.), show error
+      if (response.ok) {
+        const expireTime = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiration
+        localStorage.setItem("sessionExpireTime", expireTime);
+        localStorage.setItem("sessionIs", "true");
+        // document.getElementById('dashboardMessage').textContent = 'Login successful! Welcome to your dashboard.';
         Swal.fire({
-          title: "Login Failed",
-          text: "Invalid username or password.",
-          icon: "error",
-          confirmButtonText: "Retry"
-        });
-      } else {
-        // If successful, parse the JSON response
-        const data = await response.json();
-        const { message, token, user } = data;
-
-        // Store token and user data in localStorage
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("userId", user.userId);
-        localStorage.setItem("username", user.username);
-        localStorage.setItem("role", user.role);
-
-        // Show success message and redirect to dashboard
-        Swal.fire({
-          title: "Login Successful",
-          text: "Redirecting to the dashboard...",
+          title: "Login Successfully",
+          text: `You are now logged in click ok to redirect on dashboard`,
           icon: "success",
-          confirmButtonText: "ok"
+          confirmButtonText: "Ok!"
         }).then(function() {
-          window.location.href = "dashboard.html"; // Redirect to dashboard page
+          // Redirect to dashboard.html
+          window.location.href = "dashboard.html";
+        });
+        fetch(`${API_BASE_URL}/username/${username}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok " + response);
+            }
+            return response.json();
+          })
+          .then(data => {
+            data.map(user => {
+              localStorage.setItem(ELEMENT_IDS.LOGGED_USERID, user.user_id);
+              localStorage.setItem("logged_username", user.username);
+              localStorage.setItem(
+                ELEMENT_IDS.LOGGED_FIRSTNAME,
+                user.first_name
+              );
+              localStorage.setItem(
+                ELEMENT_IDS.LOGGED_USERROLE_ID,
+                user.role_id
+              );
+              localStorage.setItem(
+                ELEMENT_IDS.LOGGED_USERROLE_NAME,
+                user.role_name
+              );
+            });
+          });
+      } else {
+        // messageElement.style.color = 'red';
+        Swal.fire({
+          title: "Oops!",
+          text: "username or password incorrect. Try again!",
+          icon: "error",
+          confirmButtonText: "Retry!"
         });
       }
     } catch (error) {
-      // Handle network or other errors
-      Swal.fire({
-        title: "Error",
-        text: "An error occurred. Please try again later.",
-        icon: "error",
-        confirmButtonText: "Close"
-      });
+      messageElement.style.color = "red";
+      messageElement.textContent = "An error occurred.";
+      console.error(error);
     }
   });
