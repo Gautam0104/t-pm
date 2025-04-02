@@ -116,7 +116,7 @@ setTimeout(function () {
               </div>
             </div>
             <img class="img-fluid rounded mb-2" id="card-img" draggable=false 
-                 src="${API_BASE_URL}/uploads/${element.card_image}">
+                 src="${API_BASE_URL}/uploads/${element.card_image}" onerror="this.style.display='none';">
             <span class="kanban-text">${element.title}</span>
             <div id="checklist-container-${element.ticket_id}"></div>
             <div class="item-badges mt-2" id="joined-member-${element.ticket_id}"></div>
@@ -230,6 +230,35 @@ setTimeout(function () {
 
                 // Combine date and time
                 const formattedDateTimeupdate = `${day1}/${month1}/${year1} , ${hours1}:${minutes1}:${seconds1}`;
+
+                const isoDateupdate1 = `${element.due_date}`;
+
+                // Convert to a Date object
+                const dateupdate1 = new Date(isoDateupdate1);
+
+                // Extract date components
+                const day2 = dateupdate1.getDate().toString().padStart(2, "0");
+                const month2 = (dateupdate1.getMonth() + 1)
+                  .toString()
+                  .padStart(2, "0"); // Months are 0-based
+                const year2 = dateupdate1.getFullYear();
+
+                // Extract time components
+                const hours2 = dateupdate1
+                  .getHours()
+                  .toString()
+                  .padStart(2, "0");
+                const minutes2 = dateupdate1
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, "0");
+                const seconds2 = dateupdate1
+                  .getSeconds()
+                  .toString()
+                  .padStart(2, "0");
+
+                // Combine date and time
+                const formattedduedate = `${day2}/${month2}/${year2} , ${hours2}:${minutes2}:${seconds2}`;
                 function stripTags(html) {
                   return html.replace(/<\/?[^>]+(>|$)/g, "");
                 }
@@ -286,7 +315,7 @@ setTimeout(function () {
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>
-                                                        <input class="form-control" id="due-date" value="${element.due_date}" readonly="readonly">
+                                                        <input class="form-control" id="due-date" value="${formattedduedate}" readonly="readonly">
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="eta">ETC</label>
