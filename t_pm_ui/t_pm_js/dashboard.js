@@ -326,5 +326,89 @@ const handleDelete = async project_id => {
   }
 };
 
+//filter data
+
+fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    const modifiedResults = data.map(project => {
+      let statusText = "";
+      switch (project.project_status) {
+        case 1:
+          statusText =
+            '<span class="badge bg-label-primary me-1">Active</span>';
+          break;
+        case 2:
+          statusText =
+            '<span class="badge bg-label-success me-1">Complete</span>';
+          break;
+        case 3:
+          statusText =
+            '<span class="badge bg-label-info me-1">Scheduled</span>';
+          break;
+        case 4:
+          statusText =
+            '<span class="badge bg-label-warning me-1">Pending</span>';
+          break;
+        default:
+          statusText =
+            '<span class="badge bg-label-danger me-1">Unknown</span>';
+      }
+      let projectTpe = "";
+      switch (project.project_type) {
+        case "project":
+          projectTpe =
+            '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+          break;
+        case "ticket":
+          projectTpe =
+            '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
+          break;
+        default:
+          projectTpe =
+            '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
+      }
+      return {
+        project_id: project.project_id,
+        project_name: project.project_name,
+        project_Leader_id: project.project_leader_id,
+        project_leader_fname: project.first_name,
+        project_leader_lname: project.last_name,
+        description: project.description,
+        status: statusText,
+        total_eta: project.total_eta,
+        created_at: project.created_at,
+        updated_at: project.updated_at,
+        project_type: projectTpe
+      };
+    });
+
+    const projectName = document.getElementById("projectName");
+    const projectLeader = document.getElementById("projectLeader");
+    const projectStatus = document.getElementById("projectStatus");
+
+    // Populate Table Rows with User Data
+    modifiedResults.forEach(element => {
+      let projectStatusContent = ` <option value="">${element.status}</option>`;
+
+      projectStatus.innerHTML += projectStatusContent;
+
+      let projectLeaderContent = `<option value="">${element.project_leader_fname}</option>`;
+      projectLeader.innerHTML += projectLeaderContent;
+
+      let projectNameContent = `<option value=""> ${element.project_name} </option>`;
+      projectName.innerHTML += projectNameContent;
+    });
+    //console.log(data)
+  })
+  .catch(error => {
+    console.error("Error fetching user data:", error);
+  });
+
 window.openModal = openModal;
 window.handleDelete = handleDelete;
