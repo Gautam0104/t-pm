@@ -1,6 +1,6 @@
 const API_BASE_URL = ENV.API_BASE_URL;
 
-fetch(`${API_BASE_URL}/automation-data`)
+fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);

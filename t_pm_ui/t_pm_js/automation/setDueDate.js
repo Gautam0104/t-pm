@@ -1,10 +1,11 @@
 import { sendAutomationData } from "./createAutomationButton.js";
 import { ELEMENT_IDS } from "../element_id.js";
+import { API_ROUTES } from "../../apiRoutesHeader.js";
 
 export function setDuedateCardToModal(ticketTitle, ticketId, ticket_status) {
   console.log("Ticket status: " + ticket_status + ", Title: " + ticketTitle);
 
-  let modalContainer = document.getElementById("setdueDateCardToModal");
+  let modalContainer = document.getElementById(ELEMENT_IDS.AUTOMATION_SET_DUEDATE_CARD_TO_MODAL);
   if (!modalContainer) {
     console.error("Modal container 'setdueDateCardToModal' not found.");
     return;

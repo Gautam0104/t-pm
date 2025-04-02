@@ -37,7 +37,7 @@ document
           // Redirect to dashboard.html
           window.location.href = "dashboard.html";
         });
-        fetch(`${API_BASE_URL}/username/${username}`)
+        fetch(`${API_BASE_URL}${API_ROUTES.GET_USERNAME}/${username}`)
           .then(response => {
             if (!response.ok) {
               throw new Error("Network response was not ok " + response);

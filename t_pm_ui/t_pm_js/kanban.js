@@ -3,7 +3,7 @@ setTimeout(function() {
   const kanbanItems = document.querySelectorAll(".kanban-item");
   const offcanvas = document.querySelector(".offcanvas");
   const contentWrapper = document.querySelector(".content-wrapper");
-  const offcanvasClosebtn = document.getElementById("offcanvase-close");
+  const offcanvasClosebtn = document.getElementById(ELEMENT_IDS.OFFCANVAS_CLOSE);
   const backdrop = `<div class="offcanvas-backdrop fade show"></div>`;
   // open canbavase
   for (const kanbanItem of kanbanItems) {

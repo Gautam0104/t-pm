@@ -62,6 +62,8 @@ function logActivity(message) {
 }
 
 function showLogs() {
+    const log = JSON.parse(localStorage.getItem("activityLogs")) || [];
+    document.getElementById(ELEMENT_IDS.LOG_CONTAINER).innerText = logs.join("\n");
   const logs = JSON.parse(localStorage.getItem("activityLogs")) || [];
   document.getElementById("logContainer").innerText = logs.join("\n");
 }

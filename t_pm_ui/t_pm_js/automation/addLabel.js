@@ -1,9 +1,9 @@
 import { sendAutomationData } from "./createAutomationButton.js";
-
+import { ELEMENT_IDS } from "../element_id.js";
 let selectedColor = "rgb(10, 82, 42)"; // Default color
 
 export function addLabelModal(ticketId) {
-  const addLabelForm = document.getElementById("add-label-form");
+  const addLabelForm = document.getElementById(ELEMENT_IDS.ADD_LABEL_FORM);
   addLabelForm.innerHTML = `
       <div class="modal-body">
         <form id="label-form">
@@ -58,25 +58,25 @@ export function addLabelModal(ticketId) {
 
   // Attach event listener for save button
   document
-    .getElementById("saveLabelButton")
+    .getElementById(ELEMENT_IDS.SAVE_LABEL_BUTTON)
     .addEventListener("click", function() {
       addLabelAutomationButton(ticketId);
     });
 
   // Attach event listener for action button
   document
-    .getElementById("openActionButton")
+    .getElementById(ELEMENT_IDS.OPEN_ACTION_BUTTON)
     .addEventListener("click", openActionModal);
 }
 
 // Function to update the selected color
 function updateSelectedColor(color) {
   selectedColor = color;
-  document.getElementById("selectedColor").style.backgroundColor = color;
+  document.getElementById(ELEMENT_IDS.SELETCT_COLOR).style.backgroundColor = color;
 }
 
 async function addLabelAutomationButton(ticketId) {
-  const titleInput = document.getElementById("labelText").value.trim();
+  const titleInput = document.getElementById(ELEMENT_IDS.LABEL_TEXT).value.trim();
 
   if (!titleInput) {
     console.error("Button title cannot be empty.");

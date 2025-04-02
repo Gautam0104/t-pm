@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ------------------------------------------------
     function addEvent(eventData) {
       let filterDiv = "hello"
-      axios.post(`${API_BASE_URL}/calendar-ticket`, {
+      axios.post(`${API_BASE_URL}${API_ROUTES.CREATE_TICKET_FROM_CALENDAR}`, {
 
         project_id: projectPost,
         title: eventData.title,
@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateEvent(eventData) {
       let ticket_id = eventData.id;
       //console.log('Updating event:', ticket_id); // Debugging step
-      axios.put(`${API_BASE_URL}/calendarUpdate`, {
+      axios.put(`${API_BASE_URL}${API_ROUTES.CALENDAR_UPDATE}`, {
         ticket_id: ticket_id,
         title: eventData.title,
         start: eventData.start,

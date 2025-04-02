@@ -4,7 +4,7 @@ export async function moveAllCard(currentStatus, newStatus) {
   const payload = { currentStatus, newStatus };
 
   try {
-    const response = await fetch(`${API_BASE_URL}/update-ticket-by-status`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET_BY_STATUS}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

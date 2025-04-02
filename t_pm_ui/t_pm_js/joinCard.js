@@ -47,7 +47,7 @@ export async function joinCard(ticket_id) {
 }
 
 function handleJoinCard() {
-  fetch(`${API_BASE_URL}/get-join-cards`)
+  fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARDS}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -77,9 +77,7 @@ function handleJoinCard() {
         if (joinedCardAvtar) {
           joinedCardAvtar.innerHTML = joinhtmlContent;
         } else {
-          console.error(
-            "Element with ID 'joined-member-${item.ticket_id}' not found."
-          );
+         
         }
       });
     })

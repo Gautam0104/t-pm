@@ -9,7 +9,7 @@ const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 // user list
 
 const userData = async () => {
-  return await fetch(`${API_BASE_URL}/users`)
+  return await fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok ");
@@ -182,7 +182,7 @@ filterInput.addEventListener("keyup", () => {
 
 // get role
 const userRole = async () => {
-  return await fetch(`${API_BASE_URL}/GetRoles`)
+  return await fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)    
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok ");
@@ -222,7 +222,7 @@ registerForm.addEventListener("click", async e => {
   const role_id = document.getElementById(ELEMENT_IDS.USER_ROLE).value;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTH_REGISTER}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -262,7 +262,7 @@ const deleteUser = async user_id => {
 
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}/deleteUser/${user_id}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_USER}/${user_id}`, {
       method: "DELETE"
     });
 
@@ -290,7 +290,7 @@ const deleteUser = async user_id => {
 
 const editUser = async user_id => {
   try {
-    const response = await fetch(`${API_BASE_URL}/user/${user_id}`);
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_USER}/${user_id}`);
     if (!response.ok) throw new Error("Failed to fetch user details");
 
     const user = await response.json();
@@ -329,7 +329,7 @@ const editUser = async user_id => {
 
       updateUserForm.innerHTML = formContent;
 
-      fetch(`${API_BASE_URL}/GetRoles`)
+      fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok ");
@@ -377,7 +377,7 @@ const editUser = async user_id => {
 
           try {
             const response = await fetch(
-              `${API_BASE_URL}/updateUser/${userId}`,
+              `${API_BASE_URL}${API_ROUTES.UPDATE_USER}/${userId}`,
               {
                 method: "PUT",
                 headers: {
@@ -426,7 +426,7 @@ const fetchuserhistory = async userId => {
   historytablebody.innerHTML = ""; // Clear any existing rows
 
   // Fetch role history based on roleId
-  await fetch(`${API_BASE_URL}/user-history/${userId}`)
+  await fetch(`${API_BASE_URL}${API_ROUTES.GET_USER_HISTORY}/${userId}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");

@@ -9,7 +9,7 @@ export const ELEMENT_IDS = {
   AUTOMATION_COPY_CARD_TO_MODAL: "automationcopyCardToModal",
   AUTOMATION_JOIN_CARD_TO_MODAL: "automationjoinCardToModal",
   AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL: "markDueDateModal",
-  AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL: "setDueDateModal",
+  AUTOMATION_SET_DUEDATE_CARD_TO_MODAL: "setDueDateModal",
   AUTOMATION_MOVE_CARD_TO_MODAL: "moveCardToModal",
   AUTOMATION_SHARE_CARD_TO_MODAL: "shareCardToModal",
   AUTOMATION_REMOVE_FEATURE_TO_MODAL: "removeCardToModal",
@@ -22,6 +22,11 @@ export const ELEMENT_IDS = {
   SELECT_REMOVE_AUTOMATION: "selectRemoveAutomation",
   SELECT_BOARD: "boardSelect",
   SELECT_POSITION: "positionSelect1",
+  PRINT_CARD_BTN: "printCardBtn",
+  EXPORT_CARD_BTN: "exportCardBtn",
+  PRINT_QR_BTN: "printQrBtn",
+
+
 
   // TODO
   MESSAGE: "message",
@@ -83,6 +88,9 @@ export const ELEMENT_IDS = {
   JOIN_CARD_FORM: "join-card-form",
   JOIN_USER: "joinUsers",
   JOIN_USER_MODAL: "join-user-modal",
+  ELEMENT_HEADER: "element-Header",
+  TAB_COMMENT: "tab-comments",
+  ADD_EVENT_SIDEBAR: "add-Event-Sidebar",
 
   // USER LIST
   USER_ROLE: "user-role",
@@ -116,6 +124,7 @@ export const ELEMENT_IDS = {
   ROLES_CONTAINER: "rolesContainer",
   UPDATE_ROLE_FORM: "update-role-form",
   UPDATE_ROLE_NAME: "updateRoleName",
+  LINK_INPUT: "linkInput",
 
   // BACKGROUND HEADER FOOTER
   HEADER: "header",
@@ -136,8 +145,11 @@ export const ELEMENT_IDS = {
   // CREATE NEW AREA
   FROM_SHOW: "form-show",
   FROM_HIDE: "form-hide",
+  MOVE_FROM: "move-from",
+  MOVE_TO: "move-to",
   ADD_BOARD_DIV: "addBoardDiv",
   KANBAN_BOARD_ADD_INPUT: "kanban-add-board-input",
+  KANBAN_BOARD_ADD_DIV: "kanban-add-board-div",
   CREATE_NEW_BOARD: "create-new-board",
   COPY_BOARD_MODAL_CONTENT: "copy-board-modal-content",
   BOARD_NAME: "boardName",
@@ -156,6 +168,7 @@ export const ELEMENT_IDS = {
   UPDATE_PROJECT_FORM: "updateProjectForm",
   UPDATE_PROJECT_NAME: "update-project-name",
   UPDATE_PROJECT_DESCRIPTION: "update-project-des",
+  CALENDAR: "calendar",
 
   // DASHBOARD
   FILTER_INPUT: "filterInput",
@@ -182,8 +195,13 @@ export const ELEMENT_IDS = {
   CANCEL_FORM_4: "cancel-form-4",
   CANCEL_FORM_5: "cancel-form-5",
   JOIN_BUTTON: "join-button",
+  ELEMENT_BUTTON: "element-Button",
+  ELEMENT_ID: "element-Id",
   LEAVE_BUTTON: "leave-button",
   ADD_LABEL_FORM:"add-label-form",
+  SAVE_LABEL_BUTTON:"saveLabelButton",
+  OPEN_ACTION_BUTTON:"openActionButton",
+  LABEL_TEXT:"labelText",
 
   // MODAL
   CHECKLIST_MODAL: "checklistModal",
@@ -199,4 +217,6 @@ export const ELEMENT_IDS = {
     LOGGED_ROLE_NAME: "logged-role-name",
     LOGGED_SESSION_EXPIRE: "sessionExpireTime",
     LOGGED_SESSION_LS: "sessionIs",
+    LOG_CONTAINER: "logContainer",
+    LOG_OUT_BUTTON: "logoutButton",
 };

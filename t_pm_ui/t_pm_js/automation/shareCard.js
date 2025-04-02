@@ -59,7 +59,7 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
   modal.show();
 
   // function to print card
-  document.getElementById("printCardBtn").addEventListener("click", async function () {
+  document.getElementById(ELEMENT_IDS.PRINT_CARD_BTN).addEventListener("click", async function () {
     try {
       // Fetch the specific card data
       const response = await fetch(`${API_BASE_URL}${API_ROUTES.TICKET_HISTORY}/${ticketId}`);
@@ -254,7 +254,7 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
     }
   });
    // function to export json
-  document.getElementById("exportCardBtn").addEventListener("click", async function () {
+  document.getElementById(ELEMENT_IDS.EXPORT_CARD_BTN).addEventListener("click", async function () {
     try {
       // Fetch all required data
       const [historyResponse, ticketResponse, userResponse] = await Promise.all([
@@ -320,7 +320,7 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
   });
 
   // function to show url
-  document.getElementById("linkInput").value = window.location.href;
+  document.getElementById(ELEMENT_IDS. LINK_INPUT).value = window.location.href;
 
 
   

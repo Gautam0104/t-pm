@@ -123,7 +123,7 @@ export const getChecklist = async ticket_id => {
 
 // Fetch all tickets and get checklists for each one
 setTimeout(() => {
-  fetch(`${API_BASE_URL}/get-checklists`)
+  fetch(`${API_BASE_URL}${API_ROUTES.GET_CHECKLISTS}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");

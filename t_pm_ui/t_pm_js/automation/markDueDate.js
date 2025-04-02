@@ -4,7 +4,7 @@ import { ELEMENT_IDS } from "../element_id.js";
 export function markDueDateModal(ticketTitle, ticketId) {
   console.log("Ticket Title: " + ticketTitle + ", Ticket ID: " + ticketId);
 
-  let modalContainer = document.getElementById("markDueDateModal");
+  let modalContainer = document.getElementById(ELEMENT_IDS.AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL);
   if (!modalContainer) {
     console.error("Modal container 'markDueDateModal' not found.");
     return;

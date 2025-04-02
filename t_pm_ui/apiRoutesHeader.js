@@ -13,12 +13,14 @@ export const API_ROUTES = {
 
     // Join Cards
     GET_JOIN_CARDS: "/get-join-cards",
+    GET_JOIN_CARD: "/get-join-card",
     ADD_JOIN_CARD: "/add-join-card",
     DELETE_JOIN_CARD: "/delete-join-card",
 
     // Boards
     ADD_NEW_BOARD: "/add-new-board",
     GET_BOARDS: "/get-boards",
+    GET_BOARD: "/get-board",
     DELETE_BOARD: "/delete-board",
     UPDATE_BOARD: "/update-board",
     COPY_BOARD: "/copy-board",
@@ -28,6 +30,7 @@ export const API_ROUTES = {
   // Rows and Checklists
   COPY_ROW: "/copy-row",
   GET_CHECKLIST: "/get-checklist",
+  GET_CHECKLISTS: "/get-checklists",
   CREATE_CHECKLIST: "/create-checklist",
 
     // Kanban
@@ -41,6 +44,7 @@ export const API_ROUTES = {
   DELETE_PROJECT: "/delete-project",
   PROJECT_DATA: "/projects",
   GET_SINGLE_PROJECT: "/project",
+  UPDATE_PROJECTS: "/updateproject",
 
     // User Management
     GET_USERNAME: "/username",
@@ -56,6 +60,7 @@ export const API_ROUTES = {
     TICKET_HISTORY: "/ticket-history",
     UPDATE_ROLES: "/update-role",
     DELETE_USER: "/delete-user",
+    GET_COMMENT: "/get-comments",
 
     // Roles and History
     CREATE_ROLES: "/create-roles",
@@ -71,4 +76,7 @@ export const API_ROUTES = {
     DELETE_TICKET: "/delete-ticket",
     GET_TICKETS: "/tickets",
     UPDATE_TICKET: "/update-ticket",
+    UPDATE_TICKET_BY_STATUS: "/update-ticket-by-status",
+    UPDATE_TICKET_STATUS: "/update-ticket-status",
+  
 };

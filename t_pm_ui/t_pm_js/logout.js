@@ -30,12 +30,12 @@ document.addEventListener("scroll", updateLastActivity);
 
 // Check inactivity every minute
 setInterval(checkInactivity, 60 * 1000);
-document.getElementById("logoutButton").addEventListener("click", async () => {
-  // try {
-  //     const response = await fetch(`${baseURL}/auth/logout`, {
-  //         method: 'POST'
-  //     });
-  //     if (response.ok) {
+document.getElementById(ELEMENT_IDS.LOG_OUT_BUTTON).addEventListener("click", async () => {
+    // try {
+    //     const response = await fetch(`${baseURL}/auth/logout`, {
+    //         method: 'POST'
+    //     });
+    //     if (response.ok) {
 
   //         localStorage.setItem('sessionIs', 'false');
   //         document.getElementById('dashboardMessage').textContent = '';

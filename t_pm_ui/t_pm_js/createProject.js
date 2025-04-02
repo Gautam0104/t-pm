@@ -209,25 +209,16 @@ const editProject = async project_id => {
             return;
           }
 
-          const payload = {
-            project_name,
-            description,
-            project_status,
-            project_type,
-            total_eta
-          };
+                const payload = { project_name, description, project_status, project_type, total_eta };
 
-          try {
-            const response = await fetch(
-              `${API_BASE_URL}/updateproject/${projectId}`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-              }
-            );
+                try {
+                    const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_PROJECTS}/${projectId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                    });
 
             if (response.ok) {
               Swal.fire({

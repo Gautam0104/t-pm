@@ -160,7 +160,7 @@ const updateRole = (role_id, role_name) => {
         .value.trim();
 
       try {
-        const response = await fetch(`${API_BASE_URL}/updaterole/${role_id}`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_ROLES}/${role_id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -337,7 +337,7 @@ const deleteRole = async role_id => {
   try {
     // Send DELETE request to the API
     const response1 = await fetch(
-      `${API_BASE_URL}/clearroleHistory/${role_id}`,
+      `${API_BASE_URL}${API_ROUTES.CLEAR_ROLE_HISTORY}/${role_id}`,
       {
         method: "DELETE"
       }

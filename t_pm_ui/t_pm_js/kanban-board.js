@@ -369,8 +369,8 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
       document
         .getElementById("moveAllCard")
         .addEventListener("click", function() {
-          const moveFrom = document.getElementById("move-from").value.trim();
-          const moveTo = document.getElementById("move-to").value.trim();
+          const moveFrom = document.getElementById(ELEMENT_IDS.MOVE_FROM).value.trim();
+          const moveTo = document.getElementById(ELEMENT_IDS.MOVE_TO).value.trim();
 
           moveAllCard(moveFrom, moveTo);
         });
@@ -494,6 +494,12 @@ function watchedCard(watched) {
     localStorage.setItem(`watched-${watched}`, true);
   }
 }
+function moveBoard() {
+  console.log("The moveBoard function has been executed!");
+  // Add your logic for moving the board here
+}
+moveBoard();  // Call the function to run it
+
 
 // Sorting state variables
 let isAscending = true;

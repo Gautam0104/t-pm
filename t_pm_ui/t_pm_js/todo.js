@@ -726,9 +726,9 @@ setTimeout(function () {
                 //  all event listner of action tab
 
                 //fetch comments
-                const commentTab = document.getElementById("tab-comments");
+                const commentTab = document.getElementById(ELEMENT_IDS.TAB_COMMENT);
                 console.log("commentTab", commentTab);
-                fetch(`${API_BASE_URL}/get-comments/${element.ticket_id}`)
+                fetch(`${API_BASE_URL}${API_ROUTES.GET_COMMENT}/${element.ticket_id}`)
                 .then(response => {
                   if (!response.ok) {
                     throw new Error("Network response was not ok " + response.statusText);
@@ -896,7 +896,7 @@ setTimeout(function () {
                 });
 
 
-                fetch(`${API_BASE_URL}/get-join-card/${element.ticket_id}`)
+                fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARD}/${element.ticket_id}`)
                 .then(response => {
                   if (!response.ok) {
                     throw new Error("Network response was not ok " + response.statusText);
@@ -940,7 +940,7 @@ setTimeout(function () {
                 });
 
                 // fetch ticket history
-                fetch(`${API_BASE_URL}/users`)
+                fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
                   .then(response => {
                     if (!response.ok) {
                       throw new Error(
@@ -999,7 +999,7 @@ setTimeout(function () {
                 }
 
                 // fetch ticket history
-                fetch(`${API_BASE_URL}/ticket-history/${ticket_id}`)
+                fetch(`${API_BASE_URL}${API_ROUTES.TICKET_HISTORY}/${ticket_id}`)
                   .then(response => {
                     if (!response.ok) {
                       throw new Error(
@@ -1676,7 +1676,7 @@ function openCopyCardModal(title, ticketId) {
 
     console.log("form submited", ticketStatus);
     try {
-      const response = await fetch(`${API_BASE_URL}/copy-row/${ticketId}`, {
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.COPY_ROW}/${ticketId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1845,7 +1845,7 @@ function openMoveCardModal(title, ticketId) {
     if (!ticketId || !ticketStatus) {
       return; // You could show an alert or handle the error here
     }
-    fetch(`${API_BASE_URL}/updateticketStatus`, {
+    fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_TICKET_STATUS}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -1960,7 +1960,7 @@ export function newRule() {
 
 
 function retrieveAutomationRule(tickerId){
-  fetch(`${API_BASE_URL}/automation-data/${tickerId}`)
+  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}/${tickerId}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
