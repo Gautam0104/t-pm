@@ -41,6 +41,7 @@ window.onload = function () {
 var urlParams = new URLSearchParams(window.location.search);
 var project_id = urlParams.get("id");
 var creator_id = urlParams.get("user_id");
+var project_name = urlParams.get("pname");
 setTimeout(function () {
 
 
@@ -76,7 +77,7 @@ setTimeout(function () {
       })
       .then(async data => {
         // Fetch board data first
-        const boardResponse = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
+        const boardResponse = await fetch(`http://localhost:3000/get-boards?board_name=${project_name}`);
         if (!boardResponse.ok) {
           throw new Error("Network response was not ok");
         }

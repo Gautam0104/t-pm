@@ -196,7 +196,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
             </ul>
           </td>
           <td style="cursor:pointer">
-            <a class="dropdown-item" href="todo.html?id=${element.project_id}&user_id=${element.project_leader_id}">
+            <a class="dropdown-item" href="todo.html?id=${element.project_id}&user_id=${element.project_leader_id}&pname=${element.project_name}">
               ${element.project_leader_fname}
             </a>
           </td>

@@ -6,11 +6,14 @@ import { moveAllCard } from "./moveallcard.js";
 import { copyCardStatus } from "./createNewArea.js";
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL;
-
+var urlParams = new URLSearchParams(window.location.search);
+var project_name = urlParams.get("pname");
 // Function to fetch and populate lists
 async function fetchListsnew() {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`);
+    const response = await fetch(
+      `http://localhost:3000/get-boards?board_name=${project_name}`
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch boards");
@@ -60,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Access the URL securely
 
-fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
+fetch(`http://localhost:3000/get-boards?board_name=${project_name}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -369,8 +372,12 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
       document
         .getElementById("moveAllCard")
         .addEventListener("click", function() {
-          const moveFrom = document.getElementById(ELEMENT_IDS.MOVE_FROM).value.trim();
-          const moveTo = document.getElementById(ELEMENT_IDS.MOVE_TO).value.trim();
+          const moveFrom = document
+            .getElementById(ELEMENT_IDS.MOVE_FROM)
+            .value.trim();
+          const moveTo = document
+            .getElementById(ELEMENT_IDS.MOVE_TO)
+            .value.trim();
 
           moveAllCard(moveFrom, moveTo);
         });
@@ -498,8 +505,7 @@ function moveBoard() {
   console.log("The moveBoard function has been executed!");
   // Add your logic for moving the board here
 }
-moveBoard();  // Call the function to run it
-
+moveBoard(); // Call the function to run it
 
 // Sorting state variables
 let isAscending = true;

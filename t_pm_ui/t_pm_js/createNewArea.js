@@ -1,9 +1,11 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "./element_id.js";
 const API_BASE_URL = ENV.API_BASE_URL;
+var urlParams = new URLSearchParams(window.location.search);
+var project_name = urlParams.get("pname");
 const formShow = document.getElementById(ELEMENT_IDS.FROM_SHOW);
 const formHide = document.getElementById(ELEMENT_IDS.FROM_HIDE);
-const addBoardDiv = document.getElementById(ELEMENT_IDS.ADD_BOARD_DIV);
+const addBoardDiv = document.getElementById("kanban-add-board-div");
 const addBoardInput = document.getElementById(
   ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT
 );
@@ -13,7 +15,8 @@ const createNewBoardForm = document.getElementById(
 const copyBoardDialog = document.getElementById(
   ELEMENT_IDS.COPY_BOARD_MODAL_CONTENT
 );
-
+console.log(addBoardDiv);
+console.log(addBoardInput);
 // Toggle form visibility
 formShow.addEventListener("click", () => toggleFormVisibility(false));
 formHide.addEventListener("click", () => toggleFormVisibility(true));
@@ -25,12 +28,17 @@ function toggleFormVisibility(hide) {
 
 // Function to create a new board
 async function createBoard(boardTitle) {
+  const boardName = project_name;
+  if (!boardName) {
+    console.error("Project name is not defined.");
+    return;
+  }
   if (!boardTitle.trim()) return;
   try {
     const response = await fetch(`${API_BASE_URL}${API_ROUTES.ADD_NEW_BOARD}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ boardTitle })
+      body: JSON.stringify({ boardTitle, boardName })
     });
     if (response.ok) {
       console.log("New board added successfully");

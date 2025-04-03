@@ -1,5 +1,4 @@
-
-
+import { ELEMENT_IDS } from "./constants.js";
 
 function toggleTodo(elementId, elementHeader, elementButton) {
   const taskHeader = document.getElementById(ELEMENT_IDS.ELEMENT_HEADER);
@@ -94,7 +93,9 @@ function makeDefault(cardId) {
 // copy board
 function copyBoard(element) {
   const board = element.closest(".kanban-board");
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
 
   // Ask user for new board name
   let newBoardName = prompt("Enter a name for the copied board:");
@@ -146,7 +147,9 @@ function saveBoardToLocalStorage(boardId, boardName, taskContainer) {
 }
 
 function loadBoardsFromLocalStorage() {
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
   const savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
 
   savedBoards.forEach(boardData => {
@@ -290,8 +293,6 @@ function loadBoardsFromLocalStorage() {
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", function() {
-  
-
   document.querySelectorAll(".move-board-trigger").forEach(button => {
     button.addEventListener("mouseenter", function() {
       showMoveBoardDropdown(this);
@@ -299,7 +300,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 document.addEventListener("DOMContentLoaded", function() {
-  
   enableDragAndDrop();
 });
 
@@ -356,7 +356,9 @@ function enableDragAndDrop() {
 // 🔹 Function to Copy a Board and Assign Unique Card IDs
 function copyBoard(element) {
   const board = element.closest(".kanban-board");
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
 
   let newBoardName = prompt("Enter a name for the copied board:");
   if (!newBoardName) return;
@@ -435,7 +437,9 @@ function saveBoardsState() {
 
 // 🔹 Load boards while keeping unique task IDs and appending cards
 function loadBoardsFromLocalStorage() {
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
   let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
 
   savedBoards.forEach(boardData => {
@@ -515,7 +519,9 @@ function appendBoardToPage(boardData, container) {
 
 function showMoveBoardDropdown(element) {
   const board = element.closest(".kanban-board");
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
   const boards = Array.from(container.children);
 
   // Remove any existing dropdown before adding a new one
@@ -554,7 +560,9 @@ function showMoveBoardDropdown(element) {
 
 // Move board to selected position
 function moveToPosition(board, newIndex) {
-  const container = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
+  const container = document.getElementById(
+    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+  );
   const boards = Array.from(container.children);
   boards.splice(boards.indexOf(board), 1); // Remove board from its current position
 
@@ -612,11 +620,15 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.getElementById("form-show").addEventListener("click", function() {
-  document.getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT).classList.remove("d-none");
-  document.getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_DIV).classList.remove("d-none");
+  document
+    .getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT)
+    .classList.remove("d-none");
+  document
+    .getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_DIV)
+    .classList.remove("d-none");
 });
 
 document.getElementById("form-hide").addEventListener("click", function() {
-  document.getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT).classList.add("d-none");
-  document.getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_DIV).classList.add("d-none");
+  document.getElementById("kanban-add-board-input").classList.add("d-none");
+  document.getElementById("kanban-add-board-div").classList.add("d-none");
 });
