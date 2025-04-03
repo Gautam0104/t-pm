@@ -77,7 +77,7 @@ setTimeout(function () {
       })
       .then(async data => {
         // Fetch board data first
-        const boardResponse = await fetch(`https://xx87gmj8-3000.inc1.devtunnels.ms/get-boards?board_name=${project_name}`);
+        const boardResponse = await fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`);
         if (!boardResponse.ok) {
           throw new Error("Network response was not ok");
         }

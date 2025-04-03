@@ -12,7 +12,7 @@ var project_name = urlParams.get("pname");
 async function fetchListsnew() {
   try {
     const response = await fetch(
-      `https://xx87gmj8-3000.inc1.devtunnels.ms/get-boards?board_name=${project_name}`
+      `${API_BASE_URL}/get-boards?board_name=${project_name}`
     );
 
     if (!response.ok) {
@@ -63,9 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Access the URL securely
 
-fetch(
-  `https://xx87gmj8-3000.inc1.devtunnels.ms/get-boards?board_name=${project_name}`
-)
+fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
