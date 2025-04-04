@@ -665,6 +665,11 @@ setTimeout(function () {
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100" id="mirrorCardFeature">
+                                                                    <i class="fas fa-box me-2"></i> Mirror
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal" id="copyCardFeature" >
                                                                     <i class="fas fa-copy me-2"></i> Copy Card
                                                                 </button>
@@ -752,7 +757,11 @@ setTimeout(function () {
                                     </div>`;
 
                 offcanvasDiv.innerHTML = offcanvasContent;
-
+                document.getElementById("mirrorCardFeature").addEventListener("click", function() {
+                  var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
+                  mirrorModal.show();
+              });
+              
                 //  all event listner of action tab
 
                 //fetch comments

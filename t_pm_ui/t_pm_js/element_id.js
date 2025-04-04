@@ -219,4 +219,9 @@ export const ELEMENT_IDS = {
     LOGGED_SESSION_LS: "sessionIs",
     LOG_CONTAINER: "logContainer",
     LOG_OUT_BUTTON: "logoutButton",
+
+    // mirror modal
+    MIRROR_BOARD_SELECT: "boardSelect",
+    MIRROR_LIST_SELECT: "listSelect",
+    MIRROR_BTN: "mirrorBtn",
 };

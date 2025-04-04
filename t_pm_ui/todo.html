@@ -1112,6 +1112,48 @@
           </div>
         </div>
         <!-- /About Automation Modal -->
+        <!-- Mirror Card Modal -->
+<div class="modal fade" id="mirrorModal" tabindex="-1" aria-labelledby="mirrorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="mirrorModalLabel">Mirror Card</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>Mirror this card to view or edit it from another board.</p>
+              <div class="mb-3">
+                  <label for="boardSelect" class="form-label fw-bold">Board</label>
+                  <select class="form-select" id="boardSelect">
+                      <option selected disabled>Select</option>
+                  </select>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label for="listSelect" class="form-label fw-bold">List</label>
+                      <select class="form-select" id="listSelect">
+                          <option selected disabled>Select</option>
+                      </select>
+                  </div>
+                  <div class="col-md-6">
+                      <label for="positionInput" class="form-label fw-bold">Position</label>
+                      <input type="number" class="form-control" id="positionInput" value="1" min="1">
+                  </div>
+              </div>
+              <div class="mt-4">
+                  <button type="button" class="btn btn-primary w-100" id="mirrorBtn">Mirror</button>
+              </div>
+              <div class="mt-3 text-muted small">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Only people with access to this board will be able to view this mirror card.
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
         <!-- copy card modal -->
         <div class="modal fade" id="copycardModal" tabindex="-1" aria-modal="true" role="dialog">
           <div class="modal-dialog" role="document">
@@ -1952,6 +1994,7 @@
                       <script type="module" src="./t_pm_js/joinCard.js"></script>
                       <script type="module" src="./t_pm_js/leaveCard.js"></script>
                       <script src="./t_pm_js/todo_extra.js"></script>
+                      <script type="module" src="./t_pm_js/mirrorModal.js"></script>
                       <script src="./t_pm_js/create-automation-rule/viewrule.js"></script>
 </body>
 
