@@ -31,6 +31,11 @@ import { joinCard } from "./joinCard.js";
 
 import { initializeTabManager } from './automation/tabManager.js';
 
+import { loadMirrorModal } from "./mirrorModal.js";
+
+console.log(loadMirrorModal);
+
+
 const API_BASE_URL = ENV.API_BASE_URL;
 window.onload = function () {
   setTimeout(function () {
@@ -760,6 +765,7 @@ setTimeout(function () {
                 document.getElementById("mirrorCardFeature").addEventListener("click", function() {
                   var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
                   mirrorModal.show();
+                  loadMirrorModal(element.ticket_id);
               });
               
                 //  all event listner of action tab
