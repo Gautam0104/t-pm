@@ -1421,7 +1421,7 @@ setTimeout(function () {
               });
           }
 
-          fetch(`${API_BASE_URL}${API_ROUTES.GET_BOARDS}`)
+          fetch( `${API_BASE_URL}/get-boards?board_name=${project_name}`)
             .then(response => {
               if (!response.ok) {
                 throw new Error("Network response was not ok ");
@@ -2074,6 +2074,7 @@ function retrieveAutomationRule(tickerId){
   });
 
 }
+
 
 
 

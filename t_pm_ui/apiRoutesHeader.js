@@ -74,5 +74,8 @@ export const API_ROUTES = {
   GET_TICKETS: "/tickets",
   UPDATE_TICKET: "/update-ticket",
   UPDATE_TICKET_BY_STATUS: "/update-ticket-by-status",
-  UPDATE_TICKET_STATUS: "/update-ticket-status"
+  UPDATE_TICKET_STATUS: "/update-ticket-status",
+
+  // Ticket Mirroring
+  TICKET_MIRRORING: "/tickets/mirroring"
 };
