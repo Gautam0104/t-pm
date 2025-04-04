@@ -3,7 +3,9 @@ setTimeout(function() {
   const kanbanItems = document.querySelectorAll(".kanban-item");
   const offcanvas = document.querySelector(".offcanvas");
   const contentWrapper = document.querySelector(".content-wrapper");
-  const offcanvasClosebtn = document.getElementById(ELEMENT_IDS.OFFCANVAS_CLOSE);
+  const offcanvasClosebtn = document.getElementById(
+    ELEMENT_IDS.OFFCANVAS_CLOSE
+  );
   const backdrop = `<div class="offcanvas-backdrop fade show"></div>`;
   // open canbavase
   for (const kanbanItem of kanbanItems) {
@@ -20,17 +22,23 @@ setTimeout(function() {
   // })
   //Add new todo item||ticket||task
   // const addItems = document.querySelectorAll('.kanban-title-button');
-  const addItem1 = document.getElementById(ELEMENT_IDS.ADD_TODO_ITEM);
+  const addItem1 = document.getElementById("add-Todo-item");
   const addItem2 = document.getElementById(ELEMENT_IDS.IN_PROGRESS_ITEM);
-  const addItem3 = document.getElementById(ELEMENT_IDS. ADD_FOR_APPROVAL_ITEM);
+  const addItem3 = document.getElementById("add-for-approval-item");
   const addItem4 = document.getElementById(ELEMENT_IDS.ADD_REJECTED_ITEM);
   const addItem5 = document.getElementById(ELEMENT_IDS.ADD_APPROVED_ITEM);
-  const addItmeForm1 = document.getElementById(ELEMENT_IDS.ADD_NEW_TODO_FORM);
-  const addItmeForm2 = document.getElementById(ELEMENT_IDS.ADD_NEW_INPROGRESS_FORM);
+  const addItmeForm1 = document.getElementById("add-new-Todo-form");
+  const addItmeForm2 = document.getElementById(
+    ELEMENT_IDS.ADD_NEW_INPROGRESS_FORM
+  );
 
-  const addItmeForm3 = document.getElementById(ELEMENT_IDS.ADD_NEW_FOR_APPROVAL_FORM);
-  const addItmeForm4 = document.getElementById(ELEMENT_IDS.ADD_NEW_REJECTED_FORM);
-  const addItmeForm5 = document.getElementById(ELEMENT_IDS.ADD_NEW_APPROVED_FORM);
+  const addItmeForm3 = document.getElementById("add-new-for-approval-form");
+  const addItmeForm4 = document.getElementById(
+    ELEMENT_IDS.ADD_NEW_REJECTED_FORM
+  );
+  const addItmeForm5 = document.getElementById(
+    ELEMENT_IDS.ADD_NEW_APPROVED_FORM
+  );
 
   addItem1.addEventListener("click", function() {
     const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
@@ -63,6 +71,7 @@ setTimeout(function() {
     });
   });
   addItem3.addEventListener("click", function() {
+    console.log("addItem3 clicked");
     const formContent = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-for-approval"
                                                           placeholder="Add Content"  required=""></textarea>
                                                   </div>
