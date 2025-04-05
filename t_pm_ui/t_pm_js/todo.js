@@ -32,8 +32,11 @@ import { joinCard } from "./joinCard.js";
 import { initializeTabManager } from './automation/tabManager.js';
 
 import { loadMirrorModal } from "./mirrorModal.js";
+import { loadCustomCardModal } from "./customFieldModal.js";
 
-console.log(loadMirrorModal);
+// import {loadTabCustomFields} from "./customFieldModal.js";
+
+// console.log(loadTabCustomFields);
 
 
 const API_BASE_URL = ENV.API_BASE_URL;
@@ -295,6 +298,14 @@ setTimeout(function () {
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link waves-effect" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-customs" aria-selected="false"
+                                                        tabindex="-1" role="tab">
+                                                        <i class="ti ti-edit ti-18px me-1"></i>
+                                                        <span class="align-middle">Custom button</span>
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link waves-effect" data-bs-toggle="tab"
                                                         data-bs-target="#tab-comments" aria-selected="false"
                                                         tabindex="-1" role="tab">
                                                         <i class="ti ti-chart-pie-2 ti-18px me-1"></i>
@@ -442,10 +453,17 @@ setTimeout(function () {
                                             </div>
                                         
                                                 </div>
+                                                <!--  Customs buttons -->
+                                                <div class="tab-content p-0">
+                                                <div class="tab-pane fade text-heading" id="tab-customs" role="tabpanel">
+                                                <div id="tabCustomFieldsContainer" class="p-3"></div>
+                                                <p>this is custom<p>
+                                                </div>
+                                                </div>
+
+                                                <!--  Customs buttons -->
                                                 <div class="tab-content p-0">
                                                 <div class="tab-pane fade text-heading" id="tab-comments" role="tabpanel">
-                                           
-                                                
                                                 </div>
                                                 </div>
                                                 <div class="tab-content p-0">
@@ -597,7 +615,7 @@ setTimeout(function () {
                                                                 </button>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <button class="nav-link  d-flex align-items-center border-0  w-100">
+                                                                <button class="nav-link  d-flex align-items-center border-0" id="customFieldCardFeature">
                                                                     <i class="fas fa-cog me-2"></i> Custom Fields
                                                                 </button>
                                                             </li>
@@ -673,6 +691,8 @@ setTimeout(function () {
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="mirrorCardFeature">
                                                                     <i class="fas fa-box me-2"></i> Mirror
                                                                 </button>
+                                                            </li>
+                                                            
                                                             </li>
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#copycardModal" id="copyCardFeature" >
@@ -762,12 +782,61 @@ setTimeout(function () {
                                     </div>`;
 
                 offcanvasDiv.innerHTML = offcanvasContent;
-                document.getElementById("mirrorCardFeature").addEventListener("click", function() {
-                  var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
-                  mirrorModal.show();
-                  loadMirrorModal(element.ticket_id);
-              });
-              
+                
+                // Initialize mirror modal event listener
+                const mirrorCardFeature = document.getElementById("mirrorCardFeature");
+                if (mirrorCardFeature) {
+                  mirrorCardFeature.addEventListener("click", function() {
+                    var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
+                    mirrorModal.show();
+                    loadMirrorModal(element.ticket_id);
+                  });
+                }
+
+                // Initialize custom field modal event listener
+                const customFieldCardFeature = document.getElementById("customFieldCardFeature");
+                if (customFieldCardFeature) {
+                  customFieldCardFeature.addEventListener("click", function() {
+                    var customFieldModal = new bootstrap.Modal(document.getElementById("customFieldModal"));
+                    customFieldModal.show();
+                    loadCustomCardModal(element.project_id);
+                  });
+                }
+               
+
+                  
+
+                  const container = document.getElementById('tabCustomFieldsContainer');
+
+async function loadCustomFields(projectId) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/custom-field/${projectId}`);
+    const data = await res.json();
+
+    if (!Array.isArray(data) || data.length === 0) {
+      container.innerHTML = `<p>No custom fields found.</p>`;
+      return;
+    }
+
+    let html = `<h3>Custom Fields</h3><ul>`;
+    data.forEach(field => {
+      html += `<li><strong>${field.name}</strong> (${field.type})</li>`;
+    });
+    html += `</ul>`;
+
+    container.innerHTML = html;
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    container.innerHTML = `<p class="text-danger">Failed to load custom fields.</p>`;
+  }
+}
+
+// Example usage
+const projectId = 69; // replace with dynamic ID
+loadCustomFields(projectId);
+
+                
                 //  all event listner of action tab
 
                 //fetch comments
@@ -2093,6 +2162,7 @@ function retrieveAutomationRule(tickerId){
 
 
 
+
 window.editAutomation = editAutomation;
 window.deleteAutomationButton = deleteAutomationButton;
 window.moveAllTask = moveAllTask;
@@ -2113,3 +2183,61 @@ window.joinCard = joinCard;
 document.getElementById('createRule').addEventListener('show.bs.modal', function () {
   initializeTabManager();
 });
+
+// Add the loadCustomCardModal function
+// function loadCustomCardModal(ticketId) {
+//   const customFieldModal = document.getElementById("customFieldModal");
+//   if (!customFieldModal) {
+//     console.error("Custom field modal element not found");
+//     return;
+//   }
+
+//   // Initialize the modal
+//   const modal = new bootstrap.Modal(customFieldModal);
+//   modal.show();
+
+//   // Add your custom field modal content and functionality here
+//   const modalContent = `
+//     <div class="modal-dialog">
+//       <div class="modal-content">
+//         <div class="modal-header">
+//           <h5 class="modal-title">Custom Fields</h5>
+//           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//         </div>
+//         <div class="modal-body">
+//           <div class="mb-3">
+//             <label for="customFieldName" class="form-label">Field Name</label>
+//             <input type="text" class="form-control" id="customFieldName" placeholder="Enter field name">
+//           </div>
+//           <div class="mb-3">
+//             <label for="customFieldType" class="form-label">Field Type</label>
+//             <select class="form-select" id="customFieldType">
+//               <option value="text">Text</option>
+//               <option value="number">Number</option>
+//               <option value="date">Date</option>
+//               <option value="checkbox">Checkbox</option>
+//             </select>
+//           </div>
+//         </div>
+//         <div class="modal-footer">
+//           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+//           <button type="button" class="btn btn-primary" id="saveCustomField">Save</button>
+//         </div>
+//       </div>
+//     </div>
+//   `;
+
+//   customFieldModal.innerHTML = modalContent;
+
+//   // Add event listener for save button
+//   document.getElementById('saveCustomField')?.addEventListener('click', function() {
+//     const fieldName = document.getElementById('customFieldName').value;
+//     const fieldType = document.getElementById('customFieldType').value;
+    
+//     // Add your save logic here
+//     console.log('Saving custom field:', { fieldName, fieldType, ticketId });
+    
+//     // Close the modal after saving
+//     modal.hide();
+//   });
+// }
