@@ -42,19 +42,38 @@ function changeElebg() {
   const buttonArray = Array.from(todoButton);
   const formArray = Array.from(todoForm);
 
-  headerArray.map(header => {
-    header.style.backgroundColor = "#ffffff";
-  });
-  buttonArray.map(button => {
-    button.style.backgroundColor = "#ffffff";
-  });
-  formArray.map(form => {
-    form.style.backgroundColor = "#ffffff";
-    form.style.borderRadius = "5px";
-  });
-  todoFooter.style.backgroundColor = "#ffffff";
-}
+  const htmlElement = document.getElementsByTagName("html")[0];
+  const dataStyle = htmlElement.getAttribute("data-style");
+  console.log(dataStyle); // should log "light"
 
+  if (dataStyle === "dark") {
+    headerArray.map(header => {
+      header.style.backgroundColor = "#2f3349";
+      header.classList.remove("kanban-board-header");
+    });
+    buttonArray.map(button => {
+      button.style.backgroundColor = "#2f3349";
+    });
+    formArray.map(form => {
+      form.style.backgroundColor = "#2f3349";
+      form.style.borderRadius = "5px";
+    });
+    todoFooter.style.backgroundColor = "#2f3349";
+  } else {
+    headerArray.map(header => {
+      header.style.backgroundColor = "#ffffff";
+      header.classList.remove("kanban-board-header");
+    });
+    buttonArray.map(button => {
+      button.style.backgroundColor = "#ffffff";
+    });
+    formArray.map(form => {
+      form.style.backgroundColor = "#ffffff";
+      form.style.borderRadius = "5px";
+    });
+    todoFooter.style.backgroundColor = "#ffffff";
+  }
+}
 function resetElebg() {
   const todoFooter = document.getElementById(ELEMENT_IDS.FOOTER);
   const todoHeader = document.getElementsByTagName(ELEMENT_IDS.HEADER);

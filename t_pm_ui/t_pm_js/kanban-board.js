@@ -4,6 +4,7 @@ import { errorLog } from "./error.js";
 import { newRule } from "./todo.js";
 import { moveAllCard } from "./moveallcard.js";
 import { copyCardStatus } from "./createNewArea.js";
+
 // Base URL of the API
 const API_BASE_URL = ENV.API_BASE_URL;
 var urlParams = new URLSearchParams(window.location.search);
@@ -77,7 +78,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
     data.forEach(item => {
       const kanbanboardContent = `<div data-id="board-in-progress" data-order="${item.order}" class="kanban-board" id="board-${item.order}"
         style="width: 250px; margin-left: 12px; margin-right: 12px;">
-        <header class="kanban-board-header" id="${item.board_title}-header">
+        <header class="kanban-board-header d-flex justify-content-between" id="${item.board_title}-header">
             <div class="kanban-title-board" style="text-transform: capitalize;">${item.board_title}</div>
 
 
@@ -88,7 +89,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
             <i class="ti ti-arrows-horizontal"
                 onclick="toggleTodo('${item.board_title}-task','${item.board_title}-header', 'new-${item.board_title}-item')"></i>
 
-            <i class="dropdown-toggle ti ti-dots-vertical cursor-pointer" id="board-dropdown"
+            <i class=" ti ti-dots-vertical cursor-pointer" id="board-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="board-dropdown">
@@ -100,6 +101,11 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
                 <!-- Rename -->
                 <a class="dropdown-item waves-effect" href="javascript:void(0)">
                 <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Rename</span>
+                </a>
+
+                <!-- make scrollable -->
+                <a class="dropdown-item waves-effect" href="javascript:void(0)" id="${item.board_title}-make-scrollable">
+                <i class="ti ti-edit ti-xs me-1"></i> <span class="align-middle">Make board Scrollable</span>
                 </a>
 
                 <!-- Archive -->
@@ -355,7 +361,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
         </div>
         <button class="kanban-title-button btn" id="add-${item.board_title}-item">+ Add New Item</button>
       </header>
-      <main class="kanban-drag px-3">
+      <main class="kanban-drag px-3" id="${item.board_title}-kanbanMain">
         <div id="${item.board_title}-task" style="display: block;">
           <div id="content-inprogress">Dropped in ${item.board_title}</div>
         </div>
@@ -366,6 +372,28 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
 
       // Add the content to the container
       kanbanboardContainer.insertAdjacentHTML("beforeend", kanbanboardContent);
+
+      const boardScrollablebyboardname = document.getElementById(
+        `${item.board_title}-make-scrollable`
+      );
+
+      console.log("boardScrollablebyboardname", boardScrollablebyboardname);
+      boardScrollablebyboardname.addEventListener("click", function() {
+        console.log(`${item.board_title}-Make board scrollable clicked!`);
+
+        const kanbanMain = document.getElementById(
+          `${item.board_title}-kanbanMain`
+        );
+        console.log("kanbanMain", kanbanMain);
+        // Check if the board is already scrollable
+        if (kanbanMain.style.overflowY === "auto") {
+          kanbanMain.style.overflowY = "hidden";
+          kanbanMain.style.maxHeight = "";
+        } else {
+          kanbanMain.style.overflowY = "auto";
+          kanbanMain.style.maxHeight = "100vh";
+        }
+      });
 
       // move all card
 
@@ -501,6 +529,12 @@ function watchedCard(watched) {
     localStorage.setItem(`watched-${watched}`, true);
   }
 }
+
+function changeBgColor(color, elementId) {
+  localStorage.setItem("card-bg-color-" + elementId, color); // Store color per element
+  applyBgColor(elementId); // Apply immediately
+}
+
 function moveBoard() {
   console.log("The moveBoard function has been executed!");
   // Add your logic for moving the board here

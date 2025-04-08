@@ -1,17 +1,17 @@
-import { ELEMENT_IDS } from "./constants.js";
+// import { ELEMENT_IDS } from "./constants.js";
 
 function toggleTodo(elementId, elementHeader, elementButton) {
-  const taskHeader = document.getElementById(ELEMENT_IDS.ELEMENT_HEADER);
-  const addtaskButton = document.getElementById(ELEMENT_IDS.ELEMENT_BUTTON);
-  const todoTab = document.getElementById(ELEMENT_IDS.ELEMENT_ID);
-  document.getElementById(ELEMENT_IDS.ADD_TODO_ITEM).style.display = "none";
+  const taskHeader = document.getElementById(elementHeader);
+  const addtaskButton = document.getElementById(elementButton);
+  const todoTab = document.getElementById(elementId);
+  document.getElementById("add-todo-item").style.display = "none";
   if (todoTab.style.display === "block") {
     todoTab.style.display = "none";
     taskHeader.classList.add("horizontal-layout");
   } else {
     todoTab.style.display = "block";
     taskHeader.classList.remove("horizontal-layout");
-    document.getElementById(ELEMENT_IDS.ADD_TODO_ITEM).style.display = "block";
+    document.getElementById("add-todo-item").style.display = "block";
   }
 }
 
@@ -73,10 +73,10 @@ window.addEventListener("load", function() {
 function makeDefault(cardId) {
   localStorage.removeItem("card-bg-color-todo-task");
   let cardBG = document.getElementById(`${cardId}`);
-  cardBG.style.borderRadius = "";
-  cardBG.style.padding = "";
-  cardBG.style.marginBottom = "";
-  cardBG.style.backgroundColor = "";
+  cardBG.style.borderRadius = "10px";
+  cardBG.style.padding = "10px";
+  cardBG.style.marginBottom = "10px";
+  cardBG.style.backgroundColor = "#fff";
 }
 // document.addEventListener("DOMContentLoaded", function () {
 //   new Sortable(document.getElementById("kanban-wrapper-container"), {
