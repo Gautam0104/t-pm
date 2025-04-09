@@ -9,6 +9,8 @@ import { copyCardStatus } from "./createNewArea.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 var urlParams = new URLSearchParams(window.location.search);
 var project_name = urlParams.get("pname");
+var project_id = urlParams.get("id");
+var user_id = urlParams.get("user_id");
 // Function to fetch and populate lists
 async function fetchListsnew() {
   try {
@@ -395,6 +397,74 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
         }
       });
 
+      // Add event listener to the add new item button
+      const addNewItemButton = document.getElementById(
+        `add-${item.board_title}-item`
+      );
+      const addNewItemForm = document.getElementById(
+        `add-new-${item.board_title}-form`
+      );
+      addNewItemButton.addEventListener("click", function() {
+        addNewItemForm.innerHTML = `<div class="mb-4"><textarea class="form-control add-new-item" rows="2" id="ticket-title-todo"
+                                                          placeholder="Add Content"  required=""></textarea>
+                                                  </div>
+                                                  <div class="mb-4"><button type="submit"
+                                                          class="btn btn-primary btn-sm me-4">Add</button><button
+                                                          type="button"
+                                                          class="btn btn-label-secondary btn-sm cancel-add-item waves-effect waves-light" id="cancel-form-1">Cancel</button>
+                                                  </div>`;
+        addNewItemForm.style.display = "block";
+        addNewItemButton.style.display = "none";
+        const cancelForm = document.getElementById("cancel-form-1");
+        cancelForm.addEventListener("click", function() {
+          addNewItemForm.innerHTML = "";
+        });
+        const addNewItemFormSubmit = document.getElementById(
+          `add-new-${item.board_title}-form`
+        );
+        addNewItemFormSubmit.addEventListener("submit", async function(e) {
+          e.preventDefault();
+          const title = document.getElementById("ticket-title-todo").value;
+          const description = "";
+          const status = "Backlog";
+          const priority = "Medium";
+          const created_by = user_id;
+          const due_date = "2025-01-13";
+
+          try {
+            const response = await fetch(
+              `${API_BASE_URL}${API_ROUTES.TICKET}`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  project_id,
+                  title,
+                  description,
+                  status,
+                  priority,
+                  created_by,
+                  due_date,
+                  ticket_status: item.board_title
+                })
+              }
+            );
+
+            if (response.ok) {
+              console.log("Ticket created successfully");
+              window.location.reload();
+            }
+          } catch (error) {
+            console.error("Create ticket  error:", error);
+            res.status(500).json({
+              message: "'An error occurred. Please try again later.', 'error'"
+            });
+          }
+        });
+      });
+
       // move all card
 
       document
@@ -544,6 +614,16 @@ moveBoard(); // Call the function to run it
 // Sorting state variables
 let isAscending = true;
 let isDateAscending = true;
+
+function addNewTicket(boardId) {
+  const newTicketForm = document.getElementById(`add-new-${boardId}-form`);
+  const newTicketButton = document.getElementById(`add-${boardId}-item`);
+
+  newTicketButton.addEventListener("click", function() {
+    newTicketForm.innerHTML = `<input type="text" class="form-control" placeholder="Enter ticket title" />`;
+    newTicketForm.style.display = "block";
+  });
+}
 
 // Export functions to window object
 window.newRule = newRule;

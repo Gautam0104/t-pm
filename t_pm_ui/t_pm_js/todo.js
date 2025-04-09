@@ -2083,7 +2083,7 @@ function retrieveAutomationRule(tickerId){
     const automationRule = document.getElementById(`rule-view`);
 
     data.map(item => {
-      const ruleContent = ` <div class="main-content  border py-6 " style="margin-top: 50px;" >      
+      const ruleContent = `<div class="main-content  border py-6 " style="margin-top: 50px;" >      
                           <div class="content-section">
                             <div class="row d-flex justify-content-between">
                               <div class="col-8">
