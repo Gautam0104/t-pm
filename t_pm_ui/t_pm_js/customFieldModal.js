@@ -186,26 +186,37 @@ export async function loadCustomCardModal(projectId) {
     };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/custom-field`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        throw new Error(`Server responded with ${response.status}`);
+      const [response1, response2] = await Promise.all([
+        fetch(`${API_BASE_URL}/custom-field`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        }),
+        fetch(`${API_BASE_URL}/fetch-custom-field-value`, { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+      ]);
+    
+      if (!response1.ok || !response2.ok) {
+        throw new Error(`One or both requests failed: ${response1.status}, ${response2.status}`);
       }
-
-      const result = await response.json();
-      console.log("Custom field saved successfully:", result);
+    
+      const result1 = await response1.json();
+      const result2 = await response2.json();
+    
+      
 
       await fetchCustomFields();
       document.getElementById('cancelCustomField')?.click();
     } catch (error) {
       console.error("Error saving custom field:", error);
-      alert("Failed to save custom field. Please try again.");
+      
     }
   });
 }

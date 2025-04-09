@@ -457,7 +457,7 @@ setTimeout(function () {
                                                 <div class="tab-content p-0">
                                                 <div class="tab-pane fade text-heading" id="tab-customs" role="tabpanel">
                                                 <div id="tabCustomFieldsContainer" class="p-3"></div>
-                                                <p>this is custom<p>
+                                                
                                                 </div>
                                                 </div>
 
@@ -803,38 +803,238 @@ setTimeout(function () {
                   });
                 }
                
+              
 
                   
 
-                  const container = document.getElementById('tabCustomFieldsContainer');
+                const container = document.getElementById('tabCustomFieldsContainer');
 
-async function loadCustomFields(projectId) {
-  try {
-    const res = await fetch(`${API_BASE_URL}/custom-field/${projectId}`);
-    const data = await res.json();
+                async function loadCustomFields(ticketId) {
+                  try {
+                    const res = await fetch(`${API_BASE_URL}/custom-field-value-by-ticket/${ticketId}`);
+                    const data = await res.json();
+                
+                    if (!Array.isArray(data) || data.length === 0) {
+                      
 
-    if (!Array.isArray(data) || data.length === 0) {
-      container.innerHTML = `<p>No custom fields found.</p>`;
-      return;
-    }
+                      async function loadCustom(projectId, ticketId) {
+                        try {
+                          const res = await fetch(`${API_BASE_URL}/custom-field/${projectId}`);
+                          const data = await res.json();
+                      
+                          if (!Array.isArray(data) || data.length === 0) {
+                            container.innerHTML = `<p class="text-danger">No custom fields available.</p>`;
+                            return;
+                          }
+                      
+                          let html = `<h3>Custom Fields</h3><form id="customFieldsForm">`;
+                      
+                          data.forEach(field => {
+                            html += `<div class="mb-3">
+                              <label for="field_${field.id}" class="form-label"><strong>${field.name}</strong></label>`;
+                      
+                            switch (field.type) {
+                              case 'text':
+                                html += `<input type="text" class="form-control" id="field_${field.id}" name="${field.id}" value="${field.value || ''}" />`;
+                                break;
+                      
+                              case 'number':
+                                html += `<input type="number" class="form-control" id="field_${field.id}" name="${field.id}" value="${field.value || ''}" />`;
+                                break;
+                      
+                              case 'date':
+                                html += `<input type="date" class="form-control" id="field_${field.id}" name="${field.id}" value="${field.value || ''}" />`;
+                                break;
+                      
+                              case 'checkbox':
+                                html += `<input type="checkbox" class="form-check-input" id="field_${field.id}" name="${field.id}" ${field.value ? 'checked' : ''} />`;
+                                break;
+                      
+                              case 'dropdown':
+                                html += `<select class="form-select" id="field_${field.id}" name="${field.id}">`;
+                                (field.options || []).forEach(opt => {
+                                  const selected = opt.id === field.value ? 'selected' : '';
+                                  html += `<option value="${opt.id}" ${selected} style="color: ${opt.color}">${opt.label}</option>`;
+                                });
+                                html += `</select>`;
+                                break;
+                      
+                              default:
+                                html += `<input type="text" class="form-control" id="field_${field.id}" name="${field.id}" placeholder="Unsupported field type (${field.type})" />`;
+                                break;
+                            }
+                      
+                            html += `</div>`;
+                          });
+                      
+                          // Submit all fields with one button
+                          html += `<button type="submit" class="btn btn-primary">Submit All</button></form>`;
+                          container.innerHTML = html;
+                      
+                          const form = document.getElementById('customFieldsForm');
+                          form.addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                      
+                            const formData = new FormData(form);
+                            const payload = [];
+                      
+                            for (const field of data) {
+                              const input = form.querySelector(`[name="${field.id}"]`);
+                              let value;
+                      
+                              if (input.type === 'checkbox') {
+                                value = input.checked;
+                              } else {
+                                value = input.value;
+                              }
+                      
+                              payload.push({
+                                custom_id: field.id,
+                                value: value,
+                                project_id: projectId,
+                                ticket_id: ticketId
+                              });
+                            }
+                      
+                            try {
+                              const response = await fetch(`${API_BASE_URL}/custom-field-value-by-ticket`, {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(payload)
+                              });
+                      
+                              if (!response.ok) {
+                                throw new Error('Failed to submit all fields');
+                              }
+                      
+                              const result = await response.json();
+                              alert('All fields submitted successfully!');
+                              console.log('Server response:', result);
+                            } catch (err) {
+                              console.error('Bulk submit error:', err);
+                              alert('Failed to submit custom fields.');
+                            }
+                          });
+                      
+                        } catch (error) {
+                          console.error('Error fetching data:', error);
+                          container.innerHTML = `<p class="text-danger">Failed to load custom fields.</p>`;
+                        }
+                      }
+                      
+                      // Example usage
+                      const projectId = project_id;
+                       const ticketId = element.ticket_id
+                      loadCustom(projectId, ticketId);
+                      
+                    }
+                
+                    let html = `<h3>Custom Fields</h3><form id="customFieldsForm">`;
+                
+                    data.forEach(field => {
+                      html += `<div class="mb-3">
+                        <label for="field_${field.custom_field_id}" class="form-label"><strong>${field.custom_field_name}</strong></label>`;
+                
+                      switch (field.custom_field_type) {
+                        case 'text':
+                          html += `<input type="text" class="form-control" id="field_${field.custom_field_id}" name="${field.custom_field_name}" value="${field.value || ''}" />`;
+                          break;
+                
+                        case 'number':
+                          html += `<input type="number" class="form-control" id="field_${field.custom_field_id}" name="${field.custom_field_name}" value="${field.value || ''}" />`;
+                          break;
+                
+                        case 'date':
+                          html += `<input type="date" class="form-control" id="field_${field.custom_field_id}" name="${field.custom_field_name}" value="${field.value || ''}" />`;
+                          break;
+                
+                        case 'checkbox':
+                          html += `<input type="checkbox" class="form-check-input" id="field_${field.custom_field_id}" name="${field.custom_field_name}" ${field.value ? 'checked' : ''} />`;
+                          break;
+                
+                          case 'dropdown':
+                            html += `<select class="form-select" id="field_${field.custom_field_id}" name="${field.custom_field_id}">`;
+                            (field.options || []).forEach(opt => {
+                              const selected = String(opt.id) === String(field.value) ? 'selected' : '';
+                              html += `<option value="${opt.id}" ${selected} style="color: ${opt.color}">${opt.label}</option>`;
+                            });
+                            html += `</select>`;
+                            break;
+                          
+                
+                        default:
+                          html += `<input type="text" class="form-control" id="field_${field.id}" name="${field.name}" placeholder="Unsupported field type (${field.type})" />`;
+                          break;
+                      }
+                
+                      // Add individual submit button
+                      html += `<button type="button" class="btn btn-sm btn-primary mt-2 single-submit" data-ticket-custom-value-id="${field.ticket_custom_value_id}" data-field-id="${field.custom_field_id}" data-field="${field.custom_field_name}">Update</button>`;
+                
+                      html += `</div>`;
+                    });
+                
+                    html += `</form>`;
+                    container.innerHTML = html;
+                
+                    // Add event listeners for each "single-submit" button
+                    document.querySelectorAll('.single-submit').forEach(button => {
+                      button.addEventListener('click', async (e) => {
+                        const fieldName = e.target.getAttribute('data-field');
+                        const customId =  e.target.getAttribute('data-field-id');
+                        const ticketCustomValueId = e.target.getAttribute('data-ticket-custom-value-id');
+                        const input = document.getElementById(`field_${customId}`);
 
-    let html = `<h3>Custom Fields</h3><ul>`;
-    data.forEach(field => {
-      html += `<li><strong>${field.name}</strong> (${field.type})</li>`;
-    });
-    html += `</ul>`;
-
-    container.innerHTML = html;
-
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    container.innerHTML = `<p class="text-danger">Failed to load custom fields.</p>`;
-  }
-}
-
+                
+                        let fieldValue;
+                        if (input.type === 'checkbox') {
+                          fieldValue = input.checked;
+                        } else {
+                          fieldValue = input.value;
+                        }
+                
+                        const payload = {
+                          value: fieldValue,
+                          
+        
+                        };
+                
+                        try {
+                          const response = await fetch(`${API_BASE_URL}/custom-field-value-by-ticket/${ticketCustomValueId}`, {
+                            method: 'PUT',
+                            headers: {
+                              'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                          });
+                
+                          if (!response.ok) {
+                            throw new Error('Failed to submit field');
+                          }
+                
+                          const result = await response.json();
+                          alert(`Field "${fieldName}" submitted successfully!`);
+                          console.log('Server response:', result);
+                        } catch (err) {
+                          console.error(`Submit error for ${fieldName}:`, err);
+                          alert(`Failed to submit "${fieldName}"`);
+                        }
+                      });
+                    });
+                
+                  } catch (error) {
+                    console.error('Error fetching data:', error);
+                    container.innerHTML = `<p class="text-danger">Failed to load custom fields.</p>`;
+                  }
+                }
+                
+                  
+                  
 // Example usage
-const projectId = 69; // replace with dynamic ID
-loadCustomFields(projectId);
+
+const ticketId = element.ticket_id
+loadCustomFields(ticketId);
 
                 
                 //  all event listner of action tab
