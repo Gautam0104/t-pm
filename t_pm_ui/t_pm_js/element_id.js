@@ -224,4 +224,5 @@ export const ELEMENT_IDS = {
     MIRROR_BOARD_SELECT: "boardSelect",
     MIRROR_LIST_SELECT: "listSelect",
     MIRROR_BTN: "mirrorBtn",
+    TAB_CUSTOM_CONTAINER: "tabCustomFieldsContainer",
 };

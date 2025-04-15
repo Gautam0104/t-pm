@@ -15,8 +15,7 @@ const createNewBoardForm = document.getElementById(
 const copyBoardDialog = document.getElementById(
   ELEMENT_IDS.COPY_BOARD_MODAL_CONTENT
 );
-console.log(addBoardDiv);
-console.log(addBoardInput);
+
 // Toggle form visibility
 formShow.addEventListener("click", () => toggleFormVisibility(false));
 formHide.addEventListener("click", () => toggleFormVisibility(true));
@@ -41,7 +40,6 @@ async function createBoard(boardTitle) {
       body: JSON.stringify({ boardTitle, boardName })
     });
     if (response.ok) {
-      console.log("New board added successfully");
       window.location.reload();
     }
   } catch (error) {

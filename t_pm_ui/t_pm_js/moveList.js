@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Save the current board order to the server
     function saveOrder() {
       const orderArray = Array.from(container.children).map(el => el.id);
-      console.log("Saving order:", orderArray); // Debugging
+      
 
       fetch(`${API_BASE_URL}${API_ROUTES.SAVE_KANBAN_ORDER}`, {
         method: "POST",

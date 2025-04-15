@@ -13,7 +13,7 @@ export async function moveAllCard(currentStatus, newStatus) {
     });
 
     if (response.ok) {
-      console.log("Ticket Updated");
+      
       location.reload();
     } else {
       console.error("Failed to update ticket");

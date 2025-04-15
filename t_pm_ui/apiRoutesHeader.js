@@ -77,5 +77,12 @@ export const API_ROUTES = {
   UPDATE_TICKET_STATUS: "/update-ticket-status",
 
   // Ticket Mirroring
-  TICKET_MIRRORING: "/tickets/mirroring"
+  TICKET_MIRRORING: "/tickets/mirroring",
+
+  // custom fields
+  CUSTOM_VALUE_BY_TICKETS: "/custom-field-value-by-ticket",
+  CUSTOM_FIELD: "/custom-field",
+  CUSTOM_FIELD_VALUE: "/custom-field-value",
+  FETCH_CUSTOM_FIELD_VALUE: "/fetch-custom-field-value",
+
 };

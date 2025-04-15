@@ -111,7 +111,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
           `;
       listContent.innerHTML += content;
     });
-    //console.log(data)
+    
   })
   .catch(error => {
     console.error("Error fetching user data:", error);
@@ -395,7 +395,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
       let projectNameContent = `<option value=""> ${element.project_name} </option>`;
       projectName.innerHTML += projectNameContent;
     });
-    //console.log(data)
+    
   })
   .catch(error => {
     console.error("Error fetching user data:", error);

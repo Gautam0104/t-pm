@@ -334,7 +334,7 @@ function enableDragAndDrop() {
         // Update the task's board ID
         draggedCard.setAttribute("data-board-id", newBoard);
 
-        // 🔥 Save board state after task move
+        // Save board state after task move
         saveBoardsState();
       }
     });

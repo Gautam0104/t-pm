@@ -54,8 +54,7 @@ async function fetchListsnew() {
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(() => {
     const selectElements = document.querySelectorAll(".listSelect");
-    console.log("Found elements:", selectElements.length);
-
+    
     if (selectElements.length > 0) {
       fetchListsnew();
     } else {
@@ -379,14 +378,14 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
         `${item.board_title}-make-scrollable`
       );
 
-      console.log("boardScrollablebyboardname", boardScrollablebyboardname);
+      
       boardScrollablebyboardname.addEventListener("click", function() {
-        console.log(`${item.board_title}-Make board scrollable clicked!`);
+       
 
         const kanbanMain = document.getElementById(
           `${item.board_title}-kanbanMain`
         );
-        console.log("kanbanMain", kanbanMain);
+        
         // Check if the board is already scrollable
         if (kanbanMain.style.overflowY === "auto") {
           kanbanMain.style.overflowY = "hidden";
@@ -453,7 +452,6 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
             );
 
             if (response.ok) {
-              console.log("Ticket created successfully");
               window.location.reload();
             }
           } catch (error) {
@@ -524,7 +522,7 @@ const deleteBoard = async boardId => {
     );
 
     if (response.ok) {
-      console.log("board deleted successfully");
+     
       window.location.reload();
     }
   } catch (error) {
@@ -606,8 +604,7 @@ function changeBgColor(color, elementId) {
 }
 
 function moveBoard() {
-  console.log("The moveBoard function has been executed!");
-  // Add your logic for moving the board here
+ 
 }
 moveBoard(); // Call the function to run it
 

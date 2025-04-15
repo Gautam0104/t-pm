@@ -36,7 +36,7 @@ import { loadCustomCardModal } from "./customFieldModal.js";
 
 // import {loadTabCustomFields} from "./customFieldModal.js";
 
-// console.log(loadTabCustomFields);
+
 
 
 const API_BASE_URL = ENV.API_BASE_URL;
@@ -177,7 +177,7 @@ setTimeout(function () {
           // backdropWrapper.innerHTML = backdropContent;
           let selected = e.currentTarget.id;
           let ticket_id = selected;
-          // console.log(e.currentTarget.id);
+          
 
           // Fetch Ticket Data from API
           fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticket_id}`)
@@ -209,7 +209,7 @@ setTimeout(function () {
                 // Combine date and time
                 const formattedDateTime = `${day}/${month}/${year} , ${hours}:${minutes}:${seconds}`;
 
-                // console.log("Formatted Date and Time:", formattedDateTime);
+                
 
                 const isoDateupdate = `${element.updated_at}`;
 
@@ -457,10 +457,10 @@ setTimeout(function () {
                                                 <div class="tab-content p-0">
                                                 <div class="tab-pane fade text-heading" id="tab-customs" role="tabpanel">
                                                 <div id="tabCustomFieldsContainer" class="p-3"></div>
+                                           
+                                                </div>
+                                                </div>
                                                 
-                                                </div>
-                                                </div>
-
                                                 <!--  Customs buttons -->
                                                 <div class="tab-content p-0">
                                                 <div class="tab-pane fade text-heading" id="tab-comments" role="tabpanel">
@@ -787,8 +787,8 @@ setTimeout(function () {
                 const mirrorCardFeature = document.getElementById("mirrorCardFeature");
                 if (mirrorCardFeature) {
                   mirrorCardFeature.addEventListener("click", function() {
-                    var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
-                    mirrorModal.show();
+                  var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
+                  mirrorModal.show();
                     loadMirrorModal(element.ticket_id);
                   });
                 }
@@ -807,11 +807,11 @@ setTimeout(function () {
 
                   
 
-                const container = document.getElementById('tabCustomFieldsContainer');
+                const container = document.getElementById(ELEMENT_IDS.TAB_CUSTOM_CONTAINER);
 
                 async function loadCustomFields(ticketId) {
                   try {
-                    const res = await fetch(`${API_BASE_URL}/custom-field-value-by-ticket/${ticketId}`);
+                    const res = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_VALUE_BY_TICKETS}/${ticketId}`);
                     const data = await res.json();
                 
                     if (!Array.isArray(data) || data.length === 0) {
@@ -819,7 +819,7 @@ setTimeout(function () {
 
                       async function loadCustom(projectId, ticketId) {
                         try {
-                          const res = await fetch(`${API_BASE_URL}/custom-field/${projectId}`);
+                          const res = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_FIELD}/${projectId}`);
                           const data = await res.json();
                       
                           if (!Array.isArray(data) || data.length === 0) {
@@ -897,7 +897,7 @@ setTimeout(function () {
                             }
                       
                             try {
-                              const response = await fetch(`${API_BASE_URL}/custom-field-value-by-ticket`, {
+                              const response = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_VALUE_BY_TICKETS}`, {
                                 method: 'POST',
                                 headers: {
                                   'Content-Type': 'application/json'
@@ -910,11 +910,20 @@ setTimeout(function () {
                               }
                       
                               const result = await response.json();
-                              alert('All fields submitted successfully!');
-                              console.log('Server response:', result);
+                              Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: `Custom field submitted successfully!`,
+                                confirmButtonText: "OK"
+                              });
                             } catch (err) {
                               console.error('Bulk submit error:', err);
-                              alert('Failed to submit custom fields.');
+                              Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: `Failed to submit Custom fields`,
+                                confirmButtonText: "Retry"
+                              });
                             }
                           });
                       
@@ -1001,25 +1010,35 @@ setTimeout(function () {
                         };
                 
                         try {
-                          const response = await fetch(`${API_BASE_URL}/custom-field-value-by-ticket/${ticketCustomValueId}`, {
+                          const response = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_VALUE_BY_TICKETS}/${ticketCustomValueId}`, {
                             method: 'PUT',
                             headers: {
                               'Content-Type': 'application/json'
                             },
                             body: JSON.stringify(payload)
                           });
-                
+                        
                           if (!response.ok) {
                             throw new Error('Failed to submit field');
                           }
-                
-                          const result = await response.json();
-                          alert(`Field "${fieldName}" submitted successfully!`);
-                          console.log('Server response:', result);
+                        
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: `Field "${fieldName}" submitted successfully!`,
+                            confirmButtonText: "OK"
+                          });
+                        
                         } catch (err) {
                           console.error(`Submit error for ${fieldName}:`, err);
-                          alert(`Failed to submit "${fieldName}"`);
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `Failed to submit "${fieldName}"`,
+                            confirmButtonText: "Retry"
+                          });
                         }
+                        
                       });
                     });
                 
@@ -1028,20 +1047,16 @@ setTimeout(function () {
                     container.innerHTML = `<p class="text-danger">Failed to load custom fields.</p>`;
                   }
                 }
-                
-                  
-                  
-// Example usage
 
-const ticketId = element.ticket_id
-loadCustomFields(ticketId);
+               const ticketId = element.ticket_id
+               loadCustomFields(ticketId);
 
-                
+              
                 //  all event listner of action tab
 
                 //fetch comments
                 const commentTab = document.getElementById(ELEMENT_IDS.TAB_COMMENT);
-                console.log("commentTab", commentTab);
+                
                 fetch(`${API_BASE_URL}${API_ROUTES.GET_COMMENT}/${element.ticket_id}`)
                 .then(response => {
                   if (!response.ok) {
@@ -1050,7 +1065,7 @@ loadCustomFields(ticketId);
                   return response.json();
                 })
                 .then(data => {
-                  console.log("Ticket Comments Data:", data);
+                  
                   data.map(comment => { 
                     const isoDate = `${comment.changed_at}`;
                     const date = new Date(isoDate);
@@ -1219,7 +1234,7 @@ loadCustomFields(ticketId);
                 })
                 .then(data => {
                   const loggedUsername = localStorage.getItem("logged_username");
-                  console.log('loggedUsername', loggedUsername);
+                  
                   
                   data.map(item => {
                     const joinCardButton = document.getElementById(ELEMENT_IDS.JOIN_BUTTON);
@@ -1469,10 +1484,10 @@ loadCustomFields(ticketId);
 
                 const closeButton = document.getElementById(ELEMENT_IDS.OFFCANVAS_CLOSE);
                 const deleteButton = document.getElementById(ELEMENT_IDS.DELETE_TICKET);
-                //console.log(updateButton);
+                
                 closeButton.addEventListener("click", function () {
                   selected = null;
-                  console.log("selected is null now");
+                 
                   const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
                   // const backdropWrapper = document.getElementById("backdrop");
                   offcanvas.classList.remove("show");
@@ -1527,8 +1542,6 @@ loadCustomFields(ticketId);
                 document.getElementById(ELEMENT_IDS.TICKET_FORM).addEventListener("submit", async function (e) {
                   e.preventDefault();
                 
-                  // Debugging logs
-                  console.log("Submitting form...");
                 
                   // Ensure element exists
                   if (typeof element === "undefined" || !element) {
@@ -1537,7 +1550,7 @@ loadCustomFields(ticketId);
                     return;
                   }
                 
-                  console.log("Element Data:", element);
+                 
                 
                   const ticket_id = element?.ticket_id?.toString().trim() || "";
                   const ticket_status = element?.ticket_status?.toString().trim() || "Backlog"; // Default fallback
@@ -1565,7 +1578,6 @@ loadCustomFields(ticketId);
                   const images = imageElement?.files || [];
                   const cardImage = cardImageElement?.files || [];
                 
-                  console.log("Form Values:", { ticket_id, title, description, due_date, ticket_eta, ticket_owner, ticket_status });
                 
                   // Validate required fields
                   if (!ticket_id || !title || !description || !ticket_status || !ticket_owner) {
@@ -1602,7 +1614,7 @@ loadCustomFields(ticketId);
                     });
                     const data = await response.json();
                 
-                    console.log("API Response:", data);
+                   
                 
                     if (data.message) {
                       document.querySelector(ELEMENT_IDS.OFFCANVAS)?.classList.remove("show");
@@ -1730,7 +1742,7 @@ loadCustomFields(ticketId);
 
                       // Check for undefined or empty values before sending the request
                       if (!ticketId || !ticketStatus) {
-                        console.log("Ticket ID or Status is missing");
+                      
                         return; // You could show an alert or handle the error here
                       }
 
@@ -1812,16 +1824,15 @@ async function moveAllTask(from, currentStatus) {
 
   let newStatus = document.getElementById(ELEMENT_IDS.TICKET_MOVE_TO).value;
 
-  console.log(newStatus);
 
-  // Remove currentStatus and newStatus as they are not used later on.
+  
 
   // Select all tasks inside the To-Do container
   let tasks = todoContainer.querySelectorAll(ELEMENT_IDS.KANBAN_ITEMS);
 
   // Move each task to the In-Progress container
   tasks.forEach(task => {
-    inProgressContainer.innerHTML += task; // Now this will work correctly
+    inProgressContainer.innerHTML += task; 
   });
 
   // only pass the new status
@@ -1986,7 +1997,7 @@ function openCopyCardModal(title, ticketId) {
 
     const ticketStatus = document.getElementById(ELEMENT_IDS.COPIED_TICKET_STATUS).value;
 
-    console.log("form submited", ticketStatus);
+   
     try {
       const response = await fetch(`${API_BASE_URL}${API_ROUTES.COPY_ROW}/${ticketId}`, {
         method: "POST",
@@ -1998,7 +2009,7 @@ function openCopyCardModal(title, ticketId) {
         })
       });
       if (response.ok) {
-        console.log("label  added  successfully");
+        
         window.location.reload();
       }
     } catch (error) {
@@ -2232,7 +2243,7 @@ function markCard(ticketId) {
 
     // Save to localStorage
     localStorage.setItem(`mark-card-${ticketId}`, htmlContent);
-    console.log(`Saved Marked Card for ${ticketId}`);
+    
   }
 }
 
@@ -2244,7 +2255,7 @@ function watchNotification(ticketId) {
 
     // Save to localStorage
     localStorage.setItem(`watch-notification-${ticketId}`, htmlContent);
-    console.log(`Saved Watched Notification for ${ticketId}`);
+   
   }
 }
 

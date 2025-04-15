@@ -30,7 +30,7 @@ export async function joinCard(ticket_id) {
       })
     });
     if (response.ok) {
-      console.log("Card joined successfully");
+      
       location.reload();
     } else {
       throw new Error("Failed to join card");
@@ -62,7 +62,7 @@ function handleJoinCard() {
         const joinedCardAvtar = document.getElementById(
           `joined-member-${item.ticket_id}`
         );
-        console.log();
+       
 
         const joinhtmlContent = `
           <div class="d-flex">

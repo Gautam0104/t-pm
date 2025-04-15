@@ -62,7 +62,7 @@ function renderCustomFieldsList(container, fields, projectId) {
 async function deleteCustomField(fieldId, projectId) {
   if (!confirm('Are you sure you want to delete this custom field?')) return;
   try {
-    const res = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_FIELDS}/${fieldId}`, {
+    const res = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_FIELD}/${fieldId}`, {
       method: 'DELETE'
     });
     if (!res.ok) throw new Error('Delete failed');
@@ -115,7 +115,7 @@ export async function loadCustomCardModal(projectId) {
 
   async function fetchCustomFields() {
     try {
-      const res = await fetch(`${API_BASE_URL}/custom-field/${projectId}`);
+      const res = await fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_FIELD}/${projectId}`);
       if (!res.ok) throw new Error('Failed to fetch custom fields');
       fields = await res.json();
       renderCustomFieldsList(displayContainer, fields, projectId);
@@ -187,14 +187,14 @@ export async function loadCustomCardModal(projectId) {
 
     try {
       const [response1, response2] = await Promise.all([
-        fetch(`${API_BASE_URL}/custom-field`, {
+        fetch(`${API_BASE_URL}${API_ROUTES.CUSTOM_FIELD}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
         }),
-        fetch(`${API_BASE_URL}/fetch-custom-field-value`, { 
+        fetch(`${API_BASE_URL}${API_ROUTES.FETCH_CUSTOM_FIELD_VALUE}`, { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
