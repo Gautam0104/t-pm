@@ -571,45 +571,119 @@ function moveToPosition(board, newIndex) {
   }
 }
 
-function archiveAllCards(element) {
+async function archiveAllCards(element) {
   const board = element.closest(".kanban-board");
   if (!board) return;
 
   const cards = board.querySelectorAll(".kanban-item");
+  const archivedCards = [];
+
   cards.forEach(card => {
-    archiveCard(card);
+    const cardId = card.getAttribute("id");
+    if (cardId) {
+      archivedCards.push(cardId);
+    }
+    card.remove(); // Remove the card from the DOM
   });
+
+                                                                                                                                                                                                                                                                                                                 
+  try {
+    const response = await fetch(`${API_BASE_URL}/archive-cards`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ archivedCards }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to archive cards");
+    }
+
+  } catch (error) {
+    console.error("Error archiving cards:", error);
+  }
 }
 
-function archiveCard(card) {
+async function archiveCard(card) {
   if (!card) return;
 
-  // Optionally, save the archived state to the backend or local storage
   const cardId = card.getAttribute("id");
-  let archivedCards = JSON.parse(localStorage.getItem("archivedCards")) || [];
-  archivedCards.push(cardId);
-  localStorage.setItem("archivedCards", JSON.stringify(archivedCards));
+  if (!cardId) return;
 
-  // Remove the card from the DOM
-  card.remove();
+  try {
+    // Submit the archived card to the API
+    const response = await fetch(`${API_BASE_URL}/archive-card`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cardId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to archive card");
+    }
+
+    // Fetch the archived cards from the backend to confirm
+    const fetchResponse = await fetch(`${API_BASE_URL}/archived-cards`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!fetchResponse.ok) {
+      throw new Error("Failed to fetch archived cards");
+    }
+
+    const archivedCards = await fetchResponse.json();
+
+    // Check if the card is in the archived cards list
+    if (archivedCards.includes(cardId)) {
+      console.log(`Card ${cardId} confirmed as archived. Removing from DOM.`);
+      card.remove(); // Remove the card from the DOM
+    } else {
+      console.warn(`Card ${cardId} not found in archived cards.`);
+    }
+  } catch (error) {
+    console.error("Error archiving card:", error);
+  }
 }
 
-function archiveBoard(element) {
+async function archiveBoard(element) {
   const board = element.closest(".kanban-board");
   if (!board) return;
 
   // Archive all cards within the board
-  archiveAllCards(board);
+  await archiveAllCards(board);
 
-  // Optionally, save the archived state to the backend or local storage
   const boardId = board.getAttribute("data-id");
-  let archivedBoards = JSON.parse(localStorage.getItem("archivedBoards")) || [];
-  archivedBoards.push(boardId);
-  localStorage.setItem("archivedBoards", JSON.stringify(archivedBoards));
+  if (!boardId) return;
+
+  // Submit the archived board to the API
+  try {
+    const response = await fetch(`${API_BASE_URL}/archive-board`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ boardId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to archive board");
+    }
+
+    
+  } catch (error) {
+    console.error("Error archiving board:", error);
+  }
 
   // Remove the board from the DOM
   board.remove();
 }
+
 document.addEventListener("DOMContentLoaded", function() {
   const form = document.querySelector(".kanban-add-new-board"); // Select the form
   const parentDiv = form.parentElement; // Get its parent div

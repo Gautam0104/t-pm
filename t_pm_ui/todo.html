@@ -1342,7 +1342,6 @@
                     <div class="progress">
                       <div class="progress-bar bg-primary" role="progressbar" style="width: 2%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
                   </div>
                 </div>
                 <div class="row align-items-center mt-3" id="checklist-title-row">
@@ -2505,7 +2504,73 @@
                         <script src="./t_pm_js/activity.js"></script>
 
 
-
+                      <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                          const archivedCardsContainer = document.getElementById("archived-cards-container");
+                        
+                          async function fetchArchivedCards() {
+                            try {
+                              const response = await fetch(`${API_BASE_URL}/archived-cards`, {
+                                method: "GET",
+                                headers: {
+                                  "Content-Type": "application/json",
+                                },
+                              });
+                        
+                              if (!response.ok) {
+                                throw new Error("Failed to fetch archived cards");
+                              }
+                        
+                              const archivedCards = await response.json();
+                        
+                              // Clear the container
+                              archivedCardsContainer.innerHTML = "";
+                        
+                              // Render each archived card
+                              archivedCards.forEach(card => {
+                                const cardElement = document.createElement("div");
+                                cardElement.classList.add("card", "mb-3", "p-3", "shadow-sm");
+                                cardElement.innerHTML = `
+                                  <img src="${card.images}" class="img-fluid rounded mb-2" style="max-height: 150px; object-fit: cover;">
+                                  <h6>${card.title}</h6>
+                                  <p>${card.description || "No description available"}</p>
+                                  <button class="btn btn-sm btn-primary" onclick="restoreCard('${card.card_id}')">Restore</button>
+                                `;
+                                archivedCardsContainer.appendChild(cardElement);
+                              });
+                            } catch (error) {
+                              console.error("Error fetching archived cards:", error);
+                              archivedCardsContainer.innerHTML = "<p class='text-danger'>Failed to load archived cards.</p>";
+                            }
+                          }
+                        
+                          // Restore a card
+                          window.restoreCard = async function(cardId) {
+                            try {
+                              const response = await fetch(`${API_BASE_URL}/restore-card`, {
+                                method: "POST",
+                                headers: {
+                                  "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ cardId }),
+                              });
+                        
+                              if (!response.ok) {
+                                throw new Error("Failed to restore card");
+                              }
+                        
+                              console.log(`Card ${cardId} restored successfully`);
+                              fetchArchivedCards(); // Refresh the archived cards list
+                            } catch (error) {
+                              console.error("Error restoring card:", error);
+                            }
+                          }
+                        
+                          // Fetch archived cards when the tab is shown
+                          document.querySelector('[data-bs-target="#tab-archived"]').addEventListener("shown.bs.tab", fetchArchivedCards);
+                        });
+                      </script>
+                     
 </body>
 
 </html>
