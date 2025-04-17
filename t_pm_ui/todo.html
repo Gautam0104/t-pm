@@ -653,9 +653,9 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
-                          data-bs-toggle="tab" data-bs-target="#tab-settings" aria-selected="false" role="tab">
-                          <i class="fa fa-cogs fa-lg"></i>
-                          <span>Settings</span>
+                          data-bs-toggle="tab" data-bs-target="#tab-setting" aria-selected="false" role="tab">
+                          <i class="fa fa-archive fa-lg"></i>
+                          <span>Setting</span>
                         </button>
                       </li>
                       <li class="nav-item" role="presentation">
@@ -749,7 +749,11 @@
 
                 <!-- About Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-about" role="tabpanel">
-
+                  <div class="mb-4">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-form-about">
+                      <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
+                    </button>
+                  </div>
                   <div class="px-2">
                     <!-- Profile Section -->
                     <div class="mt-4">
@@ -824,7 +828,7 @@
                 <!-- Archive Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-archived" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Archive </h5>
@@ -834,19 +838,17 @@
                 <!-- Archive Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-activity-setting" role="tabpanel">
                   <div class="p-4">
-                    <!-- <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
-                    <h5>Activity </h5> -->
-                    <h4 class="text-center mt-0">All Activity</h4>
-                    <div id="all-activity-tab"></div>
+                    <h5>activity </h5>
                   </div>
                 </div>
 
                 <!-- Setting Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-settings" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Setting </h5>
@@ -856,7 +858,7 @@
                 <!-- Custom Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-custom-fields" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Setting </h5>
@@ -866,7 +868,7 @@
                 <!-- Automation Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-automation" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Automation </h5>
@@ -876,7 +878,7 @@
                 <!-- Power-up Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-powerups" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Power up </h5>
@@ -886,7 +888,7 @@
                 <!-- Label Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-labels" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Label </h5>
@@ -898,7 +900,7 @@
                   <div class="p-4">
                     <div class="row align-items-center">
                       <div class="col-3 d-flex justify-content-start">
-                        <button class="btn btn-primary mb-3" id="back-to-edit">
+                        <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                           <i class="ti ti-chevron-left ti-18px me-1_5"></i>
                         </button>
                       </div>
@@ -1129,7 +1131,7 @@
               <!-- Make templete Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-template" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-template </h5>
@@ -1139,7 +1141,7 @@
               <!-- Make templete Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-template" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-template </h5>
@@ -1149,7 +1151,7 @@
               <!-- Watch Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-watch" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-watch </h5>
@@ -1159,7 +1161,7 @@
               <!-- Email Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-email" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-email </h5>
@@ -1169,7 +1171,7 @@
               <!-- Collapse Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-collapse" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-email </h5>
@@ -1179,7 +1181,7 @@
               <!-- Copy Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-copy" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-copy </h5>
@@ -1189,7 +1191,7 @@
               <!-- Print Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-print" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-print </h5>
@@ -1199,7 +1201,7 @@
               <!-- Copy Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-copy" role="tabpanel">
                 <div class="p-4">
-                  <button class="btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu back-menu btn btn-primary mb-3" id="back-to-edit">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-close </h5>
@@ -1232,7 +1234,7 @@
                     </li>
                   </ul>
                 </div>
-                <button class="btn btn-primary mb-3" id="back-to-edit">
+                <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                   <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                 </button><br>
                 <span class="text-primary me-1">Choose a image to make ticket
@@ -1338,7 +1340,7 @@
                     </li>
                   </ul>
                 </div>
-                <button class="btn btn-primary mb-3" id="back-to-edit">
+                <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
                   <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                 </button><br>
                 <span class="text-primary me-1">Choose a color to make ticket
@@ -2720,6 +2722,12 @@
                         document.getElementById('back-to-edit').addEventListener('click', function () {
                           var updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
                           updateTab.show();
+                        });
+                        document.querySelectorAll('.back-menu').forEach(function (button) {
+                          button.addEventListener('click', function () {
+                            var updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+                            updateTab.show();
+                          });
                         });
                       </script>
 
