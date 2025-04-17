@@ -98,8 +98,9 @@ setTimeout(function () {
           card.id = `${element.ticket_id}`;
 
           card.innerHTML = `
-            <div class="d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2">
-              <div class="d-flex">
+<div class="dropZone d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2" 
+     style="...">
+              <div class="d-flex ">
                 <div class="me-2" id="mark-card-${element.ticket_id}"></div>
                 <div class="me-2" id="watch-notification-${element.ticket_id}"></div>
               </div>
@@ -173,7 +174,7 @@ setTimeout(function () {
           // const backdropWrapper = document.getElementById("backdrop");
           offcanvas.classList.add("show");
 
-          const backdropContent = `<div class="offcanvas-backdrop fade show"></div>`;
+   
           // backdropWrapper.innerHTML = backdropContent;
           let selected = e.currentTarget.id;
           let ticket_id = selected;

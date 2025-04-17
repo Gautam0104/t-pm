@@ -244,5 +244,6 @@
       overflow-y: auto;
     }
   
-
-    
+    .offcanvas-backdrop {
+      display: none !important;
+    }

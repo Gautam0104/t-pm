@@ -6,7 +6,7 @@
 //   const offcanvasClosebtn = document.getElementById(
 //     ELEMENT_IDS.OFFCANVAS_CLOSE
 //   );
-//   const backdrop = `<div class="offcanvas-backdrop fade show"></div>`;
+
 //   // open canbavase
 //   for (const kanbanItem of kanbanItems) {
 //     kanbanItem.addEventListener("click", function() {
