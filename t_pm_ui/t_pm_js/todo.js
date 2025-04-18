@@ -125,7 +125,7 @@ setTimeout(function () {
                 </div>
               </div>
             </div>
-            <img class="img-fluid rounded mb-2" id="card-img" draggable=false 
+            <img class="coverImage img-fluid rounded mb-2" id="card-img" draggable=false 
                  src="${API_BASE_URL}/uploads/${element.card_image}" onerror="this.style.display='none';">
             <span class="kanban-text">${element.title}</span>
             <div id="checklist-container-${element.ticket_id}"></div>
