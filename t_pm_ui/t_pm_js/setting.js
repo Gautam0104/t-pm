@@ -1,4 +1,9 @@
-// Setting javascript code
+import { API_ROUTES } from "../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "./element_id.js";
+
+const API_BASE_URL = ENV.API_BASE_URL;
+
+// Setting  tab
 
 // back to edit tab
 document.getElementById('back-to-edit').addEventListener('click', function () {
@@ -51,8 +56,53 @@ document.getElementById('back-to-edit').addEventListener('click', function () {
     }
   });
 
+  // Utility function to get selected radio value
+  function getSelectedRadio(name) {
+    const radios = document.getElementsByName(name);
+    for (const radio of radios) {
+      if (radio.checked) return radio.value;
+    }
+    return null;
+  }
 
-  // Unarchive js
+  // Collect and send data
+  async function postPermissionsData() {
+    const permissions = {
+      commenting: getSelectedRadio("commentPermission"),
+      voting: getSelectedRadio("votingPermission"),
+      memberControl: getSelectedRadio("addPermission"),
+      workspaceEditing: document.getElementById("workspaceEditingAdmins").checked,
+      cardCovers: document.getElementById("cardCoversCheckbox").checked,
+    };
+  
+    try {
+      // POST request
+      const response = await fetch("${API_BASE_URL}/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(permissions),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to save permissions");
+      }
+  
+      const data = await response.json();
+    } catch (error) {
+      console.error("Error posting permissions:", error);
+    }
+  }
+
+  // Bind function to button(s)
+  document.getElementById("saveCommentPermissionBtn").addEventListener("click", postPermissionsData);
+  document.getElementById("saveVotingPermissionBtn").addEventListener("click", postPermissionsData);
+  document.getElementById("saveAddPermissionBtn").addEventListener("click", postPermissionsData);
+  document.getElementById("workspaceEditingAdmins").addEventListener("change", postPermissionsData);
+  document.getElementById("cardCoversCheckbox").addEventListener("change", postPermissionsData);
+
+  // Unarchive tab
 
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -119,5 +169,3 @@ document.getElementById('back-to-edit').addEventListener('click', function () {
     // Fetch archived cards when the tab is shown
     document.querySelector('[data-bs-target="#tab-archived"]').addEventListener("shown.bs.tab", fetchArchivedCards);
   });
-
- 
