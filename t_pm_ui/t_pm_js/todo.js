@@ -105,9 +105,8 @@ setTimeout(function () {
                 <div class="me-2" id="watch-notification-${element.ticket_id}"></div>
               </div>
               <div class="item-badges">
-                <div class="d-flex" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
-                <div class="badge bg-label-success">${element.badge ||
-            "UX"}</div>
+                <div class="d-flex make-tem" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
+                
               </div>
               <div class="dropdown kanban-tasks-item-dropdown">
                 <i class="dropdown-toggle ti ti-dots-vertical" 
@@ -712,6 +711,11 @@ setTimeout(function () {
                                                                          
                                                              </li>
                                                             <li class="nav-item">
+                                                                <button class="nav-link  d-flex align-items-center border-0  w-100"  id="vote-button">
+                                                                    <i class="fas fa-thumbs-up me-2"></i> Vote
+                                                                </button>
+                                                            </li>
+                                                            <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" data-bs-toggle="modal" data-bs-target="#sharecardModal" id="shareCardFeature">
                                                                     <i class="fas fa-share me-2"></i> Share 
                                                                 </button>
@@ -1224,6 +1228,38 @@ setTimeout(function () {
                 joinAutomationButton.addEventListener("click", () => {
                   joinCardToModal(element.title, element.ticket_id);
                 });
+
+
+                // vote to card logic
+                document.getElementById("vote-button").addEventListener("click",function(){
+                  const voteTemp =  document.getElementById(`label-color-box-${element.ticket_id}`)
+                  console.log(voteTemp)
+                  voteTemp.innerHTML = `<div class="badge bg-label-primary" id="voted-temp" style="cursor:pointer;">${element.badge ||
+            "1 Vote"}</div>`
+                })
+              document.getElementById("voted-temp").addEventListener('click', function(event){
+                event.stopPropagation();
+                console.log("boted temp working");
+                const myModal = new bootstrap.Modal(document.getElementById('voteTempModal'));
+myModal.show();
+           
+
+             const votedCardbody = document.getElementById("voteTempModalBody");
+             const user = localStorage.getItem("logged_username")
+              localStorage.setItem("votedBy", user)
+              const votedBy = localStorage.getItem("votedBy")
+
+              votedCardbody.innerHTML = ` <div class="mt-5 d-flex justify-content-center">
+                    <h3>Voted By : ${votedBy}</h3>
+                  </div>`
+                
+              })
+
+            document.getElementById("removeVote").addEventListener("click", function(){
+              const voteTemp =  document.getElementById(`label-color-box-${element.ticket_id}`)
+              voteTemp.innerHTML = ``;
+            })
+
 
 
                 fetch(`${API_BASE_URL}${API_ROUTES.GET_JOIN_CARD}/${element.ticket_id}`)
