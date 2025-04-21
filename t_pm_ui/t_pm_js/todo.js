@@ -2489,3 +2489,21 @@ document.getElementById('createRule').addEventListener('show.bs.modal', function
 //     modal.hide();
 //   });
 // }
+
+document.querySelector('[data-action="collapse-cards"]').addEventListener("click", function () {
+  const cards = document.querySelectorAll(".kanban-item"); // Select all cards
+  const buttonText = this.querySelector("span"); // Get the button text element
+
+  // Check if cards are currently visible
+  const areCardsCollapsed = Array.from(cards).every(card => card.style.display === "none");
+
+  if (areCardsCollapsed) {
+    // Show all cards
+    cards.forEach(card => (card.style.display = "block"));
+    buttonText.textContent = "Collapse all the lists";
+  } else {
+    // Hide all cards
+    cards.forEach(card => (card.style.display = "none"));
+    buttonText.textContent = "Open all the lists";
+  }
+});

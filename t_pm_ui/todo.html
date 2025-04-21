@@ -730,7 +730,8 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
-                          data-bs-toggle="tab" data-bs-target="#tab-collapse" aria-selected="false" role="tab">
+                           aria-selected="false" role="tab"
+                          data-action="collapse-cards">
                           <i class="fa fa-compress fa-lg"></i>
                           <span>Collapse all the lists</span>
                         </button>
@@ -751,7 +752,8 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
-                          data-bs-toggle="tab" data-bs-target="#tab-close" aria-selected="false" role="tab">
+                           aria-selected="false" role="tab"
+                          data-action="collapse-cards">
                           <i class="fa fa-minus fa-lg"></i>
                           <span>Close board</span>
                         </button>
@@ -1100,6 +1102,17 @@
                       </div>
                     </div>
 
+                    <!-- Covers Section -->
+                    <div class="mb-4">
+                      <h6 class="fw-bold">Complete Status</h6>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-check-label" for="completeCardCheckbox">
+                          Show complete status on card front
+                        </label>
+                        <input class="form-check-input ms-2" type="checkbox" id="completeCardCheckbox">
+                      </div>
+
+                    </div>
 
                     <!-- Covers Section -->
                     <div class="mb-4">
@@ -1109,8 +1122,7 @@
                         <label class="form-check-label" for="cardCoversCheckbox">
                           Card covers enabled
                         </label>
-                        <input class="form-check-input ms-2" type="checkbox" id="cardCoversCheckbox"
-                          onchange="handleCoverImage()">
+                        <input class="form-check-input ms-2" type="checkbox" id="cardCoversCheckbox">
                       </div>
                       <span class="text-muted"><a href="javascript:void(0);" data-bs-toggle="modal"
                           data-bs-target="#editModal" class="text-decoration-none text-muted">
@@ -1554,14 +1566,46 @@
               </div>
 
               <!-- Print Tab (Content + Back Button) -->
-              <div class="tab-pane fade" id="tab-print" role="tabpanel">
+              <div class="tab-pane fade" id="tab-share" role="tabpanel">
                 <div class="p-4">
-                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
-                    <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit-share">
+                    <i class="ti ti-chevron-left ti-18px me-1_5"></i>
                   </button><br>
-                  <h5>tab-print </h5>
+                  <h5 class="mb-4">Print, export, and share</h5>
+
+                  <!-- Link to this board -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Link to this board</label>
+                    <div class="input-group">
+                      <input id="boardLink" type="text" class="form-control" readonly>
+                      <button class="btn btn-outline-secondary" id="copyLinkBtn">Copy</button>
+                    </div>
+                    <small class="text-muted">All members of the Workspace can see and edit this board.</small>
+                  </div>
+
+                  <!-- Print Options -->
+                  <div class="mb-4">
+                    <div class="d-flex flex-column gap-2">
+                      <button type="button" class="btn btn-primary" id="printBtn">Print</button>
+                      <button type="button" class="btn btn-primary" id="exportCSVBtn">Export as CSV</button>
+                      <button type="button" class="btn btn-primary" id="exportJSONBtn">Export as JSON</button>
+                      <button type="button" class="btn btn-primary" id="qrBtn">Show QR code</button>
+                    </div>
+                  </div>
+
+                  <!-- QR Code Modal -->
+                  <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content p-4 text-center">
+                        <h5 id="qrModalLabel" class="mb-3">Board QR Code</h5>
+                        <div id="qrCodeContainer" class="d-flex justify-content-center"></div>
+                        <button class="btn btn-secondary mt-3" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+
 
               <!-- Copy Tab (Content + Back Button) -->
               <div class="tab-pane fade" id="tab-copy" role="tabpanel">
