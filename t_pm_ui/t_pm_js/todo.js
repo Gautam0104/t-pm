@@ -670,13 +670,13 @@ setTimeout(function () {
                                                                     <i class="fas fa-plus me-2"></i> Add Button
                                                                 </button>
                                                                  
-                                                                <li class="nav-item d-flex justify-content-end">
+                                                                <li class="nav-item ">
                                                                 <button class="nav-link d-flex align-items-center border-0" data-bs-toggle="modal" 
-          data-bs-target="#aboutautomationModal" 
-          onclick="aboutautomation('${element.ticket_id}')">
-    <i class="fa-solid fa-power-off me-2"></i>
-  </button>
-</li>
+                                                                   data-bs-target="#aboutautomationModal" 
+                                                                 onclick="aboutautomation('${element.ticket_id}')">
+                                                                 <i class="fa-solid fa-power-off me-2"></i>About automation 
+                                                                 </button>
+                                                                 </li>
                                                             <li class="nav-item">
                                                                 <button class="nav-link  d-flex align-items-center border-0  w-100" id="markCardFeature" >
                                                                     <i class="fas fa-check me-2"></i> Mark Complete
@@ -2411,6 +2411,46 @@ function retrieveAutomationRule(tickerId){
 
 
 
+
+
+// Initialize tab manager when the create rule modal is shown
+document.getElementById('createRule').addEventListener('show.bs.modal', function () {
+  initializeTabManager();
+});
+
+
+
+function applyCollapseState(collapsed) {
+  const cards = document.querySelectorAll(".kanban-item");
+  const buttonText = document.querySelector('[data-action="collapse-cards"] span');
+
+  if (collapsed) {
+    cards.forEach(card => (card.style.display = "none"));
+    if (buttonText) buttonText.textContent = "Open all the lists";
+  } else {
+    cards.forEach(card => (card.style.display = "block"));
+    if (buttonText) buttonText.textContent = "Collapse all the lists";
+  }
+  localStorage.setItem("kanbanCardsCollapsed", collapsed ? "true" : "false");
+  console.log("Collapse state saved to localStorage:", localStorage.getItem("kanbanCardsCollapsed"));
+}
+
+document.querySelector('[data-action="collapse-cards"]').addEventListener("click", function () {
+  const cards = document.querySelectorAll(".kanban-item");
+  const areCardsCollapsed = Array.from(cards).every(card => card.style.display === "none");
+  
+  applyCollapseState(!areCardsCollapsed);
+});
+
+// On page load, restore collapse state after a delay to ensure cards are loaded
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(() => {
+    const collapsed = localStorage.getItem("kanbanCardsCollapsed") === "true";
+    applyCollapseState(collapsed);
+  }, 3000); 
+});
+
+
 window.editAutomation = editAutomation;
 window.deleteAutomationButton = deleteAutomationButton;
 window.moveAllTask = moveAllTask;
@@ -2425,85 +2465,3 @@ window.addLabelModal = addLabelModal;
 window.addLabelAutomation = addLabelAutomation;
 window.leaveCard = leaveCard;
 window.joinCard = joinCard;
-
-
-// Initialize tab manager when the create rule modal is shown
-document.getElementById('createRule').addEventListener('show.bs.modal', function () {
-  initializeTabManager();
-});
-
-// Add the loadCustomCardModal function
-// function loadCustomCardModal(ticketId) {
-//   const customFieldModal = document.getElementById("customFieldModal");
-//   if (!customFieldModal) {
-//     console.error("Custom field modal element not found");
-//     return;
-//   }
-
-//   // Initialize the modal
-//   const modal = new bootstrap.Modal(customFieldModal);
-//   modal.show();
-
-//   // Add your custom field modal content and functionality here
-//   const modalContent = `
-//     <div class="modal-dialog">
-//       <div class="modal-content">
-//         <div class="modal-header">
-//           <h5 class="modal-title">Custom Fields</h5>
-//           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-//         </div>
-//         <div class="modal-body">
-//           <div class="mb-3">
-//             <label for="customFieldName" class="form-label">Field Name</label>
-//             <input type="text" class="form-control" id="customFieldName" placeholder="Enter field name">
-//           </div>
-//           <div class="mb-3">
-//             <label for="customFieldType" class="form-label">Field Type</label>
-//             <select class="form-select" id="customFieldType">
-//               <option value="text">Text</option>
-//               <option value="number">Number</option>
-//               <option value="date">Date</option>
-//               <option value="checkbox">Checkbox</option>
-//             </select>
-//           </div>
-//         </div>
-//         <div class="modal-footer">
-//           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-//           <button type="button" class="btn btn-primary" id="saveCustomField">Save</button>
-//         </div>
-//       </div>
-//     </div>
-//   `;
-
-//   customFieldModal.innerHTML = modalContent;
-
-//   // Add event listener for save button
-//   document.getElementById('saveCustomField')?.addEventListener('click', function() {
-//     const fieldName = document.getElementById('customFieldName').value;
-//     const fieldType = document.getElementById('customFieldType').value;
-    
-//     // Add your save logic here
-//     console.log('Saving custom field:', { fieldName, fieldType, ticketId });
-    
-//     // Close the modal after saving
-//     modal.hide();
-//   });
-// }
-
-document.querySelector('[data-action="collapse-cards"]').addEventListener("click", function () {
-  const cards = document.querySelectorAll(".kanban-item"); // Select all cards
-  const buttonText = this.querySelector("span"); // Get the button text element
-
-  // Check if cards are currently visible
-  const areCardsCollapsed = Array.from(cards).every(card => card.style.display === "none");
-
-  if (areCardsCollapsed) {
-    // Show all cards
-    cards.forEach(card => (card.style.display = "block"));
-    buttonText.textContent = "Collapse all the lists";
-  } else {
-    // Hide all cards
-    cards.forEach(card => (card.style.display = "none"));
-    buttonText.textContent = "Open all the lists";
-  }
-});

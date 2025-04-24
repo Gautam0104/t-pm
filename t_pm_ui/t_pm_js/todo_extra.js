@@ -571,6 +571,70 @@ function moveToPosition(board, newIndex) {
   }
 }
 
+function reloadKanbanBoard() {
+  const board = document.querySelector(".kanban-board");
+  if (!board) return;
+  // Optionally show loading state here
+  location.reload();
+}
+
+// function reloadKanbanBoard() {
+//   const board = document.querySelector(".kanban-board");
+//   if (!board) return;
+//   // Optionally show loading state here
+//   location.reload();
+// }
+
+
+
+async function removeArchivedCardsFromDOM() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/archived-cards`);
+    if (!response.ok) throw new Error("Failed to fetch archived cards");
+
+    const archivedCards = await response.json();
+    console.log("Fetched archived cards:", archivedCards);
+
+    const uniqueArchivedCards = [...new Set(archivedCards.map(card => card.card_id.toString()))];
+    console.log("Unique archived card IDs:", uniqueArchivedCards);
+
+    const board = document.querySelector(".kanban-board");
+    if (!board) {
+      console.log("No .kanban-board found in DOM");
+      return;
+    }
+
+    const cards = board.querySelectorAll(".kanban-item");
+    console.log("Found cards:", cards.length);
+    let cardsRemoved = 0;
+
+    cards.forEach(card => {
+      const cardId = card.getAttribute("id")?.toString();
+      if (!cardId) {
+        console.log("Card without ID:", card);
+        return;
+      }
+
+      const isArchived = uniqueArchivedCards.includes(cardId);
+      if (isArchived) {
+        card.remove();
+        cardsRemoved++;
+        console.log(`Card with ID ${cardId} has been archived and removed.`);
+      }
+    });
+
+    if (cardsRemoved > 0) {
+      console.log(`Removed ${cardsRemoved} archived cards.`);
+      reloadKanbanBoard();
+    }
+
+  } catch (error) {
+    console.error("Error fetching archived cards:", error);
+  }
+}
+
+
+
 async function archiveAllCards(element) {
   const board = element.closest(".kanban-board");
   if (!board) return;
@@ -580,78 +644,26 @@ async function archiveAllCards(element) {
 
   cards.forEach(card => {
     const cardId = card.getAttribute("id");
-    if (cardId) {
-      archivedCards.push(cardId);
-    }
-    card.remove(); // Remove the card from the DOM
+    if (cardId) archivedCards.push(cardId);
   });
 
-                                                                                                                                                                                                                                                                                                                 
   try {
     const response = await fetch(`${API_BASE_URL}/archive-cards`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ archivedCards }),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to archive cards");
-    }
+    if (!response.ok) throw new Error("Failed to archive cards");
+
+    // Refresh DOM to reflect removal
+    await removeArchivedCardsFromDOM();
 
   } catch (error) {
     console.error("Error archiving cards:", error);
   }
 }
 
-async function archiveCard(card) {
-  if (!card) return;
-
-  const cardId = card.getAttribute("id");
-  if (!cardId) return;
-
-  try {
-    // Submit the archived card to the API
-    const response = await fetch(`${API_BASE_URL}/archive-card`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cardId }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to archive card");
-    }
-
-    console.log(`Card ${cardId} archived successfully`);
-
-    // Fetch the archived cards from the backend to confirm
-    const fetchResponse = await fetch(`${API_BASE_URL}/archived-cards`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!fetchResponse.ok) {
-      throw new Error("Failed to fetch archived cards");
-    }
-
-    const archivedCards = await fetchResponse.json();
-
-    // Check if the card is in the archived cards list
-    if (archivedCards.includes(cardId)) {
-      console.log(`Card ${cardId} confirmed as archived. Removing from DOM.`);
-      card.remove(); // Remove the card from the DOM
-    } else {
-      console.warn(`Card ${cardId} not found in archived cards.`);
-    }
-  } catch (error) {
-    console.error("Error archiving card:", error);
-  }
-}
 
 async function archiveBoard(element) {
   const board = element.closest(".kanban-board");
@@ -685,68 +697,3 @@ async function archiveBoard(element) {
   // Remove the board from the DOM
   board.remove();
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-  const form = document.querySelector(".kanban-add-new-board"); // Select the form
-  const parentDiv = form.parentElement; // Get its parent div
-
-  if (parentDiv) {
-    parentDiv.appendChild(form); // Move the form to the end of the div
-  }
-});
-
-document.getElementById("form-show").addEventListener("click", function() {
-  document
-    .getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_INPUT)
-    .classList.remove("d-none");
-  document
-    .getElementById(ELEMENT_IDS.KANBAN_BOARD_ADD_DIV)
-    .classList.remove("d-none");
-});
-
-document.getElementById("form-hide").addEventListener("click", function() {
-  document.getElementById("kanban-add-board-input").classList.add("d-none");
-  document.getElementById("kanban-add-board-div").classList.add("d-none");
-});
-
-async function removeArchivedCardsFromDOM() {
-  const taskContainers = document.querySelectorAll(".kanban-drag");
-
-  try {
-    // Fetch archived cards from the backend
-    const response = await fetch(`${API_BASE_URL}/archived-cards`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch archived cards");
-    }
-
-    const archivedCards = await response.json(); // Array of archived card IDs
-    console.log("Archived cards from backend:", archivedCards);
-
-    // Remove archived cards from the DOM
-    taskContainers.forEach(container => {
-      const cards = container.querySelectorAll(".kanban-item");
-      cards.forEach(card => {
-        const cardId = card.getAttribute("id");
-        if (archivedCards.includes(cardId)) {
-          console.log(`Removing card with ID: ${cardId}`);
-          card.remove(); // Remove the card from the DOM
-        }
-      });
-    });
-
-    console.log("Archived cards removed from the DOM");
-  } catch (error) {
-    console.error("Error fetching archived cards:", error);
-  }
-}
-
-// Call the function during DOMContentLoaded
-document.addEventListener("DOMContentLoaded", function () {
-  removeArchivedCardsFromDOM();
-});

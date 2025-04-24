@@ -26,6 +26,17 @@ document.getElementById('back-to-edit').addEventListener('click', function () {
     updateTab.show();
   });
 
+  document.getElementById('back-to-edit-automation').addEventListener('click', function () {
+    const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+    updateTab.show();
+  });
+
+  document.getElementById('back-to-edit-power-up').addEventListener('click', function () {
+    const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+    updateTab.show();
+  });
+
+
 
 
     // Workspace  update
@@ -334,3 +345,5 @@ document.addEventListener("DOMContentLoaded", fetchAndUpdateSettings);
     });
     modal.show();
   }
+
+ 
