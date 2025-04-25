@@ -735,8 +735,9 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
-                           aria-selected="false" role="tab"
-                          data-action="collapse-cards">
+                          aria-selected="false" role="tab"
+                          data-action="collapse-cards"
+                          onclick="window.location.href='dashboard.html';">
                           <i class="fa fa-minus fa-lg"></i>
                           <span>Close board</span>
                         </button>
@@ -746,7 +747,7 @@
                   </div>
                 </div>
 
-                 <!-- Activity Tab (Content + Back Button) -->
+                 <!-- Background Tab (Content + Back Button) -->
                  <div class="tab-pane fade" id="tab-activity" role="tabpanel">
                 <div class="nav-align-top">
                   <ul class="nav nav-tabs mb-5 rounded-0" role="tablist">
@@ -1051,7 +1052,7 @@
                   <!-- Archive Tab (Content + Back Button) -->
                   <div class="tab-pane fade" id="tab-archived" role="tabpanel">
                   <div class="p-4">
-                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-archive">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Archive </h5>
@@ -1059,20 +1060,20 @@
                   </div>
                   </div>
 
-                  <!-- Archive Tab (Content + Back Button) -->
+                  <!-- Activity Tab (Content + Back Button) -->
                   <div class="tab-pane fade" id="tab-activity-setting" role="tabpanel">
                   <div class="p-4">
-                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-activity">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
-                    <h5>activity </h5>
+                    <div id="activity-comments-container"></div>
                   </div>
                   </div>
 
                   <!-- Setting Tab (Content + Back Button) -->
                   <div class="tab-pane fade" id="tab-settings" role="tabpanel">
                   <div class="p-4">
-                    <button class="btn btn-primary mb-3" id="back-to-edit-settings">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-settings">
                       <i class="ti ti-chevron-left ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Settings</h5>
@@ -1349,10 +1350,12 @@
                   <!-- Custom Tab (Content + Back Button) -->
                   <div class="tab-pane fade" id="tab-custom-fields" role="tabpanel">
                   <div class="p-4">
-                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-custom">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
-                    <h5>Setting </h5>
+                    <div id="custom-fields-content">
+                      <!-- Custom fields  will be injected here -->
+                    </div>
                   </div>
                   </div>
 
@@ -1363,11 +1366,7 @@
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     
-                      
-          
                           <!-- Close Button -->
-                          
-          
                           <h5 class="card-title mb-4">Automation</h5>
           
                           <div class="d-flex mb-4">

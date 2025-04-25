@@ -2420,35 +2420,7 @@ document.getElementById('createRule').addEventListener('show.bs.modal', function
 
 
 
-function applyCollapseState(collapsed) {
-  const cards = document.querySelectorAll(".kanban-item");
-  const buttonText = document.querySelector('[data-action="collapse-cards"] span');
 
-  if (collapsed) {
-    cards.forEach(card => (card.style.display = "none"));
-    if (buttonText) buttonText.textContent = "Open all the lists";
-  } else {
-    cards.forEach(card => (card.style.display = "block"));
-    if (buttonText) buttonText.textContent = "Collapse all the lists";
-  }
-  localStorage.setItem("kanbanCardsCollapsed", collapsed ? "true" : "false");
-  console.log("Collapse state saved to localStorage:", localStorage.getItem("kanbanCardsCollapsed"));
-}
-
-document.querySelector('[data-action="collapse-cards"]').addEventListener("click", function () {
-  const cards = document.querySelectorAll(".kanban-item");
-  const areCardsCollapsed = Array.from(cards).every(card => card.style.display === "none");
-  
-  applyCollapseState(!areCardsCollapsed);
-});
-
-// On page load, restore collapse state after a delay to ensure cards are loaded
-document.addEventListener("DOMContentLoaded", function () {
-  setTimeout(() => {
-    const collapsed = localStorage.getItem("kanbanCardsCollapsed") === "true";
-    applyCollapseState(collapsed);
-  }, 3000); 
-});
 
 
 window.editAutomation = editAutomation;

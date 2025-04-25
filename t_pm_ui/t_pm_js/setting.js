@@ -36,6 +36,20 @@ document.getElementById('back-to-edit').addEventListener('click', function () {
     updateTab.show();
   });
 
+  document.getElementById('back-to-edit-activity').addEventListener('click', function () {
+    const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+    updateTab.show();
+  });
+
+  document.getElementById('back-to-edit-archive').addEventListener('click', function () {
+    const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+    updateTab.show();
+  });
+
+  document.getElementById('back-to-edit-custom').addEventListener('click', function () {
+    const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+    updateTab.show();
+  });
 
 
 
@@ -346,4 +360,156 @@ document.addEventListener("DOMContentLoaded", fetchAndUpdateSettings);
     modal.show();
   }
 
+  function applyCollapseState(collapsed) {
+    const cards = document.querySelectorAll(".kanban-item");
+    const buttonText = document.querySelector('[data-action="collapse-cards"] span');
+  
+    if (collapsed) {
+      cards.forEach(card => (card.style.display = "none"));
+      if (buttonText) buttonText.textContent = "Open all the lists";
+    } else {
+      cards.forEach(card => (card.style.display = "block"));
+      if (buttonText) buttonText.textContent = "Collapse all the lists";
+    }
+    localStorage.setItem("kanbanCardsCollapsed", collapsed ? "true" : "false");
+    console.log("Collapse state saved to localStorage:", localStorage.getItem("kanbanCardsCollapsed"));
+  }
+  
+  document.querySelector('[data-action="collapse-cards"]').addEventListener("click", function () {
+    const cards = document.querySelectorAll(".kanban-item");
+    const areCardsCollapsed = Array.from(cards).every(card => card.style.display === "none");
+    
+    applyCollapseState(!areCardsCollapsed);
+  });
+  
+  // On page load, restore collapse state after a delay to ensure cards are loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+      const collapsed = localStorage.getItem("kanbanCardsCollapsed") === "true";
+      applyCollapseState(collapsed);
+    }, 3000); 
+  });
  
+
+  // activity tab
+  document.addEventListener("DOMContentLoaded", function () {
+    const commentTab = document.getElementById("activity-comments-container");
+  
+  
+    fetch(`${API_BASE_URL}${API_ROUTES.GET_COMMENT}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        data.forEach(comment => {
+          const isoDate = `${comment.changed_at}`;
+          const date = new Date(isoDate);
+          const formattedDate = date.toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          });
+  
+          const commentContent = `
+            <div class="media mb-4 d-flex align-items-center">
+              <div class="avatar me-3 flex-shrink-0">
+                <span class="avatar-initial bg-label-success rounded-circle">
+                  ${comment.changed_by[0] + comment.changed_by[1]}
+                </span>
+              </div>
+              <div class="media-body">
+                <p class="mb-0">${comment.change_description}</p>
+                <small class="text-muted">${formattedDate}</small>
+                <p class="mb-0">${comment.title}</p>
+              </div>
+            </div>
+          `;
+  
+          commentTab.innerHTML += commentContent;
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching comments:", error);
+      });
+  });
+
+
+  // Fetch custom fields from your backend API
+  const fetchCustomFields = async () => {
+    try {
+      const response = await fetch('https://xx87gmj8-3000.inc1.devtunnels.ms/custom-field/69');
+      if (!response.ok) throw new Error('Failed to fetch custom fields');
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching custom fields:", error);
+      return []; // fallback to empty if error
+    }
+  };
+
+  const renderCustomFields = async () => {
+    const container = document.getElementById("custom-fields-content");
+    container.innerHTML = ""; // Clear previous content
+  
+    const fields = await fetchCustomFields();
+  
+    fields.forEach(field => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "border rounded p-3 mb-3";
+  
+      const title = document.createElement("div");
+      title.className = "fw-bold mb-2";
+      title.innerHTML = `${field.name} <span class="text-muted">(${field.type})</span>`;
+      wrapper.appendChild(title);
+  
+      // If dropdown, show options as color badges
+      if (field.type === "dropdown" && Array.isArray(field.options)) {
+        const optionsContainer = document.createElement("div");
+        optionsContainer.className = "mb-2";
+  
+        field.options.forEach(opt => {
+          const badge = document.createElement("span");
+          badge.className = "badge me-1 mb-1";
+          badge.textContent = opt.label;
+          badge.style.backgroundColor = opt.color;
+          badge.style.color = "#fff";
+          badge.style.padding = "5px 10px";
+          badge.style.borderRadius = "5px";
+          badge.style.fontSize = "0.8rem";
+          optionsContainer.appendChild(badge);
+        });
+  
+        wrapper.appendChild(optionsContainer);
+      }
+  
+      // Buttons container
+      const buttonsContainer = document.createElement("div");
+      buttonsContainer.className = "mt-2";
+  
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "btn btn-outline-danger btn-sm";
+      deleteButton.textContent = "Delete";
+  
+      
+      buttonsContainer.appendChild(deleteButton);
+  
+      wrapper.appendChild(buttonsContainer);
+  
+      container.appendChild(wrapper);
+    });
+  
+    // Add "Add New Custom Field" button at the bottom
+    const addButton = document.createElement("button");
+    addButton.className = "btn btn-outline-secondary w-100 mt-3";
+    addButton.textContent = "Add New Custom Field";
+    container.appendChild(addButton);
+  };
+  
+
+  // Call this when the tab is shown or page is ready
+  document.addEventListener("DOMContentLoaded", renderCustomFields);
