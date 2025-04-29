@@ -160,13 +160,13 @@ async function fetchAndUpdateSettings() {
     if (addPermissionRadio) addPermissionRadio.checked = true;
 
     const workspaceEditingCheckbox = document.getElementById("workspaceEditingAdmins");
-    if (workspaceEditingCheckbox) workspaceEditingCheckbox.checked = settings.workspaceEditing;
+    if (workspaceEditingCheckbox) workspaceEditingCheckbox.checked = settings.workspace_editing === 1;
 
     const cardCoversCheckbox = document.getElementById("cardCoversCheckbox");
-    if (cardCoversCheckbox) cardCoversCheckbox.checked = settings.cardCovers;
+    if (cardCoversCheckbox) cardCoversCheckbox.checked = settings.card_covers === 1;
 
     const completeCardCheckbox = document.getElementById("completeCardCheckbox");
-    if (completeCardCheckbox) completeCardCheckbox.checked = settings.completeCard;
+    if (completeCardCheckbox) completeCardCheckbox.checked = settings.complete_card ===1;
 
     // Safely update display elements
     const commentDisplay = document.getElementById("commentPermissionDisplay");
@@ -186,9 +186,73 @@ async function fetchAndUpdateSettings() {
 // Call the function on page load
 document.addEventListener("DOMContentLoaded", fetchAndUpdateSettings);
 
-  // Unarchive tab
+// setting project name dropdown
+
+document.addEventListener("DOMContentLoaded", function () {
+  const workspaceDropdown = document.getElementById("workspaceDropdown");
+  const selectedWorkspaceDisplay = document.getElementById("selectedWorkspaceDisplay");
+  const changeWorkspaceBtn = document.getElementById("changeWorkspaceBtn");
+
+  // Get the URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const projectName = urlParams.get("pname"); // Get the 'pname' parameter
+
+  // Fetch workspaces from an API
+  fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch workspaces");
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Populate the dropdown with projects
+      data.forEach(project => {
+        const option = document.createElement("option");
+        option.value = project.project_id;
+        option.textContent = project.project_name;
+
+        // Pre-select the option if it matches the 'pname' parameter
+        if (project.project_name === projectName) {
+          option.selected = true;
+          selectedWorkspaceDisplay.textContent = project.project_name; 
+        }
+
+        workspaceDropdown.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error("Error loading workspaces:", error);
+    });
+
+  workspaceDropdown.addEventListener("change", function () {
+    const selectedOption = workspaceDropdown.options[workspaceDropdown.selectedIndex];
+    selectedWorkspaceDisplay.textContent = selectedOption.textContent;
+  });
+
+  // Redirect to the selected project's page on button click
+  changeWorkspaceBtn.addEventListener("click", function () {
+    const selectedOption = workspaceDropdown.options[workspaceDropdown.selectedIndex];
+    if (selectedOption && selectedOption.value !== "Select") {
+      // Get the current URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // Update the pname parameter with the selected project name
+      urlParams.set("pname", selectedOption.textContent);
+
+      // Update the id parameter with the selected project ID
+      urlParams.set("id", selectedOption.value);
+
+      // Redirect to the updated URL
+      window.location.href = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
+    } else {
+      console.error("No project selected");
+    }
+  });
+});
 
 
+// Unarchive tab
   document.addEventListener("DOMContentLoaded", function () {
     const archivedCardsContainer = document.getElementById("archived-cards-container");
 
@@ -513,3 +577,95 @@ document.addEventListener("DOMContentLoaded", fetchAndUpdateSettings);
 
   // Call this when the tab is shown or page is ready
   document.addEventListener("DOMContentLoaded", renderCustomFields);
+
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    const container = document.getElementById("automation-buttons");
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/automation-data`);
+      const data = await response.json();
+
+      container.innerHTML = ''; 
+
+      data.forEach(rule => {
+        const cardHTML = `
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+              <div>
+                <h6 class="mb-1 fw-semibold">${rule.button_title}</h6>
+                <small class="text-muted">Ticket Title: ${rule.ticket_title}</small>
+              </div>
+              <div class="mt-3 mt-md-0 d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-danger btn-sm" onclick="deleteAutomation(${rule.id})">Delete</button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', cardHTML);
+      });
+    } catch (error) {
+      console.error('Error fetching automation buttons:', error);
+      container.innerHTML = `<div class="alert alert-danger">Failed to load automation rules.</div>`;
+    }
+  });
+
+  
+  async function deleteAutomation(id) {
+    const confirmation = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won’t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      didOpen: () => {
+        // Adjust z-index dynamically
+        const swalModal = document.querySelector('.swal2-container');
+        if (swalModal) {
+          swalModal.style.zIndex = '2000'; // Set a higher z-index
+        }
+      }
+    });
+  
+    if (confirmation.isConfirmed) {
+      try {
+        const response = await fetch(`/automation-data/${id}`, {
+          method: 'DELETE',
+        });
+  
+        const result = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to delete automation');
+        }
+  
+        await Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'Automation deleted successfully!',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+  
+        const card = document.getElementById(`automation-card-${id}`);
+        if (card) card.remove();
+      } catch (error) {
+        console.error('Delete error:', error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Error deleting automation.',
+        });
+      }
+    }
+  }
+  
+  window.deleteAutomation = deleteAutomation;
+ 
+  
+  
+
+
+
+  

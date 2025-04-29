@@ -1,3 +1,5 @@
+import { API_ROUTES } from "../../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "../element_id.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 
 fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
@@ -85,7 +87,7 @@ fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
     });
   });
 
-async function deleteAutomationButton(id) {
+export async function deleteAutomationButton(id) {
   try {
     const response = await fetch(
       `${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}/${id}`,
@@ -105,3 +107,5 @@ async function deleteAutomationButton(id) {
     console.log(error);
   }
 }
+
+window.deleteAutomationButton = deleteAutomationButton;
