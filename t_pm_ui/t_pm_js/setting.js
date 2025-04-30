@@ -51,6 +51,11 @@ document.getElementById('back-to-edit').addEventListener('click', function () {
     updateTab.show();
   });
 
+  
+  document.getElementById('back-to-edit-label').addEventListener('click', function () {
+    const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
+    updateTab.show();
+  });
 
 
     // Workspace  update
@@ -133,7 +138,7 @@ document.getElementById("workspaceEditingAdmins").addEventListener("change", pos
 document.getElementById("cardCoversCheckbox").addEventListener("change", postPermissionsData);
 document.getElementById("completeCardCheckbox").addEventListener("change", postPermissionsData);
 
-// Function to fetch and update settings dynamically
+//Function to fetch and update settings dynamically
 async function fetchAndUpdateSettings() {
   try {
     const response = await fetch(`${API_BASE_URL}/settings`, {
@@ -579,6 +584,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("DOMContentLoaded", renderCustomFields);
 
 
+  // Rendering automation rules
+
   document.addEventListener("DOMContentLoaded", async function () {
     const container = document.getElementById("automation-buttons");
     
@@ -660,6 +667,138 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
+
+  // Setting Watch Icon
+
+  
+  // Function to update the watch icon based on the watch status
+  async function updateWatchIcon() {
+    const watchLink = document.getElementById('watchIcon');
+    const watchTabText = document.getElementById('watchTabText'); 
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+  
+    if (!projectId) {
+      console.error('Project ID not found in URL.');
+      return;
+    }
+  
+    if (!watchLink) {
+      console.error('Watch link element not found in DOM.');
+      return;
+    }
+  
+    try {
+      // Fetch the watch status for the project
+      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch watch status');
+      }
+  
+      const result = await response.json();
+      const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); // Use loose equality to handle type mismatch
+  
+     
+      if (isWatched) {
+        if (!watchLink.querySelector('.ti-eye')) {
+          const eyeIcon = document.createElement('i');
+          eyeIcon.className = 'ti ti-eye rounded-circle ti-md';
+          watchLink.appendChild(eyeIcon);
+        }
+        watchTabText.textContent = 'Unwatch'; // Update button text to "Unwatch"
+      } else {
+        const existingIcon = watchLink.querySelector('.ti-eye');
+        if (existingIcon) {
+          existingIcon.remove();
+        }
+        watchTabText.textContent = 'Watch'; // Update button text to "Watch"
+      }
+    } catch (error) {
+      console.error('Error fetching watch status:', error);
+    }
+  }
+  
+  // Call the updateWatchIcon function on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(updateWatchIcon, 1000); 
+  });
+  
+  // Event listener for the watch tab button
+  document.getElementById('watchTabButton').addEventListener('click', async function () {
+    const watchLink = document.getElementById('watchIcon');
+    const watchTabText = document.getElementById('watchTabText'); // Target the button text
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+    const projectName = urlParams.get('pname'); // Get the project name
+  
+    if (!projectId || !projectName) {
+      console.error('Missing project ID or project name in URL.');
+      return;
+    }
+  
+    try {
+      // Check if the project is already being watched
+      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
+      let isWatched = false;
+  
+      if (response.ok) {
+        const result = await response.json();
+        isWatched = Array.isArray(result) && result.some(item => item.project_id === projectId);
+      }
+  
+      if (!isWatched) {
+        // Add watch entry with pname as "name"
+        const postRes = await fetch(`${API_BASE_URL}/watch_boards`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: projectName, // Use pname from URL
+            ticket_id: null,
+            project_id: projectId
+          })
+        });
+  
+        if (!postRes.ok) throw new Error('Failed to create watch');
+  
+        // Show the eye icon if not already present
+        if (!watchLink.querySelector('.ti-eye')) {
+          const eyeIcon = document.createElement('i');
+          eyeIcon.className = 'ti ti-eye rounded-circle ti-md';
+          watchLink.appendChild(eyeIcon);
+        }
+  
+        // Change button text to "Unwatch"
+        watchTabText.textContent = 'Unwatch';
+      } else {
+        // If project is already watched, make a DELETE request to unwatch
+        const deleteRes = await fetch(`${API_BASE_URL}/watch_boards/${projectId}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+  
+        if (!deleteRes.ok) throw new Error('Failed to delete watch');
+  
+        // Remove the eye icon
+        const existingIcon = watchLink.querySelector('.ti-eye');
+        if (existingIcon) {
+          existingIcon.remove();
+        }
+  
+        // Change button text back to "Watch"
+        watchTabText.textContent = 'Watch';
+      }
+    } catch (error) {
+      console.error('Error processing watch toggle:', error);
+    }
+  });
+  
+ 
+  document.addEventListener('DOMContentLoaded', updateWatchIcon);
+  
+
+
+
+
   
   window.deleteAutomation = deleteAutomation;
  

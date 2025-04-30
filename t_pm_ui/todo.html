@@ -153,6 +153,15 @@
             <!-- /Search -->
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+              <!-- Watch Icons -->
+              <li class="nav-item dropdown-watch dropdown">
+                <a class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow"
+                   href="javascript:void(0);" id="watchIcon">
+                  <!-- Intentionally left blank: icon will be inserted on click -->
+                </a>
+              </li>
+              <!--/ Language -->
               <!-- Language -->
               <li class="nav-item dropdown-language dropdown">
                 <a class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow"
@@ -699,11 +708,12 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
-                          data-bs-toggle="tab" data-bs-target="#tab-watch" aria-selected="false" role="tab">
+                          aria-selected="false" role="tab" id="watchTabButton">
                           <i class="fa fa-eye fa-lg"></i>
-                          <span>Watch</span>
+                          <span id="watchTabText">Watch</span>
                         </button>
                       </li>
+                      
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
                           data-bs-toggle="tab" data-bs-target="#tab-email" aria-selected="false" role="tab">
@@ -1600,7 +1610,7 @@
                 <!-- Label Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-labels" role="tabpanel">
                   <div class="p-4">
-                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-label">
                       <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                     </button><br>
                     <h5>Label </h5>
@@ -1947,7 +1957,7 @@
                 <!-- Watch Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-watch" role="tabpanel">
                 <div class="p-4">
-                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit">
+                  <button class="back-menu btn btn-primary mb-3" id="back-to-edit-watch">
                     <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
                   </button><br>
                   <h5>tab-watch </h5>
