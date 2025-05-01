@@ -674,85 +674,78 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to update the watch icon based on the watch status
   async function updateWatchIcon() {
     const watchLink = document.getElementById('watchIcon');
-    const watchTabText = document.getElementById('watchTabText'); 
+    const watchTabText = document.getElementById('watchTabText');
+    const watchTabButton = document.getElementById('watchTabButton');
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
   
-    if (!projectId) {
-      console.error('Project ID not found in URL.');
-      return;
-    }
-  
-    if (!watchLink) {
-      console.error('Watch link element not found in DOM.');
+    if (!projectId || !watchLink) {
+      console.error('Missing project ID or DOM elements.');
       return;
     }
   
     try {
-      // Fetch the watch status for the project
       const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch watch status');
-      }
+      if (!response.ok) throw new Error('Failed to fetch watch status');
   
       const result = await response.json();
-      const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); // Use loose equality to handle type mismatch
+      const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); // FIXED: loose equality
   
-     
       if (isWatched) {
         if (!watchLink.querySelector('.ti-eye')) {
           const eyeIcon = document.createElement('i');
           eyeIcon.className = 'ti ti-eye rounded-circle ti-md';
           watchLink.appendChild(eyeIcon);
         }
-        watchTabText.textContent = 'Unwatch'; // Update button text to "Unwatch"
+        
+        watchTabText.textContent = 'Unwatch';
+        watchTabButton.classList.remove('btn-outline-primary');
+        watchTabButton.classList.add('btn-outline-primary');
       } else {
         const existingIcon = watchLink.querySelector('.ti-eye');
-        if (existingIcon) {
-          existingIcon.remove();
-        }
-        watchTabText.textContent = 'Watch'; // Update button text to "Watch"
+        if (existingIcon) existingIcon.remove();
+  
+        watchTabText.textContent = 'Watch';
+        watchTabButton.classList.remove('btn-outline-primary');
+        watchTabButton.classList.add('btn-outline-primary');
       }
     } catch (error) {
       console.error('Error fetching watch status:', error);
     }
   }
   
-  // Call the updateWatchIcon function on page load
   document.addEventListener('DOMContentLoaded', function () {
-    setTimeout(updateWatchIcon, 1000); 
+    setTimeout(updateWatchIcon, 2000); 
   });
   
-  // Event listener for the watch tab button
   document.getElementById('watchTabButton').addEventListener('click', async function () {
     const watchLink = document.getElementById('watchIcon');
-    const watchTabText = document.getElementById('watchTabText'); // Target the button text
+    const watchTabText = document.getElementById('watchTabText');
+    const watchTabButton = document.getElementById('watchTabButton');
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
-    const projectName = urlParams.get('pname'); // Get the project name
+    const projectName = urlParams.get('pname');
   
     if (!projectId || !projectName) {
-      console.error('Missing project ID or project name in URL.');
+      console.error('Missing project ID or project name.');
       return;
     }
   
     try {
-      // Check if the project is already being watched
       const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
       let isWatched = false;
   
       if (response.ok) {
         const result = await response.json();
-        isWatched = Array.isArray(result) && result.some(item => item.project_id === projectId);
+        isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); // FIXED
       }
   
       if (!isWatched) {
-        // Add watch entry with pname as "name"
         const postRes = await fetch(`${API_BASE_URL}/watch_boards`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: projectName, // Use pname from URL
+            name: projectName,
             ticket_id: null,
             project_id: projectId
           })
@@ -760,32 +753,29 @@ document.addEventListener("DOMContentLoaded", function () {
   
         if (!postRes.ok) throw new Error('Failed to create watch');
   
-        // Show the eye icon if not already present
         if (!watchLink.querySelector('.ti-eye')) {
           const eyeIcon = document.createElement('i');
           eyeIcon.className = 'ti ti-eye rounded-circle ti-md';
           watchLink.appendChild(eyeIcon);
         }
-  
-        // Change button text to "Unwatch"
+        iconElement.className = 'fa fa-eye-slash fa-lg';
         watchTabText.textContent = 'Unwatch';
+        watchTabButton.classList.remove('btn-outline-primary');
+        watchTabButton.classList.add('btn-outline-primary');
       } else {
-        // If project is already watched, make a DELETE request to unwatch
-        const deleteRes = await fetch(`${API_BASE_URL}/watch_boards/${projectId}`, {
+        const deleteRes = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
         });
   
         if (!deleteRes.ok) throw new Error('Failed to delete watch');
   
-        // Remove the eye icon
         const existingIcon = watchLink.querySelector('.ti-eye');
-        if (existingIcon) {
-          existingIcon.remove();
-        }
+        if (existingIcon) existingIcon.remove();
   
-        // Change button text back to "Watch"
         watchTabText.textContent = 'Watch';
+        watchTabButton.classList.remove('btn-outline-primary');
+        watchTabButton.classList.add('btn-outline-primary');
       }
     } catch (error) {
       console.error('Error processing watch toggle:', error);
