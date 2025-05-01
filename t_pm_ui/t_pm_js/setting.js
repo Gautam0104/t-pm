@@ -685,12 +685,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     try {
-      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
       if (!response.ok) throw new Error('Failed to fetch watch status');
   
       const result = await response.json();
-      const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); // FIXED: loose equality
-  
+      const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 
       if (isWatched) {
         if (!watchLink.querySelector('.ti-eye')) {
           const eyeIcon = document.createElement('i');
@@ -732,7 +731,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     try {
-      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
       let isWatched = false;
   
       if (response.ok) {
@@ -741,7 +740,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   
       if (!isWatched) {
-        const postRes = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS}`, {
+        const postRes = await fetch(`${API_BASE_URL}/watch_boards`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -763,7 +762,7 @@ document.addEventListener("DOMContentLoaded", function () {
         watchTabButton.classList.remove('btn-outline-primary');
         watchTabButton.classList.add('btn-outline-primary');
       } else {
-        const deleteRes = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}${projectId}`, {
+        const deleteRes = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
         });
