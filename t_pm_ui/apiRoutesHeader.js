@@ -85,4 +85,9 @@ export const API_ROUTES = {
   CUSTOM_FIELD_VALUE: "/custom-field-value",
   FETCH_CUSTOM_FIELD_VALUE: "/fetch-custom-field-value",
 
+
+  // setting watch
+ WATCH_BOARDS_PROJECT: "/watch-boards-project",
+ WATCH_BOARDS: "/watch-boards",
+
 };

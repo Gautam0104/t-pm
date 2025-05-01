@@ -685,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     try {
-      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`);
       if (!response.ok) throw new Error('Failed to fetch watch status');
   
       const result = await response.json();
@@ -732,16 +732,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     try {
-      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`);
       let isWatched = false;
   
       if (response.ok) {
         const result = await response.json();
-        isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); // FIXED
+        isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 
       }
   
       if (!isWatched) {
-        const postRes = await fetch(`${API_BASE_URL}/watch_boards`, {
+        const postRes = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", function () {
         watchTabButton.classList.remove('btn-outline-primary');
         watchTabButton.classList.add('btn-outline-primary');
       } else {
-        const deleteRes = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`, {
+        const deleteRes = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}${projectId}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
         });
