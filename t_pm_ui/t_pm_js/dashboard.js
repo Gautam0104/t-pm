@@ -328,50 +328,51 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
   })
   .then(data => {
     const modifiedResults = data.map(project => {
+      let statusValue = "";
       let statusText = "";
       switch (project.project_status) {
         case 1:
-          statusText =
-            '<span class="badge bg-label-primary me-1">Active</span>';
+          statusValue = "Active";
+          statusText = '<span class="badge bg-label-primary me-1">Active</span>';
           break;
         case 2:
-          statusText =
-            '<span class="badge bg-label-success me-1">Complete</span>';
+          statusValue = "Complete";
+          statusText = '<span class="badge bg-label-success me-1">Complete</span>';
           break;
         case 3:
-          statusText =
-            '<span class="badge bg-label-info me-1">Scheduled</span>';
+          statusValue = "Scheduled";
+          statusText = '<span class="badge bg-label-info me-1">Scheduled</span>';
           break;
         case 4:
-          statusText =
-            '<span class="badge bg-label-warning me-1">Pending</span>';
+          statusValue = "Pending";
+          statusText = '<span class="badge bg-label-warning me-1">Pending</span>';
           break;
         default:
-          statusText =
-            '<span class="badge bg-label-danger me-1">Unknown</span>';
+          statusValue = "Unknown";
+          statusText = '<span class="badge bg-label-danger me-1">Unknown</span>';
       }
+
       let projectTpe = "";
       switch (project.project_type) {
         case "project":
-          projectTpe =
-            '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
+          projectTpe = '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
           break;
         case "ticket":
-          projectTpe =
-            '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
+          projectTpe = '<img src="../assets/img/icons/dash_icon/ticket.png" alt="">';
           break;
         default:
-          projectTpe =
-            '<img src="../assets/img/icons/dash_icon/active.png"  alt="">';
+          projectTpe = '<img src="../assets/img/icons/dash_icon/active.png" alt="">';
       }
+
       return {
         project_id: project.project_id,
         project_name: project.project_name,
-        project_Leader_id: project.project_leader_id,
+        project_leader_id: project.project_leader_id,
         project_leader_fname: project.first_name,
         project_leader_lname: project.last_name,
         description: project.description,
-        status: statusText,
+        statusText,
+        statusValue,
         total_eta: project.total_eta,
         created_at: project.created_at,
         updated_at: project.updated_at,
@@ -383,23 +384,64 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
     const projectLeader = document.getElementById("projectLeader");
     const projectStatus = document.getElementById("projectStatus");
 
-    // Populate Table Rows with User Data
+    const projectStatusSet = new Set();
+    const projectLeaderSet = new Set();
+    const projectNameSet = new Set();
+
     modifiedResults.forEach(element => {
-      let projectStatusContent = ` <option value="">${element.status}</option>`;
+      if (!projectStatusSet.has(element.statusValue)) {
+        projectStatusSet.add(element.statusValue);
+        projectStatus.innerHTML += `<option value="${element.statusValue.toLowerCase()}">${element.statusValue}</option>`;
+      }
 
-      projectStatus.innerHTML += projectStatusContent;
+      if (!projectLeaderSet.has(element.project_leader_fname)) {
+        projectLeaderSet.add(element.project_leader_fname);
+        projectLeader.innerHTML += `<option value="${element.project_leader_fname.toLowerCase()}">${element.project_leader_fname}</option>`;
+      }
 
-      let projectLeaderContent = `<option value="">${element.project_leader_fname}</option>`;
-      projectLeader.innerHTML += projectLeaderContent;
-
-      let projectNameContent = `<option value=""> ${element.project_name} </option>`;
-      projectName.innerHTML += projectNameContent;
+      if (!projectNameSet.has(element.project_name)) {
+        projectNameSet.add(element.project_name);
+        projectName.innerHTML += `<option value="${element.project_name.toLowerCase()}">${element.project_name}</option>`;
+      }
     });
-    
+
+    // Populate table here...
   })
   .catch(error => {
     console.error("Error fetching user data:", error);
   });
+
+function filterTable() {
+  const selectedStatus = projectStatus.value;
+  const selectedLeader = projectLeader.value;
+  const selectedName = projectName.value;
+  const searchValue = filterInput.value.toLowerCase();
+
+  const rows = document.querySelectorAll("#initailbody tr");
+
+  rows.forEach(row => {
+    const statusCell = row.querySelector("td:nth-child(7)");
+    const leaderCell = row.querySelector("td:nth-child(3)");
+    const nameCell = row.querySelector("td:nth-child(2) .mx-3");
+
+    const matchesStatus =
+      !selectedStatus || statusCell.textContent.toLowerCase().includes(selectedStatus);
+    const matchesLeader =
+      !selectedLeader || leaderCell.textContent.toLowerCase().includes(selectedLeader);
+    const matchesName =
+      !selectedName || nameCell.textContent.toLowerCase().includes(selectedName);
+    const matchesSearch =
+      !searchValue || row.textContent.toLowerCase().includes(searchValue);
+
+    row.style.display = matchesStatus && matchesLeader && matchesName && matchesSearch ? "" : "none";
+  });
+}
+
+projectStatus.addEventListener("change", filterTable);
+projectLeader.addEventListener("change", filterTable);
+projectName.addEventListener("change", filterTable);
+filterInput.addEventListener("keyup", filterTable);
+
 
 window.openModal = openModal;
 window.handleDelete = handleDelete;

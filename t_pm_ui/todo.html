@@ -798,12 +798,12 @@
                   <div class="nav-align-left">
                     <ul class="nav nav-pills flex-column mb-5 rounded-3  p-2  w-100" role="tablist">
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link active bg-primary text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3"
-                        aria-selected="true" role="tab" style="pointer-events: none;">
-                         <i class="fa fa-edit fa-lg"></i>
+                        <button class="nav-link active d-flex align-items-center gap-2 py-3 px-4 rounded-3"
+                          data-bs-toggle="tab" data-bs-target="#tab-update" aria-selected="true" role="tab" >
+                          <i class="fa fa-edit fa-lg"></i>
                           <span>T&PM Setting</span>
-                           </button>
-                           </li>
+                        </button>
+                      </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link d-flex align-items-center gap-2 py-3 px-4 rounded-3"
                           data-bs-toggle="tab" data-bs-target="#tab-activity" aria-selected="false" tabindex="-1"
@@ -929,8 +929,8 @@
 
                     </ul>
                   </div>
+                
                 </div>
-
                 <!-- Background Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-activity" role="tabpanel">
                   <div class="nav-align-top">
@@ -2258,7 +2258,6 @@
                 </div>
               </div>
             </div>
-
           </div>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasfilter" aria-labelledby="offcanvasFilterLabel"
             aria-modal="true" role="dialog">
