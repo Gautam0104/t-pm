@@ -687,6 +687,14 @@
               </div>
             </div>
           </div>
+          <div class="modal fade" id="setdueDateCardToModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" id="set-duedate-card-to-form">
+
+                <!-- Dynamic content will be injected here -->
+              </div>
+            </div>
+          </div>
           <!-- /edit user modal  -->
           <div class="container-xxl flex-grow-1 container-p-y container-p-x ">
             <div>
@@ -2566,14 +2574,7 @@
           <!-- join card modal -->
 
           <!-- set due date card modal -->
-          <div class="modal fade" id="setdueDateCardToModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content" id="set-duedate-card-to-form">
 
-                <!-- Dynamic content will be injected here -->
-              </div>
-            </div>
-          </div>
           <!-- set due date modal -->
 
           <!-- remove card modal -->
@@ -3621,79 +3622,87 @@
 
 
                           <script>
-                            const API_BASE_URL = ENV.API_BASE_URL;
-                            const userActivityTab = document.getElementById("user-activity-tab");
-                            console.log("userActivityTab", userActivityTab);
-                            fetch(`${API_BASE_URL}/get-user-activity/Thunder`)
-                              .then(response => {
-                                if (!response.ok) {
-                                  throw new Error("Network response was not ok " + response.statusText);
-                                }
-                                return response.json();
-                              })
-                              .then(data => {
-                                data.forEach(comment => {
-                                  const isoDate = comment.changed_at;
-                                  const date = new Date(isoDate);
-                                  const formattedDate = date.toLocaleString("en-US", {
-                                    month: "short",
-                                    day: "2-digit",
-                                    year: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit"
-                                  });
-
-                                  const initials = (comment.changed_by || "")
-                                    .split(" ")
-                                    .map(word => word[0])
-                                    .filter(Boolean)
-                                    .join("")
-                                    .substring(0, 2)
-                                    .toUpperCase();
-
-                                  const userActivityContent = `<div class="media mb-4 d-flex align-items-center text-start">
-                                                                <div class="avatar me-3 flex-shrink-0">
-                                                                  <span class="avatar-initial bg-label-success rounded-circle">${initials}</span>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                  <p class="mb-0">${comment.change_description}</p>
-                                                                  <small class="text-muted">${formattedDate}</small>
-                                                                </div>
-                                                              </div>`;
-
-                                  userActivityTab.insertAdjacentHTML("beforeend", userActivityContent);
-                                });
-                              })
-                              .catch(error => {
-                                console.error("Error fetching comments:", error);
-                              });
-
-
-                            fetch(`${API_BASE_URL}/ticket-by-user/12`)
-                              .then(response => {
-                                if (!response.ok) {
-                                  throw new Error("Network response was not ok " + response.statusText);
-                                }
-                                return response.json();
-                              })
-                              .then(data => {
+                            (async function () {
+                              try {
+                                const API_BASE_URL = ENV?.API_BASE_URL || ''; // Ensure ENV is defined
+                                const userActivityTab = document.getElementById("user-activity-tab");
                                 const ticketList = document.getElementById("card-table-body");
-                                data.forEach(ticket => {
-                                  const ticketItem = `<tr>
-                              <td>${ticket.title}</td>
-                              <td>Todo</td>
-                              <td></td>
-                              <td></td>
-                              <td>Project and tickets</td>
-                            </tr>`;
-                                  ticketList.insertAdjacentHTML("beforeend", ticketItem);
-                                });
-                              })
-                              .catch(error => {
-                                console.error("Error fetching comments:", error);
-                              });
+
+                                if (!userActivityTab || !ticketList) {
+                                  console.warn("Required DOM elements not found.");
+                                  return;
+                                }
+
+                                // Function to fetch and render user activity
+                                const fetchUserActivity = async () => {
+                                  const response = await fetch(`${API_BASE_URL}/get-user-activity/Thunder`);
+                                  if (!response.ok) throw new Error("User activity fetch failed: " + response.statusText);
+
+                                  const data = await response.json();
+                                  data.forEach(comment => {
+                                    const date = new Date(comment.changed_at);
+                                    const formattedDate = date.toLocaleString("en-US", {
+                                      month: "short",
+                                      day: "2-digit",
+                                      year: "numeric",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                      second: "2-digit"
+                                    });
+
+                                    const initials = (comment.changed_by || "")
+                                      .split(" ")
+                                      .map(word => word[0])
+                                      .filter(Boolean)
+                                      .join("")
+                                      .substring(0, 2)
+                                      .toUpperCase();
+
+                                    const userActivityContent = `
+                                      <div class="media mb-4 d-flex align-items-center text-start">
+                                        <div class="avatar me-3 flex-shrink-0">
+                                          <span class="avatar-initial bg-label-success rounded-circle">${initials}</span>
+                                        </div>
+                                        <div class="media-body">
+                                          <p class="mb-0">${comment.change_description}</p>
+                                          <small class="text-muted">${formattedDate}</small>
+                                        </div>
+                                      </div>
+                                    `;
+                                    userActivityTab.insertAdjacentHTML("beforeend", userActivityContent);
+                                  });
+                                };
+
+                                // Function to fetch and render tickets
+                                const fetchUserTickets = async () => {
+                                  const response = await fetch(`${API_BASE_URL}/ticket-by-user/12`);
+                                  if (!response.ok) throw new Error("Tickets fetch failed: " + response.statusText);
+
+                                  const data = await response.json();
+                                  data.forEach(ticket => {
+                                    const ticketItem = `
+                                      <tr>
+                                        <td>${ticket.title}</td>
+                                        <td>Todo</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Project and tickets</td>
+                                      </tr>
+                                    `;
+                                    ticketList.insertAdjacentHTML("beforeend", ticketItem);
+                                  });
+                                };
+
+                                // Call both functions
+                                await fetchUserActivity();
+                                await fetchUserTickets();
+
+                              } catch (error) {
+                                console.error("Error:", error);
+                              }
+                            })();
                           </script>
+
 
 
 </body>
