@@ -705,7 +705,7 @@ setTimeout(function () {
                                                                 </button>
                                                             </li>
                                                              <li class="nav-item">
-                                                             <button class="nav-link  d-flex align-items-center border-0  w-100" id="add-button-dropdown"  id="create-rule-automation" data-bs-toggle="modal" data-bs-target="#createRule">
+                                                             <button class="nav-link  d-flex align-items-center border-0  w-100"   id="create-rule-automation" data-bs-toggle="modal" data-bs-target="#rulesModal">
                                                                     <i class="ti ti-arrow-up-right ti-xs me-1"></i> <span class="align-middle">Create a rule</span>
                                                                 </button>
                                                                          

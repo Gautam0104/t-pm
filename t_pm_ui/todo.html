@@ -695,7 +695,374 @@
               </div>
             </div>
           </div>
+          <div class="modal fade" id="customFieldModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" id="">
+
+                <!-- Dynamic content will be injected here -->
+              </div>
+            </div>
+          </div>
+          <!-- Rules Modal -->
+          <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="RuleLabel" aria-hidden="true"
+            role="dialog">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 120vh;">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <!-- Sidebar -->
+                      <div class="col-3">
+                        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                          <div class="app-brand demo">
+                            <a href="../index.html" class="app-brand-link">
+                              <div class="avatar">
+                                <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
+                                  class="rounded-circle">
+                              </div>
+                              <span class="app-brand-text demo menu-text fw-bold">Automation</span>
+                            </a>
+                          </div>
+                          <div class="menu-inner-shadow"></div>
+                          <ul class="menu-inner py-1 overflow-auto">
+                            <span class="app-brand-text demo menu-text">Automation</span>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="rule"><i
+                                  class="menu-icon tf-icons ti ti-arrows-right"></i>
+                                <div>Rule</div>
+                              </a></li>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="scheduled"><i
+                                  class="menu-icon tf-icons ti ti-calendar"></i>
+                                <div>Scheduled</div>
+                              </a></li>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="due-date"><i
+                                  class="menu-icon tf-icons ti ti-calendar"></i>
+                                <div>Due Date</div>
+                              </a></li>
+                            <span class="app-brand-text demo menu-text">Custom Buttons</span>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="card-buttons"><i
+                                  class="menu-icon tf-icons ti ti-layout"></i>
+                                <div>Card Buttons</div>
+                              </a></li>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="board-buttons"><i
+                                  class="menu-icon tf-icons ti ti-layout-2"></i>
+                                <div>Board Buttons</div>
+                              </a></li>
+                            <span class="app-brand-text demo menu-text">App automation</span>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="view-apps"><i
+                                  class="menu-icon tf-icons ti ti-settings"></i>
+                                <div>View apps</div>
+                              </a></li>
+                            <span class="app-brand-text demo menu-text">More</span>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="suggestions"><i
+                                  class="menu-icon tf-icons ti ti-wand"></i>
+                                <div>Suggestions</div>
+                              </a></li>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="activity"><i
+                                  class="menu-icon tf-icons ti ti-activity"></i>
+                                <div>Activity</div>
+                              </a></li>
+                            <li class="menu-item mt-5"><a href="#" class="menu-link" data-automation-type="feedback"><i
+                                  class="menu-icon tf-icons ti ti-speakerphone"></i>
+                                <div>Send feedback</div>
+                              </a></li>
+                            <li class="menu-item"><a href="#" class="menu-link" data-automation-type="help"><i
+                                  class="menu-icon tf-icons ti ti-help"></i>
+                                <div>Help</div>
+                              </a></li>
+                          </ul>
+                        </aside>
+                      </div>
+
+                      <!-- Main Content -->
+                      <div class="col-9">
+                        <div class="automation-content overflow-auto" style="max-height: 700px;">
+                          <!-- Rule Section -->
+                          <div class="content-section" data-content-type="rule">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="header-title d-flex align-items-center">
+                                <span class="app-brand-text demo menu-text fw-bold">Rule Automation</span>
+                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                              </div>
+                              <div class="header-menu">
+                                <ul class="d-flex">
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;">
+                                      <i class="ti ti-video me-1"></i>Watch video overview
+                                    </a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="btn btn-primary">Create Rule</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <hr style="color: #3d3c3c;">
+                            <div class="main-content border py-6 mt-5">
+                              <div class="content-section">
+                                <div class="row d-flex justify-content-between">
+                                  <div class="col-8">
+
+                                  </div>
+                                </div>
+                                <div class="row d-flex justify-content-between p-10">
+                                  <div id="automation-buttons" class="row g-3 p-4">
+                                    <!-- Cards will be injected here -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Scheduled Section -->
+                          <div class="content-section d-none" data-content-type="scheduled">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="header-title d-flex align-items-center">
+                                <span class="app-brand-text demo menu-text fw-bold">Scheduled automation</span>
+                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                              </div>
+                              <div class="header-menu">
+                                <ul class="d-flex" style="margin-top: 20px;">
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;"><i
+                                        class="ti ti-video me-1"></i>Watch video overview</a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="btn btn-primary">Create Automation</a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link" style="color:#333232;">
+                                      <span class="bg-light p-2 fw-bold rounded"><i
+                                          class="ti ti-filter-filled me-1"></i>All</span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link" style="color:#333232;">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <hr style="color: #3d3c3c;">
+                            <div id="rule-view"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- modal-body -->
+              </div> <!-- modal-content -->
+            </div> <!-- modal-dialog -->
+          </div> <!-- rulesModal -->
+
+
           <!-- /edit user modal  -->
+
+          <!-- create a rule  automation modal -->
+          <div class="modal fade" id="createRule" tabindex="-1" aria-labelledby="createRuleLabel" aria-hidden="true"
+            role="dialog">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 120vh;">
+                  <div class="container-fluid">
+                    <div class="row">
+
+                      <!-- Sidenav (Side Navigation) -->
+                      <div class="col-3">
+                        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                          <div class="app-brand demo">
+                            <a href="../index.html" class="app-brand-link">
+                              <div class="avatar">
+                                <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
+                                  class="rounded-circle">
+                              </div>
+                              <span class="app-brand-text demo menu-text fw-bold">Automation</span>
+                            </a>
+                          </div>
+
+                          <div class="menu-inner-shadow"></div>
+                          <ul class="menu-inner py-1 overflow-auto">
+                            <span class="app-brand-text demo menu-text">Automation</span>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="rule">
+                                <i class="menu-icon tf-icons ti ti-arrows-right"></i>
+                                <div>Rule</div>
+                              </a>
+                            </li>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="scheduled">
+                                <i class="menu-icon tf-icons ti ti-calendar"></i>
+                                <div>Scheduled</div>
+                              </a>
+                            </li>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="due-date">
+                                <i class="menu-icon tf-icons ti ti-calendar"></i>
+                                <div>Due Date</div>
+                              </a>
+                            </li>
+                            <span class="app-brand-text demo menu-text">Custom Buttons</span>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="card-buttons">
+                                <i class="menu-icon tf-icons ti ti-layout"></i>
+                                <div>Card Buttons</div>
+                              </a>
+                            </li>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="board-buttons">
+                                <i class="menu-icon tf-icons ti ti-layout-2"></i>
+                                <div>Board Buttons</div>
+                              </a>
+                            </li>
+                            <span class="app-brand-text demo menu-text">App automation</span>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="view-apps">
+                                <i class="menu-icon tf-icons ti ti-settings"></i>
+                                <div>View apps</div>
+                              </a>
+                            </li>
+                            <span class="app-brand-text demo menu-text">More</span>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="suggestions">
+                                <i class="menu-icon tf-icons ti ti-wand"></i>
+                                <div>Suggestions</div>
+                              </a>
+                            </li>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="activity">
+                                <i class="menu-icon tf-icons ti ti-activity"></i>
+                                <div>Activity</div>
+                              </a>
+                            </li>
+                            <li class="menu-item mt-5">
+                              <a href="#" class="menu-link" data-automation-type="feedback">
+                                <i class="menu-icon tf-icons ti ti-speakerphone"></i>
+                                <div>Send feedback</div>
+                              </a>
+                            </li>
+                            <li class="menu-item">
+                              <a href="#" class="menu-link" data-automation-type="help">
+                                <i class="menu-icon tf-icons ti ti-help"></i>
+                                <div>Help</div>
+                              </a>
+                            </li>
+                          </ul>
+                        </aside>
+                      </div>
+
+                      <!-- Content Area -->
+                      <div class="col-9">
+                        <div class="automation-content overflow-auto" style="max-height: 700px;">
+                          <!-- Rule Content -->
+                          <div class="content-section" data-content-type="rule">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="header-title d-flex align-items-center">
+                                <span class="app-brand-text demo menu-text fw-bold">Rule Automation</span>
+                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                              </div>
+                              <div class="header-menu">
+                                <ul class="d-flex">
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;">
+                                      <i class="ti ti-video me-1"></i>Watch video overview
+                                    </a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="btn btn-primary">Create Rule</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <hr style="color: #3d3c3c;">
+                            <div class="main-content border py-6" style="margin-top: 50px;">
+                              <div class="content-section">
+                                <div class="row d-flex justify-content-between">
+                                  <div class="col-8">
+                                    <ul class="d-flex">
+                                      <li class="menu-item me-1">
+                                        <a href="#" class="menu-link">
+                                          <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
+                                        </a>
+                                      </li>
+                                      <li class="menu-item">
+                                        <a href="#" class="menu-link me-1">
+                                          <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-pencil"></i></span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="row d-flex justify-content-between p-10">
+                                  <div class="col d-flex p-4 w-100 bg-light rounded">
+                                    <span class="fw-medium">Create a new automation rule</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Scheduled Content -->
+                          <div class="content-section d-none" data-content-type="scheduled">
+                            <!-- Navigation Bar -->
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="header-title d-flex align-items-center">
+                                <span class="app-brand-text demo menu-text fw-bold">Scheduled automation</span>
+                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
+                              </div>
+
+                              <!-- Additional Menu Links -->
+                              <div class="header-menu">
+                                <ul class="d-flex " style="margin-top: 20px;">
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link " style="color:#333232;margin-top: 10px;"><i
+                                        class="ti ti-video me-1"></i>Watch video
+                                      overview</a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="btn btn-primary">Create
+                                      Automation</a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link " style="color:#333232;">
+                                      <span class="bg-light p-2 fw-bold rounded"><i
+                                          class="ti ti-filter-filled me-1"></i>All</span>
+                                    </a>
+                                  </li>
+                                  <li class="menu-item me-1">
+                                    <a href="#" class="menu-link " style="color:#333232;">
+                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <hr style="color: #3d3c3c;">
+                            <!-- Main Content Area -->
+                            <div id="rule-view">
+                              hello world
+                            </div>
+
+
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- create a rule due date automation modal -->
+
           <div class="container-xxl flex-grow-1 container-p-y container-p-x ">
             <div>
               <div class="app-kanban" style=" height: auto; ">
@@ -1598,163 +1965,7 @@
                   </div>
                 </div>
 
-                <!-- Rules Modal -->
-                <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="RuleLabel" aria-hidden="true"
-                  role="dialog">
-                  <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body" style="height: 120vh;">
-                        <div class="container-fluid">
-                          <div class="row">
-                            <!-- Sidebar -->
-                            <div class="col-3">
-                              <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                                <div class="app-brand demo">
-                                  <a href="../index.html" class="app-brand-link">
-                                    <div class="avatar">
-                                      <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
-                                        class="rounded-circle">
-                                    </div>
-                                    <span class="app-brand-text demo menu-text fw-bold">Automation</span>
-                                  </a>
-                                </div>
-                                <div class="menu-inner-shadow"></div>
-                                <ul class="menu-inner py-1 overflow-auto">
-                                  <span class="app-brand-text demo menu-text">Automation</span>
-                                  <li class="menu-item"><a href="#" class="menu-link" data-automation-type="rule"><i
-                                        class="menu-icon tf-icons ti ti-arrows-right"></i>
-                                      <div>Rule</div>
-                                    </a></li>
-                                  <li class="menu-item"><a href="#" class="menu-link"
-                                      data-automation-type="scheduled"><i class="menu-icon tf-icons ti ti-calendar"></i>
-                                      <div>Scheduled</div>
-                                    </a></li>
-                                  <li class="menu-item"><a href="#" class="menu-link" data-automation-type="due-date"><i
-                                        class="menu-icon tf-icons ti ti-calendar"></i>
-                                      <div>Due Date</div>
-                                    </a></li>
-                                  <span class="app-brand-text demo menu-text">Custom Buttons</span>
-                                  <li class="menu-item"><a href="#" class="menu-link"
-                                      data-automation-type="card-buttons"><i
-                                        class="menu-icon tf-icons ti ti-layout"></i>
-                                      <div>Card Buttons</div>
-                                    </a></li>
-                                  <li class="menu-item"><a href="#" class="menu-link"
-                                      data-automation-type="board-buttons"><i
-                                        class="menu-icon tf-icons ti ti-layout-2"></i>
-                                      <div>Board Buttons</div>
-                                    </a></li>
-                                  <span class="app-brand-text demo menu-text">App automation</span>
-                                  <li class="menu-item"><a href="#" class="menu-link"
-                                      data-automation-type="view-apps"><i class="menu-icon tf-icons ti ti-settings"></i>
-                                      <div>View apps</div>
-                                    </a></li>
-                                  <span class="app-brand-text demo menu-text">More</span>
-                                  <li class="menu-item"><a href="#" class="menu-link"
-                                      data-automation-type="suggestions"><i class="menu-icon tf-icons ti ti-wand"></i>
-                                      <div>Suggestions</div>
-                                    </a></li>
-                                  <li class="menu-item"><a href="#" class="menu-link" data-automation-type="activity"><i
-                                        class="menu-icon tf-icons ti ti-activity"></i>
-                                      <div>Activity</div>
-                                    </a></li>
-                                  <li class="menu-item mt-5"><a href="#" class="menu-link"
-                                      data-automation-type="feedback"><i
-                                        class="menu-icon tf-icons ti ti-speakerphone"></i>
-                                      <div>Send feedback</div>
-                                    </a></li>
-                                  <li class="menu-item"><a href="#" class="menu-link" data-automation-type="help"><i
-                                        class="menu-icon tf-icons ti ti-help"></i>
-                                      <div>Help</div>
-                                    </a></li>
-                                </ul>
-                              </aside>
-                            </div>
 
-                            <!-- Main Content -->
-                            <div class="col-9">
-                              <div class="automation-content overflow-auto" style="max-height: 700px;">
-                                <!-- Rule Section -->
-                                <div class="content-section" data-content-type="rule">
-                                  <div class="d-flex justify-content-between align-items-center">
-                                    <div class="header-title d-flex align-items-center">
-                                      <span class="app-brand-text demo menu-text fw-bold">Rule Automation</span>
-                                      <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
-                                    </div>
-                                    <div class="header-menu">
-                                      <ul class="d-flex">
-                                        <li class="menu-item me-1">
-                                          <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;">
-                                            <i class="ti ti-video me-1"></i>Watch video overview
-                                          </a>
-                                        </li>
-                                        <li class="menu-item me-1">
-                                          <a href="#" class="btn btn-primary">Create Rule</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <hr style="color: #3d3c3c;">
-                                  <div class="main-content border py-6 mt-5">
-                                    <div class="content-section">
-                                      <div class="row d-flex justify-content-between">
-                                        <div class="col-8">
-
-                                        </div>
-                                      </div>
-                                      <div class="row d-flex justify-content-between p-10">
-                                        <div id="automation-buttons" class="row g-3 p-4">
-                                          <!-- Cards will be injected here -->
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <!-- Scheduled Section -->
-                                <div class="content-section d-none" data-content-type="scheduled">
-                                  <div class="d-flex justify-content-between align-items-center">
-                                    <div class="header-title d-flex align-items-center">
-                                      <span class="app-brand-text demo menu-text fw-bold">Scheduled automation</span>
-                                      <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
-                                    </div>
-                                    <div class="header-menu">
-                                      <ul class="d-flex" style="margin-top: 20px;">
-                                        <li class="menu-item me-1">
-                                          <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;"><i
-                                              class="ti ti-video me-1"></i>Watch video overview</a>
-                                        </li>
-                                        <li class="menu-item me-1">
-                                          <a href="#" class="btn btn-primary">Create Automation</a>
-                                        </li>
-                                        <li class="menu-item me-1">
-                                          <a href="#" class="menu-link" style="color:#333232;">
-                                            <span class="bg-light p-2 fw-bold rounded"><i
-                                                class="ti ti-filter-filled me-1"></i>All</span>
-                                          </a>
-                                        </li>
-                                        <li class="menu-item me-1">
-                                          <a href="#" class="menu-link" style="color:#333232;">
-                                            <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <hr style="color: #3d3c3c;">
-                                  <div id="rule-view"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> <!-- modal-body -->
-                    </div> <!-- modal-content -->
-                  </div> <!-- modal-dialog -->
-                </div> <!-- rulesModal -->
 
                 <!-- Buttons Modal -->
                 <div class="modal fade" id="buttonsModal" tabindex="-1" aria-labelledby="buttonsLabel"
@@ -2799,866 +3010,119 @@
             </div>
           </div>
 
-          <!-- create a rule  automation modal -->
-          <div class="modal fade" id="createRule" tabindex="-1" aria-labelledby="createRuleLabel" aria-hidden="true"
-            role="dialog">
-            <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
 
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="height: 120vh;">
-                  <div class="container-fluid">
-                    <div class="row">
 
-                      <!-- Sidenav (Side Navigation) -->
-                      <div class="col-3">
-                        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                          <div class="app-brand demo">
-                            <a href="../index.html" class="app-brand-link">
-                              <div class="avatar">
-                                <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
-                                  class="rounded-circle">
-                              </div>
-                              <span class="app-brand-text demo menu-text fw-bold">Automation</span>
-                            </a>
-                          </div>
+          <!-- / Layout wrapper -->
+          <!-- JavaScript to Make Back Button Work -->
 
-                          <div class="menu-inner-shadow"></div>
-                          <ul class="menu-inner py-1 overflow-auto">
-                            <span class="app-brand-text demo menu-text">Automation</span>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="rule">
-                                <i class="menu-icon tf-icons ti ti-arrows-right"></i>
-                                <div>Rule</div>
-                              </a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="scheduled">
-                                <i class="menu-icon tf-icons ti ti-calendar"></i>
-                                <div>Scheduled</div>
-                              </a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="due-date">
-                                <i class="menu-icon tf-icons ti ti-calendar"></i>
-                                <div>Due Date</div>
-                              </a>
-                            </li>
-                            <span class="app-brand-text demo menu-text">Custom Buttons</span>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="card-buttons">
-                                <i class="menu-icon tf-icons ti ti-layout"></i>
-                                <div>Card Buttons</div>
-                              </a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="board-buttons">
-                                <i class="menu-icon tf-icons ti ti-layout-2"></i>
-                                <div>Board Buttons</div>
-                              </a>
-                            </li>
-                            <span class="app-brand-text demo menu-text">App automation</span>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="view-apps">
-                                <i class="menu-icon tf-icons ti ti-settings"></i>
-                                <div>View apps</div>
-                              </a>
-                            </li>
-                            <span class="app-brand-text demo menu-text">More</span>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="suggestions">
-                                <i class="menu-icon tf-icons ti ti-wand"></i>
-                                <div>Suggestions</div>
-                              </a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="activity">
-                                <i class="menu-icon tf-icons ti ti-activity"></i>
-                                <div>Activity</div>
-                              </a>
-                            </li>
-                            <li class="menu-item mt-5">
-                              <a href="#" class="menu-link" data-automation-type="feedback">
-                                <i class="menu-icon tf-icons ti ti-speakerphone"></i>
-                                <div>Send feedback</div>
-                              </a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link" data-automation-type="help">
-                                <i class="menu-icon tf-icons ti ti-help"></i>
-                                <div>Help</div>
-                              </a>
-                            </li>
-                          </ul>
-                        </aside>
-                      </div>
+          <!-- Core JS -->
+          <!-- build:js assets/vendor/js/core.js -->
+          <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+          <script src="../assets/vendor/libs/popper/popper.js"></script>
+          <script src="../assets/vendor/js/bootstrap.js"></script>
+          <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
+          <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+          <script src="../assets/vendor/libs/hammer/hammer.js"></script>
+          <script src="../assets/vendor/libs/i18n/i18n.js"></script>
+          <script src="../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+          <script src="../assets/vendor/js/menu.js"></script>
 
-                      <!-- Content Area -->
-                      <div class="col-9">
-                        <div class="automation-content overflow-auto" style="max-height: 700px;">
-                          <!-- Rule Content -->
-                          <div class="content-section" data-content-type="rule">
-                            <div class="d-flex justify-content-between align-items-center">
-                              <div class="header-title d-flex align-items-center">
-                                <span class="app-brand-text demo menu-text fw-bold">Rule Automation</span>
-                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
-                              </div>
-                              <div class="header-menu">
-                                <ul class="d-flex">
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link" style="color:#333232;margin-top: 10px;">
-                                      <i class="ti ti-video me-1"></i>Watch video overview
-                                    </a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="btn btn-primary">Create Rule</a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                            <hr style="color: #3d3c3c;">
-                            <div class="main-content border py-6" style="margin-top: 50px;">
-                              <div class="content-section">
-                                <div class="row d-flex justify-content-between">
-                                  <div class="col-8">
-                                    <ul class="d-flex">
-                                      <li class="menu-item me-1">
-                                        <a href="#" class="menu-link">
-                                          <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
-                                        </a>
-                                      </li>
-                                      <li class="menu-item">
-                                        <a href="#" class="menu-link me-1">
-                                          <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-pencil"></i></span>
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div class="row d-flex justify-content-between p-10">
-                                  <div class="col d-flex p-4 w-100 bg-light rounded">
-                                    <span class="fw-medium">Create a new automation rule</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+          <!-- endbuild -->
 
-                          <!-- Scheduled Content -->
-                          <div class="content-section d-none" data-content-type="scheduled">
-                            <!-- Navigation Bar -->
-                            <div class="d-flex justify-content-between align-items-center">
-                              <div class="header-title d-flex align-items-center">
-                                <span class="app-brand-text demo menu-text fw-bold">Scheduled automation</span>
-                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
-                              </div>
+          <!-- Vendors JS -->
+          <script src="../assets/vendor/libs/moment/moment.js"></script>
+          <script src="../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+          <script src="../assets/vendor/libs/select2/select2.js"></script>
+          <script src="../assets/vendor/libs/jkanban/jkanban.js"></script>
+          <script src="../assets/vendor/libs/quill/katex.js"></script>
+          <script src="../assets/vendor/libs/quill/quill.js"></script>
 
-                              <!-- Additional Menu Links -->
-                              <div class="header-menu">
-                                <ul class="d-flex " style="margin-top: 20px;">
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link " style="color:#333232;margin-top: 10px;"><i
-                                        class="ti ti-video me-1"></i>Watch video
-                                      overview</a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="btn btn-primary">Create
-                                      Automation</a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link " style="color:#333232;">
-                                      <span class="bg-light p-2 fw-bold rounded"><i
-                                          class="ti ti-filter-filled me-1"></i>All</span>
-                                    </a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link " style="color:#333232;">
-                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                            <hr style="color: #3d3c3c;">
-                            <!-- Main Content Area -->
-                            <div id="rule-view"></div>
+          <!-- Main JS -->
+          <script src="../assets/js/main.js"></script>
+
+          <!-- Page JS -->
+
+          <!-- <script src="../assets/js/app-kanban.js"></script> -->
+          <!-- Code injected by live-server -->
+
+          <script src="../config.js"></script>
+          <script type="module" src="./t_pm_js/logout.js"></script>
+          <script type="module" src="./t_pm_js/kanban-board.js"></script>
+          <script type="module" src="./t_pm_js/kanban.js"></script>
+          <script type="module" src="./t_pm_js/createNewArea.js"></script>
+          <script type="module" src="./t_pm_js/automation/automation.js"></script>
+          <script type="module" src="./t_pm_js/automation/moveCard.js"></script>
+          <script type="module" src="./t_pm_js/automation/copyCard.js"></script>
+          <script type="module" src="./t_pm_js/automation/joinCard.js"></script>
+          <script type="module" src="./t_pm_js/automation/setDueDate.js"></script>
+          <script type="module" src="./t_pm_js/automation/removeAutomationFeature.js"></script>
+          <script type="module" src="./t_pm_js/automation/markDueDate.js"></script>
+          <script type="module" src="./t_pm_js/automation/addLabel.js"></script>
+          <script type="module" src="./apiRoutesHeader.js"></script>
+          <script type="module" src="./t_pm_js/element_id.js"></script>
+          <script type="module" src="./t_pm_js/automation/automationLogic.js"></script>
+
+          <script type="module" src="./t_pm_js/todo.js"></script>
+
+          <script type="module" src="./t_pm_js/createTickets.js"></script>
+          <script type="module" src="./t_pm_js/backgrounderSetter.js"></script>
+
+
+          <script type="module" src="./t_pm_js/checklist.js"></script>
+          <script type="module" src="./t_pm_js/moveList.js"></script>
+          <script type="module" src="./t_pm_js/joinCard.js"></script>
+          <script type="module" src="./t_pm_js/leaveCard.js"></script>
+          <script src="./t_pm_js/todo_extra.js"></script>
+          <script type="module" src="./t_pm_js/mirrorModal.js"></script>
+          <script src="./t_pm_js/create-automation-rule/viewrule.js"></script>
+          <script src="./t_pm_js/sortCard.js"></script>
+          <script type="module" src="./t_pm_js/moveallcard.js"></script>
+          <script type="module" src="./t_pm_js/setting.js"> </script>
 
 
 
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- create a rule due date automation modal -->
-            <div class="modal fade" id="" tabindex="-1" aria-labelledby="createRuleLabel" aria-hidden="true"
-              role="dialog">
-              <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body" style="height: 130vh;">
-                    <div class="container-fluid">
-                      <div class="row">
-
-                        <!-- Sidenav (Side Navigation) -->
-                        <div class="col-3">
-                          <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                            <div class="app-brand demo">
-                              <a href="../index.html" class="app-brand-link">
-                                <div class="avatar">
-                                  <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
-                                    class="rounded-circle">
-                                </div>
-                                <span class="app-brand-text demo menu-text fw-bold">Automation</span>
-                              </a>
-                            </div>
-
-                            <div class="menu-inner-shadow"></div>
-                            <ul class="menu-inner py-1 overflow-auto">
-                              <span class="app-brand-text demo menu-text">Automation</span>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link ">
-                                  <i class="menu-icon tf-icons ti ti-arrows-right"></i>
-                                  <div>Rule</div>
-                                </a>
-                              </li>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link ">
-                                  <i class="menu-icon tf-icons ti ti-calendar"></i>
-                                  <div>Scheduled</div>
-                                </a>
-                              </li>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link bg-primary text-white">
-                                  <i class="menu-icon tf-icons ti ti-calendar"></i>
-                                  <div>Due Date</div>
-                                </a>
-                              </li>
-                              <span class="app-brand-text demo menu-text">Custom Buttons</span>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-layout"></i>
-                                  <div>Card Buttons</div>
-                                </a>
-                              </li>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-layout-2"></i>
-                                  <div>Board Buttons</div>
-                                </a>
-                              </li>
-                              <span class="app-brand-text demo menu-text">App automation</span>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-settings"></i>
-                                  <div>View apps</div>
-                                </a>
-                              </li>
-                              <span class="app-brand-text demo menu-text">More</span>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-wand"></i>
-                                  <div>Suggestions</div>
-                                </a>
-                              </li>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-activity"></i>
-                                  <div>Activity</div>
-                                </a>
-                              </li>
-                              <li class="menu-item mt-5">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-speakerphone"></i>
-                                  <div>Send feedback</div>
-                                </a>
-                              </li>
-                              <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                  <i class="menu-icon tf-icons ti ti-help"></i>
-                                  <div>Help</div>
-                                </a>
-                              </li>
-                            </ul>
-                          </aside>
-                        </div>
-
-                        <!-- Content Area -->
-                        <div class="col-9">
-                          <div class="">
-                            <!-- Navigation Bar -->
-                            <div class="d-flex justify-content-between align-items-center">
-                              <div class="header-title d-flex align-items-center">
-                                <span class="app-brand-text demo menu-text fw-bold">Due Date automation</span>
-                                <i class="ti ti-info-circle-filled mt-1" style="font-size: 25px;"></i>
-                              </div>
-
-                              <!-- Additional Menu Links -->
-                              <div class="header-menu">
-                                <ul class="d-flex " style="margin-top: 20px;">
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link " style="color:#333232;margin-top: 10px;"><i
-                                        class="ti ti-video me-1"></i>Watch video
-                                      overview</a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="btn btn-primary">Create
-                                      Automation</a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link " style="color:#333232;">
-                                      <span class="bg-light p-2 fw-bold rounded"><i
-                                          class="ti ti-filter-filled me-1"></i>All</span>
-                                    </a>
-                                  </li>
-                                  <li class="menu-item me-1">
-                                    <a href="#" class="menu-link " style="color:#333232;">
-                                      <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                            <hr style="color: #3d3c3c;">
-                            <!-- Main Content Area -->
-                            <div class="main-content   py-6 ">
-                              <div class="content-section">
-                                <div class="row d-flex justify-content-between">
-                                  <div class="col">
-                                    <h3>Make things happen automatically based on a card's due date.</h3>
-                                  </div>
-                                  <p>Examples:</p>
-                                  <div class="row d-flex justify-content-between">
-                                    <div class="col d-flex p-4 w-100  rounded">
-                                      <div class="avatar me-2">
-                                        <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
-                                          class="rounded-circle">
-                                      </div>
-                                      <span class="fw-medium mt-3">The moment a card is due, move the card to the
-                                        top
-                                        of
-                                        list "To
-                                        Do" and join the card </span>
-                                    </div>
-                                  </div>
-                                  <div class="row d-flex justify-content-between">
-                                    <div class="col d-flex p-4 w-100  rounded">
-                                      <div class="avatar me-2">
-                                        <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
-                                          class="rounded-circle">
-                                      </div>
-                                      <span class="fw-medium mt-3">2 hours before a card is due, add the red label
-                                        to
-                                        the
-                                        card
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div class="row d-flex justify-content-between">
-                                    <div class="col d-flex p-4 w-100  rounded">
-                                      <div class="avatar me-2">
-                                        <img src="../assets/img/icons/automation/butler-bot.svg" alt="Logo"
-                                          class="rounded-circle">
-                                      </div>
-                                      <span class="fw-medium mt-3">3 days after a card is due, post comment "@board
-                                        This
-                                        card was
-                                        due 3 days ago" </span>
-                                    </div>
-                                  </div>
-                                  <div class="row d-flex justify-content-between">
-                                    <div class="col d-flex p-4 w-100  rounded">
-                                      <button class="btn btn-primary">Create Automation</button>
-                                    </div>
-                                  </div>
-                                  <div class="row d-flex justify-content-between">
-                                    <div class="col d-flex p-4 w-100  rounded">
-                                      <img src="../assets/img/backgrounds/3.jpg" alt="" width="100%" height="100%">
-                                    </div>
-                                  </div>
-
-                                  <!-- create a suggestion automation modal -->
-                                  <div class="modal fade" id="aboutautomation" tabindex="-1"
-                                    aria-labelledby="aboutautomationModal" aria-hidden="true" role="dialog">
-                                    <div class="modal-dialog modal-xl" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" style="height: 120vh;">
-                                          <div class="container-fluid">
-                                            <div class="row">
-
-                                              <!-- Sidenav (Side Navigation) -->
-                                              <div class="col-3">
-                                                <aside id="layout-menu"
-                                                  class="layout-menu menu-vertical menu bg-menu-theme">
-                                                  <div class="app-brand demo">
-                                                    <a href="../index.html" class="app-brand-link">
-                                                      <div class="avatar">
-                                                        <img src="../assets/img/icons/automation/butler-bot.svg"
-                                                          alt="Logo" class="rounded-circle">
-                                                      </div>
-                                                      <span
-                                                        class="app-brand-text demo menu-text fw-bold">Automation</span>
-                                                    </a>
-                                                  </div>
-
-                                                  <div class="menu-inner-shadow"></div>
-                                                  <ul class="menu-inner py-1 overflow-auto">
-                                                    <span class="app-brand-text demo menu-text">Automation</span>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-arrows-right"></i>
-                                                        <div>Rule</div>
-                                                      </a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-calendar"></i>
-                                                        <div>Scheduled</div>
-                                                      </a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-calendar"></i>
-                                                        <div>Due Date</div>
-                                                      </a>
-                                                    </li>
-                                                    <span class="app-brand-text demo menu-text">Custom
-                                                      Buttons</span>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-layout"></i>
-                                                        <div>Card Buttons</div>
-                                                      </a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-layout-2"></i>
-                                                        <div>Board Buttons</div>
-                                                      </a>
-                                                    </li>
-                                                    <span class="app-brand-text demo menu-text">App
-                                                      automation</span>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-settings"></i>
-                                                        <div>View apps</div>
-                                                      </a>
-                                                    </li>
-                                                    <span class="app-brand-text demo menu-text">More</span>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link bg-primary text-white">
-                                                        <i class="menu-icon tf-icons ti ti-wand"></i>
-                                                        <div>Suggestions</div>
-                                                      </a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-activity"></i>
-                                                        <div>Activity</div>
-                                                      </a>
-                                                    </li>
-                                                    <li class="menu-item mt-5">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-speakerphone"></i>
-                                                        <div>Send feedback</div>
-                                                      </a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                      <a href="#" class="menu-link">
-                                                        <i class="menu-icon tf-icons ti ti-help"></i>
-                                                        <div>Help</div>
-                                                      </a>
-                                                    </li>
-                                                  </ul>
-                                                </aside>
-                                              </div>
-
-                                              <!-- Content Area -->
-                                              <div class="col-9">
-                                                <span class="app-brand-text demo menu-text fw-bold">Automation
-                                                  tips</span>
-                                                <div class="">
-                                                  <!-- Navigation Bar -->
-                                                  <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="header-title d-flex align-items-center">
-                                                      <span class=" ">Generated 5 hours age based on 628
-                                                        action performed by
-                                                        you on this board in the last 2 months.</span>
-                                                    </div>
-
-                                                    <!-- Additional Menu Links -->
-                                                    <div class="header-menu">
-                                                      <ul class="d-flex " style="margin-top: 20px;">
-                                                        <li class="menu-item me-1">
-                                                          <a href="#" class="menu-link " style="color:#333232;">
-                                                            <span class="bg-light p-2 fw-bold rounded"><i
-                                                                class="ti ti-reload me-1"></i>Refresh</span>
-                                                          </a>
-                                                        </li>
-                                                      </ul>
-                                                    </div>
-                                                  </div>
-                                                  <hr style="color: #636363;">
-                                                  <!-- Main Content Area -->
-                                                  <div class="main-content  border py-6 " style="margin-top: 50px;">
-                                                    <div class="row d-flex justify-content-between">
-                                                      <div class="col-8">
-                                                        <ul class="d-flex">
-                                                          <li class="menu-item me-1">
-                                                            <a href="" class="menu-link">
-                                                              <!-- <span class="bg-light p-2 fw-bold rounded"><i class="ti ti-tag"></i></span> -->
-                                                            </a>
-                                                          </li>
-                                                        </ul>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <br>
-                                                  <span class="app-brand-text demo menu-text fw-bold">Automation
-                                                    tips
-                                                    and
-                                                    essentials to help you
-                                                    get
-                                                    started</span>
-                                                  <div class="main-content  border py-6 " style="margin-top: 50px;">
-                                                    <div class="content-section">
-                                                      <div class="row d-flex justify-content-between">
-                                                        <div class="col-8">
-                                                          <ul class="d-flex">
-                                                            <li class="menu-item me-1">
-                                                              <a href="" class="btn btn-light">
-                                                                <i class="ti ti-star me-2"></i>Card Button
-                                                              </a>
-                                                            </li>
-                                                          </ul>
-                                                        </div>
-                                                        <div class="col-4">
-                                                          <li class="menu-item">
-                                                            <a href="" class="menu-link me-1">
-                                                              <span class="bg-light p-2 fw-bold rounded col-4 me-12"><i
-                                                                  class="ti ti-trash"></i></span>
-                                                              <button type="button" class="btn btn-primary w-55 px-4 ">
-                                                                +
-                                                                Add
-                                                              </button>
-                                                            </a>
-                                                          </li>
-                                                        </div>
-                                                      </div>
-                                                      <div class="row d-flex justify-content-between px-10">
-                                                        <div class="col d-flex p-4 w-100 bg-light rounded">
-                                                          <span class="fw-medium">add member @gusgalante to the
-                                                            card</span>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row d-flex justify-content-between p-4">
-                                                      <div class="col d-flex px-6 w-55 rounded">
-                                                        <div class="d-flex ms-1">
-                                                          <span>Performed 57 times, most recently a day ago.</span>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="main-content  border py-6 " style="margin-top: 50px;">
-                                                    <div class="content-section">
-                                                      <div class="row d-flex justify-content-between">
-                                                        <div class="col-8">
-                                                          <ul class="d-flex">
-                                                            <li class="menu-item me-1">
-                                                              <a href="" class="btn btn-light">
-                                                                <i class="ti ti-star me-2"></i>Card Button
-                                                              </a>
-                                                            </li>
-                                                          </ul>
-                                                        </div>
-                                                        <div class="col-4">
-                                                          <li class="menu-item">
-                                                            <a href="" class="menu-link me-1">
-                                                              <span class="bg-light p-2 fw-bold rounded col-4 me-12"><i
-                                                                  class="ti ti-trash"></i></span>
-                                                              <button type="button" class="btn btn-primary w-55 px-4">
-                                                                +
-                                                                Add
-                                                              </button>
-                                                            </a>
-                                                          </li>
-                                                        </div>
-                                                      </div>
-                                                      <div class="row d-flex justify-content-between px-10">
-                                                        <div class="col d-flex p-4 w-100 bg-light rounded">
-                                                          <span class="fw-medium">remove member @gusgalante from the
-                                                            card</span>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row d-flex justify-content-between p-4">
-                                                      <div class="col d-flex px-6 w-55 rounded">
-                                                        <div class="d-flex ms-1">
-                                                          <span>Performed 57 times, most recently a day ago.</span>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <!-- Add action Modal -->
-                                  <div class="modal fade right" id="actionModal" tabindex="-1"
-                                    aria-labelledby="actionModalLabel" aria-hidden="true" data-bs-backdrop="false">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="actionModalLabel">Add Action</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body d-grid gap-2">
-                                          <button class="btn btn-light text-start">Move card to...</button>
-                                          <button class="btn btn-light text-start">Copy card to...</button>
-                                          <button class="btn btn-light text-start">Add label...</button>
-                                          <button class="btn btn-light text-start">Join card</button>
-                                          <button class="btn btn-light text-start">Set due date or start
-                                            date...</button>
-                                          <button class="btn btn-light text-start">Mark due date...</button>
-                                          <button class="btn btn-light text-start">Remove...</button>
-                                          <button class="btn btn-light text-start">Sort list...</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- Add action Modal -->
+          <script src="../t_pm_ui/t_pm_js/userUpdate.js"></script>
 
 
 
+          <script>
+            (async function () {
+              try {
+                const API_BASE_URL = ENV?.API_BASE_URL || ''; // Ensure ENV is defined
+                const userActivityTab = document.getElementById("user-activity-tab");
+                const ticketList = document.getElementById("card-table-body");
 
-                                  <!-- Automation Add action  Modal -->
-                                  <div class="modal fade right" id="AutomationactionModalLabel" tabindex="-1"
-                                    aria-labelledby="AutomationactionModalLabel" aria-hidden="true"
-                                    data-bs-backdrop="false">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="AutomationactionModalLabel">Add Action</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body d-grid gap-1">
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-arrow-right "></i></span> Move card
-                                            to...</button>
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-copy "></i></span> Copy card
-                                            to...</button>
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-tags "></i></span> Add label...</button>
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-user "></i></span> Join card</button>
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-clock "></i></span> Set due date or start
-                                            date...</button>
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-clock "></i></span> MArk due date...</button>
-                                          <button class="btn border d-flex justify-content-start"><span
-                                              class="avatar-initial rounded bg-label-primary d-flex justify-content-center p-2 me-2"><i
-                                                class="ti ti-minus "></i></span> Remove...</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- Automation Add action Modal -->
+                if (!userActivityTab || !ticketList) {
+                  console.warn("Required DOM elements not found.");
+                  return;
+                }
 
+                // Function to fetch and render user activity
+                const fetchUserActivity = async () => {
+                  const response = await fetch(`${API_BASE_URL}/get-user-activity/Thunder`);
+                  if (!response.ok) throw new Error("User activity fetch failed: " + response.statusText);
 
+                  const data = await response.json();
+                  data.forEach(comment => {
+                    const date = new Date(comment.changed_at);
+                    const formattedDate = date.toLocaleString("en-US", {
+                      month: "short",
+                      day: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit"
+                    });
 
+                    const initials = (comment.changed_by || "")
+                      .split(" ")
+                      .map(word => word[0])
+                      .filter(Boolean)
+                      .join("")
+                      .substring(0, 2)
+                      .toUpperCase();
 
-                                  <!-- Footer -->
-                                  <footer class="content-footer footer bg-footer-theme" id="footer">
-                                    <div class="container-xxl">
-                                      <div
-                                        class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-                                        <div class="text-body">
-                                          ©
-                                          <script>
-                                            document.write(new Date().getFullYear());
-                                          </script>, <span>made with ❤️ by</span> <a href="https://Thunderbees.com"
-                                            target="_blank" class="footer-link">Thunderbees</a>
-                                        </div>
-                                        <div class="d-none d-lg-inline-block">
-                                          <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
-                                            target="_blank">License</a>
-                                          <a href="https://1.envato.market/Thunderbees_portfolio" target="_blank"
-                                            class="footer-link me-4">More
-                                            Themes</a>
-
-                                          <a href="https://demos.Thunderbees.com/Thunderbees-html-admin-template/documentation/"
-                                            target="_blank" class="footer-link me-4">Documentation</a>
-
-                                          <a href="https://Thunderbees.ticksy.com/" target="_blank"
-                                            class="footer-link d-none d-sm-inline-block">Support</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </footer>
-                                  <!-- / Footer -->
-
-                                  <div class="content-backdrop fade"></div>
-                                </div>
-                                <!-- Content wrapper -->
-                              </div>
-                              <!-- / Layout page -->
-                            </div>
-
-                            <!-- Overlay -->
-                            <div class="layout-overlay layout-menu-toggle"></div>
-
-                            <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-                            <div class="drag-target"
-                              style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                            </div>
-                          </div>
-                          <!-- / Layout wrapper -->
-                          <!-- JavaScript to Make Back Button Work -->
-                          <script>
-                            document.getElementById('back-to-edit').addEventListener('click', function () {
-                              var updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
-                              updateTab.show();
-                            });
-                          </script>
-                          <!-- Core JS -->
-                          <!-- build:js assets/vendor/js/core.js -->
-                          <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-                          <script src="../assets/vendor/libs/popper/popper.js"></script>
-                          <script src="../assets/vendor/js/bootstrap.js"></script>
-                          <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
-                          <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-                          <script src="../assets/vendor/libs/hammer/hammer.js"></script>
-                          <script src="../assets/vendor/libs/i18n/i18n.js"></script>
-                          <script src="../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-                          <script src="../assets/vendor/js/menu.js"></script>
-
-                          <!-- endbuild -->
-
-                          <!-- Vendors JS -->
-                          <script src="../assets/vendor/libs/moment/moment.js"></script>
-                          <script src="../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-                          <script src="../assets/vendor/libs/select2/select2.js"></script>
-                          <script src="../assets/vendor/libs/jkanban/jkanban.js"></script>
-                          <script src="../assets/vendor/libs/quill/katex.js"></script>
-                          <script src="../assets/vendor/libs/quill/quill.js"></script>
-
-                          <!-- Main JS -->
-                          <script src="../assets/js/main.js"></script>
-
-                          <!-- Page JS -->
-
-                          <!-- <script src="../assets/js/app-kanban.js"></script> -->
-                          <!-- Code injected by live-server -->
-
-                          <script src="../config.js"></script>
-                          <script type="module" src="./t_pm_js/logout.js"></script>
-                          <script type="module" src="./t_pm_js/kanban-board.js"></script>
-                          <script type="module" src="./t_pm_js/kanban.js"></script>
-                          <script type="module" src="./t_pm_js/createNewArea.js"></script>
-                          <script type="module" src="./t_pm_js/automation/automation.js"></script>
-                          <script type="module" src="./t_pm_js/automation/moveCard.js"></script>
-                          <script type="module" src="./t_pm_js/automation/copyCard.js"></script>
-                          <script type="module" src="./t_pm_js/automation/joinCard.js"></script>
-                          <script type="module" src="./t_pm_js/automation/setDueDate.js"></script>
-                          <script type="module" src="./t_pm_js/automation/removeAutomationFeature.js"></script>
-                          <script type="module" src="./t_pm_js/automation/markDueDate.js"></script>
-                          <script type="module" src="./t_pm_js/automation/addLabel.js"></script>
-                          <script type="module" src="./apiRoutesHeader.js"></script>
-                          <script type="module" src="./t_pm_js/element_id.js"></script>
-                          <script type="module" src="./t_pm_js/automation/automationLogic.js"></script>
-
-                          <script type="module" src="./t_pm_js/todo.js"></script>
-
-                          <script type="module" src="./t_pm_js/createTickets.js"></script>
-                          <script type="module" src="./t_pm_js/backgrounderSetter.js"></script>
-
-
-                          <script type="module" src="./t_pm_js/checklist.js"></script>
-                          <script type="module" src="./t_pm_js/moveList.js"></script>
-                          <script type="module" src="./t_pm_js/joinCard.js"></script>
-                          <script type="module" src="./t_pm_js/leaveCard.js"></script>
-                          <script src="./t_pm_js/todo_extra.js"></script>
-                          <script type="module" src="./t_pm_js/mirrorModal.js"></script>
-                          <script src="./t_pm_js/create-automation-rule/viewrule.js"></script>
-                          <script src="./t_pm_js/sortCard.js"></script>
-                          <script type="module" src="./t_pm_js/moveallcard.js"></script>
-                          <script type="module" src="./t_pm_js/setting.js"> </script>
-
-
-
-                          <script src="../t_pm_ui/t_pm_js/userUpdate.js"></script>
-
-
-
-                          <script>
-                            (async function () {
-                              try {
-                                const API_BASE_URL = ENV?.API_BASE_URL || ''; // Ensure ENV is defined
-                                const userActivityTab = document.getElementById("user-activity-tab");
-                                const ticketList = document.getElementById("card-table-body");
-
-                                if (!userActivityTab || !ticketList) {
-                                  console.warn("Required DOM elements not found.");
-                                  return;
-                                }
-
-                                // Function to fetch and render user activity
-                                const fetchUserActivity = async () => {
-                                  const response = await fetch(`${API_BASE_URL}/get-user-activity/Thunder`);
-                                  if (!response.ok) throw new Error("User activity fetch failed: " + response.statusText);
-
-                                  const data = await response.json();
-                                  data.forEach(comment => {
-                                    const date = new Date(comment.changed_at);
-                                    const formattedDate = date.toLocaleString("en-US", {
-                                      month: "short",
-                                      day: "2-digit",
-                                      year: "numeric",
-                                      hour: "2-digit",
-                                      minute: "2-digit",
-                                      second: "2-digit"
-                                    });
-
-                                    const initials = (comment.changed_by || "")
-                                      .split(" ")
-                                      .map(word => word[0])
-                                      .filter(Boolean)
-                                      .join("")
-                                      .substring(0, 2)
-                                      .toUpperCase();
-
-                                    const userActivityContent = `
+                    const userActivityContent = `
                                       <div class="media mb-4 d-flex align-items-center text-start">
                                         <div class="avatar me-3 flex-shrink-0">
                                           <span class="avatar-initial bg-label-success rounded-circle">${initials}</span>
@@ -3669,18 +3133,18 @@
                                         </div>
                                       </div>
                                     `;
-                                    userActivityTab.insertAdjacentHTML("beforeend", userActivityContent);
-                                  });
-                                };
+                    userActivityTab.insertAdjacentHTML("beforeend", userActivityContent);
+                  });
+                };
 
-                                // Function to fetch and render tickets
-                                const fetchUserTickets = async () => {
-                                  const response = await fetch(`${API_BASE_URL}/ticket-by-user/12`);
-                                  if (!response.ok) throw new Error("Tickets fetch failed: " + response.statusText);
+                // Function to fetch and render tickets
+                const fetchUserTickets = async () => {
+                  const response = await fetch(`${API_BASE_URL}/ticket-by-user/12`);
+                  if (!response.ok) throw new Error("Tickets fetch failed: " + response.statusText);
 
-                                  const data = await response.json();
-                                  data.forEach(ticket => {
-                                    const ticketItem = `
+                  const data = await response.json();
+                  data.forEach(ticket => {
+                    const ticketItem = `
                                       <tr>
                                         <td>${ticket.title}</td>
                                         <td>Todo</td>
@@ -3689,19 +3153,19 @@
                                         <td>Project and tickets</td>
                                       </tr>
                                     `;
-                                    ticketList.insertAdjacentHTML("beforeend", ticketItem);
-                                  });
-                                };
+                    ticketList.insertAdjacentHTML("beforeend", ticketItem);
+                  });
+                };
 
-                                // Call both functions
-                                await fetchUserActivity();
-                                await fetchUserTickets();
+                // Call both functions
+                await fetchUserActivity();
+                await fetchUserTickets();
 
-                              } catch (error) {
-                                console.error("Error:", error);
-                              }
-                            })();
-                          </script>
+              } catch (error) {
+                console.error("Error:", error);
+              }
+            })();
+          </script>
 
 
 

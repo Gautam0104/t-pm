@@ -54,7 +54,7 @@ async function fetchListsnew() {
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(() => {
     const selectElements = document.querySelectorAll(".listSelect");
-    
+
     if (selectElements.length > 0) {
       fetchListsnew();
     } else {
@@ -378,14 +378,11 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
         `${item.board_title}-make-scrollable`
       );
 
-      
       boardScrollablebyboardname.addEventListener("click", function() {
-       
-
         const kanbanMain = document.getElementById(
           `${item.board_title}-kanbanMain`
         );
-        
+
         // Check if the board is already scrollable
         if (kanbanMain.style.overflowY === "auto") {
           kanbanMain.style.overflowY = "hidden";
@@ -505,7 +502,6 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
 function addEventListeners() {
   document.addEventListener("click", function(event) {
     if (event.target && event.target.id === "create-rule-automation") {
-      createRuleModal();
     }
   });
 }
@@ -522,7 +518,6 @@ const deleteBoard = async boardId => {
     );
 
     if (response.ok) {
-     
       window.location.reload();
     }
   } catch (error) {
@@ -603,9 +598,7 @@ function changeBgColor(color, elementId) {
   applyBgColor(elementId); // Apply immediately
 }
 
-function moveBoard() {
- 
-}
+function moveBoard() {}
 moveBoard(); // Call the function to run it
 
 // Sorting state variables
@@ -638,5 +631,5 @@ window.archiveAllCards = archiveAllCards;
 window.moveBoard = moveBoard;
 window.changeBgColor = changeBgColor;
 window.makeDefault = makeDefault;
-window.createRuleModal = createRuleModal;
+
 window.copyCardStatus = copyCardStatus;
