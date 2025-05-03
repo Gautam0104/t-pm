@@ -1048,8 +1048,8 @@ setTimeout(function () {
                     });
                 
                   } catch (error) {
-                    console.error('Error fetching data:', error);
-                    container.innerHTML = `<p class="text-danger">Failed to load custom fields.</p>`;
+                   
+                    
                   }
                 }
 
@@ -1231,29 +1231,29 @@ setTimeout(function () {
 
 
                 // vote to card logic
-                document.getElementById("vote-button").addEventListener("click",function(){
-                  const voteTemp =  document.getElementById(`label-color-box-${element.ticket_id}`)
-                  console.log(voteTemp)
-                  voteTemp.innerHTML = `<div class="badge bg-label-primary" id="voted-temp" style="cursor:pointer;">${element.badge ||
-            "1 Vote"}</div>`
-                })
-              document.getElementById("voted-temp").addEventListener('click', function(event){
-                event.stopPropagation();
-                console.log("boted temp working");
-                const myModal = new bootstrap.Modal(document.getElementById('voteTempModal'));
-myModal.show();
+//                 document.getElementById("vote-button").addEventListener("click",function(){
+//                   const voteTemp =  document.getElementById(`label-color-box-${element.ticket_id}`)
+//                   console.log(voteTemp)
+//                   voteTemp.innerHTML = `<div class="badge bg-label-primary" id="voted-temp" style="cursor:pointer;">${element.badge ||
+//             "1 Vote"}</div>`
+//                 })
+//               document.getElementById("voted-temp").addEventListener('click', function(event){
+//                 event.stopPropagation();
+//                 console.log("boted temp working");
+//                 const myModal = new bootstrap.Modal(document.getElementById('voteTempModal'));
+// myModal.show();
            
 
-             const votedCardbody = document.getElementById("voteTempModalBody");
-             const user = localStorage.getItem("logged_username")
-              localStorage.setItem("votedBy", user)
-              const votedBy = localStorage.getItem("votedBy")
+//              const votedCardbody = document.getElementById("voteTempModalBody");
+//              const user = localStorage.getItem("logged_username")
+//               localStorage.setItem("votedBy", user)
+//               const votedBy = localStorage.getItem("votedBy")
 
-              votedCardbody.innerHTML = ` <div class="mt-5 d-flex justify-content-center">
-                    <h3>Voted By : ${votedBy}</h3>
-                  </div>`
+//               votedCardbody.innerHTML = ` <div class="mt-5 d-flex justify-content-center">
+//                     <h3>Voted By : ${votedBy}</h3>
+//                   </div>`
                 
-              })
+//               })
 
             document.getElementById("removeVote").addEventListener("click", function(){
               const voteTemp =  document.getElementById(`label-color-box-${element.ticket_id}`)
@@ -1661,7 +1661,7 @@ myModal.show();
                         icon: "success",
                         confirmButtonText: "Ok!",
                       });
-                      window.location.reload();
+                      
                     } else {
                       document.getElementById(ELEMENT_IDS.MESSAGE).textContent = data.error || "An error occurred.";
                       document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
