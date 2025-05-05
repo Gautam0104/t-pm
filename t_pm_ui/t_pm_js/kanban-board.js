@@ -618,14 +618,12 @@ function addNewTicket(boardId) {
 // Export functions to window object
 window.newRule = newRule;
 window.deleteBoard = deleteBoard;
-window.toggleTicketSort = toggleTicketSortByName;
-window.toggleTicketSort = toggleTicketSortByDate;
 window.watchedCard = watchedCard;
 window.addEventListener = addEventListeners;
 window.toggleTicketSortByName = toggleTicketSortByName;
 window.toggleTicketSortByDate = toggleTicketSortByDate;
 window.moveAllCard = moveAllCard;
-
+window.toggleTicketSort = toggleTicketSort;
 window.archiveBoard = archiveBoard;
 window.archiveAllCards = archiveAllCards;
 window.moveBoard = moveBoard;

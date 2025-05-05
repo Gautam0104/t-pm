@@ -2,8 +2,6 @@ import { ELEMENT_IDS } from "../element_id.js";
 import { API_ROUTES } from "../../apiRoutesHeader.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
-  console.log("Ticket status: " + ticketStatus + ", Title: " + ticketTitle);
-
   let modalContainer = document.getElementById(
     ELEMENT_IDS.AUTOMATION_SHARE_CARD_TO_MODAL
   );
@@ -89,6 +87,8 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
       const creator = userData.find(user => user.user_id === ticket.created_by);
       const creatorName = creator ? creator.username : '';
       
+      const editLogs = ticket.edit_logs || [];
+
       const printWindow = window.open('', '_blank');
       
       const printContent = `
@@ -254,25 +254,22 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
     }
   });
    // function to export json
-  document.getElementById(ELEMENT_IDS.EXPORT_CARD_BTN).addEventListener("click", async function () {
+  // Export JSON function
+  document.getElementById(ELEMENT_IDS.EXPORT_CARD_BTN)?.addEventListener("click", async () => {
     try {
-      // Fetch all required data
       const [historyResponse, ticketResponse, userResponse] = await Promise.all([
         fetch(`${API_BASE_URL}${API_ROUTES.TICKET_HISTORY}/${ticketId}`),
         fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKET_BY_ID}/${ticketId}`),
         fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
       ]);
 
-      const [historyData, ticketData, userData] = await Promise.all([
-        historyResponse.json(),
-        ticketResponse.json(),
-        userResponse.json()
-      ]);
+      const historyData = await historyResponse.json();
+      const ticketData = await ticketResponse.json();
+      const userData = await userResponse.json();
 
-      if (!historyData || !ticketData || !userData) {
-        console.error('Failed to fetch required data');
-        return;
-      }
+      const ticket = ticketData[0];
+      const creator = userData.find(user => user.user_id === ticket.created_by);
+      const editLogs = ticket.edit_logs || [];
 
       const jsonData = {
         currentTicket: {
@@ -304,45 +301,51 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
         }))
       };
 
-      const jsonString = JSON.stringify(jsonData, null, 2);
-      const blob = new Blob([jsonString], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = `ticket_${ticketId}_data.json`;
-
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
     } catch (error) {
-      console.error('Error exporting ticket data:', error);
-      alert('Failed to export ticket data. Please try again.');
+      console.error("Error exporting ticket data:", error);
     }
   });
 
-  // function to show url
-  document.getElementById(ELEMENT_IDS. LINK_INPUT).value = window.location.href;
+  // Set link input
+  const linkInput = document.getElementById(ELEMENT_IDS.LINK_INPUT);
+  if (linkInput) linkInput.value = window.location.href;
 
-
+  // Show QR code
+  document.getElementById("printQrBtn")?.addEventListener("click", () => {
+    const url = window.location.href; // Get the current URL
+    console.log("URL for QR Code:", url);
   
-
-  // function to show qr code
-  document.getElementById("printQrBtn").addEventListener("click", function () {
-    const url = window.location.href;
-    
-    // Clear previous QR code (if any)
-    document.getElementById("qrCodeContainer").innerHTML = "";
-
+    const qrContainer = document.getElementById("qrCodeContainer");
+    if (!qrContainer) {
+      console.error("QR Code container not found");
+      return;
+    }
+  
+    // Clear previous QR code
+    qrContainer.innerHTML = "";
+  
     // Generate new QR code
-    new QRCode(document.getElementById("qrCodeContainer"), {
-      text: url,
-      width: 150,
-      height: 150
-    });
+    try {
+      new QRCode(qrContainer, {
+        text: url, // URL to encode in the QR code
+        width: 150, // Width of the QR code
+        height: 150 // Height of the QR code
+      });
+     
+      console.log("QR Code generated successfully");
+    } catch (error) {
+      console.error("Error generating QR Code:", error);
+    }
   });
 
-  // function to embed code card 
-  document.getElementById("codeEmbedd").value = `<iframe src="${window.location.href}" width="600" height="400" style="border:none;"></iframe>`;
-
-
- 
+  // Embed iframe code
+  const embedInput = document.getElementById("codeEmbedd");
+  if (embedInput) embedInput.value = `<iframe src="${window.location.href}" width="600" height="400" style="border:none;"></iframe>`;
 }

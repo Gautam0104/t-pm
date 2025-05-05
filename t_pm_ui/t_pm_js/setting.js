@@ -508,11 +508,13 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-
-  // Fetch custom fields from your backend API
+// Get the project ID from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get('id'); 
+ 
   const fetchCustomFields = async () => {
     try {
-      const response = await fetch('https://xx87gmj8-3000.inc1.devtunnels.ms/custom-field/69');
+      const response = await fetch(`${API_BASE_URL}/custom-field/${projectId}`);
       if (!response.ok) throw new Error('Failed to fetch custom fields');
       return await response.json();
     } catch (error) {
@@ -785,6 +787,88 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener('DOMContentLoaded', updateWatchIcon);
   
 
+// user settings tab
+
+                            (async function () {
+                              try {
+                                
+                                const userActivityTab = document.getElementById("user-activity-tab");
+                                const ticketList = document.getElementById("card-table-body");
+
+                                if (!userActivityTab || !ticketList) {
+                                  console.warn("Required DOM elements not found.");
+                                  return;
+                                }
+
+                                // Function to fetch and render user activity
+                                const fetchUserActivity = async () => {
+                                  const response = await fetch(`${API_BASE_URL}/get-user-activity/Thunder`);
+                                  if (!response.ok) throw new Error("User activity fetch failed: " + response.statusText);
+
+                                  const data = await response.json();
+                                  data.forEach(comment => {
+                                    const date = new Date(comment.changed_at);
+                                    const formattedDate = date.toLocaleString("en-US", {
+                                      month: "short",
+                                      day: "2-digit",
+                                      year: "numeric",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                      second: "2-digit"
+                                    });
+
+                                    const initials = (comment.changed_by || "")
+                                      .split(" ")
+                                      .map(word => word[0])
+                                      .filter(Boolean)
+                                      .join("")
+                                      .substring(0, 2)
+                                      .toUpperCase();
+
+                                    const userActivityContent = `
+                                      <div class="media mb-4 d-flex align-items-center text-start">
+                                        <div class="avatar me-3 flex-shrink-0">
+                                          <span class="avatar-initial bg-label-success rounded-circle">${initials}</span>
+                                        </div>
+                                        <div class="media-body">
+                                          <p class="mb-0">${comment.change_description}</p>
+                                          <small class="text-muted">${formattedDate}</small>
+                                        </div>
+                                      </div>
+                                    `;
+                                    userActivityTab.insertAdjacentHTML("beforeend", userActivityContent);
+                                  });
+                                };
+
+                                // Function to fetch and render tickets
+                                const fetchUserTickets = async () => {
+                                  const response = await fetch(`${API_BASE_URL}/ticket-by-user/12`);
+                                  if (!response.ok) throw new Error("Tickets fetch failed: " + response.statusText);
+
+                                  const data = await response.json();
+                                  data.forEach(ticket => {
+                                    const ticketItem = `
+                                      <tr>
+                                        <td>${ticket.title}</td>
+                                        <td>Todo</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Project and tickets</td>
+                                      </tr>
+                                    `;
+                                    ticketList.insertAdjacentHTML("beforeend", ticketItem);
+                                  });
+                                };
+
+                                // Call both functions
+                                await fetchUserActivity();
+                                await fetchUserTickets();
+
+                              } catch (error) {
+                                console.error("Error:", error);
+                              }
+                            })();
+                          
 
 
 

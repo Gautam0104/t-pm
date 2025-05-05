@@ -800,13 +800,19 @@ setTimeout(function () {
 
                 // Initialize custom field modal event listener
                 const customFieldCardFeature = document.getElementById("customFieldCardFeature");
-                if (customFieldCardFeature) {
-                  customFieldCardFeature.addEventListener("click", function() {
-                    var customFieldModal = new bootstrap.Modal(document.getElementById("customFieldModal"));
-                    customFieldModal.show();
-                    loadCustomCardModal(element.project_id);
-                  });
-                }
+if (customFieldCardFeature) {
+  customFieldCardFeature.addEventListener("click", function() {
+    const modalElement = document.getElementById("customFieldModal");
+    if (modalElement) {
+      const customFieldModal = new bootstrap.Modal(modalElement);
+      customFieldModal.show();
+      loadCustomCardModal(element.project_id);
+    } else {
+      console.error("customFieldModal element not found in DOM.");
+    }
+  });
+}
+
                
               
 
