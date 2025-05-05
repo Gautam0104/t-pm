@@ -2437,3 +2437,4 @@ window.addLabelModal = addLabelModal;
 window.addLabelAutomation = addLabelAutomation;
 window.leaveCard = leaveCard;
 window.joinCard = joinCard;
+window.addLabel = addLabel;

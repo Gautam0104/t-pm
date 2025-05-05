@@ -337,7 +337,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
                 </div>
               </div>
             </div>
-            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" id="create-rule-automation" data-bs-toggle="modal" data-bs-target="#createRule">
+            <a class="dropdown-item delete-board waves-effect" href="javascript:void(0)" id="create-rule-automation" data-bs-toggle="modal" data-bs-target="#rulesModal">
               <i class="ti ti-arrow-up-right ti-xs me-1"></i> <span class="align-middle">Create a rule</span>
             </a>
             <div class="dropdown-item">

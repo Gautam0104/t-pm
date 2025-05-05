@@ -91,60 +91,9 @@ function makeDefault(cardId) {
 // });
 
 // copy board
-function copyBoard(element) {
-  const board = element.closest(".kanban-board");
-  const container = document.getElementById(
-    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
-  );
 
-  // Ask user for new board name
-  let newBoardName = prompt("Enter a name for the copied board:");
-  if (!newBoardName) return; // Exit if user cancels
 
-  // Clone the board
-  const clonedBoard = board.cloneNode(true);
 
-  // Generate a unique ID for the cloned board
-  const newBoardId = `board-${Date.now()}`;
-  clonedBoard.setAttribute("data-id", newBoardId);
-  clonedBoard.id = newBoardId;
-
-  // Update header title
-  clonedBoard.querySelector(".kanban-title-board").textContent = newBoardName;
-
-  // Clear the task container in the cloned board
-  let taskContainer = clonedBoard.querySelector(".kanban-drag");
-  taskContainer.innerHTML = "";
-
-  // Clone and update tasks
-  const tasks = board.querySelectorAll(".kanban-item");
-  tasks.forEach(task => {
-    const clonedTask = task.cloneNode(true);
-    taskContainer.appendChild(clonedTask);
-  });
-
-  // Insert the copied board right after the original
-  if (board.nextElementSibling) {
-    container.insertBefore(clonedBoard, board.nextElementSibling);
-  } else {
-    container.appendChild(clonedBoard); // If last board, add it at the end
-  }
-
-  // Save the new board to localStorage
-  saveBoardToLocalStorage(newBoardId, newBoardName, taskContainer);
-}
-
-function saveBoardToLocalStorage(boardId, boardName, taskContainer) {
-  const boardData = {
-    id: boardId,
-    title: boardName,
-    tasks: Array.from(taskContainer.children).map(task => task.innerHTML)
-  };
-
-  let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
-  savedBoards.push(boardData);
-  localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
-}
 
 function loadBoardsFromLocalStorage() {
   const container = document.getElementById(
