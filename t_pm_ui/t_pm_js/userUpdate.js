@@ -11,7 +11,7 @@ form.addEventListener("submit", function(event) {
   const usernameN = document.getElementById("username").value.trim();
   const bio = document.getElementById("bio").value.trim();
 
-  fetch(`${API_BASE_URL}/update-username/${loggedUserId}`, {
+  fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_USERNAME}/${loggedUserId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"

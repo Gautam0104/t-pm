@@ -73,7 +73,7 @@ export function loadMirrorModal(ticketId) {
       //position: parseInt(position)
     };
 
-    fetch(`${API_BASE_URL}/ticket/mirroring/${ticketId}`, {
+    fetch(`${API_BASE_URL}${API_ROUTES.TICKETS_MIRRORING}/${ticketId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(mirrorData)

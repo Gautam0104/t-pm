@@ -361,7 +361,7 @@ function getHandlerForType(actionType) {
 }
 
 async function saveButtonData(buttonTitle, actions) {
-    const response = await fetch(`${API_BASE_URL}/automation-data`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -478,7 +478,7 @@ async function updateButtonVisibility(buttonTitle, visibility, originalActions) 
         handler: action.handler
     }));
 
-    const response = await fetch(`${API_BASE_URL}/automation-data`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

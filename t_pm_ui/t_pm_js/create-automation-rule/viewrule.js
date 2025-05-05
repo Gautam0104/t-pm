@@ -5,7 +5,7 @@ const API_BASE_URL = ENV?.API_BASE_URL;
 if (!API_BASE_URL) {
   console.error("API_BASE_URL is not defined");
 } else {
-  fetch(`${API_BASE_URL}/automation-data`)
+  fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
@@ -92,7 +92,7 @@ if (!API_BASE_URL) {
 // Make deleteAutomationButton available globally
 async function deleteAutomationButton(id) {
   try {
-    const response = await fetch(`${API_BASE_URL}/automation-data/${encodeURIComponent(id)}`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}${encodeURIComponent(id)}`, {
       method: "DELETE"
     });
 

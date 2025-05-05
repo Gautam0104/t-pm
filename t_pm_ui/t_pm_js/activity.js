@@ -3,7 +3,7 @@ const activitycommentTab = document.getElementById("all-activity-tab");
 
 console.log("activitycommentTab", activitycommentTab);
 
-fetch(`${API_BASE_URL}/get-comments`)
+fetch(`${API_BASE_URL}${API_ROUTES.GET_COMMENT}`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);

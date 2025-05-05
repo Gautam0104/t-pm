@@ -16,6 +16,8 @@ export const API_ROUTES = {
   GET_JOIN_CARD: "/get-join-card",
   ADD_JOIN_CARD: "/add-join-card",
   DELETE_JOIN_CARD: "/delete-join-card",
+  RESTORE_CARD: "/restore-card",
+  CARD_BUTTONS: "/card-buttons",
 
   // Boards
   ADD_NEW_BOARD: "/add-new-board",
@@ -30,6 +32,7 @@ export const API_ROUTES = {
   GET_CHECKLIST: "/get-checklist",
   GET_CHECKLISTS: "/get-checklists",
   CREATE_CHECKLIST: "/create-checklist",
+  LIST: "/lists",
 
   // Kanban
   GET_KANBAN_ORDER: "/get-kanban-order",
@@ -59,6 +62,7 @@ export const API_ROUTES = {
   UPDATE_ROLES: "/update-role",
   DELETE_USER: "/delete-user",
   GET_COMMENT: "/get-comments",
+  UPDATE_USERNAME: "/update-username",
 
   // Roles and History
   CREATE_ROLES: "/create-roles",
@@ -75,9 +79,11 @@ export const API_ROUTES = {
   UPDATE_TICKET: "/update-ticket",
   UPDATE_TICKET_BY_STATUS: "/update-ticket-by-status",
   UPDATE_TICKET_STATUS: "/update-ticket-status",
+  ARCHIVED_CARDS: "/archived-cards",
+  ARCHIVED_BOARD: "/archive-board",
 
   // Ticket Mirroring
-  TICKET_MIRRORING: "/tickets/mirroring",
+  TICKETS_MIRRORING: "/tickets/mirroring",
 
   // custom fields
   CUSTOM_VALUE_BY_TICKETS: "/custom-field-value-by-ticket",
@@ -88,6 +94,7 @@ export const API_ROUTES = {
 
   // setting watch
  WATCH_BOARDS_PROJECT: "/watch-boards-project",
+  SETTINGS: "/settings",
  WATCH_BOARDS: "/watch-boards",
 
 };

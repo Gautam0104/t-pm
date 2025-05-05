@@ -112,7 +112,7 @@ async function postPermissionsData() {
 
   try {
     // PUT request for updating permissions
-    const response = await fetch(`${API_BASE_URL}/settings`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.SETTINGS}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +141,7 @@ document.getElementById("completeCardCheckbox").addEventListener("change", postP
 //Function to fetch and update settings dynamically
 async function fetchAndUpdateSettings() {
   try {
-    const response = await fetch(`${API_BASE_URL}/settings`, {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.SETTINGS}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function fetchArchivedCards() {
       try {
-        const response = await fetch(`${API_BASE_URL}/archived-cards`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_CARDS}`, {  
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Restore a card
     window.restoreCard = async function (cardId) {
       try {
-        const response = await fetch(`${API_BASE_URL}/restore-card`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.RESTORE_CARD}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Export CSV data
   async function exportCSV() {
     try {
-      const response = await fetch(`${API_BASE_URL}/tickets`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKETS}`); GET_TICKETS
       const data = await response.json();
 
       if (!Array.isArray(data)) data = [data]; 
@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function exportJSON() {
     try {
-      const response = await fetch(`${API_BASE_URL}/tickets`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_TICKETS}`);
       const data = await response.json();
 
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
@@ -590,7 +590,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("automation-buttons");
     
     try {
-      const response = await fetch(`${API_BASE_URL}/automation-data`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES. AUTOMATION_DATA}`); 
       const data = await response.json();
 
       container.innerHTML = ''; 
@@ -685,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     try {
-      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`); 
       if (!response.ok) throw new Error('Failed to fetch watch status');
   
       const result = await response.json();
@@ -731,7 +731,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     try {
-      const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`);
       let isWatched = false;
   
       if (response.ok) {
@@ -740,7 +740,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   
       if (!isWatched) {
-        const postRes = await fetch(`${API_BASE_URL}/watch_boards`, {
+        const postRes = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -762,7 +762,7 @@ document.addEventListener("DOMContentLoaded", function () {
         watchTabButton.classList.remove('btn-outline-primary');
         watchTabButton.classList.add('btn-outline-primary');
       } else {
-        const deleteRes = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`, {
+        const deleteRes = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
         });

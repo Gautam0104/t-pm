@@ -21,7 +21,7 @@ export async function handleMoveAction(values, ticketId) {
             throw new Error('Invalid move action parameters');
         }
 
-        const response = await fetch(`${API_BASE_URL}/automation-data`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export async function handleAddRemoveAction(values, ticketId) {
             throw new Error('Invalid add/remove action parameters');
         }
 
-        const response = await fetch(`${API_BASE_URL}/automation-data`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.AUTOMATION_DATA}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export async function handleChecklistAction(values, ticketId) {
             throw new Error('Invalid checklist action parameters');
         }
 
-        const response = await fetch(`${API_BASE_URL}/automation-data`, {
+        const response = await fetch(`${API_BASE_URL}/${API_ROUTES.AUTOMATION_DATA}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

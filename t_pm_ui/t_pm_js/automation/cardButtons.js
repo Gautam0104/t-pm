@@ -91,7 +91,7 @@ function addActionInput(actionType) {
 async function initializeSelects() {
     try {
         // Fetch lists from API
-        const response = await fetch(`${apiUrl}/lists`);
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.LIST}`); 
         const lists = await response.json();
         
         // Update all list select dropdowns
@@ -127,7 +127,7 @@ async function saveCardButton() {
     };
 
     try {
-        const response = await fetch(`${apiUrl}/card-buttons`, {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.CARD_BUTTONS}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -182,7 +182,7 @@ function getActions() {
 // Function to load existing card buttons
 async function loadCardButtons() {
     try {
-        const response = await fetch(`${apiUrl}/card-buttons`);
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.CARD_BUTTONS}`); 
         const buttons = await response.json();
         displayCardButtons(buttons);
     } catch (error) {

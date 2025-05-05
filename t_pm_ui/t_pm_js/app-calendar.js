@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event Guests (select2)
     if (eventGuests.length) {
       // Fetch data from the API
-      fetch(`${API_BASE_URL}/users`) //  API endpoint to fetch user information
+      fetch(`${API_BASE_URL}/${API_ROUTES.GET_USERS}`) //  API endpoint to fetch user information
         .then(response => response.json())
         .then(data => {
           // Populate the options with API data
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
       // Fetch events from the API using Axios
-      axios.get(`${API_BASE_URL}/tickets`)
+      axios.get(`${API_BASE_URL}${API_ROUTES.GET_TICKETS}`)
         .then(function (response) {
           console.log('API Response:', response.data);
 
