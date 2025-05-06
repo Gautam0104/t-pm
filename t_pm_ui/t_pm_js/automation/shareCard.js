@@ -35,7 +35,8 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
               <div>
                 <input type="text" class="form-control" id="linkInput" placeholder="">
                <button type="button" class="btn btn-light m-2" id="printQrBtn">Show QR code </button>
-               <div id="qrCodeContainer"></div>
+               <div id="qrContainer" style="width: 150px; height: 150px;"></div>
+
                <div>Embed this card</div> 
                 <input type="text" class="form-control" id="codeEmbedd" placeholder="">
                 Email for this card
@@ -318,11 +319,11 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
   if (linkInput) linkInput.value = window.location.href;
 
   // Show QR code
-  document.getElementById("printQrBtn")?.addEventListener("click", () => {
+  document.getElementById(ELEMENT_IDS.PRINT_QR_BTN)?.addEventListener("click", () => {
     const url = window.location.href; // Get the current URL
     console.log("URL for QR Code:", url);
   
-    const qrContainer = document.getElementById("qrCodeContainer");
+    const qrContainer = document.getElementById("qrContainer");
     if (!qrContainer) {
       console.error("QR Code container not found");
       return;
@@ -339,7 +340,8 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
         height: 150 // Height of the QR code
       });
      
-      console.log("QR Code generated successfully");
+      console.log("QRCode is:", typeof QRCode, QRCode);
+
     } catch (error) {
       console.error("Error generating QR Code:", error);
     }
