@@ -324,6 +324,65 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
+  // archive list
+  document.addEventListener("DOMContentLoaded", function () {
+    const archivedBoardsContainer = document.getElementById("archived-boards-container");
+  
+    async function fetchArchivedBoards() {
+      try {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_BOARD}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (!response.ok) throw new Error("Failed to fetch archived boards");
+  
+        const archivedBoards = await response.json();
+        archivedBoardsContainer.innerHTML = "";
+  
+        archivedBoards.forEach(board => {
+          const boardElement = document.createElement("div");
+          boardElement.classList.add("card", "mb-3", "p-3", "shadow-sm");
+          boardElement.innerHTML = `
+            <h6>${board.board_id}</h6>
+            <p>Project Name: ${board.project_name}</p>
+            <button class="btn btn-sm btn-primary" onclick="restoreBoard('${board.board_id}', '${board.project_id}')">Restore</button>
+          `;
+          archivedBoardsContainer.appendChild(boardElement);
+        });
+      } catch (error) {
+        console.error("Error fetching archived boards:", error);
+        archivedBoardsContainer.innerHTML = "<p class='text-danger'>Failed to load archived boards.</p>";
+      }
+    }
+  
+    // Restore Board Function
+    window.restoreBoard = async function (boardId, projectId) {
+      try {
+        const response = await fetch(`${API_BASE_URL}${API_ROUTES.RESTORE_BOARD}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ boardId, projectId }),
+        });
+  
+        if (!response.ok) throw new Error("Failed to restore board");
+  
+        console.log(`Board ${boardId} restored successfully`);
+        fetchArchivedBoards();
+      } catch (error) {
+        console.error("Error restoring board:", error);
+      }
+    }
+  
+    // Load when archived boards tab is shown
+    document.querySelector('#archived-boards-tab').addEventListener("shown.bs.tab", fetchArchivedBoards);
+  });
+  
+
   // Share tab
   
   document.addEventListener("DOMContentLoaded", function () {

@@ -1623,15 +1623,39 @@
                 </div>
 
                 <!-- Archive Tab (Content + Back Button) -->
-                <div class="tab-pane fade" id="tab-archived" role="tabpanel">
-                  <div class="p-4">
-                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-archive">
-                      <i class="ti ti-chevron-left  ti-18px me-1_5"></i>
-                    </button><br>
-                    <h5>Archive </h5>
-                    <div id="archived-cards-container" class="mt-4"></div>
-                  </div>
-                </div>
+               <div class="tab-pane fade" id="tab-archived" role="tabpanel">
+  <div class="p-4">
+    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-archive">
+      <i class="ti ti-chevron-left ti-18px me-1_5"></i>
+    </button>
+    <br>
+    <h5>Archive</h5>
+
+    <!-- Nav tabs for sub-sections -->
+    <ul class="nav nav-tabs mt-3" id="archiveSubTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="archived-cards-tab" data-bs-toggle="tab" data-bs-target="#archived-cards-tab-pane" type="button" role="tab">Cards</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="archived-boards-tab" data-bs-toggle="tab" data-bs-target="#archived-boards-tab-pane" type="button" role="tab">List</button>
+      </li>
+    </ul>
+
+    <!-- Tab content -->
+    <div class="tab-content mt-3" id="archiveSubTabsContent">
+      <!-- Archived Cards Tab -->
+      <div class="tab-pane fade show active" id="archived-cards-tab-pane" role="tabpanel">
+        <div id="archived-cards-container"></div>
+      </div>
+
+      <!-- Archived Boards Tab -->
+      <div class="tab-pane fade" id="archived-boards-tab-pane" role="tabpanel">
+        <div id="archived-boards-container"></div>
+      </div>
+    </div>
+  </div>
+               </div>
+
 
                 <!-- Activity Tab (Content + Back Button) -->
                 <div class="tab-pane fade" id="tab-activity-setting" role="tabpanel">
@@ -3805,7 +3829,7 @@
                           <script type="module" src="./t_pm_js/moveList.js"></script>
                           <script type="module" src="./t_pm_js/joinCard.js"></script>
                           <script type="module" src="./t_pm_js/leaveCard.js"></script>
-                          <script src="./t_pm_js/todo_extra.js"></script>
+                          <script type="module" src="./t_pm_js/todo_extra.js"></script>
                           <script type="module" src="./t_pm_js/mirrorModal.js"></script>
                           <script src="./t_pm_js/create-automation-rule/viewrule.js"></script>
                           <script src="./t_pm_js/sortCard.js"></script>

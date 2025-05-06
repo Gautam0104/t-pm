@@ -79,7 +79,7 @@ export const API_ROUTES = {
   UPDATE_TICKET: "/update-ticket",
   UPDATE_TICKET_BY_STATUS: "/update-ticket-by-status",
   UPDATE_TICKET_STATUS: "/update-ticket-status",
-  ARCHIVED_CARDS: "/archived-cards",
+  ARCHIVED_CARDS: "/archive-cards",
   ARCHIVED_BOARD: "/archive-board",
 
   // Ticket Mirroring
@@ -96,5 +96,6 @@ export const API_ROUTES = {
  WATCH_BOARDS_PROJECT: "/watch-boards-project",
   SETTINGS: "/settings",
  WATCH_BOARDS: "/watch-boards",
+ RESTORE_BOARD: "/restore-board",
 
 };

@@ -593,6 +593,152 @@ function addNewTicket(boardId) {
   });
 }
 
+
+
+
+async function archiveAllCards(element) {
+  const board = element.closest(".kanban-board");
+  if (!board) return;
+
+  const cards = board.querySelectorAll(".kanban-item");
+  const archivedCards = [];
+
+  cards.forEach(card => {
+    const cardId = card.getAttribute("id");
+    if (cardId) archivedCards.push(cardId);
+  });
+
+  try {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_CARDS}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ archivedCards }),
+    });
+    card.remove();
+    if (!response.ok) throw new Error("Failed to archive cards");
+
+   
+
+    // Refresh the page after the request is successful
+    window.location.reload(); // Reload the page to reflect the updated state
+
+  } catch (error) {
+    console.error("Error archiving cards:", error);
+  }
+}
+
+
+
+async function archiveBoard(element) {
+  const board = element.closest(".kanban-board");
+  if (!board) return;
+
+  const boardHeader = board.querySelector(".kanban-board-header");
+  const boardId = boardHeader ? boardHeader.id : null;
+  if (!boardId) return;
+
+  // Extract projectId from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const projectId = urlParams.get("id");
+
+  if (!projectId) {
+    console.error("Project ID not found in URL");
+    return;
+  }
+
+  // Submit the archived board and project ID to the API
+  try {
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_BOARD}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ boardId, projectId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to archive board");
+    }
+
+    // Remove board from DOM
+    board.remove();
+
+  } catch (error) {
+    console.error("Error archiving board:", error);
+  }
+}
+
+
+
+setTimeout(async () => {
+  const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_CARDS}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) throw new Error("Failed to fetch archived cards");
+
+  const data = await response.json();
+
+  const archivedCardIds = Array.isArray(data) ? data.map(card => card.card_id) : [];
+
+  archivedCardIds.forEach(id => {
+    const card = document.getElementById(id);
+    if (card) {
+      card.remove();
+    } else {
+      console.warn("Card not found in DOM:", id);
+    }
+  });
+}, 2000); // Delay for 1 second 
+
+
+
+async function removeArchivedBoardsFromDOM() {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get("id");
+
+    if (!projectId) {
+      console.error("Project ID not found in URL");
+      return;
+    }
+
+    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_BOARD}`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch archived boards");
+    }
+
+    const data = await response.json();
+
+    data.forEach(item => {
+      if (String(item.project_id) !== projectId) return;
+    
+      document.querySelectorAll(".kanban-board").forEach(board => {
+        const headerId = board.querySelector(".kanban-board-header")?.id;
+        if (headerId === item.board_id) {
+          board.remove();
+        }
+      });
+    });
+    
+
+  } catch (error) {
+    console.error("Error removing archived boards:", error);
+  }
+}
+
+// Optional: Delay execution
+setTimeout(() => {
+  removeArchivedBoardsFromDOM();
+}, 2000);
+
+
+
+
+
 // Export functions to window object
 window.newRule = newRule;
 window.deleteBoard = deleteBoard;
@@ -600,9 +746,9 @@ window.watchedCard = watchedCard;
 window.addEventListener = addEventListeners;
 window.toggleTicketSortByName = toggleTicketSortByName;
 window.toggleTicketSortByDate = toggleTicketSortByDate;
-
 window.archiveBoard = archiveBoard;
 window.archiveAllCards = archiveAllCards;
+//window.removeArchivedCardsFromDOM = removeArchivedCardsFromDOM;
 window.moveBoard = moveBoard;
 window.changeBgColor = changeBgColor;
 window.makeDefault = makeDefault;
