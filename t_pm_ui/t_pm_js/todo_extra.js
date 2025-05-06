@@ -1,4 +1,4 @@
-// import { ELEMENT_IDS } from "./constants.js";
+
 
 function toggleTodo(elementId, elementHeader, elementButton) {
   const taskHeader = document.getElementById(elementHeader);
@@ -538,7 +538,7 @@ function reloadKanbanBoard() {
 
 async function removeArchivedCardsFromDOM() {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_CARDS}`); 
+    const response = await fetch(`${API_BASE_URL}/archived-cards`); 
     if (!response.ok) throw new Error("Failed to fetch archived cards");
 
     const archivedCards = await response.json();
@@ -597,7 +597,7 @@ async function archiveAllCards(element) {
   });
 
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_CARDS}`, {
+    const response = await fetch(`${API_BASE_URL}/archived-cards`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ archivedCards }),
@@ -626,7 +626,7 @@ async function archiveBoard(element) {
 
   // Submit the archived board to the API
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.ARCHIVED_BOAR}`, {
+    const response = await fetch(`${API_BASE_URL}/archive-board`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1730,7 +1730,8 @@
                             <label class="form-check-label" for="workspaceEditingAdmins">
                               Workspace editing
                             </label>
-                            <input class="form-check-input ms-2" type="checkbox" id="workspaceEditingAdmins">
+                            <input class="form-check-input ms-2" type="checkbox" id="workspaceEditingAdmins"
+                              onchange="handleCoverImage()">
                           </div>
                           <span class="text-muted"><a href="javascript:void(0);" data-bs-toggle="modal"
                               data-bs-target="#editModal" class="text-decoration-none text-muted">
@@ -1903,7 +1904,8 @@
                         <label class="form-check-label" for="cardCoversCheckbox">
                           Card covers enabled
                         </label>
-                        <input class="form-check-input ms-2" type="checkbox" id="cardCoversCheckbox">
+                        <input class="form-check-input ms-2" type="checkbox" id="cardCoversCheckbox"
+                          onchange="handleCoverImage()">
                       </div>
                       <span class="text-muted"><a href="javascript:void(0);" data-bs-toggle="modal"
                           data-bs-target="#editModal" class="text-decoration-none text-muted">
@@ -3811,9 +3813,9 @@
                           <script type="module" src="./t_pm_js/setting.js"> </script>
                           <script src="./t_pm_js/stickers.js"></script>
 
-
+                          <script src="./t_pm_js/coverImageControl.js"></script>
                           <script src="../t_pm_ui/t_pm_js/userUpdate.js"></script>
-
+                          <script type="module" src="./t_pm_js/app-calendar.js"></script>
 
 
                           <script>
