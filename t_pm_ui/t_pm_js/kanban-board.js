@@ -2,7 +2,7 @@ import { API_ROUTES } from "../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "./element_id.js";
 import { errorLog } from "./error.js";
 import { newRule } from "./todo.js";
-import { moveAllCard } from "./moveallcard.js";
+
 import { copyCardStatus } from "./createNewArea.js";
 
 // Base URL of the API
@@ -133,26 +133,10 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
 
                 <!-- Move all card in this list -->
                 <div class="dropdown-submenu">
-                <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
+                <a class="dropdown-item " href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#moveallcard" data-board='${item.board_title}'>
                     <i class="ti ti-arrows-horizontal"></i> <span class="align-middle">Move all card in this
                     list</span>
                 </a>
-                <div class="dropdown-menu">
-                <form >
-
-                  <div class="mb-4">
-                    <label class="form-check-label">Move all From</label>
-                    <input type="text" class="form-control" id="move-from" placeholder="Move from ${item.board_title}" value="${item.board_title}">
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-check-label">Move all To</label>
-                    <input type="text" class="form-control" id="move-to" placeholder="Please enter board where you want to move all card">
-                  </div>
-                  <div class="mb-4 w-100">
-                    <button type="button" class="btn btn-primary btn-sm me-4" id="moveAllCard">Move...</button>
-                  </div>
-                </form>
-              </div>
             </div>
             <div class="dropdown-submenu">
               <a class="dropdown-item dropdown-toggle" href="javascript:void(0)">
@@ -461,19 +445,13 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
       });
 
       // move all card
+      const moveModal = document.getElementById("moveallcard");
 
-      document
-        .getElementById("moveAllCard")
-        .addEventListener("click", function() {
-          const moveFrom = document
-            .getElementById(ELEMENT_IDS.MOVE_FROM)
-            .value.trim();
-          const moveTo = document
-            .getElementById(ELEMENT_IDS.MOVE_TO)
-            .value.trim();
-
-          moveAllCard(moveFrom, moveTo);
-        });
+      moveModal.addEventListener("show.bs.modal", function(event) {
+        const trigger = event.relatedTarget;
+        const board = trigger.getAttribute("data-board");
+        window.moveFromBoard = board; // Set it globally
+      });
 
       let intervalId;
       const startButton = document.getElementById("start");
@@ -622,8 +600,7 @@ window.watchedCard = watchedCard;
 window.addEventListener = addEventListeners;
 window.toggleTicketSortByName = toggleTicketSortByName;
 window.toggleTicketSortByDate = toggleTicketSortByDate;
-window.moveAllCard = moveAllCard;
-window.toggleTicketSort = toggleTicketSort;
+
 window.archiveBoard = archiveBoard;
 window.archiveAllCards = archiveAllCards;
 window.moveBoard = moveBoard;

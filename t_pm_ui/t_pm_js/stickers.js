@@ -1,4 +1,4 @@
-setTimeout(function() {
+document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".dropZone").forEach(dropZone => {
     dropZone.addEventListener("dragover", e => {
       e.preventDefault();
@@ -47,10 +47,9 @@ setTimeout(function() {
         fontSize: "14px",
         lineHeight: "16px",
         padding: "0",
-        display: "none" // hidden by default
+        display: "none"
       });
 
-      // Show/hide on mouse enter/leave
       wrapper.addEventListener("mouseenter", () => {
         deleteBtn.style.display = "block";
       });
@@ -74,4 +73,4 @@ setTimeout(function() {
       e.dataTransfer.setData("sticker-src", e.target.src);
     });
   });
-}, 10000);
+});

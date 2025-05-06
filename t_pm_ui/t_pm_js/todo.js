@@ -108,6 +108,7 @@ setTimeout(function () {
                 <div class="d-flex make-tem" id="label-color-box-${element.ticket_id}" style="width:225px;"></div>
                 
               </div>
+              
               <div class="dropdown kanban-tasks-item-dropdown">
                 <i class="dropdown-toggle ti ti-dots-vertical" 
                    id="kanban-tasks-item-dropdown" 
