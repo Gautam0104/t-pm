@@ -3922,6 +3922,21 @@
                                 console.error("Error:", error);
                               }
                             })();
+
+                            function toggleTodo(elementId, elementHeader, elementButton) {
+                            const taskHeader = document.getElementById(elementHeader);
+                            const addtaskButton = document.getElementById(elementButton);
+                            const todoTab = document.getElementById(elementId);
+                            document.getElementById("add-todo-item").style.display = "none";
+                            if (todoTab.style.display === "block") {
+                            todoTab.style.display = "none";
+                            taskHeader.classList.add("horizontal-layout");
+                             } else {
+                             todoTab.style.display = "block";
+                             taskHeader.classList.remove("horizontal-layout");
+                           document.getElementById("add-todo-item").style.display = "block";
+                           }
+                           }
                           </script>
 
 

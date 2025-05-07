@@ -81,9 +81,25 @@ export function loadMirrorModal(ticketId) {
       .then(response => response.json())
       .then(result => {
         console.log("Mirror card created:", result);
+    
+        // Show success alert
+        Swal.fire({
+          icon: "success",
+          title: "Card Mirrored Successfully",
+          text: "The card has been mirrored to the selected board and list.",
+          confirmButtonText: "OK"
+        });
       })
       .catch(error => {
         console.error("Error creating mirror card:", error);
+    
+        // Show error alert
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to mirror the card. Please try again.",
+          confirmButtonText: "OK"
+        });
       });
   });
 

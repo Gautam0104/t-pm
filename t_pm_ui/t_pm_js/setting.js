@@ -747,7 +747,7 @@ const projectId = urlParams.get('id');
   
     try {
       const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`); 
-      if (!response.ok) throw new Error('Failed to fetch watch status');
+      
   
       const result = await response.json();
       const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 

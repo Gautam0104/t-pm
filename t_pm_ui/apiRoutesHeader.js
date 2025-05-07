@@ -83,7 +83,7 @@ export const API_ROUTES = {
   ARCHIVED_BOARD: "/archive-board",
 
   // Ticket Mirroring
-  TICKETS_MIRRORING: "/tickets/mirroring",
+  TICKETS_MIRRORING: "/ticket/mirroring",
 
   // custom fields
   CUSTOM_VALUE_BY_TICKETS: "/custom-field-value-by-ticket",

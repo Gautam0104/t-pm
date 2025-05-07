@@ -354,7 +354,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
         <div id="backdrop"></div>
       </main>
     </div>`;
-
+     
       // Add the content to the container
       kanbanboardContainer.insertAdjacentHTML("beforeend", kanbanboardContent);
 
@@ -376,7 +376,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
           kanbanMain.style.maxHeight = "100vh";
         }
       });
-
+      
       // Add event listener to the add new item button
       const addNewItemButton = document.getElementById(
         `add-${item.board_title}-item`
@@ -576,6 +576,65 @@ function changeBgColor(color, elementId) {
   applyBgColor(elementId); // Apply immediately
 }
 
+function applyBgColor(elementId) {
+  let cardBG = document.getElementById(elementId);
+  if (!cardBG) return; // Prevent errors if element doesn't exist
+
+  let storedColor = localStorage.getItem("card-bg-color-" + elementId);
+
+  if (storedColor) {
+    cardBG.style.backgroundColor = storedColor;
+  }
+
+  // Ensure consistent styling
+  cardBG.style.borderRadius = "10px";
+  cardBG.style.padding = "10px";
+  cardBG.style.marginBottom = "10px";
+}
+
+// Ensure colors are applied when the page loads
+window.addEventListener("load", function() {
+  let elementIds = ["todo-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+  if (localStorage.getItem("card-bg-color-todo-task")) {
+    elementIds.forEach(applyBgColor);
+  }
+});
+window.addEventListener("load", function() {
+  let elementIds = ["inprogress-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+  if (localStorage.getItem("card-bg-color-todo-task")) {
+    elementIds.forEach(applyBgColor);
+  }
+});
+window.addEventListener("load", function() {
+  let elementIds = ["rejected-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+  if (localStorage.getItem("card-bg-color-todo-task")) {
+    elementIds.forEach(applyBgColor);
+  }
+});
+window.addEventListener("load", function() {
+  let elementIds = ["for-approval-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+  if (localStorage.getItem("card-bg-color-todo-task")) {
+    elementIds.forEach(applyBgColor);
+  }
+});
+window.addEventListener("load", function() {
+  let elementIds = ["approved-task", "yourElementId2"]; // Add IDs of all elements needing persistence
+  if (localStorage.getItem("card-bg-color-todo-task")) {
+    elementIds.forEach(applyBgColor);
+  }
+});
+
+function makeDefault(cardId) {
+  localStorage.removeItem("card-bg-color-todo-task");
+  let cardBG = document.getElementById(`${cardId}`);
+  cardBG.style.borderRadius = "10px";
+  cardBG.style.padding = "10px";
+  cardBG.style.marginBottom = "10px";
+  cardBG.style.backgroundColor = "#fff";
+}
+
+
+
 function moveBoard() {}
 moveBoard(); // Call the function to run it
 
@@ -592,6 +651,7 @@ function addNewTicket(boardId) {
     newTicketForm.style.display = "block";
   });
 }
+
 
 
 
@@ -689,7 +749,7 @@ setTimeout(async () => {
       console.warn("Card not found in DOM:", id);
     }
   });
-}, 2000); // Delay for 1 second 
+}, 2000); // Delay for 2 second 
 
 
 
@@ -734,6 +794,7 @@ async function removeArchivedBoardsFromDOM() {
 setTimeout(() => {
   removeArchivedBoardsFromDOM();
 }, 2000);
+
 
 
 
