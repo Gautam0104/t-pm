@@ -1,4 +1,5 @@
 import { API_ROUTES } from "../../apiRoutesHeader.js";
+import { ELEMENT_IDS } from "../element_id.js";
 import { 
     handleMoveAction,
     handleAddRemoveAction,
@@ -293,10 +294,10 @@ export function getFormActions() {
 }
 
 // Save Button Handler
-document.getElementById('saveCustomButton')?.addEventListener('click', handleSaveButton);
+document.getElementById(ELEMENT_IDS.SAVE_CUSTOM_BUTTON)?.addEventListener('click', handleSaveButton);
 
 async function handleSaveButton() {
-    const buttonTitle = document.getElementById('buttonTitle').value;
+    const buttonTitle = document.getElementById(ELEMENT_IDS.BUTTON_TITLE).value;
     
     if (!buttonTitle || buttonTitle.trim() === '') {
         showFeedback(document.querySelector('.create-button-section'), 'danger', 'Please enter a button title');
@@ -390,7 +391,7 @@ function updateButtonDisplay(buttonTitle, actions) {
 }
 
 function resetForm() {
-    document.getElementById('buttonTitle').value = '';
+    document.getElementById(ELEMENT_IDS.BUTTON_TITLE).value = '';
     document.querySelector('.actions-list').innerHTML = '';
     showEmptyMessage();
 }
@@ -501,7 +502,7 @@ function updateButtonListItem(existingButton, buttonTitle, actions) {
 }
 
 function editButton(buttonTitle, actions) {
-    document.getElementById('buttonTitle').value = buttonTitle;
+    document.getElementById(ELEMENT_IDS.BUTTON_TITLE).value = buttonTitle;
     const actionsList = document.querySelector('.actions-list');
     actionsList.innerHTML = '';
     

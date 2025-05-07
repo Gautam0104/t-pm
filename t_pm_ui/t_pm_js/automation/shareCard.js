@@ -323,7 +323,7 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
     const url = window.location.href; // Get the current URL
     console.log("URL for QR Code:", url);
   
-    const qrContainer = document.getElementById("qrContainer");
+    const qrContainer = document.getElementById(ELEMENT_IDS.QR_CONTAINER);
     if (!qrContainer) {
       console.error("QR Code container not found");
       return;
@@ -348,6 +348,6 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
   });
 
   // Embed iframe code
-  const embedInput = document.getElementById("codeEmbedd");
+  const embedInput = document.getElementById(ELEMENT_IDS.CODE_EMBEDD);
   if (embedInput) embedInput.value = `<iframe src="${window.location.href}" width="600" height="400" style="border:none;"></iframe>`;
 }

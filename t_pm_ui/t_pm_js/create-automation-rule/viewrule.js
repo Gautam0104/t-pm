@@ -1,5 +1,5 @@
 console.log("This is view rule page");
-
+import { ELEMENT_IDS } from "../element_id.js";
 const API_BASE_URL = ENV?.API_BASE_URL;
 
 if (!API_BASE_URL) {
@@ -13,7 +13,7 @@ if (!API_BASE_URL) {
       return response.json();
     })
     .then(data => {
-      const automationRule = document.getElementById("rule-view");
+      const automationRule = document.getElementById(ELEMENT_IDS.RULE_VIEW);
       console.log(automationRule);
       
       data.forEach(item => {

@@ -1,5 +1,5 @@
 //fetch all comments
-const activitycommentTab = document.getElementById("all-activity-tab");
+const activitycommentTab = document.getElementById(ELEMENT_IDS.ALL_ACTIVITY_TAB);
 
 console.log("activitycommentTab", activitycommentTab);
 

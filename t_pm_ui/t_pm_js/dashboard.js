@@ -380,9 +380,9 @@ fetch(`${API_BASE_URL}${API_ROUTES.PROJECT_DATA}`)
       };
     });
 
-    const projectName = document.getElementById("projectName");
-    const projectLeader = document.getElementById("projectLeader");
-    const projectStatus = document.getElementById("projectStatus");
+    const projectName = document.getElementById(ELEMENT_IDS.PROJECT_NAME);
+    const projectLeader = document.getElementById(ELEMENT_IDS.PROJECT_LEADER);
+    const projectStatus = document.getElementById(ELEMENT_IDS.PROJECT_STATUS);
 
     const projectStatusSet = new Set();
     const projectLeaderSet = new Set();

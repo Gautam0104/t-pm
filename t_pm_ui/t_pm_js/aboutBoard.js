@@ -1,7 +1,7 @@
 var urlParams = new URLSearchParams(window.location.search);
 const project_name = urlParams.get("pname");
 console.log("hello from about board", project_name);
-
+import { ELEMENT_IDS } from "../element_id.js";
 async function getBoard() {
   try {
     const response = await fetch(
@@ -27,9 +27,9 @@ async function getBoard() {
 
 getBoard();
 
-const adminName = document.getElementById("admin-name");
-const adminLogo = document.getElementById("admin-logo");
-const adminHashtag = document.getElementById("admin-hashtag");
+const adminName = document.getElementById(ELEMENT_IDS.ADMIN_NAME);
+const adminLogo = document.getElementById(ELEMENT_IDS.ADMIN_LOGO);
+const adminHashtag = document.getElementById(ELEMENT_IDS.ADMIN_HASHTAG);
 
 const loggedUser = localStorage.getItem("logged_username");
 

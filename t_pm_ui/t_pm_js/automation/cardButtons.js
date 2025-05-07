@@ -1,9 +1,9 @@
 import { apiUrl } from '../../apiRoutesHeader.js';
-
+import { ELEMENT_IDS } from "../element_id.js";
 // Function to initialize card button functionality
 export function initializeCardButtons() {
-    const createNewButton = document.getElementById('createNewButton');
-    const cancelCreate = document.getElementById('cancelCreate');
+    const createNewButton = document.getElementById(ELEMENT_IDS.CREATE_NEW_BUTTON);
+    const cancelCreate = document.getElementById(ELEMENT_IDS.CANCEL_CREATE);
     const createButtonSection = document.querySelector('.create-button-section');
     const buttonListSection = document.querySelector('.button-list-section');
     const actionButtons = document.querySelectorAll('.btn-outline-secondary.btn-sm');
@@ -36,8 +36,8 @@ export function initializeCardButtons() {
 // Function to reset the form
 function resetForm() {
     document.querySelector('input[placeholder="Button Name"]').value = '';
-    document.getElementById('enabledByDefault').checked = true;
-    document.getElementById('closeCard').checked = false;
+    document.getElementById(ELEMENT_IDS.ENABLE_BY_DEFAULT).checked = true;
+    document.getElementById(ELEMENT_IDS.CLOSE_CARD).checked = false;
     document.querySelector('.action-inputs').innerHTML = '';
 }
 

@@ -9,7 +9,7 @@ export const ELEMENT_IDS = {
   AUTOMATION_COPY_CARD_TO_MODAL: "automationcopyCardToModal",
   AUTOMATION_JOIN_CARD_TO_MODAL: "automationjoinCardToModal",
   AUTOMATION_MARK_DUEDATE_CARD_TO_MODAL: "markDueDateModal",
-  AUTOMATION_SET_DUEDATE_CARD_TO_MODAL: "setDueDateModal",
+  AUTOMATION_SET_DUEDATE_CARD_TO_MODAL: "setdueDateCardToModal",
   AUTOMATION_MOVE_CARD_TO_MODAL: "moveCardToModal",
   AUTOMATION_SHARE_CARD_TO_MODAL: "shareCardToModal",
   AUTOMATION_REMOVE_FEATURE_TO_MODAL: "removeCardToModal",
@@ -25,6 +25,8 @@ export const ELEMENT_IDS = {
   PRINT_CARD_BTN: "printCardBtn",
   EXPORT_CARD_BTN: "exportCardBtn",
   PRINT_QR_BTN: "printQrBtn",
+  QR_CONTAINER: "qrContainer",
+  CODE_EMBEDD: "codeEmbedd",
 
 
 
@@ -91,6 +93,7 @@ export const ELEMENT_IDS = {
   ELEMENT_HEADER: "element-Header",
   TAB_COMMENT: "tab-comments",
   ADD_EVENT_SIDEBAR: "add-Event-Sidebar",
+  CLOSE_CARD: "closeCard",
 
   // USER LIST
   USER_ROLE: "user-role",
@@ -125,6 +128,10 @@ export const ELEMENT_IDS = {
   UPDATE_ROLE_FORM: "update-role-form",
   UPDATE_ROLE_NAME: "updateRoleName",
   LINK_INPUT: "linkInput",
+  RULE_VIEW: "rule-view",
+  ADMIN_NAME: "admin-name",
+  ADMIN_LOGO: "admin-logo",
+  ADMIN_HASHTAG: "admin-hashtag",
 
   // BACKGROUND HEADER FOOTER
   HEADER: "header",
@@ -153,6 +160,8 @@ export const ELEMENT_IDS = {
   CREATE_NEW_BOARD: "create-new-board",
   COPY_BOARD_MODAL_CONTENT: "copy-board-modal-content",
   BOARD_NAME: "boardName",
+  ENABLE_BY_DEFAULT: "enabledByDefault",
+  ALL_ACTIVITY_TAB: "all-activity-tab",
 
   // CREATE NEW PROEJCT
   CREATE_NEW_PROJECT: "createProjectorTicket",
@@ -169,6 +178,8 @@ export const ELEMENT_IDS = {
   UPDATE_PROJECT_NAME: "update-project-name",
   UPDATE_PROJECT_DESCRIPTION: "update-project-des",
   CALENDAR: "calendar",
+  CREATE_NEW_BUTTON: "createNewButton",
+  CANCEL_CREATE: "cancelCreate",
 
   // DASHBOARD
   FILTER_INPUT: "filterInput",
@@ -202,9 +213,15 @@ export const ELEMENT_IDS = {
   SAVE_LABEL_BUTTON:"saveLabelButton",
   OPEN_ACTION_BUTTON:"openActionButton",
   LABEL_TEXT:"labelText",
+  SAVE_CUSTOM_BUTTON:"saveCustomButton",
+  BUTTON_TITLE:"buttonTitle",
+  PROJECT_NAME:"projectName",
+  PROJECT_LEADER:"projectLeader",
+  PROJECT_STATUS:"projectStatus",
 
   // MODAL
   CHECKLIST_MODAL: "checklistModal",
+  CUSTOM_FIELD_MODAL: "customFieldModal",
 
   // LOCAL STORAGE
     LOGGED_USERID: "logged-user-id",

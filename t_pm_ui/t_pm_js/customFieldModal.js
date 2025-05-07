@@ -74,7 +74,7 @@ async function deleteCustomField(fieldId, projectId) {
 }
 
 export async function loadCustomCardModal(projectId) {
-  const customFieldModal = document.getElementById("customFieldModal");
+  const customFieldModal = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_MODAL);
   if (!customFieldModal) {
     console.error("Custom field modal element not found");
     return;
