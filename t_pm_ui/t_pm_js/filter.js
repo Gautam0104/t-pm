@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to fetch card statuses from the database
 async function fetchCardStatuses() {
   try {
-    const response = await fetch(`https://d8wgkwwg-3000.inc1.devtunnels.ms/category`); 
+    const response = await fetch(`${API_BASE_URL}/category`); 
     const data = await response.json();
 
     

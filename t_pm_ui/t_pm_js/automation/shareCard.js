@@ -65,7 +65,13 @@ export function shareCardToModal(ticketTitle, ticketId, ticketStatus) {
       const historyData = await response.json();
       
       if (!historyData || historyData.length === 0) {
-        console.error('No history data found');
+        Swal.fire({
+          icon: 'warning',
+          title: 'No History Data',
+          text: 'No history data is available for this ticket.',
+          confirmButtonText: 'OK'
+        });
+      
         return;
       }
 

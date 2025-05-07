@@ -739,7 +739,7 @@ const projectId = urlParams.get('id');
     const watchTabButton = document.getElementById('watchTabButton');
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
-  
+    
     if (!projectId || !watchLink) {
       console.error('Missing project ID or DOM elements.');
       return;
@@ -748,7 +748,15 @@ const projectId = urlParams.get('id');
     try {
       const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`); 
       
+      if (response.status === 404) {
+        // Suppress 404 errors and exit gracefully
+        return; // Exit silently without logging anything
+      }
   
+      if (!response.ok) {
+        
+        return;
+      }
       const result = await response.json();
       const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 
       if (isWatched) {
