@@ -6,88 +6,88 @@ const API_BASE_URL = ENV.API_BASE_URL;
 // Setting  tab
 
 // back to edit tab
-document.getElementById('back-to-edit').addEventListener('click', function () {
+document.getElementById(ELEMENT_IDS.BACK_TO_EDIT).addEventListener('click', function () {
     var updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-settings').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_SETTING).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-share').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_SHARE).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-about').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_ABOUT).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-automation').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_AUTOMATION).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-power-up').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_POWER_UP).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-activity').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_ACTIVITY).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-archive').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_ARCHIVE).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
-  document.getElementById('back-to-edit-custom').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_CUSTOM).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
   
-  document.getElementById('back-to-edit-label').addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.BACK_TO_EDIT_LABEL).addEventListener('click', function () {
     const updateTab = new bootstrap.Tab(document.querySelector('[data-bs-target="#tab-update"]'));
     updateTab.show();
   });
 
 
     // Workspace  update
-  document.getElementById("changeWorkspaceBtn").addEventListener("click", function () {
-    const dropdown = document.getElementById("workspaceDropdown");
+  document.getElementById(ELEMENT_IDS.CHANGE_WORKSPACE_BTN).addEventListener("click", function () {
+    const dropdown = document.getElementById(ELEMENT_IDS.WORKSPACE_DROPDOWN);
     const selectedText = dropdown.options[dropdown.selectedIndex].text;
 
     if (dropdown.selectedIndex > 0) {
-      document.getElementById("selectedWorkspaceDisplay").textContent = selectedText;
+      document.getElementById(ELEMENT_IDS.SELECTED_WORKSPACE_DISPLAY).textContent = selectedText;
     }
   });
    
    // comment permission update
-  document.getElementById("saveCommentPermissionBtn").addEventListener("click", function () {
+  document.getElementById(ELEMENT_IDS.SAVE_COMMENT_PERMISSION_BTN).addEventListener("click", function () {
     const selectedRadio = document.querySelector('input[name="commentPermission"]:checked');
     if (selectedRadio) {
-      document.getElementById("commentPermissionDisplay").textContent = selectedRadio.value;
+      document.getElementById(ELEMENT_IDS.COMMENT_PERMISSION_DISPLAY).textContent = selectedRadio.value;
     }
   });
   // Voting permission update
-  document.getElementById("saveVotingPermissionBtn").addEventListener("click", function () {
+  document.getElementById(ELEMENT_IDS.SAVE_VOTING_PERMISSION_BTN).addEventListener("click", function () {
     const selectedVote = document.querySelector('input[name="votingPermission"]:checked');
     if (selectedVote) {
-      document.getElementById("votingPermissionDisplay").textContent = selectedVote.value;
+      document.getElementById(ELEMENT_IDS.VOTING_PERMISSION_DISPLAY).textContent = selectedVote.value;
     }
   });
 
   // Add/Remove member permission update
-  document.getElementById("saveAddPermissionBtn").addEventListener("click", function () {
+  document.getElementById(ELEMENT_IDS.SAVE_ADD_PERMISSION_BTN).addEventListener("click", function () {
     const selectedAdd = document.querySelector('input[name="addPermission"]:checked');
     if (selectedAdd) {
-      document.getElementById("addRemovePermissionDisplay").textContent = selectedAdd.value;
+      document.getElementById(ELEMENT_IDS.ADD_REMOVE_PERMISSION_DISPLAY).textContent = selectedAdd.value;
     }
   });
 
@@ -105,9 +105,9 @@ async function postPermissionsData() {
     commenting: getSelectedRadio("commentPermission"),
     voting: getSelectedRadio("votingPermission"),
     memberControl: getSelectedRadio("addPermission"),
-    workspaceEditing: document.getElementById("workspaceEditingAdmins").checked,
-    cardCovers: document.getElementById("cardCoversCheckbox").checked,
-    completeCard: document.getElementById("completeCardCheckbox").checked
+    workspaceEditing: document.getElementById(ELEMENT_IDS.WORKSPACE_EDITING_ADMINS).checked,
+    cardCovers: document.getElementById(ELEMENT_IDS.CARD_COVER_CHECKBOX).checked,
+    completeCard: document.getElementById(ELEMENT_IDS.COMPLETE_CARD_CHECKBOX).checked
   };
 
   try {
@@ -131,12 +131,12 @@ async function postPermissionsData() {
 }
 
 // Bind function to button(s) and checkboxes
-document.getElementById("saveCommentPermissionBtn").addEventListener("click", postPermissionsData);
-document.getElementById("saveVotingPermissionBtn").addEventListener("click", postPermissionsData);
-document.getElementById("saveAddPermissionBtn").addEventListener("click", postPermissionsData);
-document.getElementById("workspaceEditingAdmins").addEventListener("change", postPermissionsData);
-document.getElementById("cardCoversCheckbox").addEventListener("change", postPermissionsData);
-document.getElementById("completeCardCheckbox").addEventListener("change", postPermissionsData);
+document.getElementById(ELEMENT_IDS.SAVE_COMMENT_PERMISSION_BTN).addEventListener("click", postPermissionsData);
+document.getElementById(ELEMENT_IDS.SAVE_VOTING_PERMISSION_BTN).addEventListener("click", postPermissionsData);
+document.getElementById(ELEMENT_IDS.SAVE_ADD_PERMISSION_BTN).addEventListener("click", postPermissionsData);
+document.getElementById(ELEMENT_IDS.WORKSPACE_EDITING_ADMINS).addEventListener("change", postPermissionsData);
+document.getElementById(ELEMENT_IDS.CARD_COVER_CHECKBOX).addEventListener("change", postPermissionsData);
+document.getElementById(ELEMENT_IDS.COMPLETE_CARD_CHECKBOX).addEventListener("change", postPermissionsData);
 
 //Function to fetch and update settings dynamically
 async function fetchAndUpdateSettings() {
@@ -164,23 +164,23 @@ async function fetchAndUpdateSettings() {
     const addPermissionRadio = document.querySelector(`input[name="addPermission"][value="${settings.memberControl}"]`);
     if (addPermissionRadio) addPermissionRadio.checked = true;
 
-    const workspaceEditingCheckbox = document.getElementById("workspaceEditingAdmins");
+    const workspaceEditingCheckbox = document.getElementById(ELEMENT_IDS.WORKSPACE_EDITING_ADMINS);
     if (workspaceEditingCheckbox) workspaceEditingCheckbox.checked = settings.workspace_editing === 1;
 
-    const cardCoversCheckbox = document.getElementById("cardCoversCheckbox");
+    const cardCoversCheckbox = document.getElementById(ELEMENT_IDS.CARD_COVER_CHECKBOX);
     if (cardCoversCheckbox) cardCoversCheckbox.checked = settings.card_covers === 1;
 
-    const completeCardCheckbox = document.getElementById("completeCardCheckbox");
+    const completeCardCheckbox = document.getElementById(ELEMENT_IDS.COMPLETE_CARD_CHECKBOX);
     if (completeCardCheckbox) completeCardCheckbox.checked = settings.complete_card ===1;
 
     // Safely update display elements
-    const commentDisplay = document.getElementById("commentPermissionDisplay");
+    const commentDisplay = document.getElementById(ELEMENT_IDS.COMMENT_PERMISSION_DISPLAY);
     if (commentDisplay) commentDisplay.textContent = settings.commenting;
 
-    const votingDisplay = document.getElementById("votingPermissionDisplay");
+    const votingDisplay = document.getElementById(ELEMENT_IDS.VOTING_PERMISSION_DISPLAY);
     if (votingDisplay) votingDisplay.textContent = settings.voting;
 
-    const addRemoveDisplay = document.getElementById("addRemovePermissionDisplay");
+    const addRemoveDisplay = document.getElementById(ELEMENT_IDS.ADD_REMOVE_PERMISSION_DISPLAY);
     if (addRemoveDisplay) addRemoveDisplay.textContent = settings.memberControl;
 
   } catch (error) {
@@ -194,9 +194,9 @@ document.addEventListener("DOMContentLoaded", fetchAndUpdateSettings);
 // setting project name dropdown
 
 document.addEventListener("DOMContentLoaded", function () {
-  const workspaceDropdown = document.getElementById("workspaceDropdown");
-  const selectedWorkspaceDisplay = document.getElementById("selectedWorkspaceDisplay");
-  const changeWorkspaceBtn = document.getElementById("changeWorkspaceBtn");
+  const workspaceDropdown = document.getElementById(ELEMENT_IDS.WORKSPACE_DROPDOWN);
+  const selectedWorkspaceDisplay = document.getElementById(ELEMENT_IDS.SELECTED_WORKSPACE_DISPLAY);
+  const changeWorkspaceBtn = document.getElementById(ELEMENT_IDS.CHANGE_WORKSPACE_BTN);
 
   // Get the URL parameters
   const urlParams = new URLSearchParams(window.location.search);
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Unarchive tab
   document.addEventListener("DOMContentLoaded", function () {
-    const archivedCardsContainer = document.getElementById("archived-cards-container");
+    const archivedCardsContainer = document.getElementById(ELEMENT_IDS.ARCHIVE_CARD_CONTAINER);
 
     async function fetchArchivedCards() {
       try {
@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // archive list
   document.addEventListener("DOMContentLoaded", function () {
-    const archivedBoardsContainer = document.getElementById("archived-boards-container");
+    const archivedBoardsContainer = document.getElementById(ELEMENT_IDS.ARCHIVE_BOARD_CONTAINER);
   
     async function fetchArchivedBoards() {
       try {
@@ -387,26 +387,26 @@ document.addEventListener("DOMContentLoaded", function () {
   
   document.addEventListener("DOMContentLoaded", function () {
     // Set the current URL to the board link input
-    const boardLinkInput = document.getElementById("boardLink");
+    const boardLinkInput = document.getElementById(ELEMENT_IDS.BOARD_LINK);
     boardLinkInput.value = window.location.href;
 
     // Attach event listeners
-    const qrBtn = document.getElementById("qrBtn");
-    const exportJSONBtn = document.getElementById("exportJSONBtn");
-    const exportCSVBtn = document.getElementById("exportCSVBtn");
-    const copyLinkBtn = document.getElementById("copyLinkBtn");
+    const qrBtn = document.getElementById(ELEMENT_IDS.QR_BTN);
+    const exportJSONBtn = document.getElementById(ELEMENT_IDS.EXPORT_JSON_BTN);
+    const exportCSVBtn = document.getElementById(ELEMENT_IDS.EXPORT_CSV_BTN);
+    const copyLinkBtn = document.getElementById(ELEMENT_IDS.COPY_LINK_BTN);
 
     if (qrBtn) qrBtn.addEventListener("click", showQRCode);
     if (exportJSONBtn) exportJSONBtn.addEventListener("click", exportJSON);
     if (exportCSVBtn) exportCSVBtn.addEventListener("click", exportCSV);
     if (copyLinkBtn) copyLinkBtn.addEventListener("click", copyBoardLink);
   });
-  document.getElementById("printBtn").addEventListener("click", function () {
+  document.getElementById(ELEMENT_IDS.PRINT_BTN).addEventListener("click", function () {
     window.print();
   });
   // Copy link to clipboard
   function copyBoardLink() {
-    const input = document.getElementById("boardLink");
+    const input = document.getElementById(ELEMENT_IDS.BOARD_LINK);
     navigator.clipboard.writeText(input.value)
     .then(() => {
       Swal.fire({
@@ -477,11 +477,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Show QR Code in a modal
   function showQRCode() {
-    const modal = new bootstrap.Modal(document.getElementById("qrModal"));
-    const qrContainer = document.getElementById("qrCodeContainer");
+    const modal = new bootstrap.Modal(document.getElementById(ELEMENT_IDS.QR_MODAL));
+    const qrContainer = document.getElementById(ELEMENT_IDS.QR_CODE_CONTAINER);
     qrContainer.innerHTML = ""; // Clear previous QR
     new QRCode(qrContainer, {
-      text: document.getElementById("boardLink").value,
+      text: document.getElementById(ELEMENT_IDS.BOARD_LINK).value,
       width: 200,
       height: 200,
     });
@@ -521,7 +521,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // activity tab
   document.addEventListener("DOMContentLoaded", function () {
-    const commentTab = document.getElementById("activity-comments-container");
+    const commentTab = document.getElementById(ELEMENT_IDS.ACTIVITY_COMMENT_CONTAINER);
   
   
     fetch(`${API_BASE_URL}${API_ROUTES.GET_COMMENT}`)
@@ -583,7 +583,7 @@ const projectId = urlParams.get('id');
   };
 
   const renderCustomFields = async () => {
-    const container = document.getElementById("custom-fields-content");
+    const container = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_CONTENT);
     container.innerHTML = ""; // Clear previous content
   
     const fields = await fetchCustomFields();
@@ -648,7 +648,7 @@ const projectId = urlParams.get('id');
   // Rendering automation rules
 
   document.addEventListener("DOMContentLoaded", async function () {
-    const container = document.getElementById("automation-buttons");
+    const container = document.getElementById(ELEMENT_IDS.AUTOMATION_BUTTON);
     
     try {
       const response = await fetch(`${API_BASE_URL}${API_ROUTES. AUTOMATION_DATA}`); 
@@ -734,9 +734,9 @@ const projectId = urlParams.get('id');
   
   // Function to update the watch icon based on the watch status
   async function updateWatchIcon() {
-    const watchLink = document.getElementById('watchIcon');
-    const watchTabText = document.getElementById('watchTabText');
-    const watchTabButton = document.getElementById('watchTabButton');
+    const watchLink = document.getElementById(ELEMENT_IDS.WATCH_ICON);
+    const watchTabText = document.getElementById(ELEMENT_IDS.WATCH_TAB_TEXT);
+    const watchTabButton = document.getElementByI(ELEMENT_IDS. WATCH_TAB_BUTTON);
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
     
@@ -786,10 +786,10 @@ const projectId = urlParams.get('id');
     setTimeout(updateWatchIcon, 2000); 
   });
   
-  document.getElementById('watchTabButton').addEventListener('click', async function () {
-    const watchLink = document.getElementById('watchIcon');
-    const watchTabText = document.getElementById('watchTabText');
-    const watchTabButton = document.getElementById('watchTabButton');
+  document.getElementById(ELEMENT_IDS. WATCH_TAB_BUTTON).addEventListener('click', async function () {
+    const watchLink = document.getElementById(ELEMENT_IDS.WATCH_ICON);
+    const watchTabText = document.getElementById(ELEMENT_IDS.WATCH_TAB_TEXT);
+    const watchTabButton = document.getElementById(ELEMENT_IDS. WATCH_TAB_BUTTON);
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
     const projectName = urlParams.get('pname');
@@ -859,8 +859,8 @@ const projectId = urlParams.get('id');
                             (async function () {
                               try {
                                 
-                                const userActivityTab = document.getElementById("user-activity-tab");
-                                const ticketList = document.getElementById("card-table-body");
+                                const userActivityTab = document.getElementById(ELEMENT_IDS.USER_ACTIVITY_TAB);
+                                const ticketList = document.getElementById(ELEMENT_IDS.CARD_TABLE_BODY);
 
                                 if (!userActivityTab || !ticketList) {
                                   console.warn("Required DOM elements not found.");

@@ -395,7 +395,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
                                                   </div>`;
         addNewItemForm.style.display = "block";
         addNewItemButton.style.display = "none";
-        const cancelForm = document.getElementById("cancel-form-1");
+        const cancelForm = document.getElementById(ELEMENT_IDS.CANCEL_FORM_1);
         cancelForm.addEventListener("click", function() {
           addNewItemForm.innerHTML = "";
         });
@@ -404,7 +404,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
         );
         addNewItemFormSubmit.addEventListener("submit", async function(e) {
           e.preventDefault();
-          const title = document.getElementById("ticket-title-todo").value;
+          const title = document.getElementById(ELEMENT_IDS.TICKET_TITLE_TODO).value;
           const description = "";
           const status = "Backlog";
           const priority = "Medium";
@@ -445,7 +445,7 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
       });
 
       // move all card
-      const moveModal = document.getElementById("moveallcard");
+      const moveModal = document.getElementById(ELEMENT_IDS.MOVE_ALL_CARD);
 
       moveModal.addEventListener("show.bs.modal", function(event) {
         const trigger = event.relatedTarget;
@@ -454,10 +454,10 @@ fetch(`${API_BASE_URL}/get-boards?board_name=${project_name}`)
       });
 
       let intervalId;
-      const startButton = document.getElementById("start");
+      const startButton = document.getElementById(ELEMENT_IDS.START);
       if (startButton) {
         startButton.addEventListener("click", function() {
-          const timeSelect = document.getElementById("timeSelect");
+          const timeSelect = document.getElementById(ELEMENT_IDS.TIME_SELECT);
           if (!intervalId) {
             intervalId = setInterval(
               () =>

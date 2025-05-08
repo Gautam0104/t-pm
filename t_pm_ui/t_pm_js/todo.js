@@ -798,20 +798,20 @@ setTimeout(function () {
                 offcanvasDiv.innerHTML = offcanvasContent;
                 
                 // Initialize mirror modal event listener
-                const mirrorCardFeature = document.getElementById("mirrorCardFeature");
+                const mirrorCardFeature = document.getElementById(ELEMENT_IDS.MIRROR_CARD_FEATURE);
                 if (mirrorCardFeature) {
                   mirrorCardFeature.addEventListener("click", function() {
-                  var mirrorModal = new bootstrap.Modal(document.getElementById("mirrorModal"));
+                  var mirrorModal = new bootstrap.Modal(document.getElementById(ELEMENT_IDS.MIRROR_MODAL));
                   mirrorModal.show();
                     loadMirrorModal(element.ticket_id);
                   });
                 }
 
                 // Initialize custom field modal event listener
-                const customFieldCardFeature = document.getElementById("customFieldCardFeature");
+                const customFieldCardFeature = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_CARD_FEATURE);
 if (customFieldCardFeature) {
   customFieldCardFeature.addEventListener("click", function() {
-    const modalElement = document.getElementById("customFieldModal");
+    const modalElement = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_MODAL);
     if (modalElement) {
       const customFieldModal = new bootstrap.Modal(modalElement);
       customFieldModal.show();
@@ -891,7 +891,7 @@ if (customFieldCardFeature) {
                           html += `<button type="submit" class="btn btn-primary">Submit All</button></form>`;
                           container.innerHTML = html;
                       
-                          const form = document.getElementById('customFieldsForm');
+                          const form = document.getElementById(ELEMENT_IDS.CUSTOM_FIELDS_FROM);
                           form.addEventListener('submit', async (e) => {
                             e.preventDefault();
                       
@@ -1270,7 +1270,7 @@ if (customFieldCardFeature) {
                 
 //               })
 
-            document.getElementById("removeVote").addEventListener("click", function(){
+            document.getElementById(ELEMENT_IDS.REMOVE_VOTE).addEventListener("click", function(){
               const voteTemp =  document.getElementById(`label-color-box-${element.ticket_id}`)
               voteTemp.innerHTML = ``;
             })
@@ -1547,7 +1547,7 @@ if (customFieldCardFeature) {
                 });
                 // Add event listener for the card-image input field
                 document
-                  .getElementById("card-image")
+                  .getElementById(ELEMENT_IDS.TICKET_CARD_IMAGE)
                   .addEventListener("change", function (event) {
                     const fileInput = event.target;
                     const previewContainer = document.getElementById(

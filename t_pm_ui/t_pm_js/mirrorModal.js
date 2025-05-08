@@ -60,7 +60,7 @@ export function loadMirrorModal(ticketId) {
     const selectedBoard = boardSelect.value;
     const selectedList =
       listSelect.options[listSelect.selectedIndex].textContent;
-    const position = document.getElementById("positionInput").value;
+    const position = document.getElementById(ELEMENT_IDS.POSITION_INPUT).value;
 
     if (!selectedBoard || !selectedList) {
       alert("Please select a board and list.");

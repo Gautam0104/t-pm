@@ -12,6 +12,7 @@ export const ELEMENT_IDS = {
   AUTOMATION_SET_DUEDATE_CARD_TO_MODAL: "setdueDateCardToModal",
   AUTOMATION_MOVE_CARD_TO_MODAL: "moveCardToModal",
   AUTOMATION_SHARE_CARD_TO_MODAL: "shareCardToModal",
+  AUTOMATION_BUTTON: "automation-buttons",
   AUTOMATION_REMOVE_FEATURE_TO_MODAL: "removeCardToModal",
   EDIT_AUTOMATION_MODAL_CONTENT: "edit-automation-modal-content",
   EDIT_AUTOMATION_MODAL: "editautomationModal",
@@ -27,6 +28,13 @@ export const ELEMENT_IDS = {
   PRINT_QR_BTN: "printQrBtn",
   QR_CONTAINER: "qrContainer",
   CODE_EMBEDD: "codeEmbedd",
+  QR_MODAL: "qrModal",
+  QR_BTN: "qrBtn",
+  EXPORT_JSON_BTN: "exportJSONBtn",
+  EXPORT_CSV_BTN: "exportCSVBtn",
+  COPY_LINK_BTN: "copyLinkBtn",
+  PRINT_BTN: "printBtn",
+  QR_CODE_CONTAINER: "qrCodeContainer",
 
 
 
@@ -45,6 +53,7 @@ export const ELEMENT_IDS = {
   WATCH_CARD_FEATURE: "watchCardFeature",
   COPY_CARD_FEATURE: "copyCardFeature",
   MOVE_CARD_FEATURE: "moveCardFeature",
+  MOVE_ALL_CARD: "moveallcard",
   SHARE_CARD_FEATURE: "shareCardFeature",
   JOIN_AUTOMATION: "joinAutomation",
   MOVE_AUTOMATION: "moveAutomation",
@@ -94,6 +103,14 @@ export const ELEMENT_IDS = {
   TAB_COMMENT: "tab-comments",
   ADD_EVENT_SIDEBAR: "add-Event-Sidebar",
   CLOSE_CARD: "closeCard",
+  TICKET_TITLE_TODO: "ticket-title-todo",
+  START: "start",
+  TIME_SELECT: "timeSelect",
+  WATCH_ICON: "watchIcon",
+  WATCH_TAB_TEXT: "watchTabText",
+  WATCH_TAB_BUTTON: "watchTabButton",
+  USER_ACTIVITY_TAB: "user-activity-tab",
+  CARD_TABLE_BODY: "card-table-body",
 
   // USER LIST
   USER_ROLE: "user-role",
@@ -162,6 +179,9 @@ export const ELEMENT_IDS = {
   BOARD_NAME: "boardName",
   ENABLE_BY_DEFAULT: "enabledByDefault",
   ALL_ACTIVITY_TAB: "all-activity-tab",
+  ACTIVITY_COMMENT_CONTAINER: "activity-comments-container",
+  CUSTOM_FIELD_CONTENT: "custom-fields-content",
+  CUSTOM_FIELD_CARD_FEATURE: "customFieldCardFeature",
 
   // CREATE NEW PROEJCT
   CREATE_NEW_PROJECT: "createProjectorTicket",
@@ -180,6 +200,18 @@ export const ELEMENT_IDS = {
   CALENDAR: "calendar",
   CREATE_NEW_BUTTON: "createNewButton",
   CANCEL_CREATE: "cancelCreate",
+  BACK_TO_EDIT: "back-to-edit",
+  BACK_TO_EDIT_SETTING: "back-to-edit-settings",
+  BACK_TO_EDIT_SHARE: "back-to-edit-share",
+  BACK_TO_EDIT_ABOUT: "back-to-edit-about",
+  BACK_TO_EDIT_AUTOMATION: "back-to-edit-automation",
+  BACK_TO_EDIT_POWER_UP: "back-to-edit-power-up",
+  BACK_TO_EDIT_ACTIVITY: "back-to-edit-activity",
+  BACK_TO_EDIT_ARCHIVE: "back-to-edit-archive",
+  BACK_TO_EDIT_CUSTOM: "back-to-edit-custom",
+  BACK_TO_EDIT_LABEL: "back-to-edit-label",
+  ARCHIVE_CARD_CONTAINER: "archived-cards-container",
+  ARCHIVE_BOARD_CONTAINER: "archived-boards-container",
 
   // DASHBOARD
   FILTER_INPUT: "filterInput",
@@ -188,6 +220,11 @@ export const ELEMENT_IDS = {
   ACTIVE_PROJECTS_COUNTS: "active-projects-counts",
   COMPLETE_PROJECTS_COUNTS: "complete-projects-counts",
   TOTAL_PROJECTS_COUNTS: "total-projects-counts",
+  FILTER_ASSINGNED_TO_ME: "filter-assigned-to-me",
+  FILTER_COMPLETE: "filter-complete",
+  FILTER_INCOMPLETE: "filter-incomplete",
+  BOARD_LINK: "boardLink",
+
 
   // KANBAN 
   ADD_TODO_ITEM: "add-todo-item",
@@ -218,10 +255,24 @@ export const ELEMENT_IDS = {
   PROJECT_NAME:"projectName",
   PROJECT_LEADER:"projectLeader",
   PROJECT_STATUS:"projectStatus",
+  CHANGE_WORKSPACE_BTN:"changeWorkspaceBtn",
+  WORKSPACE_DROPDOWN:"workspaceDropdown",
+  SELECTED_WORKSPACE_DISPLAY:"selectedWorkspaceDisplay",
+  SAVE_COMMENT_PERMISSION_BTN:"saveCommentPermissionBtn",
+  COMMENT_PERMISSION_DISPLAY:"commentPermissionDisplay",
+  SAVE_VOTING_PERMISSION_BTN:"saveVotingPermissionBtn",
+  VOTING_PERMISSION_DISPLAY:"votingPermissionDisplay",
+  SAVE_ADD_PERMISSION_BTN:"saveAddPermissionBtn",
+  ADD_REMOVE_PERMISSION_DISPLAY:"addRemovePermissionDisplay",
+  WORKSPACE_EDITING_ADMINS:"workspaceEditingAdmins",
+  CARD_COVER_CHECKBOX:"cardCoversCheckbox",
+  COMPLETE_CARD_CHECKBOX:"completeCardCheckbox",
+  REMOVE_VOTE:"removeVote",
 
   // MODAL
   CHECKLIST_MODAL: "checklistModal",
   CUSTOM_FIELD_MODAL: "customFieldModal",
+  CUSTOM_FIELDS_FROM: "customFieldsForm",
 
   // LOCAL STORAGE
     LOGGED_USERID: "logged-user-id",
@@ -242,4 +293,7 @@ export const ELEMENT_IDS = {
     MIRROR_LIST_SELECT: "listSelect",
     MIRROR_BTN: "mirrorBtn",
     TAB_CUSTOM_CONTAINER: "tabCustomFieldsContainer",
+    POSITION_INPUT: "positionInput",
+    MIRROR_CARD_FEATURE: "mirrorCardFeature",
+    MIRROR_MODAL: "mirrorModal",
 };
