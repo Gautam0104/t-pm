@@ -97,6 +97,14 @@ setTimeout(function () {
           card.draggable = true;
           card.id = `${element.ticket_id}`;
 
+          // Handle ticket_owner
+          card.dataset.ticketOwner = element.ticket_owner || ""; 
+          // Handle due_date
+          card.dataset.dueDate = element.due_date || ""; 
+          // Handle updated_at (for activity filter)
+          card.dataset.updatedAt = element.updated_at || "";
+         
+
           card.innerHTML = `
 <div class="dropZone d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2" 
      style="...">

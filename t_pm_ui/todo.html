@@ -1092,35 +1092,32 @@
                   </div>
                 </div>
                 <!-- Kanban Wrapper -->
-                <div class="kanban-wrapper " style="height: 100%; width: 100%; overflow-x: auto; overflow-y: auto;  ">
+                <div class="kanban-wrapper" style="height: 100%; width: 100%; overflow-x: auto; overflow-y: auto;">
                   <div id="loading" class="loading-container">
                     <div class="loader"></div>
                   </div>
                   <div class="kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
                     <!-- Dynamically added content will go here -->
 
-
-
+                    <!-- Move the form here -->
+                    <form class="kanban-add-new-board" id="board-8">
+                      <label class="kanban-add-board-btn" for="kanban-add-board-input" id="form-show">
+                        <i class="ti ti-plus"></i>
+                        <span class="" style="text-transform: capitalize;">Add new</span>
+                      </label>
+                      <input type="text" class="form-control w-px-250 kanban-add-board-input mb-4 d-none"
+                        placeholder="Add Board Title" id="kanban-add-board-input" required="">
+                      <div class="mb-4 kanban-add-board-input d-none" id="kanban-add-board-div">
+                        <button type="button" id="create-new-board"
+                          class="btn btn-primary btn-sm me-4 waves-effect waves-light">Add</button>
+                        <button type="button"
+                          class="btn btn-label-secondary btn-sm kanban-add-board-cancel-btn waves-effect"
+                          id="form-hide">
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
                   </div>
-
-                  <!-- The form is placed at the bottom of the parent container -->
-                  <form class="kanban-add-new-board" id="board-8">
-                    <label class="kanban-add-board-btn" for="kanban-add-board-input" id="form-show">
-                      <i class="ti ti-plus"></i>
-                      <span class="" style="text-transform: capitalize;">Add new</span>
-                    </label>
-                    <input type="text" class="form-control w-px-250 kanban-add-board-input mb-4 d-none"
-                      placeholder="Add Board Title" id="kanban-add-board-input" required="">
-                    <div class="mb-4 kanban-add-board-input d-none" id="kanban-add-board-div">
-                      <button type="button" id="create-new-board"
-                        class="btn btn-primary btn-sm me-4 waves-effect waves-light">Add</button>
-                      <button type="button"
-                        class="btn btn-label-secondary btn-sm kanban-add-board-cancel-btn waves-effect" id="form-hide">
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-
                 </div>
 
 
@@ -1623,38 +1620,40 @@
                 </div>
 
                 <!-- Archive Tab (Content + Back Button) -->
-               <div class="tab-pane fade" id="tab-archived" role="tabpanel">
-  <div class="p-4">
-    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-archive">
-      <i class="ti ti-chevron-left ti-18px me-1_5"></i>
-    </button>
-    <br>
-    <h5>Archive</h5>
+                <div class="tab-pane fade" id="tab-archived" role="tabpanel">
+                  <div class="p-4">
+                    <button class="back-menu btn btn-primary mb-3" id="back-to-edit-archive">
+                      <i class="ti ti-chevron-left ti-18px me-1_5"></i>
+                    </button>
+                    <br>
+                    <h5>Archive</h5>
 
-    <!-- Nav tabs for sub-sections -->
-    <ul class="nav nav-tabs mt-3" id="archiveSubTabs" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="archived-cards-tab" data-bs-toggle="tab" data-bs-target="#archived-cards-tab-pane" type="button" role="tab">Cards</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="archived-boards-tab" data-bs-toggle="tab" data-bs-target="#archived-boards-tab-pane" type="button" role="tab">List</button>
-      </li>
-    </ul>
+                    <!-- Nav tabs for sub-sections -->
+                    <ul class="nav nav-tabs mt-3" id="archiveSubTabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="archived-cards-tab" data-bs-toggle="tab"
+                          data-bs-target="#archived-cards-tab-pane" type="button" role="tab">Cards</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="archived-boards-tab" data-bs-toggle="tab"
+                          data-bs-target="#archived-boards-tab-pane" type="button" role="tab">List</button>
+                      </li>
+                    </ul>
 
-    <!-- Tab content -->
-    <div class="tab-content mt-3" id="archiveSubTabsContent">
-      <!-- Archived Cards Tab -->
-      <div class="tab-pane fade show active" id="archived-cards-tab-pane" role="tabpanel">
-        <div id="archived-cards-container"></div>
-      </div>
+                    <!-- Tab content -->
+                    <div class="tab-content mt-3" id="archiveSubTabsContent">
+                      <!-- Archived Cards Tab -->
+                      <div class="tab-pane fade show active" id="archived-cards-tab-pane" role="tabpanel">
+                        <div id="archived-cards-container"></div>
+                      </div>
 
-      <!-- Archived Boards Tab -->
-      <div class="tab-pane fade" id="archived-boards-tab-pane" role="tabpanel">
-        <div id="archived-boards-container"></div>
-      </div>
-    </div>
-  </div>
-               </div>
+                      <!-- Archived Boards Tab -->
+                      <div class="tab-pane fade" id="archived-boards-tab-pane" role="tabpanel">
+                        <div id="archived-boards-container"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 
                 <!-- Activity Tab (Content + Back Button) -->
@@ -2534,8 +2533,8 @@
                       <!-- Keyword -->
                       <div class="mb-4">
                         <label class="form-label fw-semibold">Keyword</label>
-                        <input type="text" class="form-control" placeholder="Enter a keyword...">
-                        <div class="form-text">Search cards, members, labels, and more</div>
+                        <input type="text" id="keyword-filter" class="form-control" placeholder="Enter a keyword...">
+                        <div class="form-text">Search cards</div>
                       </div>
 
                       <!-- Members -->
@@ -2550,7 +2549,6 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="filter-assigned-to-me">
                           <label class="form-check-label" for="filter-assigned-to-me">
-                            <img src="" class="rounded-circle me-1" alt="avatar" style="width: 20px; height: 20px;">
                             Cards assigned to me
                           </label>
                         </div>
@@ -2598,7 +2596,7 @@
                         </div>
                       </div>
 
-                      <!-- Labels -->
+                      <!-- Labels
                       <div class="mb-4">
                         <label class="form-label fw-semibold">Labels</label>
                         <div class="form-check mb-2">
@@ -2630,7 +2628,7 @@
                           <option>Label 1</option>
                           <option>Label 2</option>
                         </select>
-                      </div>
+                      </div> -->
 
                       <!-- Activity -->
                       <div class="mb-4">
@@ -2656,12 +2654,12 @@
                         </div>
                       </div>
 
-                      <!-- Collapse Toggle -->
+                      <!-- Collapse Toggle
                       <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="toggle-collapse-empty" checked>
                         <label class="form-check-label" for="toggle-collapse-empty">Collapse lists with no matching
                           cards</label>
-                      </div>
+                      </div> -->
                     </form>
 
 
@@ -3836,6 +3834,7 @@
                           <script type="module" src="./t_pm_js/moveallcard.js"></script>
                           <script type="module" src="./t_pm_js/setting.js"> </script>
                           <script src="./t_pm_js/stickers.js"></script>
+                          <script type="module" src="./t_pm_js/filter.js"></script>
 
                           <script src="./t_pm_js/coverImageControl.js"></script>
                           <script src="../t_pm_ui/t_pm_js/userUpdate.js"></script>
@@ -3924,19 +3923,19 @@
                             })();
 
                             function toggleTodo(elementId, elementHeader, elementButton) {
-                            const taskHeader = document.getElementById(elementHeader);
-                            const addtaskButton = document.getElementById(elementButton);
-                            const todoTab = document.getElementById(elementId);
-                            document.getElementById("add-todo-item").style.display = "none";
-                            if (todoTab.style.display === "block") {
-                            todoTab.style.display = "none";
-                            taskHeader.classList.add("horizontal-layout");
-                             } else {
-                             todoTab.style.display = "block";
-                             taskHeader.classList.remove("horizontal-layout");
-                           document.getElementById("add-todo-item").style.display = "block";
-                           }
-                           }
+                              const taskHeader = document.getElementById(elementHeader);
+                              const addtaskButton = document.getElementById(elementButton);
+                              const todoTab = document.getElementById(elementId);
+                              document.getElementById("add-todo-item").style.display = "none";
+                              if (todoTab.style.display === "block") {
+                                todoTab.style.display = "none";
+                                taskHeader.classList.add("horizontal-layout");
+                              } else {
+                                todoTab.style.display = "block";
+                                taskHeader.classList.remove("horizontal-layout");
+                                document.getElementById("add-todo-item").style.display = "block";
+                              }
+                            }
                           </script>
 
 

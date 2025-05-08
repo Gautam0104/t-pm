@@ -1,89 +1,179 @@
-import { API_ROUTES } from "../apiRoutesHeader.js";
-import { ELEMENT_IDS } from "./element_id.js";
-// Sample data for demonstration
-const cards = [
-  { title: "Task 1", assignedTo: "User A", status: "complete", dueDate: "2023-10-01", labels: ["urgent"] },
-  { title: "Task 2", assignedTo: "User B", status: "incomplete", dueDate: "2023-10-05", labels: [] },
-  // Add more card objects as needed
-];
 
-// Function to populate filter options dynamically
-function populateFilters() {
-  const memberFilter = document.getElementById('filter-assigned-to-me');
-  const labelFilter = document.querySelector('.form-select');
-
-  // Populate members (assuming you have a unique list of members)
-  const members = [...new Set(cards.map(card => card.assignedTo))];
-  members.forEach(member => {
-    const option = document.createElement('option');
-    option.value = member;
-    option.textContent = member;
-    memberFilter.appendChild(option);
-  });
-
-  // Populate labels (assuming you have a unique list of labels)
-  const labels = [...new Set(cards.flatMap(card => card.labels))];
-  labels.forEach(label => {
-    const option = document.createElement('option');
-    option.value = label;
-    option.textContent = label;
-    labelFilter.appendChild(option);
-  });
-}
-
-// Function to filter cards based on selected filters
-function filterCards() {
-  const keyword = document.querySelector('input[placeholder="Enter a keyword..."]').value.toLowerCase();
-  const assignedTo = document.getElementById('filter-assigned-to-me').checked ? document.getElementById('filter-assigned-to-me').value : null;
-  const statusComplete = document.getElementById('filter-complete').checked;
-  const statusIncomplete = document.getElementById('filter-incomplete').checked;
-
-  const filteredCards = cards.filter(card => {
-    const matchesKeyword = card.title.toLowerCase().includes(keyword);
-    const matchesAssignedTo = assignedTo ? card.assignedTo === assignedTo : true;
-    const matchesStatus = (statusComplete && card.status === "complete") || (statusIncomplete && card.status === "incomplete");
-
-    return matchesKeyword && matchesAssignedTo && matchesStatus;
-  });
-
-  // Update the displayed cards based on filteredCards
-  console.log(filteredCards); // Replace this with your logic to display the filtered cards
-}
-
-// Event listeners for filter inputs
 document.addEventListener('DOMContentLoaded', () => {
-  populateFilters();
+  const keywordInput = document.getElementById('keyword-filter');
+  const kanbanContainer = document.getElementById('kanban-wrapper-container');
 
-  document.querySelector('input[placeholder="Enter a keyword..."]').addEventListener('input', filterCards);
-  document.getElementById('filter-assigned-to-me').addEventListener('change', filterCards);
-  document.getElementById('filter-complete').addEventListener('change', filterCards);
-  document.getElementById('filter-incomplete').addEventListener('change', filterCards);
+  if (keywordInput && kanbanContainer) {
+    keywordInput.addEventListener('keyup', () => {
+      const keyword = keywordInput.value.toLowerCase().trim();
+      applyFilters(); // Call a new function to handle all filters
+    });
+
+    // Add event listeners for member filter checkboxes
+    const noMembersCheckbox = document.getElementById('filter-no-members');
+    const assignedToMeCheckbox = document.getElementById('filter-assigned-to-me');
+
+    if (noMembersCheckbox) {
+      noMembersCheckbox.addEventListener('change', applyFilters);
+    }
+    if (assignedToMeCheckbox) {
+      assignedToMeCheckbox.addEventListener('change', applyFilters);
+    }
+
+  } else {
+    if (!keywordInput) console.error('Keyword input field with ID "keyword-filter" not found.');
+    if (!kanbanContainer) console.error('Kanban container with ID "kanban-wrapper-container" not found.');
+  }
+
+  // Due Date filter listeners - MOVED OUTSIDE THE ELSE BLOCK
+  const dueDateCheckboxes = [
+    'filter-no-dates', 'filter-overdue', 'filter-due-tomorrow',
+    'filter-due-week', 'filter-due-month'
+  ];
+  dueDateCheckboxes.forEach(id => {
+    const checkbox = document.getElementById(id);
+    if (checkbox) checkbox.addEventListener('change', applyFilters);
+    else console.warn(`Due date filter checkbox with ID "${id}" not found.`);
+  });
+
+  // Activity filter listeners - MOVED OUTSIDE THE ELSE BLOCK
+  const activityCheckboxes = [
+    'filter-last-week', 'filter-last-2weeks',
+    'filter-last-4weeks', 'filter-inactive'
+  ];
+  activityCheckboxes.forEach(id => {
+    const checkbox = document.getElementById(id);
+    if (checkbox) checkbox.addEventListener('change', applyFilters);
+    else console.warn(`Activity filter checkbox with ID "${id}" not found.`);
+  });
 });
 
+function applyFilters() {
+  const keywordInput = document.getElementById('keyword-filter');
+  const kanbanContainer = document.getElementById('kanban-wrapper-container');
+  
+  // Member filter checkboxes
+  const noMembersCheckbox = document.getElementById('filter-no-members');
+  const assignedToMeCheckbox = document.getElementById('filter-assigned-to-me');
 
-// Function to fetch card statuses from the database
-async function fetchCardStatuses() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/category`); 
-    const data = await response.json();
+  // Due Date filter checkboxes
+  const noDatesCheckbox = document.getElementById('filter-no-dates');
+  const overdueCheckbox = document.getElementById('filter-overdue');
+  const dueTomorrowCheckbox = document.getElementById('filter-due-tomorrow');
+  const dueWeekCheckbox = document.getElementById('filter-due-week');
+  const dueMonthCheckbox = document.getElementById('filter-due-month');
 
+  // Activity filter checkboxes
+  const activeLastWeekCheckbox = document.getElementById('filter-last-week');
+  const activeLast2WeeksCheckbox = document.getElementById('filter-last-2weeks');
+  const activeLast4WeeksCheckbox = document.getElementById('filter-last-4weeks');
+  const inactiveCheckbox = document.getElementById('filter-inactive');
+
+  if (!keywordInput || !kanbanContainer) return;
+
+  const keyword = keywordInput.value.toLowerCase().trim();
+  const cards = kanbanContainer.querySelectorAll('.kanban-item');
+
+  // Get the logged-in username from localStorage
+  const currentLoggedInUserUsername = localStorage.getItem('logged_username') || ""; // Default to empty if not found
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Normalize today to the beginning of the day for accurate comparisons
+
+  cards.forEach(card => {
+    // --- Keyword Filter --- 
+    const titleElement = card.querySelector('span.kanban-text');
+    const cardTitle = titleElement ? titleElement.textContent.toLowerCase() : '';
+    const matchesKeyword = cardTitle.includes(keyword);
+
+    // --- Member Filter --- 
+    const ticketOwner = (card.dataset.ticketOwner || '').toLowerCase();
+    const noMembersIsChecked = noMembersCheckbox && noMembersCheckbox.checked;
+    const assignedToMeIsChecked = assignedToMeCheckbox && assignedToMeCheckbox.checked;
+    let matchesMemberCriteria = !noMembersIsChecked && !assignedToMeIsChecked; // True if no member filters active
+    if (assignedToMeIsChecked && (ticketOwner === currentLoggedInUserUsername.toLowerCase() || ticketOwner === 'team')) {
+      matchesMemberCriteria = true;
+    }
+    if (noMembersIsChecked && (ticketOwner === '' || ticketOwner === null)) {
+      matchesMemberCriteria = true;
+    }
+    if (noMembersIsChecked && assignedToMeIsChecked && matchesMemberCriteria) {
+       
+    } else if (noMembersIsChecked && assignedToMeIsChecked && !matchesMemberCriteria) {
+       
+    }
+
+
+    // --- Due Date Filter --- 
+   
+    const dueDateString = card.dataset.dueDate;
+    const cardDueDate = dueDateString ? new Date(dueDateString) : null;
+    if (cardDueDate) cardDueDate.setHours(0,0,0,0); // Normalize for comparison
+
+    let matchesDueDateCriteria = true; // Assume true if no due date filters are active
+    const activeDueDateFilters = [noDatesCheckbox, overdueCheckbox, dueTomorrowCheckbox, dueWeekCheckbox, dueMonthCheckbox].filter(cb => cb && cb.checked);
+
+    if (activeDueDateFilters.length > 0) {
+      matchesDueDateCriteria = false; 
+      if (noDatesCheckbox && noDatesCheckbox.checked && !cardDueDate) {
+        matchesDueDateCriteria = true;
+      }
+      if (cardDueDate) {
+        if (overdueCheckbox && overdueCheckbox.checked && cardDueDate < today) {
+          matchesDueDateCriteria = true;
+        }
+        const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+        if (dueTomorrowCheckbox && dueTomorrowCheckbox.checked && cardDueDate.getTime() === tomorrow.getTime()) {
+          matchesDueDateCriteria = true;
+        }
+        const nextWeek = new Date(today); nextWeek.setDate(today.getDate() + 7);
+        if (dueWeekCheckbox && dueWeekCheckbox.checked && cardDueDate >= today && cardDueDate <= nextWeek) {
+          matchesDueDateCriteria = true;
+        }
+        const nextMonth = new Date(today); nextMonth.setMonth(today.getMonth() + 1);
+        if (dueMonthCheckbox && dueMonthCheckbox.checked && cardDueDate >= today && cardDueDate <= nextMonth) {
+          matchesDueDateCriteria = true;
+        }
+      }
+    }
     
-    const statusContainer = document.querySelector('.status-container'); // Add a container for dynamic checkboxes
-    statusContainer.innerHTML = ''; // Clear existing checkboxes
+    // --- Activity Filter ---
+   
+    const updatedAtString = card.dataset.updatedAt;
+    const cardUpdatedAt = updatedAtString ? new Date(updatedAtString) : null;
 
-    data.forEach(status => {
-      const div = document.createElement('div');
-      div.classList.add('form-check');
-      div.innerHTML = `
-        <input class="form-check-input" type="checkbox" id="filter-${status.status.toLowerCase()}" value="${status.id}">
-        <label class="form-check-label" for="filter-${status.status.toLowerCase()}">${status.status}</label>
-      `;
-      statusContainer.appendChild(div);
-    });
-  } catch (error) {
-    console.error('Error fetching card statuses:', error);
-  }
+    let matchesActivityCriteria = true; // Assume true if no activity filters are active
+    const activeActivityFilters = [activeLastWeekCheckbox, activeLast2WeeksCheckbox, activeLast4WeeksCheckbox, inactiveCheckbox].filter(cb => cb && cb.checked);
+
+    if(activeActivityFilters.length > 0) {
+        matchesActivityCriteria = false; // Must match at least one active activity filter
+        const fourWeeksAgo = new Date(today); fourWeeksAgo.setDate(today.getDate() - 28);
+
+        if (cardUpdatedAt) {
+            const oneWeekAgo = new Date(today); oneWeekAgo.setDate(today.getDate() - 7);
+            const twoWeeksAgo = new Date(today); twoWeeksAgo.setDate(today.getDate() - 14);
+
+            if (activeLastWeekCheckbox && activeLastWeekCheckbox.checked && cardUpdatedAt >= oneWeekAgo && cardUpdatedAt <= new Date()) {
+                matchesActivityCriteria = true;
+            }
+            if (activeLast2WeeksCheckbox && activeLast2WeeksCheckbox.checked && cardUpdatedAt >= twoWeeksAgo && cardUpdatedAt <= new Date()) {
+                matchesActivityCriteria = true;
+            }
+            if (activeLast4WeeksCheckbox && activeLast4WeeksCheckbox.checked && cardUpdatedAt >= fourWeeksAgo && cardUpdatedAt <= new Date()) {
+                matchesActivityCriteria = true;
+            }
+        }
+        // "Without activity in the last four weeks"
+        if (inactiveCheckbox && inactiveCheckbox.checked && (!cardUpdatedAt || cardUpdatedAt < fourWeeksAgo)) {
+            matchesActivityCriteria = true;
+        }
+    }
+
+    // --- Final Decision --- 
+    if (matchesKeyword && matchesMemberCriteria && matchesDueDateCriteria && matchesActivityCriteria) {
+      card.style.display = ''; // Show card
+    } else {
+      card.style.display = 'none'; // Hide card
+    }
+  });
 }
-
-// Call the function on page load
-document.addEventListener('DOMContentLoaded', fetchCardStatuses);
