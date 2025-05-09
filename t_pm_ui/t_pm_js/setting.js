@@ -736,7 +736,7 @@ const projectId = urlParams.get('id');
   async function updateWatchIcon() {
     const watchLink = document.getElementById(ELEMENT_IDS.WATCH_ICON);
     const watchTabText = document.getElementById(ELEMENT_IDS.WATCH_TAB_TEXT);
-    const watchTabButton = document.getElementByI(ELEMENT_IDS. WATCH_TAB_BUTTON);
+    const watchTabButton = document.getElementById(ELEMENT_IDS.WATCH_TAB_BUTTON);
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
     
@@ -748,14 +748,11 @@ const projectId = urlParams.get('id');
     try {
       const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`); 
       
-      if (response.status === 404) {
-        // Suppress 404 errors and exit gracefully
-        return; // Exit silently without logging anything
-      }
+      
   
       if (!response.ok) {
         
-        return;
+        return; // Exit silently without logging anything
       }
       const result = await response.json();
       const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 
@@ -778,7 +775,7 @@ const projectId = urlParams.get('id');
         watchTabButton.classList.add('btn-outline-primary');
       }
     } catch (error) {
-      console.error('Error fetching watch status:', error);
+      // Suppress errors and exit gracefully
     }
   }
   

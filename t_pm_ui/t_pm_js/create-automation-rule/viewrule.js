@@ -1,6 +1,6 @@
-console.log("This is view rule page");
+import { API_ROUTES } from "../../apiRoutesHeader.js";
 import { ELEMENT_IDS } from "../element_id.js";
-const API_BASE_URL = ENV?.API_BASE_URL;
+const API_BASE_URL = ENV.API_BASE_URL;
 
 if (!API_BASE_URL) {
   console.error("API_BASE_URL is not defined");

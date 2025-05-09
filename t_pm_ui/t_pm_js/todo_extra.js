@@ -387,58 +387,58 @@ function saveBoardsState() {
   localStorage.setItem("kanbanBoards", JSON.stringify(savedBoards));
 }
 
-// 🔹 Load boards while keeping unique task IDs and appending cards
-function loadBoardsFromLocalStorage() {
-  const container = document.getElementById(
-    ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
-  );
-  let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
+// // 🔹 Load boards while keeping unique task IDs and appending cards
+// function loadBoardsFromLocalStorage() {
+//   const container = document.getElementById(
+//     ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER
+//   );
+//   let savedBoards = JSON.parse(localStorage.getItem("kanbanBoards")) || [];
 
-  savedBoards.forEach(boardData => {
-    let existingBoard = document.querySelector(
-      `.kanban-board[data-id="${boardData.id}"]`
-    );
+//   savedBoards.forEach(boardData => {
+//     let existingBoard = document.querySelector(
+//       `.kanban-board[data-id="${boardData.id}"]`
+//     );
 
-    if (!existingBoard) {
-      existingBoard = document.createElement("div");
-      existingBoard.classList.add("kanban-board");
-      existingBoard.setAttribute("data-id", boardData.id);
-      existingBoard.id = boardData.id;
+//     if (!existingBoard) {
+//       existingBoard = document.createElement("div");
+//       existingBoard.classList.add("kanban-board");
+//       existingBoard.setAttribute("data-id", boardData.id);
+//       existingBoard.id = boardData.id;
 
-      const header = document.createElement("header");
-      header.classList.add("kanban-board-header");
-      header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
-      existingBoard.appendChild(header);
+//       const header = document.createElement("header");
+//       header.classList.add("kanban-board-header");
+//       header.innerHTML = `<div class="kanban-title-board">${boardData.title}</div>`;
+//       existingBoard.appendChild(header);
 
-      const main = document.createElement("main");
-      main.classList.add("kanban-drag");
-      existingBoard.appendChild(main);
+//       const main = document.createElement("main");
+//       main.classList.add("kanban-drag");
+//       existingBoard.appendChild(main);
 
-      container.appendChild(existingBoard);
-    }
+//       container.appendChild(existingBoard);
+//     }
 
-    const taskContainer = existingBoard.querySelector(".kanban-drag");
+//     const taskContainer = existingBoard.querySelector(".kanban-drag");
 
-    let existingTasks = new Set(
-      [...taskContainer.querySelectorAll(".kanban-item")].map(task =>
-        task.getAttribute("data-id")
-      )
-    );
+//     let existingTasks = new Set(
+//       [...taskContainer.querySelectorAll(".kanban-item")].map(task =>
+//         task.getAttribute("data-id")
+//       )
+//     );
 
-    boardData.tasks.forEach(taskData => {
-      if (!existingTasks.has(taskData.id)) {
-        const task = document.createElement("div");
-        task.classList.add("kanban-item");
-        task.setAttribute("draggable", "true");
-        task.setAttribute("data-id", taskData.id);
-        task.innerHTML = taskData.content;
-        taskContainer.appendChild(task);
-      }
-    });
-  });
+//     boardData.tasks.forEach(taskData => {
+//       if (!existingTasks.has(taskData.id)) {
+//         const task = document.createElement("div");
+//         task.classList.add("kanban-item");
+//         task.setAttribute("draggable", "true");
+//         task.setAttribute("data-id", taskData.id);
+//         task.innerHTML = taskData.content;
+//         taskContainer.appendChild(task);
+//       }
+//     });
+//   });
 
-  enableDragAndDrop();
-}
+//   enableDragAndDrop();
+// }
 
 // 🔹 Function to Append a Board Without Clearing Others
 function appendBoardToPage(boardData, container) {

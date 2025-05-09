@@ -1676,7 +1676,7 @@ if (customFieldCardFeature) {
                         icon: "success",
                         confirmButtonText: "Ok!",
                       });
-                      
+                      window.location.reload();
                     } else {
                       document.getElementById(ELEMENT_IDS.MESSAGE).textContent = data.error || "An error occurred.";
                       document.getElementById(ELEMENT_IDS.MESSAGE).style.color = "red";
