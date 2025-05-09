@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!kanbanContainer) console.error('Kanban container with ID "kanban-wrapper-container" not found.');
   }
 
-  // Due Date filter listeners - MOVED OUTSIDE THE ELSE BLOCK
+  // Due Date filter listeners -
   const dueDateCheckboxes = [
     'filter-no-dates', 'filter-overdue', 'filter-due-tomorrow',
     'filter-due-week', 'filter-due-month'
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else console.warn(`Due date filter checkbox with ID "${id}" not found.`);
   });
 
-  // Activity filter listeners - MOVED OUTSIDE THE ELSE BLOCK
+  // Activity filter listeners - 
   const activityCheckboxes = [
     'filter-last-week', 'filter-last-2weeks',
     'filter-last-4weeks', 'filter-inactive'
@@ -169,7 +169,7 @@ function applyFilters() {
         }
     }
 
-    // --- Final Decision --- 
+   
     if (matchesKeyword && matchesMemberCriteria && matchesDueDateCriteria && matchesActivityCriteria) {
       card.style.display = ''; // Show card
     } else {
