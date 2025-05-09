@@ -805,6 +805,7 @@ window.newRule = newRule;
 window.deleteBoard = deleteBoard;
 window.watchedCard = watchedCard;
 window.addEventListener = addEventListeners;
+window.toggleTicketSort = toggleTicketSort;
 window.toggleTicketSortByName = toggleTicketSortByName;
 window.toggleTicketSortByDate = toggleTicketSortByDate;
 window.archiveBoard = archiveBoard;
