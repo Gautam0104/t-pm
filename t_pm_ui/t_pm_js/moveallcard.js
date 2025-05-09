@@ -1,8 +1,8 @@
 import { API_ROUTES } from "../apiRoutesHeader.js";
-
+import { ELEMENT_IDS } from "./element_id.js";
 const API_BASE_URL = ENV.API_BASE_URL;
 
-const moveallcarModal = document.getElementById("moveallcardcontent");
+const moveallcarModal = document.getElementById(ELEMENT_IDS.MOVE_ALL_CARD_CONTENT);
 
 const content = ` <div class="modal-header">
                   <h4 class="text-center">Move all card</h4>
@@ -26,8 +26,8 @@ const content = ` <div class="modal-header">
                 </div>`;
 
 moveallcarModal.innerHTML = content;
-document.getElementById("moveAllCard").addEventListener("click", function() {
-  const moveTo = document.getElementById("move-to").value.trim();
+document.getElementById(ELEMENT_IDS.MOVE_ALL_CARD).addEventListener("click", function() {
+  const moveTo = document.getElementById(ELEMENT_IDS.TICKET_MOVE_TO).value.trim();
   const moveFrom = window.moveFromBoard;
   console.log(moveFrom);
   moveAllCard(moveFrom, moveTo);

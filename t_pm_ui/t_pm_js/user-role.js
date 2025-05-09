@@ -152,7 +152,7 @@ const updateRole = (role_id, role_name) => {
   updateroleForm.innerHTML = updateRoleContent;
 
   document
-    .getElementById("updateRoleForm")
+    .getElementById(ELEMENT_IDS.UPDATE_ROLE_FORM)
     .addEventListener("submit", async function(e) {
       e.preventDefault();
       const role_name = document

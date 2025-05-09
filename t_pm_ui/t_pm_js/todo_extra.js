@@ -14,7 +14,7 @@ function toggleTodo(elementId, elementHeader, elementButton) {
   } else {
     todoTab.style.display = "block";
     taskHeader.classList.remove("horizontal-layout");
-    document.getElementById("add-todo-item").style.display = "block";
+    document.getElementById(ELEMENT_IDS.ADD_TODO_ITEM).style.display = "block";
   }
 }
 

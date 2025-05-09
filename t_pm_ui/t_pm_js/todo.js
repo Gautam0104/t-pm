@@ -2429,7 +2429,7 @@ function retrieveAutomationRule(tickerId){
 
 
 // Initialize tab manager when the create rule modal is shown
-document.getElementById('createRule').addEventListener('show.bs.modal', function () {
+document.getElementById(ELEMENT_IDS.CREATE_RULE).addEventListener('show.bs.modal', function () {
   initializeTabManager();
 });
 

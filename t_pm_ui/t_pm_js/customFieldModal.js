@@ -104,8 +104,8 @@ export async function loadCustomCardModal(projectId) {
 
   const dropdownOptionsArray = [];
 
-  const dynamicBody = document.getElementById("customFieldDynamicBody");
-  const displayContainer = document.getElementById("customFieldsDisplay");
+  const dynamicBody = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_DYNAMIC_BODY);
+  const displayContainer = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_DISPLAY);
   const showBodyButton = document.createElement("button");
   showBodyButton.className = "btn btn-outline-secondary m-2";
   showBodyButton.textContent = "Add New Custom Field";
@@ -136,21 +136,21 @@ export async function loadCustomCardModal(projectId) {
       dynamicBody.innerHTML = getCustomFieldBody();
       displayContainer.style.display = 'none';
 
-      document.getElementById('customFieldType')?.addEventListener('change', function () {
-        const dropdownContainer = document.getElementById('dropdownOptionsContainer');
+      document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_TYPE)?.addEventListener('change', function () {
+        const dropdownContainer = document.getElementById(ELEMENT_IDS.DROPDOWN_OPTIONS_CONTAINER);
         dropdownContainer.style.display = this.value === 'dropdown' ? 'block' : 'none';
       });
 
-      document.getElementById('addDropdownOption')?.addEventListener('click', function () {
-        const newOptionInput = document.getElementById('newDropdownOption');
-        const colorSelect = document.getElementById('dropdownColorSelect');
+      document.getElementById(ELEMENT_IDS.ADD_DROPDOWN_OPTIONS)?.addEventListener('click', function () {
+        const newOptionInput = document.getElementById(ELEMENT_IDS.NEW_DROPDOWN_OPTION);
+        const colorSelect = document.getElementById(ELEMENT_IDS.DROPDOWN_COLOR_SELECT);
         const optionValue = newOptionInput.value.trim();
         const color = colorSelect.value;
 
         if (optionValue && !dropdownOptionsArray.find(opt => opt.label === optionValue)) {
           dropdownOptionsArray.push({ label: optionValue, color });
 
-          const optionList = document.getElementById('dropdownOptionsList');
+          const optionList = document.getElementById(ELEMENT_IDS.DROPDOWN_OPTION_LIST);
           const optionTag = document.createElement('span');
           optionTag.className = 'badge me-1 mb-1';
           optionTag.style.backgroundColor = color;
@@ -163,15 +163,15 @@ export async function loadCustomCardModal(projectId) {
     }
   });
 
-  document.getElementById('cancelCustomField')?.addEventListener('click', function () {
+  document.getElementById(ELEMENT_IDS.CANCEL_CUSTOM_FIELD)?.addEventListener('click', function () {
     dynamicBody.innerHTML = '';
     dynamicBody.appendChild(showBodyButton);
     displayContainer.style.display = 'block';
   });
 
-  document.getElementById('saveCustomField')?.addEventListener('click', async function () {
-    const customName = document.getElementById('customFieldName')?.value.trim();
-    const customType = document.getElementById('customFieldType')?.value;
+  document.getElementById(ELEMENT_IDS.SAVE_CUSTOM_FIELD)?.addEventListener('click', async function () {
+    const customName = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_NAME)?.value.trim();
+    const customType = document.getElementById(ELEMENT_IDS.CUSTOM_FIELD_TYPE)?.value;
 
     if (!customName) {
       alert("Field name is required.");
@@ -213,7 +213,7 @@ export async function loadCustomCardModal(projectId) {
       
 
       await fetchCustomFields();
-      document.getElementById('cancelCustomField')?.click();
+      document.getElementById(ELEMENT_IDS.CANCEL_CUSTOM_FIELD)?.click();
     } catch (error) {
       console.error("Error saving custom field:", error);
       

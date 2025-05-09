@@ -1,7 +1,7 @@
-
+import { ELEMENT_IDS } from "./element_id.js";
 document.addEventListener('DOMContentLoaded', () => {
-  const keywordInput = document.getElementById('keyword-filter');
-  const kanbanContainer = document.getElementById('kanban-wrapper-container');
+  const keywordInput = document.getElementById(ELEMENT_IDS.KEYWORD_FILTER);
+  const kanbanContainer = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
 
   if (keywordInput && kanbanContainer) {
     keywordInput.addEventListener('keyup', () => {
@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add event listeners for member filter checkboxes
-    const noMembersCheckbox = document.getElementById('filter-no-members');
-    const assignedToMeCheckbox = document.getElementById('filter-assigned-to-me');
+    const noMembersCheckbox = document.getElementById(ELEMENT_IDS.FILTER_NO_MEMBERS);
+    const assignedToMeCheckbox = document.getElementById(ELEMENT_IDS.FILTER_ASSINGNED_TO_ME);
 
     if (noMembersCheckbox) {
       noMembersCheckbox.addEventListener('change', applyFilters);
@@ -49,25 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function applyFilters() {
-  const keywordInput = document.getElementById('keyword-filter');
-  const kanbanContainer = document.getElementById('kanban-wrapper-container');
+  const keywordInput = document.getElementById(ELEMENT_IDS.KEYWORD_FILTER);
+  const kanbanContainer = document.getElementById(ELEMENT_IDS.KANBAN_WRAPPER_CONTAINER);
   
   // Member filter checkboxes
-  const noMembersCheckbox = document.getElementById('filter-no-members');
-  const assignedToMeCheckbox = document.getElementById('filter-assigned-to-me');
+  const noMembersCheckbox = document.getElementById(ELEMENT_IDS.FILTER_NO_MEMBERS);
+  const assignedToMeCheckbox = document.getElementById(ELEMENT_IDS.FILTER_ASSINGNED_TO_ME);
 
   // Due Date filter checkboxes
-  const noDatesCheckbox = document.getElementById('filter-no-dates');
-  const overdueCheckbox = document.getElementById('filter-overdue');
-  const dueTomorrowCheckbox = document.getElementById('filter-due-tomorrow');
-  const dueWeekCheckbox = document.getElementById('filter-due-week');
-  const dueMonthCheckbox = document.getElementById('filter-due-month');
+  const noDatesCheckbox = document.getElementById(ELEMENT_IDS.FILTER_NO_DATES);
+  const overdueCheckbox = document.getElementById(ELEMENT_IDS. FILTER_OVERDUE);
+  const dueTomorrowCheckbox = document.getElementById(ELEMENT_IDS.FILTER_DUE_TOMORROW);
+  const dueWeekCheckbox = document.getElementById(ELEMENT_IDS.FILTER_DUE_WEEK);
+  const dueMonthCheckbox = document.getElementById(ELEMENT_IDS.FILTER_DUE_MONTH);
 
   // Activity filter checkboxes
-  const activeLastWeekCheckbox = document.getElementById('filter-last-week');
-  const activeLast2WeeksCheckbox = document.getElementById('filter-last-2weeks');
-  const activeLast4WeeksCheckbox = document.getElementById('filter-last-4weeks');
-  const inactiveCheckbox = document.getElementById('filter-inactive');
+  const activeLastWeekCheckbox = document.getElementById(ELEMENT_IDS.FILTER_LAST_WEEK);
+  const activeLast2WeeksCheckbox = document.getElementById(ELEMENT_IDS.FILTER_LAST_2WEEKS);
+  const activeLast4WeeksCheckbox = document.getElementById(ELEMENT_IDS.FILTER_LAST_4WEEKS);
+  const inactiveCheckbox = document.getElementById(ELEMENT_IDS.FILTER_INACTIVE);
 
   if (!keywordInput || !kanbanContainer) return;
 

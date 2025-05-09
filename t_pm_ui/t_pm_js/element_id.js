@@ -4,6 +4,7 @@ export const ELEMENT_IDS = {
   LOGIN_USERNAME: "loginUsername",
   LOGIN_USER_PASSWORD: "loginPassword",
   LOGIN_MESSAGE: "loginMessage",
+  USERNAME: "username",
 
   // AUTOMATION
   AUTOMATION_COPY_CARD_TO_MODAL: "automationcopyCardToModal",
@@ -54,6 +55,7 @@ export const ELEMENT_IDS = {
   COPY_CARD_FEATURE: "copyCardFeature",
   MOVE_CARD_FEATURE: "moveCardFeature",
   MOVE_ALL_CARD: "moveallcard",
+  MOVE_ALL_CARD_CONTENT: "moveallcardcontent",
   SHARE_CARD_FEATURE: "shareCardFeature",
   JOIN_AUTOMATION: "joinAutomation",
   MOVE_AUTOMATION: "moveAutomation",
@@ -111,6 +113,8 @@ export const ELEMENT_IDS = {
   WATCH_TAB_BUTTON: "watchTabButton",
   USER_ACTIVITY_TAB: "user-activity-tab",
   CARD_TABLE_BODY: "card-table-body",
+  KEYWORD_FILTER: "keyword-filter",
+  FILTER_NO_MEMBERS: "filter-no-members",
 
   // USER LIST
   USER_ROLE: "user-role",
@@ -149,6 +153,7 @@ export const ELEMENT_IDS = {
   ADMIN_NAME: "admin-name",
   ADMIN_LOGO: "admin-logo",
   ADMIN_HASHTAG: "admin-hashtag",
+  UPDATE_ROLE_FORM: "updateRoleForm",
 
   // BACKGROUND HEADER FOOTER
   HEADER: "header",
@@ -182,6 +187,7 @@ export const ELEMENT_IDS = {
   ACTIVITY_COMMENT_CONTAINER: "activity-comments-container",
   CUSTOM_FIELD_CONTENT: "custom-fields-content",
   CUSTOM_FIELD_CARD_FEATURE: "customFieldCardFeature",
+  CREATE_RULE: "createRule",
 
   // CREATE NEW PROEJCT
   CREATE_NEW_PROJECT: "createProjectorTicket",
@@ -223,6 +229,16 @@ export const ELEMENT_IDS = {
   FILTER_ASSINGNED_TO_ME: "filter-assigned-to-me",
   FILTER_COMPLETE: "filter-complete",
   FILTER_INCOMPLETE: "filter-incomplete",
+  FILTER_NO_MEMBERS: "filter-no-members",
+  FILTER_NO_DATES: "filter-no-dates",
+  FILTER_OVERDUE: "filter-overdue",
+  FILTER_DUE_TOMORROW: "filter-due-tomorrow",
+  FILTER_DUE_WEEK: "filter-due-week",
+  FILTER_DUE_MONTH: "filter-due-month",
+  FILTER_LAST_WEEK: "filter-last-week",
+  FILTER_LAST_2WEEKS: "filter-last-2weeks",
+  FILTER_LAST_4WEEKS: "filter-last-4weeks",
+  FILTER_INACTIVE: "filter-inactive",
   BOARD_LINK: "boardLink",
 
 
@@ -273,6 +289,19 @@ export const ELEMENT_IDS = {
   CHECKLIST_MODAL: "checklistModal",
   CUSTOM_FIELD_MODAL: "customFieldModal",
   CUSTOM_FIELDS_FROM: "customFieldsForm",
+  CUSTOM_FIELD_DYNAMIC_BODY: "customFieldDynamicBody",
+  CUSTOM_FIELD_DISPLAY: "customFieldsDisplay",
+  CUSTOM_FIELD_TYPE: "customFieldType",
+  DROPDOWN_OPTIONS_CONTAINER: "dropdownOptionsContainer",
+  ADD_DROPDOWN_OPTIONS: "addDropdownOption",
+  DROPDOWN_COLOR_SELECT: "dropdownColorSelect",
+  NEW_DROPDOWN_OPTION: "newDropdownOption",
+  DROPDOWN_OPTION_LIST: "dropdownOptionsList",
+  CANCEL_CUSTOM_FIELD: "cancelCustomField",
+  SAVE_CUSTOM_FIELD: "saveCustomField",
+  CUSTOM_FIELD_TYPE: "customFieldType",
+  CUSTOM_FIELD_NAME: "customFieldName",
+
 
   // LOCAL STORAGE
     LOGGED_USERID: "logged-user-id",
@@ -287,6 +316,8 @@ export const ELEMENT_IDS = {
     LOGGED_SESSION_LS: "sessionIs",
     LOG_CONTAINER: "logContainer",
     LOG_OUT_BUTTON: "logoutButton",
+    BIO: "bio",
+    PROFILE_FORM: "profileForm",
 
     // mirror modal
     MIRROR_BOARD_SELECT: "boardSelect",
