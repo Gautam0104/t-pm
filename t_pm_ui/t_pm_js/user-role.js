@@ -1,4 +1,5 @@
 import { ELEMENT_IDS } from "./element_id.js";
+import { API_ROUTES } from "../apiRoutesHeader.js";
 
 const API_BASE_URL = ENV.API_BASE_URL;
 
@@ -263,7 +264,7 @@ fetch(`${API_BASE_URL}/get-roles`)
     });
   });
 
-const fetchrolehistory = async (roleId, roleName) => {
+export const fetchrolehistory = async (roleId, roleName) => {
   // Clear the previous content
   const historytablebody = document.getElementById(
     ELEMENT_IDS.ROLE_HISTORY_DATA
@@ -331,7 +332,7 @@ const fetchrolehistory = async (roleId, roleName) => {
     });
 };
 
-const deleteRole = async role_id => {
+export const deleteRole = async role_id => {
   try {
     // Send DELETE request to the API
     const response1 = await fetch(
@@ -379,3 +380,6 @@ const deleteRole = async role_id => {
     });
   }
 };
+
+window.fetchrolehistory = fetchrolehistory;
+window.deleteRole = deleteRole;

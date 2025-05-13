@@ -6,7 +6,7 @@ const API_BASE_URL = ENV.API_BASE_URL; // Access the URL securely
 
 // user list
 
-const userData = async () => {
+export const userData = async () => {
   return await fetch(`${API_BASE_URL}${API_ROUTES.GET_USERS}`)
     .then(response => {
       if (!response.ok) {
@@ -255,7 +255,7 @@ registerForm.addEventListener("click", async e => {
   }
 });
 
-const deleteUser = async user_id => {
+export const deleteUser = async user_id => {
   //console.log(id);
 
   try {
@@ -289,7 +289,7 @@ const deleteUser = async user_id => {
   }
 };
 
-const editUser = async user_id => {
+export const editUser = async user_id => {
   try {
     const response = await fetch(
       `${API_BASE_URL}${API_ROUTES.GET_USER}/${user_id}`
@@ -421,7 +421,7 @@ const editUser = async user_id => {
   }
 };
 
-const fetchuserhistory = async userId => {
+export const fetchuserhistory = async userId => {
   // Clear the previous content
   const historytablebody = document.getElementById(
     ELEMENT_IDS.ROLE_HISTORY_DATA
@@ -516,3 +516,8 @@ const fetchuserhistory = async userId => {
       errorLog();
     });
 };
+
+window.userData = userData;
+window.fetchuserhistory = fetchuserhistory;
+window.deleteUser = deleteUser;
+window.editUser = editUser;
