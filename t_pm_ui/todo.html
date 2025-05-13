@@ -1099,11 +1099,10 @@
                   <div class="kanban-container" style="margin-bottom: 100px;" id="kanban-wrapper-container">
                     <!-- Dynamically added content will go here -->
 
-                    <!-- Move the form here -->
                     <form class="kanban-add-new-board" id="board-8">
                       <label class="kanban-add-board-btn" for="kanban-add-board-input" id="form-show">
                         <i class="ti ti-plus"></i>
-                        <span class="" style="text-transform: capitalize;">Add new</span>
+                        <span style="text-transform: capitalize;">Add new</span>
                       </label>
                       <input type="text" class="form-control w-px-250 kanban-add-board-input mb-4 d-none"
                         placeholder="Add Board Title" id="kanban-add-board-input" required="">
@@ -1118,6 +1117,9 @@
                       </div>
                     </form>
                   </div>
+                  <!-- The form is placed at the bottom of the parent container -->
+
+
                 </div>
 
 
@@ -1627,26 +1629,57 @@
                     </button>
                     <br>
                     <h5>Archive</h5>
+                    <div class="tab-pane fade" id="tab-archived" role="tabpanel">
+                      <div class="p-4">
+                        <button class="back-menu btn btn-primary mb-3" id="back-to-edit-archive">
+                          <i class="ti ti-chevron-left ti-18px me-1_5"></i>
+                        </button>
+                        <br>
+                        <h5>Archive</h5>
 
-                    <!-- Nav tabs for sub-sections -->
-                    <ul class="nav nav-tabs mt-3" id="archiveSubTabs" role="tablist">
-                      <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="archived-cards-tab" data-bs-toggle="tab"
-                          data-bs-target="#archived-cards-tab-pane" type="button" role="tab">Cards</button>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="archived-boards-tab" data-bs-toggle="tab"
-                          data-bs-target="#archived-boards-tab-pane" type="button" role="tab">List</button>
-                      </li>
-                    </ul>
+                        <!-- Nav tabs for sub-sections -->
+                        <ul class="nav nav-tabs mt-3" id="archiveSubTabs" role="tablist">
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="archived-cards-tab" data-bs-toggle="tab"
+                              data-bs-target="#archived-cards-tab-pane" type="button" role="tab">Cards</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="archived-boards-tab" data-bs-toggle="tab"
+                              data-bs-target="#archived-boards-tab-pane" type="button" role="tab">List</button>
+                          </li>
+                        </ul>
+                        <!-- Nav tabs for sub-sections -->
+                        <ul class="nav nav-tabs mt-3" id="archiveSubTabs" role="tablist">
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="archived-cards-tab" data-bs-toggle="tab"
+                              data-bs-target="#archived-cards-tab-pane" type="button" role="tab">Cards</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="archived-boards-tab" data-bs-toggle="tab"
+                              data-bs-target="#archived-boards-tab-pane" type="button" role="tab">List</button>
+                          </li>
+                        </ul>
 
-                    <!-- Tab content -->
-                    <div class="tab-content mt-3" id="archiveSubTabsContent">
-                      <!-- Archived Cards Tab -->
-                      <div class="tab-pane fade show active" id="archived-cards-tab-pane" role="tabpanel">
-                        <div id="archived-cards-container"></div>
+                        <!-- Tab content -->
+                        <div class="tab-content mt-3" id="archiveSubTabsContent">
+                          <!-- Archived Cards Tab -->
+                          <div class="tab-pane fade show active" id="archived-cards-tab-pane" role="tabpanel">
+                            <div id="archived-cards-container"></div>
+                          </div>
+                          <!-- Tab content -->
+                          <div class="tab-content mt-3" id="archiveSubTabsContent">
+                            <!-- Archived Cards Tab -->
+                            <div class="tab-pane fade show active" id="archived-cards-tab-pane" role="tabpanel">
+                              <div id="archived-cards-container"></div>
+                            </div>
+
+                            <!-- Archived Boards Tab -->
+                            <div class="tab-pane fade" id="archived-boards-tab-pane" role="tabpanel">
+                              <div id="archived-boards-container"></div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-
                       <!-- Archived Boards Tab -->
                       <div class="tab-pane fade" id="archived-boards-tab-pane" role="tabpanel">
                         <div id="archived-boards-container"></div>
@@ -3938,7 +3971,21 @@
                             }
                           </script>
 
+                          <script>
+                            function moveFormToEnd() {
+                              const container = document.getElementById('kanban-wrapper-container');
+                              const form = document.getElementById('board-8');
+                              container.appendChild(form); // moves form to the end
+                              const newBoard = document.createElement('div');
+                              newBoard.textContent = 'New Board';
+                              // Customize the new board as needed...
+                              document.getElementById('kanban-wrapper-container').insertBefore(newBoard, document.getElementById('board-8'));
 
+                              // Move form back to the end, just in case
+                              moveFormToEnd();
+
+                            }
+                          </script>
 
 </body>
 
