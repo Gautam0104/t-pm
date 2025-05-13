@@ -285,7 +285,7 @@ setTimeout(function () {
                 const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
                                         <button type="button" class="btn-close" id="offcanvase-close"
-                                             aria-label="Close"></button>
+                                             aria-label="Close" onclick="location.reload()"></button>
                                     </div>
                                     <div class="offcanvas-body pt-0">
                                         <div class="nav-align-top">

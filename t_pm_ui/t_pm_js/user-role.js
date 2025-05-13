@@ -1,7 +1,5 @@
 import { ELEMENT_IDS } from "./element_id.js";
 
-import { errorLog } from "./error";
-
 const API_BASE_URL = ENV.API_BASE_URL;
 
 const colorBoxes = document.querySelectorAll(ELEMENT_IDS.COLOR_BOXES);
@@ -92,10 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
         cardDiv.innerHTML += card;
       });
     } catch (error) {
-      console.error("Get role error:", error);
-      res.status(500).json({
-        message: "'An error occurred. Please try again later.', 'error'"
-      });
+      console.log(error);
     }
   }
 
@@ -160,13 +155,16 @@ const updateRole = (role_id, role_name) => {
         .value.trim();
 
       try {
-        const response = await fetch(`${API_BASE_URL}${API_ROUTES.UPDATE_ROLES}/${role_id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            role_name
-          })
-        });
+        const response = await fetch(
+          `${API_BASE_URL}${API_ROUTES.UPDATE_ROLES}/${role_id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              role_name
+            })
+          }
+        );
         if (response.ok) {
           Swal.fire({
             title: "Role Updated Successfully",
@@ -193,7 +191,7 @@ const updateRole = (role_id, role_name) => {
     });
 };
 
-fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
+fetch(`${API_BASE_URL}/get-roles`)
   .then(response => {
     if (!response.ok) {
       throw new Error("Network response was not ok ");

@@ -1,6 +1,4 @@
-import { ELEMENT_IDS } from "./element_id";
-
-import { errorLog } from "./error.js";
+import { ELEMENT_IDS } from "./element_id.js";
 
 // Base URL of the API
 import { API_ROUTES } from "../apiRoutesHeader.js";
@@ -182,7 +180,7 @@ filterInput.addEventListener("keyup", () => {
 
 // get role
 const userRole = async () => {
-  return await fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)    
+  return await fetch(`${API_BASE_URL}${API_ROUTES.GET_ROLES}`)
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok ");
@@ -262,9 +260,12 @@ const deleteUser = async user_id => {
 
   try {
     // Send DELETE request to the API
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.DELETE_USER}/${user_id}`, {
-      method: "DELETE"
-    });
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.DELETE_USER}/${user_id}`,
+      {
+        method: "DELETE"
+      }
+    );
 
     if (response.ok) {
       Swal.fire({
@@ -290,7 +291,9 @@ const deleteUser = async user_id => {
 
 const editUser = async user_id => {
   try {
-    const response = await fetch(`${API_BASE_URL}${API_ROUTES.GET_USER}/${user_id}`);
+    const response = await fetch(
+      `${API_BASE_URL}${API_ROUTES.GET_USER}/${user_id}`
+    );
     if (!response.ok) throw new Error("Failed to fetch user details");
 
     const user = await response.json();
