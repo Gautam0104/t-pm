@@ -3975,13 +3975,13 @@
                             function moveFormToEnd() {
                               const container = document.getElementById('kanban-wrapper-container');
                               const form = document.getElementById('board-8');
-                              container.appendChild(form); // moves form to the end
+                              container.appendChild(form);
                               const newBoard = document.createElement('div');
                               newBoard.textContent = 'New Board';
-                              // Customize the new board as needed...
+
                               document.getElementById('kanban-wrapper-container').insertBefore(newBoard, document.getElementById('board-8'));
 
-                              // Move form back to the end, just in case
+
                               moveFormToEnd();
 
                             }
