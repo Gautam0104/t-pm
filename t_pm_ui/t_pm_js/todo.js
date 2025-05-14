@@ -1931,16 +1931,30 @@ function addLabel(color, elementId) {
   if (!labelDiv) {
     labelDiv = document.createElement("div");
     labelDiv.id = `label-color-box-${elementId}`;
-    document.body.appendChild(labelDiv); // Append it to the DOM
+    document.body.appendChild(labelDiv);
   }
 
-  // Create the new color box
-  const labelContent = `<div class="color-box rounded" style="background:${color};height:10px;"></div>`;
-  labelDiv.innerHTML += labelContent;
+  // Check if a color box with the same background already exists
+  const existingBox = Array.from(labelDiv.children).find(
+    (child) => child.style.background === color
+  );
 
-  // Save the updated HTML content to localStorage
+  if (existingBox) {
+    // If it exists, remove it (toggle off)
+    labelDiv.removeChild(existingBox);
+  } else {
+    // If it doesn't exist, add it (toggle on)
+    const newBox = document.createElement("div");
+    newBox.className = "color-box rounded";
+    newBox.style.background = color;
+    newBox.style.height = "10px";
+    labelDiv.appendChild(newBox);
+  }
+
+  // Save updated HTML to localStorage
   saveLabelContent(elementId, labelDiv.innerHTML);
 }
+
 
 function saveLabelContent(elementId, content) {
   // Save the HTML content of the label container to localStorage
