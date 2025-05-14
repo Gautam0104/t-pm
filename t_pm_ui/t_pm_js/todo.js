@@ -406,7 +406,7 @@ setTimeout(function () {
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary  w-100">${element.title}</span></span>
                                                 <span class="badge bg-label-secondary m-2"> # Task Image</span>
-                                                 <img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingCardImage">
+                                                 <img src="${API_BASE_URL}/uploads/${element.card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingCardImage" onerror="this.style.display='none';">
                                                 <div id="attachment-content"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
@@ -1149,7 +1149,7 @@ if (customFieldCardFeature) {
                     addImage();
                   });
                 document
-                  .getElementById(ELEMENT_IDS.MARD_CARD_FEATURE)
+                  .getElementById("markCardFeature")
                   .addEventListener("click", function () {
                     markCard(element.ticket_id);
                   });
@@ -2303,28 +2303,62 @@ function restoreCardState(ticketId) {
 
 function markCard(ticketId) {
   const markTemp = document.getElementById(`mark-card-${ticketId}`);
-  if (markTemp) {
-    const htmlContent = `<i class="ti ti-check mb-2"></i>`;
-    markTemp.innerHTML = htmlContent;
+  if (!markTemp) return;
 
-    // Save to localStorage
-    localStorage.setItem(`mark-card-${ticketId}`, htmlContent);
-    
+  const iconKey = `mark-card-${ticketId}`;
+  const iconHTML = `<i class="ti ti-check mb-2"></i>`;
+
+  // Toggle logic
+  if (markTemp.innerHTML.trim() === iconHTML) {
+    // Icon already present — remove it
+    markTemp.innerHTML = "";
+    localStorage.removeItem(iconKey);
+  } else {
+    // Icon not present — add it
+    markTemp.innerHTML = iconHTML;
+    localStorage.setItem(iconKey, iconHTML);
   }
 }
+
 
 function watchNotification(ticketId) {
   const watchTemp = document.getElementById(`watch-notification-${ticketId}`);
-  if (watchTemp) {
-    const htmlContent = `<i class="ti ti-eye mb-2"></i>`;
-    watchTemp.innerHTML = htmlContent;
+  if (!watchTemp) return;
 
-    // Save to localStorage
-    localStorage.setItem(`watch-notification-${ticketId}`, htmlContent);
-   
+  const iconKey = `watch-notification-${ticketId}`;
+  const iconHTML = `<i class="ti ti-eye mb-2"></i>`;
+
+  // Toggle logic
+  if (watchTemp.innerHTML.trim() === iconHTML) {
+    // Icon exists — remove it
+    watchTemp.innerHTML = "";
+    localStorage.removeItem(iconKey);
+  } else {
+    // Icon not present — add it
+    watchTemp.innerHTML = iconHTML;
+    localStorage.setItem(iconKey, iconHTML);
   }
 }
 
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[id^='mark-card-']").forEach((el) => {
+    const key = el.id;
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      el.innerHTML = saved;
+    }
+  });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[id^='watch-notification-']").forEach((el) => {
+    const key = el.id;
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      el.innerHTML = saved;
+    }
+  });
+});
 
 
 function selectColor(color) {
