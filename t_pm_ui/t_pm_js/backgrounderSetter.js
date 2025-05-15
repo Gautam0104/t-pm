@@ -9,7 +9,6 @@ if (boardimageUrl) {
   }, 1000);
   document.body.style.background = `url('${boardimageUrl}') no-repeat center center/cover`;
 } else {
-  defaultBackground();
 }
 function changeBackground(imageUrl) {
   changeElebg();
@@ -26,6 +25,7 @@ function changeBackground(imageUrl) {
 function defaultBackground() {
   resetElebg();
   localStorage.removeItem(`board-bg-image-url ${project_id}`);
+  window.location.reload();
 }
 
 function changeElebg() {
