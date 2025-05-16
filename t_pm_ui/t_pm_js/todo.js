@@ -1359,7 +1359,7 @@ if (customFieldCardFeature) {
                   );
                   const activityImages = `<span class="badge bg-label-secondary m-2">Attachment #${index +
                     1}</span>
-                                                           <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
+                                                           <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal" onerror="this.style.display='none';">`;
 
                   attachmentDiv.innerHTML += activityImages;
                   const activityImageArea = document.getElementById(
@@ -1370,7 +1370,7 @@ if (customFieldCardFeature) {
                                     
                                     
                                                             <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
-                                                            height="100%" id="activityImage">
+                                                            height="100%" id="activityImage" onerror="this.style.display='none';">
                                                             <div class="row d-flex justify-content-center">
                                                                 <div class="col-12 mt-3 text-center">
                                                                     <button class="btn btn-primary" >Download</button>
@@ -1430,7 +1430,7 @@ if (customFieldCardFeature) {
                                             
                                                 <span class="kanban-text" ><span class="badge bg-label-primary m-2 w-100">${history.previous_title}</span></span>
                                                 <span class="badge bg-label-secondary m-2"> # Previous Task Image</span>
-                                                  <img src="${API_BASE_URL}/uploads/${history.previous_card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">
+                                                  <img src="${API_BASE_URL}/uploads/${history.previous_card_image}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal" onerror="this.style.display='none';">
                                                 <div id="attachment-content-history"></div>
                                             </div>
                                             <div class="card-body text-center w-100" >
@@ -1512,7 +1512,7 @@ if (customFieldCardFeature) {
                         );
                         const activitypreImages = `<span class="badge bg-label-secondary m-2">Attachment #${index +
                           1}</span>
-                                                                           <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal">`;
+                                                                           <img src="${API_BASE_URL}/uploads/${item}" alt="ticketImage" width="100%" height="100%" data-bs-toggle="modal" data-bs-target="#pricingModal" onerror="this.style.display='none';">`;
 
                         attachmenthistoryDiv.innerHTML += activitypreImages;
                         const activityImageArea = document.getElementById(
@@ -1523,7 +1523,7 @@ if (customFieldCardFeature) {
                                 
                                 
                                                         <img src="${API_BASE_URL}/uploads/${item}" alt="" width="100%" 
-                                                        height="100%" id="activityImage>
+                                                        height="100%" id="activityImage" onerror="this.style.display='none';">
                                                         <div class="row d-flex justify-content-center">
                                                             <div class="col-12 mt-3 text-center">
                                                                 <button class="btn btn-primary" >Download</button>
