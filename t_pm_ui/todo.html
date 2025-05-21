@@ -1946,7 +1946,7 @@
                         <label class="form-check-label" for="completeCardCheckbox">
                           Show complete status on card front
                         </label>
-                        <input class="form-check-input ms-2" type="checkbox" id="completeCardCheckbox">
+                        <input class="form-check-input ms-2" type="checkbox" id="completeCard">
                       </div>
 
                     </div>
@@ -3984,6 +3984,28 @@
                               moveFormToEnd();
 
                             }
+                          </script>
+
+                          <script>
+                            console.log("working")
+
+                            document.addEventListener("DOMContentLoaded", function () {
+                              const completeCardButton = document.getElementById("completeCard");
+
+                              if (completeCardButton) {
+                                completeCardButton.addEventListener("click", function () {
+                                  console.log("Complete Card button clicked");
+
+                                  document.querySelectorAll(".kanban-item").forEach(dropZone => {
+                                    dropZone.classList.toggle("d-none");
+                                  });
+                                });
+                              } else {
+                                console.warn("#completeCard not found in the DOM.");
+                              }
+                            });
+
+
                           </script>
 
 </body>

@@ -106,9 +106,9 @@ setTimeout(function () {
          
 
           card.innerHTML = `
-<div class="dropZone d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2" 
-     style="...">
-              <div class="d-flex ">
+<div class="dropZone d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2 " 
+     style="..." >
+              <div class="d-flex  ">
                 <div class="me-2" id="mark-card-${element.ticket_id}"></div>
                 <div class="me-2" id="watch-notification-${element.ticket_id}"></div>
               </div>
@@ -169,6 +169,8 @@ setTimeout(function () {
         return document.querySelectorAll(ELEMENT_IDS.DRAG_EVENT);
       });
   }
+
+
 
   const cardImg = document.getElementById(ELEMENT_IDS.CARD_IMAGE);
 
@@ -280,6 +282,12 @@ setTimeout(function () {
                 function stripTags(html) {
                   return html.replace(/<\/?[^>]+(>|$)/g, "");
                 }
+
+                document.getElementById(
+                  "completeCardCheckbox" 
+                ).addEventListener("onchange", function () {
+                  filterTicketsByStatus(`${element}`, "complet");
+                });
 
                 const offcanvasDiv = document.getElementById(ELEMENT_IDS.TICKET_TAB_OFFCANVAS);
                 const offcanvasContent = `<div class="offcanvas-header border-bottom">
@@ -825,7 +833,6 @@ if (customFieldCardFeature) {
                
               
 
-                  
 
                 const container = document.getElementById(ELEMENT_IDS.TAB_CUSTOM_CONTAINER);
 
@@ -1115,6 +1122,7 @@ if (customFieldCardFeature) {
                   }
                   )
                 });
+            
              
                 //fetch comments end
 
@@ -1243,6 +1251,8 @@ if (customFieldCardFeature) {
                 joinAutomationButton.addEventListener("click", () => {
                   joinCardToModal(element.title, element.ticket_id);
                 });
+
+    console.log("working")
 
 
                 // vote to card logic
@@ -2471,7 +2481,14 @@ function retrieveAutomationRule(tickerId){
 }
 
 
+  function filterTicketsByStatus(tickets, status) {
+  if (!Array.isArray(tickets)) {
+    console.error("Invalid ticket data. Expected an array.");
+    return [];
+  }
 
+  return tickets.filter(ticket => ticket.ticket_status === status);
+}
 
 
 
@@ -2501,3 +2518,4 @@ window.addLabelAutomation = addLabelAutomation;
 window.leaveCard = leaveCard;
 window.joinCard = joinCard;
 window.addLabel = addLabel;
+window.filterTicketsByStatus = filterTicketsByStatus;
