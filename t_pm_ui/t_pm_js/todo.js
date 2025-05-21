@@ -283,12 +283,7 @@ setTimeout(function () {
                   return html.replace(/<\/?[^>]+(>|$)/g, "");
                 }
 
-                document.getElementById(
-                  "completeCardCheckbox" 
-                ).addEventListener("onchange", function () {
-                  filterTicketsByStatus(`${element}`, "complet");
-                });
-
+      
                 const offcanvasDiv = document.getElementById(ELEMENT_IDS.TICKET_TAB_OFFCANVAS);
                 const offcanvasContent = `<div class="offcanvas-header border-bottom">
                                         <h5 class="offcanvas-title">Edit Task</h5>
