@@ -103,8 +103,21 @@ setTimeout(function () {
           card.dataset.dueDate = element.due_date || ""; 
           // Handle updated_at (for activity filter)
           card.dataset.updatedAt = element.updated_at || "";
-         
+// 🛠 Normalize images
+let images = [];
 
+try {
+  if (Array.isArray(element.images)) {
+    images = element.images;
+  } else if (typeof element.images === "string") {
+    images = JSON.parse(element.images); // safely parse stringified array
+  }
+} catch (err) {
+  console.warn("Error parsing images:", err);
+}
+
+// ✅ Count only valid images (if needed)
+const validImageCount = images.filter(img => !!img).length;
           card.innerHTML = `
 <div class="dropZone d-flex justify-content-between ${element.ticket_id} flex-wrap align-items-center mb-2 " 
      style="..." >
@@ -142,11 +155,11 @@ setTimeout(function () {
               <div class="d-flex">
                 <span class="d-flex align-items-center me-2">
                   <i class="ti ti-paperclip me-1"></i>
-                  <span class="attachments">${element.attachments || "0"}</span>
+                 <span class="attachments">${validImageCount}</span>
                 </span>
                 <span class="d-flex align-items-center ms-2">
                   <i class="ti ti-message-2 me-1"></i>
-                  <span>${element.comments || "0"}</span>
+                  <span>${element.comments || "7"}</span>
                 </span>
               </div>
             </div>
@@ -278,7 +291,7 @@ setTimeout(function () {
                   .padStart(2, "0");
 
                 // Combine date and time
-                const formattedduedate = `${day2}/${month2}/${year2} , ${hours2}:${minutes2}:${seconds2}`;
+                const formattedduedate = `${day2}/${month2}/${year2} ${hours2}:${minutes2}`;
                 function stripTags(html) {
                   return html.replace(/<\/?[^>]+(>|$)/g, "");
                 }
@@ -344,7 +357,7 @@ setTimeout(function () {
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="due-date">Due Date</label>
-                                                        <input class="form-control" id="due-date" value="${formattedduedate}" readonly="readonly">
+                                                        <input class="form-control" id="due-date" value="${formattedduedate || "0"}" readonly="readonly">
                                                     </div>
                                                     <div class="mb-5">
                                                         <label class="form-label" for="eta">ETC</label>
@@ -1825,7 +1838,7 @@ if (customFieldCardFeature) {
         });
       });
     })
-    .catch(error => errorLog(error));
+    .catch(error => console.log(error));
 
   const closeCanvase = () => {
     const offcanvas = document.querySelector(ELEMENT_IDS.OFFCANVAS);
