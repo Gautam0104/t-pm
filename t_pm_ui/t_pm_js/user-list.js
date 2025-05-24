@@ -18,7 +18,7 @@ export const userData = async () => {
       //console.log(users);
       const tbody = document.getElementById(ELEMENT_IDS.USER_TABLE_BODY);
       const modifiedResults = users.map(user => {
-        console.log(user);
+        // console.log(user);
 
         let statusText = "";
         switch (user.user_status) {
@@ -68,7 +68,7 @@ export const userData = async () => {
           updated_at: user.updated_at
         };
       });
-      console.log(modifiedResults);
+      // console.log(modifiedResults);
 
       modifiedResults.map(element => {
         const isoDatecreate = `${element.created_at}`;

@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (buttonText) buttonText.textContent = "Collapse all the lists";
     }
     localStorage.setItem("kanbanCardsCollapsed", collapsed ? "true" : "false");
-    console.log("Collapse state saved to localStorage:", localStorage.getItem("kanbanCardsCollapsed"));
+    // console.log("Collapse state saved to localStorage:", localStorage.getItem("kanbanCardsCollapsed"));
   }
   
   document.querySelector('[data-action="collapse-cards"]').addEventListener("click", function () {
@@ -745,38 +745,38 @@ const projectId = urlParams.get('id');
       return;
     }
   
-    try {
-      const response = await fetch(`${API_BASE_URL}${API_ROUTES.WATCH_BOARDS_PROJECT}/${projectId}`); 
+    // try {
+    //   const response = await fetch(`${API_BASE_URL}/watch-boards-project/${projectId}`); 
       
       
   
-      if (!response.ok) {
+    //   if (!response.ok) {
         
-        return; // Exit silently without logging anything
-      }
-      const result = await response.json();
-      const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 
-      if (isWatched) {
-        if (!watchLink.querySelector('.ti-eye')) {
-          const eyeIcon = document.createElement('i');
-          eyeIcon.className = 'ti ti-eye rounded-circle ti-md';
-          watchLink.appendChild(eyeIcon);
-        }
+    //     return; // Exit silently without logging anything
+    //   }
+    //   const result = await response.json();
+    //   const isWatched = Array.isArray(result) && result.some(item => item.project_id == projectId); 
+    //   if (isWatched) {
+    //     if (!watchLink.querySelector('.ti-eye')) {
+    //       const eyeIcon = document.createElement('i');
+    //       eyeIcon.className = 'ti ti-eye rounded-circle ti-md';
+    //       watchLink.appendChild(eyeIcon);
+    //     }
         
-        watchTabText.textContent = 'Unwatch';
-        watchTabButton.classList.remove('btn-outline-primary');
-        watchTabButton.classList.add('btn-outline-primary');
-      } else {
-        const existingIcon = watchLink.querySelector('.ti-eye');
-        if (existingIcon) existingIcon.remove();
+    //     watchTabText.textContent = 'Unwatch';
+    //     watchTabButton.classList.remove('btn-outline-primary');
+    //     watchTabButton.classList.add('btn-outline-primary');
+    //   } else {
+    //     const existingIcon = watchLink.querySelector('.ti-eye');
+    //     if (existingIcon) existingIcon.remove();
   
-        watchTabText.textContent = 'Watch';
-        watchTabButton.classList.remove('btn-outline-primary');
-        watchTabButton.classList.add('btn-outline-primary');
-      }
-    } catch (error) {
-      // Suppress errors and exit gracefully
-    }
+    //     watchTabText.textContent = 'Watch';
+    //     watchTabButton.classList.remove('btn-outline-primary');
+    //     watchTabButton.classList.add('btn-outline-primary');
+    //   }
+    // } catch (error) {
+    //   // Suppress errors and exit gracefully
+    // }
   }
   
   document.addEventListener('DOMContentLoaded', function () {

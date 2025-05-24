@@ -14,7 +14,7 @@ if (!API_BASE_URL) {
     })
     .then(data => {
       const automationRule = document.getElementById(ELEMENT_IDS.RULE_VIEW);
-      console.log(automationRule);
+     
       
       data.forEach(item => {
         const ruleContent = `

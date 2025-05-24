@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
       inlineCalendar = document.querySelector(".inline-calendar");
 
     let eventToUpdate,
-      currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update Calendar events
+      // currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update Calendar events
       isFormValid = false,
       inlineCalInstance;
 
